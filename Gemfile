@@ -31,12 +31,13 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', platforms: [:ruby, :x64_mingw]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 #login
-gem 'therubyracer'
+gem 'therubyracer', :platform => :ruby
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -62,3 +63,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
