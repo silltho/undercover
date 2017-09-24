@@ -9,3 +9,7 @@ rails db:create<br>
 rails db:migrate<br>
 
 dann sollts laufen
+
+### starten mit foreman
+
+bundle exec foreman start
