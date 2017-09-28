@@ -25,3 +25,5 @@
 
 # RubyMine
 /.idea
+
+npm-debug.log
