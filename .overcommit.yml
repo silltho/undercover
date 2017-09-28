@@ -14,11 +14,19 @@
 # https://github.com/brigade/overcommit#configuration
 #
 # Uncomment the following lines to make the configuration take effect.
+CommitMsg:
+  CapitalizedSubject:
+    enabled: false
 
 PreCommit:
+  MergeConflicts:
+    enabled: false
   EsLint:
-    required_executable: 'npm'
+    required_executable: 'yarn'
     enabled: true
+    description: 'Analyze with ESLint'
+    include: '/app/javascript/**/*.js'
+    command: ['yarn', 'lint']
 #  RuboCop:
 #    enabled: true
 #    on_warn: fail # Treat all warnings as failures

@@ -2,7 +2,7 @@
   "name": "webapp",
   "private": true,
   "scripts": {
-    "lint": "eslint app/javascript/"
+    "lint": "eslint app/javascript/ compact"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.1",
