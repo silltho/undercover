@@ -2,22 +2,49 @@
   "name": "webapp",
   "private": true,
   "scripts": {
+    "test": "jest --coverage",
     "lint": "eslint app/javascript/ compact"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    },
+    "collectCoverageFrom": [
+      "app/javascript/**/*.{js,jsx}",
+      "!**/app/javascript/packs/**",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "testMatch": [
+      "**/app/javascript/**/tests/**/*.(spec|test).js?(x)"
+    ]
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.1",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^4.7.2",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "styled-components": "^2.1.2"
   },
   "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-preset-es2015": "^6.24.1",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.0",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "jest": "^21.2.1",
+    "jest-enzyme": "^4.0.0",
+    "react-test-renderer": "^15.6.1",
     "webpack-dev-server": "^2.8.2"
   }
 }
