@@ -12,13 +12,13 @@ dann sollts laufen
 
 ## Starten
 
-###Option 1
+### Option 1
 
 Foreman: ``bundle exec foreman start``
 
 (config => Procfile)
 
-###Option 2
+### Option 2
 
 Rails Server: ``bundle exec rails s``
 
@@ -28,16 +28,16 @@ Webpack Dev Server: ``ruby ./bin/webpack-dev-server``
 
 Yarn: ``yarn add <packagename>``
 
-##Linting
-###EsLint
+## Linting
+### EsLint
 ``yarn lint``
 (config => eslintrc.js)
 
-##Testing
-###Jest
+## Testing
+### Jest
 ``yarn test``
 (config => package.json)
 
-##Commit Hooks
-###Overcommit
+## Commit Hooks
+### Overcommit
 todo
