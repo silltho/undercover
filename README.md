@@ -10,6 +10,34 @@ rails db:migrate<br>
 
 dann sollts laufen
 
-### starten mit foreman
+### Starten
 
-bundle exec foreman start
+#####Option 1
+
+Foreman: ``bundle exec foreman start``
+
+(config => Procfile)
+
+#####Option 2
+
+Rails Server: ``bundle exec rails s``
+
+Webpack Dev Server: ``ruby ./bin/webpack-dev-server``
+
+### NPM Package installation
+
+Yarn: ``yarn add <packagename>``
+
+###Linting
+#####EsLint
+``yarn lint``
+(config => eslintrc.js)
+
+###Testing
+#####Jest
+``yarn test``
+(config => package.json)
+
+###Commit Hooks
+#####Overcommit
+todo

@@ -24,7 +24,7 @@ PreCommit:
   MergeConflicts:
     enabled: false
   EsLint:
-    required_executable: '../bin/yarn'
+    required_executable: 'yarn'
     enabled: true
     description: 'Analyze with EsLint'
     include: 'app/javascript/**/*.jsx'
