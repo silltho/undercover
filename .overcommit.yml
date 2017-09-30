@@ -24,8 +24,8 @@ PreCommit:
   EsLint:
     required_executable: 'yarn'
     enabled: true
-    description: 'Analyze with ESLint'
-    include: '/app/javascript/**/*.js'
+    description: 'Analyze with EsLint'
+    include: 'app/javascript/**/*.js'
     command: ['yarn', 'lint']
 #  RuboCop:
 #    enabled: true
