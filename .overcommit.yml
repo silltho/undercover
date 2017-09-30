@@ -19,14 +19,17 @@ CommitMsg:
     enabled: false
 
 PreCommit:
-  #MergeConflicts:
-    #enabled: false
-  #EsLint:
-   # required_executable: 'yarn'
-    #enabled: true
-    #description: 'Analyze with EsLint'
-    #include: 'app/javascript/**/*.js'
-    #command: ['yarn', 'lint']
+  BrokenSymlinks:
+    enabled: false
+  MergeConflicts:
+    enabled: false
+  EsLint:
+    required_executable: 'yarn'
+    enabled: true
+    description: 'Analyze with EsLint'
+    include: 'app/javascript/**/*.jsx'
+    command: ['yarn', 'lint']
+    flags: ['--fix', '--format=compact']
 #  RuboCop:
 #    enabled: true
 #    on_warn: fail # Treat all warnings as failures
