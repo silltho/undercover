@@ -9,7 +9,7 @@ const defaultProps = {
   name: 'test123'
 }
 
-const renderComponent = (props = defaultProps) => shallow(<Hello {...props}/>)
+const renderComponent = (props = defaultProps) => shallow(<Hello {...props} />)
 
 describe('<Hello/>', () => {
   test('should render <Hello/>', () => {
