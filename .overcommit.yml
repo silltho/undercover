@@ -24,12 +24,13 @@ PreCommit:
   MergeConflicts:
     enabled: false
   EsLint:
-    required_executable: 'yarn'
+    required_executable: '../bin/yarn'
     enabled: true
     description: 'Analyze with EsLint'
     include: 'app/javascript/**/*.jsx'
     command: ['yarn', 'lint']
     flags: ['--fix', '--format=compact']
+PrePush:
 #  RuboCop:
 #    enabled: true
 #    on_warn: fail # Treat all warnings as failures
