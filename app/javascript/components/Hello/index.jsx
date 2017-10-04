@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Hello = props => (
+const Hello = (props) => (
   <div>Hello {props.name}!</div>
 )
 
