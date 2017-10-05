@@ -40,10 +40,9 @@ gem 'bcrypt', '~> 3.1.11'
 
 #login
 gem 'therubyracer', :platform => :ruby
-gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-google'
+gem 'omniauth-google-oauth2'
 
 
 group :development, :test do
