@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    uth = request.env['omniauth.auth']
+    auth = request.env['omniauth.auth']
     @identity = Identity.find_or_create_omniauth(auth)
 
     if signed_in?
