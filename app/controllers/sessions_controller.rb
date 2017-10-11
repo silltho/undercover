@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       @current_user = @user
       end
     end
-    redirect_to root_path
+    redirect_to app_path
   end
 
   def destroy

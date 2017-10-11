@@ -36,7 +36,7 @@ var CommentList = React.createClass({
 
   setupSubscription() {
 
-    App.comments = App.cable.subscriptions.create("CommentsChannel", {
+    App.comments = App.cable.subscriptions.create("MessageChannel", {
       message_id: this.state.message.id,
 
       connected: function () {

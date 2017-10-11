@@ -1,11 +1,15 @@
 <h1> Welcome to undercover </h1>
-
 <% if current_user%>
 <h3> Really cool statistics on our landing page</h3>
 Hello <%= current_user.email %><br>
 <%= link_to "Logout", logout_path %>
 <% end %>
-<!-- Pfuschlösung, needs refactoring -->
+
+<% unless current_user %>
+ <%= link_to "Connect With Facebook", "/auth/facebook" %> 
+ <%= link_to "Connect With Google", "/auth/google_oauth2" %> 
+ <% else %>
+ <!-- Pfuschlösung, needs refactoring -->
 <% if current_user.identities.count < 2%>
 	<p> Would you like to link another account? </p>
 	<% if current_user.identities.first.provider != "facebook" %> 
@@ -14,8 +18,5 @@ Hello <%= current_user.email %><br>
 	  <%= link_to "Add Google", "/auth/google_oauth2" %> 
 	<% end %>
 <% end %>
-<% unless current_user %>
- <%= link_to "Connect With Facebook", "/auth/facebook" %> 
- <%= link_to "Connect With Google", "/auth/google_oauth2" %> 
 <% end %>
 
