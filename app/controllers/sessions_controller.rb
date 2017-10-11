@@ -16,8 +16,8 @@ class SessionsController < ApplicationController
       @current_user = @identity.user
       cookies.signed[:user_id] = @identity.user.id
       else
-      # create identity for new user
-      @user = User.create_with_omniauth(auth)
+      # create new user
+      @user = User.find_or_create_omniauth(auth)
       @identity.user = @user
       @identity.save
       @current_user = @user
