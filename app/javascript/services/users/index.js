@@ -8,7 +8,11 @@ class UserService {
   connect = () => consumer.subscriptions.create('MessageChannel', {
     connected() {
       console.log('Cable connected')
-    }
+    },
+
+	  received(data) {
+		  console.log(`receive data: ${data}`)
+	  }
   })
 }
 
