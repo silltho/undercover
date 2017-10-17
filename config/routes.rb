@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :games
   resources :messages
   resources :users
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]

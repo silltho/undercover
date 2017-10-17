@@ -1,0 +1,9 @@
+<h1>Games</h1>
+
+<p>Start a <%= link_to 'new game', new_game_path %></p>
+<p> or enter existing ones: 
+<ul>
+  <%= render @games %>
+</ul>
+</p>
+<%= link_to "back to landingpage", root_path %>

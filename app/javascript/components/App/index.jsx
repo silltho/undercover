@@ -8,6 +8,7 @@ class App extends React.PureComponent {
       currentUser: 'Conan'
     }
     new UserService()
+
   }
 
   render() {
