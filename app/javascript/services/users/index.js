@@ -5,14 +5,13 @@ class UserService {
     this.users = this.users ? this.users : this.connect()
   }
 
-  connect = () => consumer.subscriptions.create('MessageChannel', {
+  connect = () => consumer.subscriptions.create({ channel: 'MessageChannel', game: '1' }, {
     connected() {
       console.log('Cable connected')
     },
-
-	  received(data) {
-		  console.log(`receive data: ${data}`)
-	  }
+    received(data) {
+      console.log(`receive data: ${data}`)
+    }
   })
 }
 

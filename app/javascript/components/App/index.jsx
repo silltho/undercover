@@ -5,7 +5,7 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      currentUser: 'Conan'
+      currentUser: name
     }
     new UserService()
 

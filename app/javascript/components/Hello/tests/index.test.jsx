@@ -6,7 +6,7 @@ import Hello from '../'
 Enzyme.configure({ adapter: new Adapter() })
 
 const defaultProps = {
-  name: 'test123'
+  current_user: 'test123'
 }
 
 const renderComponent = (props = defaultProps) => shallow(<Hello {...props} />)

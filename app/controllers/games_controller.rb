@@ -10,6 +10,8 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    @game = Game.includes(:messages).find_by(id: params[:id])
+    @message = Message.new
   end
 
   # GET /games/new
