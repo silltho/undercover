@@ -2,17 +2,5 @@
 <% if current_user.id == @game.user_id %>
 	 <small>Finished playing? <%= link_to 'Delete this game', @game, method: :delete, data: { confirm: 'Are you sure?' } %></small><br><br>
 	<% end %>
-<div id="messages"  data-game-id="<%= @game.id %>">
-  <%= render @game.messages %>
-</div>
 
-<%= form_for @message, url: '#' do |f| %>
-  <div>
-    <%= f.label :body %>
-    <%= f.text_area :body%>
-  </div>
-
-  <%= f.submit "Post"%>
-<% end %>
-<br>
 <%= link_to "back to Game lobby", games_path %>

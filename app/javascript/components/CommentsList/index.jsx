@@ -24,7 +24,7 @@ class CommentList extends React.PureComponent {
   }
 
   setupSubscription = () => {
-    /* App.comments = App.cable.subscriptions.create('MessageChannel', {
+    /* App.comments = App.cable.subscriptions.create('NotificationChannel', {
       message_id: this.state.message.id,
 
       connected() {
