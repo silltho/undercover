@@ -1,14 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import UserService from 'services/users'
 
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentUser: props.user
-    }
-    new UserService()
+    constructor(props) {
+        const consumer = ActionCable.createConsumer()
+
+        consumer.subscriptions.create({channel: 'ApplicationChannel'}, {
+            connected() {
+                console.log('Cable connected')
+            },
+            received(data) {
+                console.log(`receive data: ${data}`)
+            }
+        })
   }
 
   render() {
