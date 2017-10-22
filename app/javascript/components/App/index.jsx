@@ -8,11 +8,11 @@ class App extends React.PureComponent {
         
         const consumer = ActionCable.createConsumer()
         consumer.subscriptions.create({channel: 'ApplicationChannel'}, {
-            connected() {
+            connected: () => {
                 console.log('Cable connected')
             },
-            received(data) {
-                console.log(`receive data: ${data}`)
+	          received: (data) => {
+                console.log(`receive data:`,data)
             }
         })
     }
