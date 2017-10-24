@@ -8,7 +8,7 @@ module ApplicationCable
     end
 
     def send_basic_data
-      ActionCable.server.broadcast "application_channel", currentUser: current_user, games: Game.all.to_h
+      ActionCable.server.broadcast "application_channel", currentUser: current_user, games: Game.all.to_json
     end
  
     private

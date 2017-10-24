@@ -26,7 +26,7 @@ class App extends React.PureComponent {
   handleReceived = (data) => {
     this.setState({
       currentUser: data.currentUser,
-      games: data.games
+      games: JSON.parse(data.games)
     })
   }
 
@@ -38,11 +38,11 @@ class App extends React.PureComponent {
   }
 
   renderGame = (game) => (
-    <li>{game}</li>
+    <li key={game.id}>{game.title}</li>
   )
 
   render() {
-    const games = this.state.games.map ? this.state.games.map((game) => this.renderGame(game)) : 'keine Games gefunden :('
+    const games = this.state.games ? this.state.games.map((game) => this.renderGame(game)) : 'keine Games gefunden :('
 
     return (
       <div>
