@@ -21,7 +21,7 @@ class App extends React.PureComponent {
     console.log('test1')
     consumer.subscriptions.create({ channel: 'UserChannel' }, {
       connected: () => { console.log('connected') },
-      received: (data) => { console.log('getOpenGames', data) }
+	    received: (data) => { console.log('getOpenGames', data) }
     })
     this.setState({
       isConnected: true

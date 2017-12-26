@@ -5,6 +5,6 @@ class UserChannel < ApplicationCable::Channel
   end
 
   def get_open_games
-    GetOpenGamesJob.perform_later(self.current_user)
+    GetOpenGamesJob.perform_later("user_#{self.current_user.id}")
   end
 end
