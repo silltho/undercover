@@ -1,5 +1,10 @@
 import React from 'react'
-import consumer from 'services/'
+import { UserChannel } from 'services'
+import {
+  GET_OPEN_GAMES,
+  GET_USERINFO
+} from 'services/constants'
+
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -7,39 +12,36 @@ class App extends React.PureComponent {
 
     this.state = {
       games: [],
-      isConnected: false
+      currentUser: false
     }
 
-    consumer.subscriptions.create({ channel: 'ApplicationChannel' }, {
-      connected: this.handleConnected,
-      received: this.handleReceived,
-      disconnected: this.handleDisconnected
+	  this.init()
+  }
+
+  init = () => {
+    UserChannel.setCallback((action) => {
+      switch (action.type) {
+        case GET_OPEN_GAMES: {
+          console.log('open Games:', action.data.games)
+          this.setState({
+            games: action.data.games
+          })
+          break
+        }
+        case GET_USERINFO: {
+          console.log('Userinfo:', action.data)
+          this.setState({
+            currentUser: action.data
+          })
+          break
+        }
+        default:
+      }
     })
   }
 
-  handleConnected = () => {
-    console.log('test1')
-    consumer.subscriptions.create({ channel: 'UserChannel' }, {
-      connected: () => { console.log('connected') },
-	    received: (data) => { console.log('getOpenGames', data) }
-    })
-    this.setState({
-      isConnected: true
-    })
-  }
-
-  handleReceived = (data) => {
-    this.setState({
-      currentUser: data.currentUser,
-      games: JSON.parse(data.games)
-    })
-  }
-
-  handleDisconnected = () => {
-    this.setState({
-      isConnected: false,
-      games: []
-    })
+  onClick = () => {
+	  UserChannel.getOpenGames()
   }
 
   renderGame = (game) => (
@@ -60,7 +62,7 @@ class App extends React.PureComponent {
         </div>
           )
 	      }
-        <h3>Games:</h3>
+        <h3 onClick={this.onClick}>Games:</h3>
         <ul>
           {games}
         </ul>

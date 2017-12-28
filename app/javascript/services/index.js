@@ -1,3 +1,5 @@
-import ActionCable from 'actioncable'
+import UserChannel from './channels/user/'
 
-export default ActionCable.createConsumer()
+export {
+  UserChannel
+}
