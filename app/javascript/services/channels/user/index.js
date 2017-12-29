@@ -13,11 +13,11 @@ const channel = createChannel('UserChannel', {
 })
 
 function getOpenGames() {
-	channel.perform(GET_OPEN_GAMES)
+  channel.perform(GET_OPEN_GAMES)
 }
 
 function getUserinfo() {
-	channel.perform(GET_USERINFO)
+  channel.perform(GET_USERINFO)
 }
 
 function setCallback(fn) {
@@ -25,7 +25,7 @@ function setCallback(fn) {
 }
 
 export default {
-	getOpenGames,
-	getUserinfo,
+  getOpenGames,
+  getUserinfo,
   setCallback
 }

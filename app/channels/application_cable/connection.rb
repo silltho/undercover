@@ -4,11 +4,6 @@ module ApplicationCable
  
     def connect
       self.current_user = find_verified_user
-      send_basic_data
-    end
-
-    def send_basic_data
-      ActionCable.server.broadcast "application_channel", currentUser: current_user, games: Game.all.to_json
     end
  
     private
