@@ -7,7 +7,10 @@ database.yml_template umbenennen auf database.yml
 bundle install  
 rails db:create (fix pg_db: postgres -D /usr/local/var/postgres)  
 rails db:migrate  
-npm install 
+npm install  
+
+Icons:https://github.com/Angelmmiguel/material_icons 
+Materialize: http://materializecss.com/getting-started.html 
 
 ## Starten
 
