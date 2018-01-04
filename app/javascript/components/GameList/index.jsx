@@ -1,8 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Wrapper,
-  GameItem
+  Subheader,
+  List,
+  ListItem,
+	IconButton
+} from 'material-ui'
+import RefreshIcon from 'material-ui/svg-icons/navigation/refresh'
+import {
+  PlayerCount,
+  SubHeaderWrapper,
+  SubHeaderTitle,
+  SubHeaderIcon
 } from './Styles'
 
 class GameList extends React.PureComponent {
@@ -11,17 +20,28 @@ class GameList extends React.PureComponent {
   }
 
   renderGame = (game) => (
-    <GameItem key={game.id}>{game.title}</GameItem>
+    <ListItem
+      key={`game_${game.id}`}
+      primaryText={game.title}
+      rightIcon={<PlayerCount>8/8</PlayerCount>}
+    />
   )
 
   render() {
     const openGames = this.props.openGames.map((game) => this.renderGame(game))
 
     return (
-      <Wrapper>
-        <button onClick={this.refreshOpenGames}>refresh</button>
-        {openGames.length > 0 ? openGames : 'keine Games gefunden :('}
-      </Wrapper>
+      <List>
+        <Subheader>
+          <SubHeaderWrapper>
+            <div>Open Games</div>
+            <IconButton tooltip="Refresh Open Games">
+              <RefreshIcon onClick={this.refreshOpenGames} />
+            </IconButton>
+          </SubHeaderWrapper>
+        </Subheader>
+        {openGames.length > 0 ? openGames : '<ListItem primaryText="keine Games gefunden :(" />'}
+      </List>
     )
   }
 }
