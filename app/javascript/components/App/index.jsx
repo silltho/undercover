@@ -1,11 +1,13 @@
 import React from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { UserChannel } from 'services'
 import {
   GET_OPEN_GAMES,
   GET_USERINFO
 } from 'services/constants'
-
 import GameList from 'components/GameList'
+import Nav from 'components/Nav'
+
 
 const initState = {
   games: [],
@@ -39,23 +41,15 @@ class App extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <h2>Undercover App</h2>
-        <hr />
-        { this.state.currentUser && (
+      <MuiThemeProvider>
         <div>
-            Hallo {this.state.currentUser.email}
-          <hr />
+          <Nav />
+          <GameList
+            openGames={this.state.games}
+            onGetOpenGames={UserChannel.getOpenGames}
+          />
         </div>
-          )
-        }
-        <h3>Open Games:</h3>
-        <GameList
-          openGames={this.state.games}
-          onGetOpenGames={UserChannel.getOpenGames}
-        />
-        <hr />
-      </div>
+      </MuiThemeProvider>
     )
   }
 }
