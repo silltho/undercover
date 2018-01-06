@@ -9,7 +9,7 @@
 <% if current_user%>
 <h3> Really cool statistics on our landing page</h3>
 Hello <%= current_user.email %><br>
-<%= link_to "Game", app_path%>
+<%= link_to "Play a game", games_path%><br>
 <%= link_to "Logout", logout_path %>
 <% end %>
 
