@@ -10,8 +10,36 @@
       </ul>
     </div>
   <% end %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :user_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :surname %>
+    <%= form.text_field :surname%>
+  </div>
+
+  <div class="field">
+    <%= form.label :nationality %>
+    <%= form.text_field :nationality%>
+  </div>
+
+  <div class="field">
+    <%= form.label :alias %>
+    <%= form.text_field :alias%>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+<% end %>
+
+<% if current_user.identities.count < 2%>
+    <p> Would you like to link another account? </p>
+    <% if current_user.identities.first.provider != "facebook" %>
+        <%= link_to "Add Facebook", "/auth/facebook" %>
+    <% elsif current_user.identities.first.provider != "google" %>
+        <%= link_to "Add Google", "/auth/google_oauth2" %>
+    <% end %>
 <% end %>

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
+    flash[:error] = "Please log in or register first"
     redirect_to root_path unless signed_in?
   end
 

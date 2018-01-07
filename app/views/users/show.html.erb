@@ -1,4 +1,17 @@
 <p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<h3>Profile</h3>
+<h5>Name</h5>
+<%= @user.try(:name) %>
+<h5>Surname</h5>
+<%= @user.try(:surname) %>
+<h5>Alias</h5>
+<%= @user.try(:alias) %>
+<h5>Email</h5>
+<%= @user.email %>
+<h5>Nationality</h5>
+<%= @user.try(:nationality) %>
+<br>
+<br>
+<% if params[:id] == current_user.id.to_s %>
+<%= link_to 'Edit profile', edit_user_path(current_user) %>
+<% end %>
