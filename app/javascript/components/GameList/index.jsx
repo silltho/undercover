@@ -32,7 +32,7 @@ class GameList extends React.PureComponent {
       <List>
         <Subheader>
           <SubHeaderWrapper>
-            <div>Open Games</div>
+            <div onClick={this.refreshOpenGames}>Open Games</div>
             <IconButton tooltip="Refresh Open Games">
               <RefreshIcon onClick={this.refreshOpenGames} />
             </IconButton>
