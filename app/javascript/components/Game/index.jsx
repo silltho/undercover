@@ -1,5 +1,8 @@
 import React from 'react'
 import GameStart from 'components/GameStart'
+import GameInfo from 'components/GameInfo'
+import GameExchange from 'components/GameExchange'
+import GameActivity from 'components/GameActivity'
 
 const gameStates = {
   start: 'start',
@@ -32,6 +35,13 @@ const players = [
     nickname: 'nickName5'
   }
 ]
+
+const informations = [
+  'blahblah1',
+  'blahblah2',
+  'blahblah3'
+]
+
 const currentUser = {
   nickname: 'John Doe',
   role: 'Godfather'
@@ -51,19 +61,53 @@ class Game extends React.PureComponent {
     })
   }
 
+	readInfos = () => {
+		this.setState({
+			gamestate: gameStates.exchange
+		})
+	}
+
+	endExchange = () => {
+		this.setState({
+			gamestate: gameStates.activity
+		})
+	}
+
+	useActivity = () => {
+		this.setState({
+			gamestate: gameStates.info
+		})
+	}
+
   renderGamestate = () => {
     switch (this.state.gamestate) {
-	    case gameStates.start:
-		    return (
+      case gameStates.start:
+        return (
           <GameStart
             currentUser={currentUser}
             players={players}
             startGame={this.startGame}
           />
-		    )
+        )
 	    case gameStates.info:
 		    return (
-          <div>info</div>
+          <GameInfo
+            day={1}
+            informations={informations}
+            readInfos={this.readInfos}
+          />
+		    )
+	    case gameStates.exchange:
+		    return (
+          <GameExchange
+            endExchange={this.endExchange}
+          />
+		    )
+	    case gameStates.activity:
+		    return (
+          <GameActivity
+            useActivity={this.useActivity}
+          />
 		    )
       default:
         return (<div>default</div>)
