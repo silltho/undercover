@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  layout false
   protect_from_forgery with: :exception
   helper_method :current_user, :signed_in
 
@@ -10,6 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
+    flash[:error] = "Please log in or register first"
     redirect_to root_path unless signed_in?
   end
 

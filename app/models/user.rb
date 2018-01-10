@@ -6,8 +6,4 @@ class User < ApplicationRecord
   def self.find_or_create_omniauth(auth)
     where(email: auth['info']['email']).first_or_create
   end
-
-  def name
-  	self.email[/[^@]+/]
-  end
 end
