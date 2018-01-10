@@ -3,20 +3,22 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { UserChannel } from 'services'
-import GameList from 'components/GameList'
-import Nav from 'components/Nav'
+// import GameList from 'components/GameList'
+// import Nav from 'components/Nav'
+import Game from 'components/Game'
 
 class App extends React.PureComponent {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
+        <Game />
+        {/* <div>
           <Nav />
           <GameList
             openGames={this.props.games}
             onGetOpenGames={this.props.getOpenGames}
           />
-        </div>
+        </div> */}
       </MuiThemeProvider>
     )
   }
