@@ -13,8 +13,8 @@ class UserChannel < ApplicationCable::Channel
     GetOpenGamesJob.perform_later(stream_id)
   end
 
-  def create_game
-    game = Game.new(user: current_user, title: current_user.id)
+  def create_game(params)
+    game = Game.create(user: current_user, title: params['title'])
     ActionCable.server.broadcast(stream_id, type: 'create_game', data: game)
   end
 
