@@ -1,13 +1,15 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
     stream_from stream_id
+    puts 'test'
+    puts params
     join_game
   end
 
   def join_game
     game = Game.find(params[:id])
     game.users << current_user
-    ActionCable.server.broadcast(stream_id, type: 'join_game', data: current_user)
+    ActionCable.server.broadcast(stream_id, type: 'join_game', data: game)
   end
 
   def unsubscribe

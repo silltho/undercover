@@ -1,1 +1,1 @@
-export * from './channels/user/constants'
+export * from './entities/users/constants'

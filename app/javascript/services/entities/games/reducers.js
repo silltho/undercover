@@ -1,14 +1,14 @@
 import {
-  GET_OPEN_GAMES
-} from 'services/constants'
+  JOIN_GAME
+} from './constants'
 
 const initialState = {}
 
 function gamesReducer(state = initialState, action) {
   switch (action.type) {
-	  case GET_OPEN_GAMES:
-		  console.log('open Games:', action.data.games)
-		  return { ...state, games: action.data.games }
+    case JOIN_GAME:
+      console.log('join game:', action.data)
+      return state
     default:
       return state
   }

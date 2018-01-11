@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { UserChannel } from 'services'
+import { UserChannel, GameChannel } from 'services/channels'
 import GameList from 'components/GameList'
 import Nav from 'components/Nav'
 import Game from 'components/Game'
@@ -16,12 +16,13 @@ class App extends React.PureComponent {
   render() {
     return (
       <MuiThemeProvider>
-	      {/* <Game />  */}
+        {/* <Game />  */}
         <div>
           <Nav />
           <GameList
             openGames={this.props.games}
             onGetOpenGames={this.props.getOpenGames}
+            joinGame={this.props.joinGame}
           />
           <input type="text" ref={ (input) => this.input = input } />
           <button onClick={this.createGame}>create game</button>
@@ -33,13 +34,15 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   games: PropTypes.array.isRequired,
-	getOpenGames: PropTypes.func.isRequired,
-	createGame: PropTypes.func.isRequired
+  getOpenGames: PropTypes.func.isRequired,
+  createGame: PropTypes.func.isRequired,
+  joinGame: PropTypes.func.isRequired
 }
 
 export const mapDispatchToProps = () => ({
   getOpenGames: UserChannel.getOpenGames,
-  createGame: UserChannel.createGame
+  createGame: UserChannel.createGame,
+  joinGame: GameChannel.joinGame
 })
 
 const mapStateToProps = (state) => ({

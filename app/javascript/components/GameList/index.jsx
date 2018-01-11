@@ -22,6 +22,7 @@ class GameList extends React.PureComponent {
       key={`game_${game.id}`}
       primaryText={game.title}
       rightIcon={<PlayerCount>8/8</PlayerCount>}
+      onClick={() => this.props.joinGame(game.id)}
     />
   )
 
@@ -46,7 +47,8 @@ class GameList extends React.PureComponent {
 
 GameList.propTypes = {
   openGames: PropTypes.array.isRequired,
-  onGetOpenGames: PropTypes.func.isRequired
+  onGetOpenGames: PropTypes.func.isRequired,
+  joinGame: PropTypes.func.isRequired
 }
 
 export default GameList
