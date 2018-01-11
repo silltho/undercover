@@ -1,14 +1,21 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
-    game = Game.find(params[:id])
-    stream_for game
+    stream_from stream_id
+    join_game
   end
 
   def join_game
+    game = Game.find(params[:id])
+    game.users << current_user
+    ActionCable.server.broadcast(stream_id, type: 'join_game', data: current_user)
+  end
+
+  def unsubscribe
+    GamesUsers.where(game_id: params[:id]).where(user_id: current_user.id).destroy_all
   end
 
   private
   def stream_id
-    "game_#{self.current_user}"
+    "game_#{params[:id]}"
   end
 end

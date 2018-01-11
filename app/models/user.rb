@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :identities
   has_many :messages, dependent: :destroy
-  has_many :games_users
+  has_many :games_users, class_name: 'GamesUsers'
   has_many :games, through: :games_users
 
 

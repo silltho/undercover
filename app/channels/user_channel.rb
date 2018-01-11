@@ -18,9 +18,6 @@ class UserChannel < ApplicationCable::Channel
     ActionCable.server.broadcast(stream_id, type: 'create_game', data: game)
   end
 
-  def join_game
-  end
-
   private
   def stream_id
     "user_#{self.current_user}"
