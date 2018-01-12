@@ -1,8 +1,9 @@
 import React from 'react'
+import { List } from 'immutable'
 import PropTypes from 'prop-types'
 import {
   Subheader,
-  List,
+  List as MList,
   ListItem,
   IconButton
 } from 'material-ui'
@@ -19,9 +20,10 @@ class GameList extends React.PureComponent {
 
   renderGame = (game) => (
     <ListItem
-      key={`game_${game.id}`}
-      primaryText={game.title}
+      key={`game_${game.get('id')}`}
+      primaryText={game.get('title')}
       rightIcon={<PlayerCount>8/8</PlayerCount>}
+      onClick={() => this.props.joinGame(game.get('id'))}
     />
   )
 
@@ -29,7 +31,7 @@ class GameList extends React.PureComponent {
     const openGames = this.props.openGames.map((game) => this.renderGame(game))
 
     return (
-      <List>
+      <MList>
         <Subheader>
           <SubHeaderWrapper>
             <div onClick={this.refreshOpenGames}>Open Games</div>
@@ -38,15 +40,16 @@ class GameList extends React.PureComponent {
             </IconButton>
           </SubHeaderWrapper>
         </Subheader>
-        {openGames.length > 0 ? openGames : '<ListItem primaryText="keine Games gefunden :(" />'}
-      </List>
+        {openGames.size > 0 ? openGames : '<ListItem primaryText="keine Games gefunden :(" />'}
+      </MList>
     )
   }
 }
 
 GameList.propTypes = {
-  openGames: PropTypes.array.isRequired,
-  onGetOpenGames: PropTypes.func.isRequired
+  openGames: PropTypes.instanceOf(List),
+  onGetOpenGames: PropTypes.func.isRequired,
+  joinGame: PropTypes.func.isRequired
 }
 
 export default GameList

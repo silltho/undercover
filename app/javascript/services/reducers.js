@@ -1,5 +1,5 @@
-import usersReducer from './users'
-import gamesReducer from './games'
+import usersReducer from './entities/users/reducers'
+import gamesReducer from './entities/games/reducers'
 
 const reducers = [
   usersReducer,

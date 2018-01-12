@@ -1,1 +1,2 @@
-export * from './channels/user/constants'
+export * from './entities/users/constants'
+export * from './entities/games/constants'

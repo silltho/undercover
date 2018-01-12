@@ -1,6 +1,8 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
     stream_from stream_id
+    puts 'test'
+    puts params
     join_game
   end
 
