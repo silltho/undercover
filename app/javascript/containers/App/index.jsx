@@ -9,6 +9,20 @@ import Nav from 'components/Nav'
 import Game from 'components/Game'
 
 class App extends React.PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showGame: false
+    }
+  }
+
+  showGame = () => {
+    this.setState({
+	    showGame: true
+    })
+  }
+
   createGame = () => {
     const title = this.input.value
     this.props.createGame(title)
@@ -17,16 +31,21 @@ class App extends React.PureComponent {
   render() {
     return (
       <MuiThemeProvider>
-        {/* <Game />  */}
         <div>
-          <Nav />
-          <GameList
-            openGames={this.props.games}
-            onGetOpenGames={this.props.getOpenGames}
-            joinGame={this.props.joinGame}
-          />
-          <input type="text" ref={ (input) => this.input = input } />
-          <button onClick={this.createGame}>create game</button>
+          {this.state.showGame && <Game />}
+          {!this.state.showGame &&
+            <div>
+              <Nav />
+              <GameList
+                openGames={this.props.games}
+                onGetOpenGames={this.props.getOpenGames}
+                joinGame={this.props.joinGame}
+              />
+              <input type="text" ref={(input) => this.input = input}/>
+              <button onClick={this.createGame}>create game</button>
+              <button onClick={this.showGame}>show Game</button>
+            </div>
+          }
         </div>
       </MuiThemeProvider>
     )
