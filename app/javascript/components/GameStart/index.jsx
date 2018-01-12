@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 class GameStart extends React.PureComponent {
   renderAnonymPlayer = (player) => (
-    <li>{player.nickname}</li>
+    <li key={`anonym-player-${player.nickname}`}>{player.nickname}</li>
   )
 
   renderKnownPlayer = (player) => (
-    <li>{player.username} - {player.role}</li>
+    <li key={`known-player-${player.username}`}>{player.username} - {player.role}</li>
   )
 
   render() {

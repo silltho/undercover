@@ -17,7 +17,8 @@ function usersReducer(state = initialState, action) {
       console.log('new Game:', action.data)
       return state.updateIn(['games'], (games) => games.push(action.data))
     case GET_OPEN_GAMES:
-	    return state.set('games', fromJS(action.data.games))
+      console.log('open Games:', action.data.games)
+      return state.set('games', fromJS(action.data.games))
     default:
       return state
   }
