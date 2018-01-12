@@ -3,6 +3,7 @@ import GameStart from 'components/GameStart'
 import GameInfo from 'components/GameInfo'
 import GameExchange from 'components/GameExchange'
 import GameActivity from 'components/GameActivity'
+import { Link } from 'react-router-dom'
 
 const gameStates = {
   start: 'start',
@@ -115,7 +116,12 @@ class Game extends React.PureComponent {
   }
 
   render() {
-    return this.renderGamestate()
+    return (
+    	<div>
+		    <Link to="/">back to lobby</Link>
+	      {this.renderGamestate()}
+	    </div>
+    )
   }
 }
 

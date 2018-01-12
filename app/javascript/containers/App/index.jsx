@@ -2,6 +2,7 @@ import React from 'react'
 import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter, Route, Link, Switch } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { UserChannel, GameChannel } from 'services/channels'
 import GameList from 'components/GameList'
@@ -9,20 +10,6 @@ import Nav from 'components/Nav'
 import Game from 'components/Game'
 
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      showGame: false
-    }
-  }
-
-  showGame = () => {
-    this.setState({
-	    showGame: true
-    })
-  }
-
   createGame = () => {
     const title = this.input.value
     this.props.createGame(title)
@@ -32,20 +19,25 @@ class App extends React.PureComponent {
     return (
       <MuiThemeProvider>
         <div>
-          {this.state.showGame && <Game />}
-          {!this.state.showGame &&
-            <div>
-              <Nav />
-              <GameList
-                openGames={this.props.games}
-                onGetOpenGames={this.props.getOpenGames}
-                joinGame={this.props.joinGame}
-              />
-              <input type="text" ref={(input) => this.input = input}/>
-              <button onClick={this.createGame}>create game</button>
-              <button onClick={this.showGame}>show Game</button>
-            </div>
-          }
+          <Nav />
+          <Switch>
+            <Route path="/game" component={Game} />
+            <Route
+              exact
+              path="/"
+              render={() => (
+                  <div>
+                    <GameList
+                      openGames={this.props.games}
+                      onGetOpenGames={this.props.getOpenGames}
+                      joinGame={this.props.joinGame}
+                    />
+                    <input type="text" ref={ (input) => this.input = input } />
+                    <button onClick={this.createGame}>create game</button>
+                    <Link to="/game">show Game</Link>
+                  </div>
+                )} />
+          </Switch>
         </div>
       </MuiThemeProvider>
     )
@@ -69,7 +61,7 @@ const mapStateToProps = (state) => ({
   games: state.get('games', fromJS([]))
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App))
