@@ -10,7 +10,7 @@ class GamesChannel < ApplicationCable::Channel
     game = Game.find(params[:id])
     game.users << current_user
     data = game.attributes
-    data[:players] = game.users.to_a
+    data["players"] = game.users.to_a
     ActionCable.server.broadcast(stream_id, type: 'join_game', data: data)
   end
 
