@@ -1,8 +1,9 @@
+import { fromJS } from 'immutable'
 import {
   JOIN_GAME
 } from './constants'
 
-const initialState = {}
+const initialState = fromJS({})
 
 function gamesReducer(state = initialState, action) {
   switch (action.type) {

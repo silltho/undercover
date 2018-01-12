@@ -1,4 +1,5 @@
 import React from 'react'
+import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -33,7 +34,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  games: PropTypes.array.isRequired,
+  games: PropTypes.instanceOf(List).isRequired,
   getOpenGames: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired,
   joinGame: PropTypes.func.isRequired
@@ -46,7 +47,7 @@ export const mapDispatchToProps = () => ({
 })
 
 const mapStateToProps = (state) => ({
-  games: state.games || []
+  games: state.get('games', fromJS([]))
 })
 
 export default connect(
