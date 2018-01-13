@@ -9,10 +9,10 @@ import {
   Paper
 } from 'material-ui'
 import { UserChannel, GameChannel } from 'services/channels'
-import GameList from 'components/GamesList'
+import GameList from 'components/OpenGamesList'
 
 class Home extends React.PureComponent {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       createGameTitle: ''
@@ -32,6 +32,11 @@ class Home extends React.PureComponent {
 	  })
   }
 
+  joinGame = (id) => {
+    this.props.history.push('/lobby')
+    this.props.joinGame(id)
+  }
+
   render() {
     return (
       <div>
@@ -43,7 +48,7 @@ class Home extends React.PureComponent {
           <GameList
             openGames={this.props.games}
             onGetOpenGames={this.props.getOpenGames}
-            joinGame={this.props.joinGame}
+            joinGame={this.joinGame}
           />
         </Paper>
         <Paper zDepth={1}>
@@ -55,6 +60,7 @@ class Home extends React.PureComponent {
 }
 
 Home.propTypes = {
+  history: PropTypes.object.isRequired,
   games: PropTypes.instanceOf(List).isRequired,
   getOpenGames: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired,
@@ -68,10 +74,11 @@ export const mapDispatchToProps = () => ({
 })
 
 const mapStateToProps = (state) => ({
-  games: state.get('games', fromJS([]))
+  games: state.get('games', fromJS([])),
+  currentGameId: state.getIn(['Home', 'joinedGameId'], null)
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(Home))

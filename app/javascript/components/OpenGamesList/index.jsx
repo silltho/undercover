@@ -13,7 +13,7 @@ import {
   SubHeaderWrapper
 } from './Styles'
 
-class GameList extends React.PureComponent {
+class OpenGamesList extends React.PureComponent {
   refreshOpenGames = () => {
     this.props.onGetOpenGames()
   }
@@ -46,10 +46,14 @@ class GameList extends React.PureComponent {
   }
 }
 
-GameList.propTypes = {
+OpenGamesList.defaultProps = {
+  openGames: List()
+}
+
+OpenGamesList.propTypes = {
   openGames: PropTypes.instanceOf(List),
   onGetOpenGames: PropTypes.func.isRequired,
   joinGame: PropTypes.func.isRequired
 }
 
-export default GameList
+export default OpenGamesList

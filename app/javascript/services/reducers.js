@@ -1,9 +1,11 @@
+import homeReducer from 'containers/Lobby/reducers'
 import usersReducer from './entities/users/reducers'
 import gamesReducer from './entities/games/reducers'
 
 const reducers = [
   usersReducer,
-  gamesReducer
+  gamesReducer,
+  homeReducer
 ]
 
 // Reduce reducers to provide a single entity state object,
