@@ -4,7 +4,8 @@ before_script:
   - gem install bundler
   - bundle install
   - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - curl -sL https://deb.nodesource.com/setup_8.x | bash
 
 run_project:
   script:
-    - yarn installe
+    - yarn install
