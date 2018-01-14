@@ -14,9 +14,7 @@ before_script:
   - eval $(ssh-agent -s)
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-stage_deploy:
-  only:
-    - master
+deploy:
   script:
     - ssh-add <(echo "$STAGING_PRIVATE_KEY")
     - ssh -p22 pat@46.38.235.104 "mkdir undercover/_tmp"
