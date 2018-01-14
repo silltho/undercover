@@ -1,17 +1,9 @@
+image: ruby:2.3.3
+
 before_script:
-  - curl -sSL https://get.rvm.io | bash
-  - curl -sL https://deb.nodesource.com/setup_8.x | bash
-  - apt-get install -y nodejs
-  - ruby -v
-  - which ruby
-  - source /etc/profile.d/rvm.sh
-  - rvm -v
-  - which rvm
+  - bundle install
   - gem install rails -v 5.1.4
-  - rails -v
-  - which rails
 
 run_project:
   script:
-    - bundle install
     - yarn install
