@@ -7,8 +7,8 @@ before_script:
   - source /etc/profile.d/rvm.sh
   - rvm -v
   - which rvm
-  - rails -v
   - gem install rails -v 5.1.4
+  - rails -v
   - which rails
 
 run_project:
