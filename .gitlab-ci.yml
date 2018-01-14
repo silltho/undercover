@@ -12,3 +12,13 @@ before_script:
 run_project:
   script:
     - yarn install
+
+stage_deploy:
+  only:
+    - master
+  script:
+    - ssh-add <(echo "$STAGING_PRIVATE_KEY")
+    - ssh -p22 pat@46.38.235.104 "mkdir undercover/_tmp"
+    - scp -P22 -r build/* pat@46.38.235.104:undercover/_tmp
+    - ssh -p22 pat@46.38.235.104 "mv undercover/_tmp /var/www/html/dev_undercover/"
+    - ssh -p22 pat@46.38.235.104 "rm -rf undercover/_tmp"
