@@ -9,13 +9,13 @@ before_script:
   - yarn install
   - apt-get install openssh-client
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
   - '[[ -f /.dockerenv ]] && echo -e "Host *ntStrictHostKeyChecking nonn" > ~/.ssh/config'
+  - ssh-add <(echo "$STAGING_PRIVATE_KEY")
+  - apt-get install rsync
 
 deploy:
   script:
-    - ssh-add <(echo "$STAGING_PRIVATE_KEY")
     - ssh -p22 pat@46.38.235.104 "mkdir undercover/_tmp"
     - scp -P22 -r pat@46.38.235.104:undercover/_tmp
     - ssh -p22 pat@46.38.235.104 "mv undercover/_tmp /var/www/html/dev_undercover/"
