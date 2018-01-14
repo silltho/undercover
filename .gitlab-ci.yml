@@ -1,0 +1,8 @@
+before_script:
+  - \curl -sSL https://get.rvm.io | bash
+  - ruby -v
+  - which ruby
+  - rvm -v
+  - which rvm
+  - rails -v
+  - which rails
