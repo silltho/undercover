@@ -1,7 +1,7 @@
 before_script:
   - curl -sSL https://get.rvm.io | bash
-  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash
-  - sudo apt-get install -y nodejs
+  - curl -sL https://deb.nodesource.com/setup_8.x | bash
+  - apt-get install -y nodejs
   - ruby -v
   - which ruby
   - source /etc/profile.d/rvm.sh
