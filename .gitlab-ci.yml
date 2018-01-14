@@ -1,9 +1,10 @@
 image: ruby:2.3.3
 
 before_script:
+  - gem install bundler
   - bundle install
-  - gem install rails -v 5.1.4
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
 
 run_project:
   script:
-    - yarn install
+    - yarn installe
