@@ -6,3 +6,8 @@ before_script:
   - which rvm
   - rails -v
   - which rails
+
+run_project:
+  script:
+    - bundle install
+    - yarn install
