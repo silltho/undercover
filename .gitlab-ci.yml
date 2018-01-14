@@ -4,7 +4,7 @@ before_script:
   - gem install bundler
   - bundle install
   - curl -sL https://deb.nodesource.com/setup_8.x | bash
-  - apt-get install nodejs
+  - sudo apt-get install nodejs
   - node -v
   - npm -v
   - npm install -g yarn
