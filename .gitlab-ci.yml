@@ -1,11 +1,14 @@
 before_script:
-  - \curl -sSL https://get.rvm.io | bash
+  - curl -sSL https://get.rvm.io | bash
+  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash
+  - sudo apt-get install -y nodejs
   - ruby -v
   - which ruby
   - source /etc/profile.d/rvm.sh
   - rvm -v
   - which rvm
   - rails -v
+  - gem install rails -v 5.1.4
   - which rails
 
 run_project:
