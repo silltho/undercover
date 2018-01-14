@@ -3,8 +3,8 @@ image: ruby:2.3.3
 before_script:
   - gem install bundler
   - bundle install
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
   - curl -sL https://deb.nodesource.com/setup_8.x | bash
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
 
 run_project:
   script:
