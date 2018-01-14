@@ -2,6 +2,7 @@ before_script:
   - \curl -sSL https://get.rvm.io | bash
   - ruby -v
   - which ruby
+  - source /etc/profile.d/rvm.sh
   - rvm -v
   - which rvm
   - rails -v
