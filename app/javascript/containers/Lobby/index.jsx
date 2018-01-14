@@ -34,9 +34,7 @@ class Lobby extends React.PureComponent {
   render() {
     const { currentGame } = this.props
     console.log('currentGame', currentGame.toJS())
-    const players = currentGame.get('players', List())
-      .toSet()
-      .map((player) => this.renderPlayer(player))
+    const players = currentGame.get('players', List()).map(this.renderPlayer)
 
     return (
       <MList>

@@ -10,4 +10,13 @@ function createChannel(...args) {
   return consumer.subscriptions.create(...args)
 }
 
-export default createChannel
+function removeSubscription(...args) {
+  if (consumer) {
+    consumer = consumer.subscriptions.remove(...args)
+  }
+}
+
+export {
+  createChannel,
+  removeSubscription
+}

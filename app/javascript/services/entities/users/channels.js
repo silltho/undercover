@@ -1,4 +1,4 @@
-import createChannel from 'services/cable'
+import { createChannel } from 'services/cable'
 import {
   GET_OPEN_GAMES,
   GET_USERINFO,
@@ -22,11 +22,11 @@ function getOpenGames() {
 }
 
 function getUserinfo() {
-	channel.perform(GET_USERINFO)
+  channel.perform(GET_USERINFO)
 }
 
 function createGame(title) {
-	channel.perform(CREATE_GAME, {title: title})
+  channel.perform(CREATE_GAME, { title })
 }
 
 export default {

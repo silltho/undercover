@@ -14,7 +14,7 @@ class GamesChannel < ApplicationCable::Channel
     ActionCable.server.broadcast(stream_id, type: 'join_game', data: data)
   end
 
-  def unsubscribe
+  def unsubscribed
     GamesUsers.where(game_id: params[:id]).where(user_id: current_user.id).destroy_all
   end
 

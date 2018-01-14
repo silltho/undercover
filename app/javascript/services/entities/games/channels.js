@@ -1,4 +1,6 @@
-import createChannel from 'services/cable'
+import {
+  createChannel
+} from 'services/cable'
 
 let dispatch
 let channel
