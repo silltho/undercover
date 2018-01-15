@@ -35,7 +35,9 @@ build:
 deploy:
   stage: deploy
   before_script:
-    - apt-get install zip unzip
+    - apt-get update
+    - apt-get upgrade
+    - apt-get install zip -y unzip -y
   script:
     - zip -r data *
     - ssh-add -l
