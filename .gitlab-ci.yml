@@ -38,5 +38,5 @@ deploy:
     - apt-get install zip -y unzip -y
   script:
     - zip -r data *
-    - scp -r -o StrictHostKeyChecking=no ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
+    - scp -o StrictHostKeyChecking=no -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
     - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
