@@ -40,6 +40,5 @@ deploy:
     - apt-get install zip -y unzip -y
   script:
     - zip -r data *
-    - ssh-add -l
     - scp -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
     - ssh -p22 pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
