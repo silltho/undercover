@@ -21,7 +21,7 @@ before_script:
   - ssh-add -l
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh -o StrictHostKeyChecking=no root@46.38.235.104 uptime
+  - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
 
 cache:
   paths:
@@ -39,5 +39,5 @@ deploy:
   script:
     - zip -r data *
     - ssh-add -l
-    - scp -r ./data.zip root@46.38.235.104:/var/www/html/dev_undercover/
-    - ssh -p22 root@46.38.235.104 "unzip -o data.zip"
+    - scp -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
+    - ssh -p22 pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
