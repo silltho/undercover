@@ -1,12 +1,16 @@
 image: ruby:2.3.3
 
+stages:
+ - build
+ - test
+ - deploy
+
 before_script:
   - gem install bundler
   - bundle install
   - curl -sL https://deb.nodesource.com/setup_8.x | bash
   - apt-get install nodejs
   - npm install -g yarn
-  - yarn install
   - apt-get install openssh-client
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - mkdir -p ~/.ssh
@@ -15,7 +19,17 @@ before_script:
   - ssh-add <(echo "$STAGING_PRIVATE_KEY")
   - apt-get install rsync
 
+cache:
+  paths:
+    - node_modules
+
+build:
+  stage: build
+  script:
+    - yarn install
+
 deploy:
+  stage: deploy
   script:
     - ssh -p22 pat@46.38.235.104 "mkdir undercover/_tmp"
     - scp -P22 -r pat@46.38.235.104:undercover/_tmp
