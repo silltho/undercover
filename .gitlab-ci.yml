@@ -12,11 +12,9 @@ before_script:
   - apt-get install nodejs
   - npm install -g yarn
   - apt-get install openssh-client
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
   - apt-get install rsync -y
-  - '[[ -f /.dockerenv ]] && echo -e "Host *ntStrictHostKeyChecking nonn" > ~/.ssh/config'
   - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - ssh-add -l
   - mkdir -p ~/.ssh
@@ -41,4 +39,4 @@ deploy:
   script:
     - zip -r data *
     - scp -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
-    - ssh -p22 pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
+    - ssh pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
