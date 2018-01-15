@@ -36,4 +36,4 @@ deploy:
   stage: deploy
   script:
     - ssh-add -l
-    - scp -P22 -r pat@46.38.235.104:var/www/html/dev_undercover/
+    - scp -r ./* pat@46.38.235.104:var/www/html/dev_undercover/
