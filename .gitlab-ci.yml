@@ -19,7 +19,7 @@ before_script:
   - ssh-add -l
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
+  - ssh -o StrictHostKeyChecking=no pat@46.38.235.104
 
 cache:
   paths:
@@ -38,5 +38,5 @@ deploy:
     - apt-get install zip -y unzip -y
   script:
     - zip -r data *
-    - scp -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
-    - ssh pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
+    - scp -r -o StrictHostKeyChecking=no ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
+    - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
