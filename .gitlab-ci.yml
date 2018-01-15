@@ -15,9 +15,13 @@ before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
-  - '[[ -f /.dockerenv ]] && echo -e "Host *ntStrictHostKeyChecking nonn" > ~/.ssh/config'
-  - ssh-add <(echo "$STAGING_PRIVATE_KEY")
   - apt-get install rsync -y
+  - '[[ -f /.dockerenv ]] && echo -e "Host *ntStrictHostKeyChecking nonn" > ~/.ssh/config'
+  - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - ssh-add -l
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
 
 cache:
   paths:
@@ -31,6 +35,7 @@ build:
 deploy:
   stage: deploy
   script:
+    - ssh-add -l
     - ssh -p22 pat@46.38.235.104 "mkdir undercover/_tmp"
     - scp -P22 -r pat@46.38.235.104:undercover/_tmp
     - ssh -p22 pat@46.38.235.104 "mv undercover/_tmp /var/www/html/dev_undercover/"
