@@ -36,7 +36,4 @@ deploy:
   stage: deploy
   script:
     - ssh-add -l
-    - ssh -p22 pat@46.38.235.104 "mkdir undercover/_tmp"
-    - scp -P22 -r pat@46.38.235.104:undercover/_tmp
-    - ssh -p22 pat@46.38.235.104 "mv undercover/_tmp /var/www/html/dev_undercover/"
-    - ssh -p22 pat@46.38.235.104 "rm -rf undercover/_tmp"
+    - scp -P22 -r pat@46.38.235.104:var/www/html/dev_undercover/
