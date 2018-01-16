@@ -37,7 +37,6 @@ deploy:
     - apt-get upgrade -y
     - apt-get install zip -y unzip -y
   script:
-    - ssh-add -l
     - zip -r data *
     - rsync -a -o ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
     - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
