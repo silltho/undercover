@@ -20,6 +20,7 @@ build:
     - zip -r -q data *
 
   artifacts:
+    paths:
     - ./data.zip
 
 deploy:
