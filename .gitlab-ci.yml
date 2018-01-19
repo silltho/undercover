@@ -42,5 +42,5 @@ deploy:
     - scp -r ./data.zip pat@46.38.235.104:/var/www/html/dev_undercover/
     - ssh pat@46.38.235.104 "unzip -q /var/www/html/dev_undercover/data.zip -d /var/www/html/dev_undercover/"
     - TERM=vt100; export TERM
-    - ssh -tt pat@46.38.235.104 "TERM=vt100; export TERM; cd /var/www/html/dev_undercover/; undle install; screen -S undercover rails s"
+    - ssh -tt pat@46.38.235.104 "TERM=vt100; export TERM; cd /var/www/html/dev_undercover/; bundle install; screen -S undercover rails s"
 
