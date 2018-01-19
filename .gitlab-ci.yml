@@ -17,7 +17,10 @@ build:
   script:
     - bundle install
     - yarn install
-    - zip -r data *
+    - zip -r -q data *
+
+  artifacts:
+    - ./data.zip
 
 deploy:
   stage: deploy
@@ -33,5 +36,6 @@ deploy:
     - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
   script:
     - ssh pat@46.38.235.104 "rm -rf /var/www/html/_tmp/*"
+    # - ssh pat@46.38.235.104 "killall screen"
     - scp -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
-    - ssh pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
+    - ssh pat@46.38.235.104 "unzip -o -q /var/www/html/_tmp/data.zip"
