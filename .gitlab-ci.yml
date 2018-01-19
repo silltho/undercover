@@ -2,35 +2,36 @@ image: ruby:2.3.3
 
 stages:
  - build
- - test
  - deploy
-
-before_script:
-  - apt-get update -y
-  - gem install bundler
-  - bundle install
-  - curl -sL https://deb.nodesource.com/setup_8.x | bash
-  - apt-get install nodejs
-  - npm install -g yarn
-  - apt-get install openssh-client
-  - eval $(ssh-agent -s)
-  - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - ssh-add -l
-  - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
-  - apt-get install zip -y
-
-cache:
-  paths:
-    - node_modules
 
 build:
   stage: build
+  before_script:
+    - apt-get update
+    - gem install bundler
+    - curl -sL https://deb.nodesource.com/setup_8.x | bash
+    - apt-get install nodejs
+    - npm install -g yarn
+    - apt-get install zip -y
+
   script:
+    - bundle install
     - yarn install
+    - zip -r data *
 
 deploy:
   stage: deploy
+  cache:
+    paths:
+      - node_modules
+  before_script:
+    - apt-get update
+    - apt-get install openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - ssh-add -l
+    - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
   script:
-    - zip -r data *
-    - scp -r -o StrictHostKeyChecking=no ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
-    - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
+    - ssh pat@46.38.235.104 "rm -rf /var/www/html/_tmp/*"
+    - scp -r ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
+    - ssh pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
