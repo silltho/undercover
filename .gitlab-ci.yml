@@ -6,6 +6,7 @@ stages:
  - deploy
 
 before_script:
+  - apt-get update -y
   - gem install bundler
   - bundle install
   - curl -sL https://deb.nodesource.com/setup_8.x | bash
@@ -16,6 +17,7 @@ before_script:
   - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - ssh-add -l
   - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
+  - apt-get install zip -y
 
 cache:
   paths:
@@ -28,12 +30,7 @@ build:
 
 deploy:
   stage: deploy
-  before_script:
-    - apt-get update -y
-    - apt-get upgrade -y
-    - apt-get install zip -y unzip -y
-    - apt-get install rsync -y
   script:
-    - zip -r data *
+    - zip -r --progress data *
     - scp -r -o StrictHostKeyChecking=no ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
     - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
