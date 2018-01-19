@@ -27,7 +27,7 @@ deploy:
   stage: deploy
   cache:
     paths:
-      - node_modules
+    - node_modules
   before_script:
     - apt-get update
     - apt-get install openssh-client
@@ -40,5 +40,5 @@ deploy:
     - ssh pat@46.38.235.104 "rm -rf /var/www/html/dev_undercover/*"
     - scp -r ./data.zip pat@46.38.235.104:/var/www/html/dev_undercover/
     - ssh pat@46.38.235.104 "unzip -q /var/www/html/_tmp/data.zip -d /var/www/html/dev_undercover/"
-    - ssh pat@46.38.235.104 "screen -S undercover rails s"
+    - ssh pat@46.38.235.104 "screen -t -S undercover rails s"
 
