@@ -12,12 +12,9 @@ before_script:
   - apt-get install nodejs
   - npm install -g yarn
   - apt-get install openssh-client
-  - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
   - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - ssh-add -l
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
   - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
 
 cache:
@@ -38,5 +35,5 @@ deploy:
     - apt-get install rsync -y
   script:
     - zip -r data *
-    - rsync -a -o ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
+    - scp -r -o StrictHostKeyChecking=no ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
     - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
