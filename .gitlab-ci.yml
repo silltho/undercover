@@ -31,6 +31,6 @@ build:
 deploy:
   stage: deploy
   script:
-    - zip -r --progress data *
+    - zip -r data *
     - scp -r -o StrictHostKeyChecking=no ./data.zip pat@46.38.235.104:/var/www/html/_tmp/
     - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 "unzip -o /var/www/html/_tmp/data.zip"
