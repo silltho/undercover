@@ -36,5 +36,5 @@ deploy:
     - scp -r ./data.zip pat@46.38.235.104:/var/www/html/dev_undercover/
     - ssh pat@46.38.235.104 "unzip -q /var/www/html/dev_undercover/data.zip -d /var/www/html/dev_undercover/"
     - TERM=vt100; export TERM
-    - ssh -tt pat@46.38.235.104 "TERM=vt100; export TERM; cd /var/www/html/dev_undercover/; source /etc/profile.d/rvm.sh; bundle install --quiet; yarn install; screen -S undercover bundle exec foreman start; rm data.zip;"
+    - ssh -tt pat@46.38.235.104 "TERM=vt100; export TERM; cd /var/www/html/dev_undercover/; source /etc/profile.d/rvm.sh; mv /var/www/html/dev_undercover/config/database.yml_template /var/www/html/dev_undercover/config/database.yml; bundle install --quiet; yarn install; screen -S undercover bundle exec foreman start; rm data.zip;"
 
