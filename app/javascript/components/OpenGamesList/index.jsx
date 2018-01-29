@@ -1,6 +1,7 @@
 import React from 'react'
 import { List } from 'immutable'
 import PropTypes from 'prop-types'
+
 import {
   Subheader,
   List as MList,

@@ -3,6 +3,7 @@ import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
+import globals from '../../assets/stylesheets/globals.scss'
 import {
   RaisedButton,
   TextField,
@@ -10,6 +11,9 @@ import {
 } from 'material-ui'
 import { UserChannel, GameChannel } from 'services/channels'
 import GameList from 'components/OpenGamesList'
+
+const yellow = globals.yellow
+alert(yellow)
 
 class Home extends React.PureComponent {
   constructor(props) {
