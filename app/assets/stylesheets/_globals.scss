@@ -5,15 +5,14 @@
 @import url('https://fonts.googleapis.com/css?family=Lancelot|Nunito:200,300,400,600|Spectral:200,300,400,500&subset=latin-ext');
 
 /* COLORS */
-$g_Yellow: '#FFFF37';
-$g_LightBlue: '#E6FFF5';
-$g_Pink: '#EE9297';
-$g_Teal:'#95FED3';
-$g_Brown: '#473C1E';
-$g_DarkBlue:'#06232D';
+$g_Yellow: #FFFF37;
+$g_LightBlue: #E6FFF5;
+$g_Pink: #EE9297;
+$g_Teal: #95FED3;
+$g_Brown: #473C1E;
+$g_DarkBlue: #06232D;
 
 /* FONTS */
-
 $g_lancelot: 'Lancelot', cursive; // logo only
 $g_spectral: 'Spectral', serif; // newspaper headliner, infophase
 $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
@@ -25,4 +24,14 @@ $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
   teal: $g_Teal;
   brown: $g_Brown;
   dark-blue: $g_DarkBlue;
+}
+
+.yellow {
+  color: $g_Yellow;
+  font-size: 30px;
+}
+
+.pink {
+  color: $g_Pink;
+  font-size: 30px;
 }

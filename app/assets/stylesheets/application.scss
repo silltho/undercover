@@ -1,5 +1,7 @@
 /*
+*= require normalize-rails
 *= require material_icons
+*= require_self
+*= require_tree .
 */
 
-@import "materialize";

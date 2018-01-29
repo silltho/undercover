@@ -1,17 +1,15 @@
-<h1> Welcome to undercover </h1>
+<%= stylesheet_link_tag "application" %>
 
-<!-- Write to Ruby Syntax -->
-<!--<a class="btn btn-floating pulse"><i class="material-icons">menu</i></a>-->
+<h1 class="yellow"> Welcome to undercover!</h1>
+<%= image_tag "town.jpg" %>
 
-
-<% if current_user%>
-<h3> Really cool statistics on our landing page</h3>
-Hello <%= current_user.email %><br>
-<%= link_to "Play a game", games_path%><br>
+<% if current_user %>
+    <h3> Really cool statistics on our landing page</h3>
+    Hello <%= current_user.email %><br>
+    <%= link_to "Play a game", games_path %><br>
 <% end %>
 
 <% unless current_user %>
- <%= link_to "Connect With Facebook", "/auth/facebook" %> 
- <%= link_to "Connect With Google", "/auth/google_oauth2" %>
+    <%= link_to "Connect With Facebook", "/auth/facebook" %>
+    <%= link_to "Connect With Google", "/auth/google_oauth2" %>
 <% end %>
-
