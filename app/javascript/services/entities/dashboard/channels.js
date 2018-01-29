@@ -1,7 +1,5 @@
 import { createChannel } from 'services/cable'
 import {
-  GET_OPEN_GAMES,
-  GET_USERINFO,
   CREATE_GAME
 } from './constants'
 
@@ -18,7 +16,7 @@ function init(store) {
 }
 
 function createGame(title) {
-    channel.perform(CREATE_GAME, { title })
+  channel.perform(CREATE_GAME, { title })
 }
 
 export default {

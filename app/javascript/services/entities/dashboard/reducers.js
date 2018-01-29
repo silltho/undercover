@@ -8,7 +8,7 @@ import {
 const initialState = fromJS({})
 
 function getGameIndex(games, gameId) {
-    return games.findIndex((game) => game.get('id') === gameId)
+  return games.findIndex((game) => game.get('id') === gameId)
 }
 
 function dashboardReducer(state = initialState, action) {
@@ -22,11 +22,11 @@ function dashboardReducer(state = initialState, action) {
         const gameIndex = getGameIndex(state.get('games'), action.data)
         return state.updateIn(['games'], (games) => games.delete(gameIndex))
     }
-    case CREATE_GAME: {
-      const game = fromJS(action.data)
-      console.log('new Game:', game.toJS())
-      return state.updateIn(['games'], (games) => games.push(game))
-    }
+	  case CREATE_GAME: {
+		  const game = fromJS(action.data)
+		  console.log('new Game:', game.toJS())
+		  return state.updateIn(['games'], (games) => games.push(game))
+	  }
     default:
       return state
   }
