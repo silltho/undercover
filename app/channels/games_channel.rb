@@ -1,17 +1,17 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from stream_id
+    stream_for find_game
     puts 'test'
     puts params
     join_game
   end
 
   def join_game
-    game = Game.find(params[:id])
+    game = find_game
     game.users << current_user
     data = game.attributes
     data["players"] = game.users.to_a
-    ActionCable.server.broadcast(stream_id, type: 'join_game', data: data)
+    GamesChannel.broadcast_to(find_game, type: 'join_game', data: data)
   end
 
   def unsubscribed
@@ -22,12 +22,14 @@ class GamesChannel < ApplicationCable::Channel
   end
 
   def destroy_game
-    Game.destroy(params[:id])
-    ActionCable.server.broadcast(stream_id, type: 'destroy_game', data: params[:id])
+    game = find_game
+    DashboardChannel.broadcast_to('dashboard', type: 'game_destroyed', data: game)
+    game.destroy
   end
 
   private
-  def stream_id
-    "game_#{params[:id]}"
+  def find_game
+    puts params[:id]
+    game = Game.find(params[:id])
   end
 end

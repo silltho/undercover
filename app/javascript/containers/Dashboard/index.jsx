@@ -3,7 +3,7 @@ import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { UserChannel, GameChannel } from 'services/channels'
+import { UserChannel, GameChannel, DashboardChannel } from 'services/channels'
 import GameList from 'components/OpenGamesList'
 
 class Dashboard extends React.PureComponent {
@@ -64,7 +64,7 @@ Dashboard.propTypes = {
 
 export const mapDispatchToProps = () => ({
   getOpenGames: UserChannel.getOpenGames,
-  createGame: UserChannel.createGame,
+  createGame: DashboardChannel.createGame,
   joinGame: GameChannel.joinGame
 })
 
