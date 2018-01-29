@@ -14,17 +14,23 @@ class Dashboard extends React.PureComponent {
     }
   }
 
-  onCreateGameInputChange = (e, value) => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentGameId && nextProps.currentGameId !== -1) {
+	    this.joinGame(nextProps.currentGameId)
+    }
+  }
+
+  onCreateGameInputChange = (e) => {
     this.setState({
-	    createGameTitle: value
+      createGameTitle: e.target.value
     })
   }
 
   createGame = () => {
     this.props.createGame(this.state.createGameTitle)
-	  this.setState({
-		  createGameTitle: ''
-	  })
+    this.setState({
+      createGameTitle: ''
+    })
   }
 
   joinGame = (id) => {
@@ -54,12 +60,17 @@ class Dashboard extends React.PureComponent {
   }
 }
 
+Dashboard.defaultProps = {
+  currentGameId: null
+}
+
 Dashboard.propTypes = {
   history: PropTypes.object.isRequired,
   games: PropTypes.instanceOf(List).isRequired,
   getOpenGames: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired,
-  joinGame: PropTypes.func.isRequired
+  joinGame: PropTypes.func.isRequired,
+  currentGameId: PropTypes.number
 }
 
 export const mapDispatchToProps = () => ({
@@ -70,7 +81,7 @@ export const mapDispatchToProps = () => ({
 
 const mapStateToProps = (state) => ({
   games: state.get('games', fromJS([])),
-  currentGameId: state.getIn(['Home', 'joinedGameId'], null)
+  currentGameId: state.getIn(['App', 'currentGameId'], -1)
 })
 
 export default withRouter(connect(

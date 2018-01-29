@@ -23,7 +23,7 @@ class GamesChannel < ApplicationCable::Channel
 
   def destroy_game
     game = find_game
-    DashboardChannel.broadcast_to('dashboard', type: 'game_destroyed', data: game)
+    ActionCable.server.broadcast('dashboard', type: 'game_destroyed', data: game)
     game.destroy
   end
 
