@@ -1,7 +1,6 @@
 /*
     Global Styleguide variables
  */
-
 @import url('https://fonts.googleapis.com/css?family=Lancelot|Nunito:200,300,400,600|Spectral:200,300,400,500&subset=latin-ext');
 
 /* COLORS */
@@ -16,6 +15,17 @@ $g_DarkBlue: #06232D;
 $g_lancelot: 'Lancelot', cursive; // logo only
 $g_spectral: 'Spectral', serif; // newspaper headliner, infophase
 $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
+
+/* GENERAL */
+body, html {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+}
 
 :export {
   yellow: $g_Yellow;

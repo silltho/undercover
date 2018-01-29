@@ -1,11 +1,16 @@
 <%= stylesheet_link_tag "application" %>
 
 <h1 class="yellow"> Welcome to undercover!</h1>
-<%= image_tag "town.jpg" %>
+
+<div>
+  <%= image_tag "town.jpg" %>
+</div>
+
 
 <% if current_user %>
     <h3> Really cool statistics on our landing page</h3>
     Hello <%= current_user.email %><br>
+
     <%= link_to "Play a game", games_path %><br>
 <% end %>
 
