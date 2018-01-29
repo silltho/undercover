@@ -1,3 +1,13 @@
 // Place all the styles related to the landingpages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "globals";
+
+.town-header {
+  display: block;
+
+  .play-game-button {
+    color: $g_Teal;
+  }
+}
