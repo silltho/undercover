@@ -8,8 +8,6 @@ build:
   stage: build
   before_script:
     - apt-get update
-    # - curl -sL https://deb.nodesource.com/setup_8.x | bash
-    # - apt-get install nodejs
     - apt-get install zip -y
   script:
     - zip -r -q data *
