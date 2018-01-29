@@ -6,10 +6,6 @@ import {
 
 const initialState = fromJS({})
 
-function getGameIndex(games, gameId) {
-  return games.findIndex((game) => game.get('id') === gameId)
-}
-
 function gamesReducer(state = initialState, action) {
   console.log(action)
   switch (action.type) {

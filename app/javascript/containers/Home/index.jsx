@@ -8,7 +8,7 @@ import {
   TextField,
   Paper
 } from 'material-ui'
-import { UserChannel, GameChannel } from 'services/channels'
+import { UserChannel, GameChannel, DashboardChannel } from 'services/channels'
 import GameList from 'components/OpenGamesList'
 
 class Home extends React.PureComponent {
@@ -69,7 +69,7 @@ Home.propTypes = {
 
 export const mapDispatchToProps = () => ({
   getOpenGames: UserChannel.getOpenGames,
-  createGame: UserChannel.createGame,
+  createGame: DashboardChannel.createGame,
   joinGame: GameChannel.joinGame
 })
 
