@@ -14,7 +14,7 @@
         <a href="#!" class="brand-logo">Logo</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Dashboard", root_path %></li>
           <li><%= link_to "Play a Game", games_path %></li>
           <% if current_user != nil %>
               <li><%= link_to "Profile", user_path(current_user.id) %></li>
@@ -22,7 +22,7 @@
           <% end %>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Dashboard", root_path %></li>
           <li><%= link_to "Play a Game", games_path %></li>
           <% if current_user != nil %>
               <li><%= link_to "Profile", user_path(current_user.id) %></li>

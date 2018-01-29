@@ -3,15 +3,10 @@ import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import {
-  RaisedButton,
-  TextField,
-  Paper
-} from 'material-ui'
-import { UserChannel, GameChannel } from 'services/channels'
+import { UserChannel, GameChannel, DashboardChannel } from 'services/channels'
 import GameList from 'components/OpenGamesList'
 
-class Home extends React.PureComponent {
+class Dashboard extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -40,26 +35,26 @@ class Home extends React.PureComponent {
   render() {
     return (
       <div>
-        <Paper zDepth={1}>
-          <TextField name="create-game-input" onChange={this.onCreateGameInputChange} />
-          <RaisedButton label="create new game" primary onClick={this.createGame} />
-        </Paper>
-        <Paper zDepth={1}>
+        <div>
+          <input name="create-game-input" onChange={this.onCreateGameInputChange} />
+          <button onClick={this.createGame}>start new game</button>
+        </div>
+        <div>
           <GameList
             openGames={this.props.games}
             onGetOpenGames={this.props.getOpenGames}
             joinGame={this.joinGame}
           />
-        </Paper>
-        <Paper zDepth={1}>
+        </div>
+        <div>
           <Link to="/game">show Game</Link>
-        </Paper>
+        </div>
       </div>
     )
   }
 }
 
-Home.propTypes = {
+Dashboard.propTypes = {
   history: PropTypes.object.isRequired,
   games: PropTypes.instanceOf(List).isRequired,
   getOpenGames: PropTypes.func.isRequired,
@@ -69,7 +64,7 @@ Home.propTypes = {
 
 export const mapDispatchToProps = () => ({
   getOpenGames: UserChannel.getOpenGames,
-  createGame: UserChannel.createGame,
+  createGame: DashboardChannel.createGame,
   joinGame: GameChannel.joinGame
 })
 
@@ -81,4 +76,4 @@ const mapStateToProps = (state) => ({
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home))
+)(Dashboard))
