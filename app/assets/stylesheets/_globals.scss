@@ -29,19 +29,15 @@ body, html {
   font-family: $g_nunito;
 }
 
-* {
-  font-family: $g_nunito;
-}
-
-img, .img {
+img.img {
   width: 100%;
 }
 
-footer, .footer {
+footer.footer {
   color: $g_Pink;
 }
 
-a, .a, a:visited{
+a.a, a.a:visited{
   color: $g_Pink;
   text-decoration: none;
 }

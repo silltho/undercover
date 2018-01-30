@@ -6,9 +6,9 @@ import {
   Wrapper,
   Title,
   NewGameForm,
-	GameTitleInput,
-	TitleLine,
-	TitleText
+  GameTitleInput,
+  TitleLine,
+  TitleText
 } from './Styles'
 
 class StartNewGame extends React.PureComponent {
@@ -58,7 +58,7 @@ class StartNewGame extends React.PureComponent {
 }
 
 StartNewGame.propTypes = {
-	onRequestClose: PropTypes.func.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired
 }
 
