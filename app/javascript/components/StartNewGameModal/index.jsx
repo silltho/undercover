@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
-import Modal, { Content } from 'components/modal'
+import Modal, { Content } from 'components/Modal'
 
 class StartNewGame extends React.PureComponent {
   constructor(props) {
