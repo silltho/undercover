@@ -1,18 +1,12 @@
-<%= stylesheet_link_tag "application" %>
-
-<%= render 'header' %>
-
 <div class='town-container'>
   <%= link_to "PLAY", games_path, class: 'play-game-button' %><br>
 </div>
 
-<%# <% if current_user %>
-<%#    Hello <%= current_user.email %>
-<%#<% end %>
-<%#
-<%#<% unless current_user %>
-<%#    <%= link_to "Connect With Facebook", "/auth/facebook" %>
-<%#    <%= link_to "Connect With Google", "/auth/google_oauth2" %>
-<%#<% end %>
+<% if current_user %>
+    Hello <%= current_user.email %>
+<% end %>
 
-<%= render 'footer' %>
+<% unless current_user %>
+    <%= link_to "Connect With Facebook", "/auth/facebook" %>
+    <%= link_to "Connect With Google", "/auth/google_oauth2" %>
+<% end %>
