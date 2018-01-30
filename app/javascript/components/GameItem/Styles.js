@@ -6,6 +6,7 @@ import {
 } from 'styles/variables'
 
 export const Wrapper = styled.div`
+  margin-right: 5px;
   & + & {
     margin-top: 1rem;
   }
