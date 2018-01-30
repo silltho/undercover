@@ -1,7 +1,6 @@
 import React from 'react'
 import {
-  Wrapper,
-	MenuButton
+  Wrapper, MenuButton
 } from './Styles'
 
 class Nav extends React.PureComponent {
