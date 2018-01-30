@@ -57,7 +57,7 @@ class Modal extends React.PureComponent {
         style={style}
         {...this.props}
       >
-        <ModalWrapper width={width}>
+        <ModalWrapper>
           <Header>
             {title}
             <CloseIconWrapper>

@@ -1,13 +1,36 @@
 // Place all the styles related to the landingpages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import "globals";
 
-.town-header {
+.town-container {
   display: block;
+  position: relative;
+  background: url($g_logo_path) repeat-x;
+  background-size: cover;
+  height: 844px;
+  -webkit-animation: town-anim 55s linear infinite;
+}
 
-  .play-game-button {
-    color: $g_Teal;
+@-webkit-keyframes town-anim {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -4900px 0;
   }
 }
+
+.play-game-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  padding: 30px;
+  background-color: $g_DarkBlue;
+  border-radius: 30px;
+  border: 3px solid $g_Pink;
+  box-shadow: 15px 15px 113px 0px $g_DarkBlue;
+  color: $g_Pink !important;
+}
+

@@ -7,5 +7,10 @@ Rails.application.routes.draw do
 
   get '/app', to: 'application#app'
 
+  # Landing Page
+  get '/gameplay', to: 'landingpages#gameplay'
+  get '/characters', to: 'landingpages#characters'
+  get '/team', to: 'landingpages#team'
+
   root to: 'landingpages#index'
 end

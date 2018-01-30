@@ -4,6 +4,8 @@
 @import url('https://fonts.googleapis.com/css?family=Lancelot|Nunito:200,300,400,600|Spectral:200,300,400,500&subset=latin-ext');
 
 /* COLORS */
+$g_Black: #000000;
+$g_White: #FFFFFF;
 $g_Yellow: #FFFF37;
 $g_LightBlue: #E6FFF5;
 $g_Pink: #EE9297;
@@ -16,24 +18,49 @@ $g_lancelot: 'Lancelot', cursive; // logo only
 $g_spectral: 'Spectral', serif; // newspaper headliner, infophase
 $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
 
+/* ASSETS */
+$g_logo_path: asset-path('town.jpg');
+
 /* GENERAL */
 body, html {
   display: block;
   width: 100%;
   box-sizing: border-box;
+  font-family: $g_nunito;
 }
 
-img {
+* {
+  font-family: $g_nunito;
+}
+
+img, .img {
   width: 100%;
 }
 
+footer, .footer {
+  color: $g_Pink;
+}
+
+a, .a, a:visited{
+  color: $g_Pink;
+  text-decoration: none;
+}
+
 :export {
-  yellow: $g_Yellow;
-  light-blue: $g_LightBlue;
-  pink: $g_Pink;
-  teal: $g_Teal;
-  brown: $g_Brown;
-  dark-blue: $g_DarkBlue;
+  BLACK: $g_Black;
+  WHITE: $g_White;
+  YELLOW: $g_Yellow;
+  LIGHT_BLUE: $g_LightBlue;
+  PINK: $g_Pink;
+  TEAL: $g_Teal;
+  BROWN: $g_Brown;
+  DARK_BLUE: $g_DarkBlue;
+
+  LOGO_FONT: $g_lancelot;
+  NEWSPAPER_FONT: $g_spectral;
+  MAIN_FONT: $g_nunito;
+
+  LOGO_PATH: $g_logo_path;
 }
 
 .yellow {

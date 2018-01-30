@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import FontAwesome from 'react-fontawesome'
-import styles from '../../../assets/stylesheets/_globals.scss'
 import { darken } from 'polished'
 
 const secondaryButton = {
@@ -23,11 +22,10 @@ export const ModalWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  width: ${(props) => props.width || '55rem'};
 `
 
 export const Header = styled.div`
-  color: ${styles.yellow};
+  color: white;
   display: flex;
   flex: 1;
   background-color: grey;
