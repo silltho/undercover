@@ -1,18 +1,20 @@
 import React from 'react'
 import {
-  Wrapper, MenuButton
+  Wrapper,
+  Logo
 } from './Styles'
+import LogoImg from 'assets/images/palm_tree.png'
 
-class Nav extends React.PureComponent {
+class Header extends React.PureComponent {
   render() {
     return (
       <Wrapper>
         <span>Under</span>
-        <MenuButton>menu</MenuButton>
+        <Logo src={LogoImg} />
         <span>Cover</span>
       </Wrapper>
     )
   }
 }
 
-export default Nav
+export default Header

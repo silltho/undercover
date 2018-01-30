@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FontAwesome from 'react-fontawesome'
-import Modal, { Content } from 'components/Modal'
 
 class StartNewGame extends React.PureComponent {
   constructor(props) {
@@ -27,11 +25,10 @@ class StartNewGame extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <FontAwesome name="rocket" />
+      <Wrapper>
         <input name="create-game-input" onChange={this.onInputChange} />
         <button onClick={this.createGame}>start new game</button>
-      </div>
+      </Wrapper>
     )
   }
 }
