@@ -18,6 +18,9 @@ $g_lancelot: 'Lancelot', cursive; // logo only
 $g_spectral: 'Spectral', serif; // newspaper headliner, infophase
 $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
 
+/* ASSETS */
+$g_logo_path: asset-path('town.jpg');
+
 /* GENERAL */
 body, html {
   display: block;
@@ -52,6 +55,8 @@ a, a:visited{
   LOGO_FONT: $g_lancelot;
   NEWSPAPER_FONT: $g_spectral;
   MAIN_FONT: $g_nunito;
+
+  LOGO_PATH: $g_logo_path;
 }
 
 .yellow {

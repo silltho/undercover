@@ -6,7 +6,7 @@
 .town-container {
   display: block;
   position: relative;
-  background: url(asset-path('town.jpg')) repeat-x;
+  background: url($g_logo_path) repeat-x;
   background-size: cover;
   height: 844px;
   -webkit-animation: town-anim 55s linear infinite;
