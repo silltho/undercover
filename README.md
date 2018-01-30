@@ -5,41 +5,51 @@ Rails: 5.1.4
 
 database.yml_template umbenennen auf database.yml  
 bundle install  
-rails db:create (fix pg_db: postgres -D /usr/local/var/postgres)  
+rails db:create
 rails db:migrate  
 npm install  
 
-Icons:https://github.com/Angelmmiguel/material_icons 
+Icons:https://github.com/Angelmmiguel/material_icons  
 Materialize: http://materializecss.com/getting-started.html 
 
-## Starten
+**Install NPM packages**  
+Yarn: ``yarn add <packagename>``  
 
-### Option 1
+## Start
+
+**Option 1**  
 
 Foreman: ``bundle exec foreman start``
 
 (config => Procfile)
 
-### Option 2
+**Option 2**  
 
 Rails Server: ``bundle exec rails s``
 
 Webpack Dev Server: ``ruby ./bin/webpack-dev-server``
 
-## NPM Package installation
-
-Yarn: ``yarn add <packagename>``
-
 ## Linting
-### EsLint
+**EsLint**  
 ``yarn lint``
 (config => eslintrc.js)
 
 ## Testing
-### Jest
+**Jest**  
 ``yarn test``
 (config => package.json)
 
 ## Commit Hooks
 ### Overcommit
 todo
+
+## Ruby Stuff, Windows, Mac, Archive
+SSL_CERT_FILE (Rails)  
+https://gist.github.com/fnichol/867550  
+https://superdevresources.com/ssl-error-ruby-gems-windows/   
+
+RAILS ENV  
+https://gorails.com/setup/windows/10   
+
+PRISTINE (GEM)
+https://www.justinweiss.com/articles/3-quick-gem-tricks/  

@@ -3,34 +3,35 @@ import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import {
-  RaisedButton,
-  TextField,
-  Paper
-} from 'material-ui'
 import { UserChannel, GameChannel, DashboardChannel } from 'services/channels'
 import GameList from 'components/OpenGamesList'
+import StartNewGameModal from 'components/StartNewGameModal'
 
-class Home extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      createGameTitle: ''
+class Dashboard extends React.PureComponent {
+	constructor(props) {
+		super(props)
+		this.state = {
+			StartGameModalOpen: false
+		}
+	}
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentGameId && nextProps.currentGameId !== -1) {
+	    this.joinGame(nextProps.currentGameId)
     }
   }
 
-  onCreateGameInputChange = (e, value) => {
-    this.setState({
-	    createGameTitle: value
-    })
-  }
+	openStartGameModal = () => {
+		this.setState({
+			StartGameModalOpen: true
+		})
+	}
 
-  createGame = () => {
-    this.props.createGame(this.state.createGameTitle)
-	  this.setState({
-		  createGameTitle: ''
-	  })
-  }
+	closeStartGameModal = () => {
+		this.setState({
+			StartGameModalOpen: false
+		})
+	}
 
   joinGame = (id) => {
     this.props.history.push('/lobby')
@@ -40,31 +41,38 @@ class Home extends React.PureComponent {
   render() {
     return (
       <div>
-        <Paper zDepth={1}>
-          <TextField name="create-game-input" onChange={this.onCreateGameInputChange} />
-          <RaisedButton label="create new game" primary onClick={this.createGame} />
-        </Paper>
-        <Paper zDepth={1}>
+        <div>
           <GameList
             openGames={this.props.games}
             onGetOpenGames={this.props.getOpenGames}
             joinGame={this.joinGame}
           />
-        </Paper>
-        <Paper zDepth={1}>
+        </div>
+	      <button onClick={this.openStartGameModal}>start new Game</button>
+        <div>
           <Link to="/game">show Game</Link>
-        </Paper>
+        </div>
+	      <StartNewGameModal
+		      isOpen={this.state.StartGameModalOpen}
+		      closeModal={this.closeStartGameModal}
+		      createGame={this.props.createGame}
+	      />
       </div>
     )
   }
 }
 
-Home.propTypes = {
+Dashboard.defaultProps = {
+  currentGameId: null
+}
+
+Dashboard.propTypes = {
   history: PropTypes.object.isRequired,
   games: PropTypes.instanceOf(List).isRequired,
   getOpenGames: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired,
-  joinGame: PropTypes.func.isRequired
+  joinGame: PropTypes.func.isRequired,
+  currentGameId: PropTypes.number
 }
 
 export const mapDispatchToProps = () => ({
@@ -75,10 +83,10 @@ export const mapDispatchToProps = () => ({
 
 const mapStateToProps = (state) => ({
   games: state.get('games', fromJS([])),
-  currentGameId: state.getIn(['Home', 'joinedGameId'], null)
+  currentGameId: state.getIn(['App', 'currentGameId'], -1)
 })
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home))
+)(Dashboard))
