@@ -33,15 +33,15 @@ body, html {
   font-family: $g_nunito;
 }
 
-img {
+img, .img {
   width: 100%;
 }
 
-.footer {
+footer, .footer {
   color: $g_Pink;
 }
 
-a, a:visited{
+a, .a, a:visited{
   color: $g_Pink;
   text-decoration: none;
 }
