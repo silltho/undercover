@@ -36,12 +36,11 @@ class Game < ApplicationRecord
 
   def initialize_players
     data = []
-    puts self.attributes
     self.users.each do |player|
       player.get_codename
       player.get_character
-      data << GamesUsers.where(user: player).to_a
     end
+    data << self.users.to_a
     GamesChannel.broadcast_to(self, type: 'initialized_game', data: data)
     self.start
   end
