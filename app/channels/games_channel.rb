@@ -27,6 +27,11 @@ class GamesChannel < ApplicationCable::Channel
     game.destroy
   end
 
+  def initialize_game
+    game = find_game
+    game.initialize!
+  end
+
   private
   def find_game
     puts params[:id]
