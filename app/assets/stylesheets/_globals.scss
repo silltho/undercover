@@ -31,6 +31,11 @@ img {
   width: 100%;
 }
 
+a, a:visited{
+  color: $g_Pink;
+  text-decoration: none;
+}
+
 :export {
   yellow: $g_Yellow;
   light-blue: $g_LightBlue;

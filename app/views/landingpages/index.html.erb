@@ -1,9 +1,10 @@
 <%= stylesheet_link_tag "application" %>
 
-<h1 class="yellow"> Welcome to undercover!</h1>
+<%= render 'header' %>
 
-<div>
-  <%= image_tag "town.jpg" %>
+<div class='town-container'}>
+  <div></div>
+  <%= link_to "PLAY", games_path, class: 'play-game-button' %><br>
 </div>
 
 
@@ -11,7 +12,6 @@
     <h3> Really cool statistics on our landing page</h3>
     Hello <%= current_user.email %><br>
 
-    <%= link_to "Play a game", games_path %><br>
 <% end %>
 
 <% unless current_user %>

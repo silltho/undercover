@@ -1,0 +1,40 @@
+@import "globals";
+
+.navigation-header {
+  background-color: $g_DarkBlue;
+
+  .navigation-header-container {
+    height: 80px;
+
+    ul {
+      height: inherit;
+      list-style-type: none;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .navigation-header-item {
+      display: inline-block;
+    }
+
+    .active {
+
+    }
+
+  }
+
+  .navigation-header-icon {
+    border-radius: 100%;
+    border: 2px solid $g_Pink;
+    padding: 10px;
+    top: 8px;
+    position: absolute;
+    height: 80px;
+    width: auto;
+    background-color: $g_DarkBlue;
+    z-index: 9999;
+
+  }
+
+}
