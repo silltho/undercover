@@ -7,11 +7,13 @@ export const Wrapper = styled.div`
   align-items: center;
   min-height: 3rem;
   font-family: ${LOGO_FONT};
-  font-size: 3rem;
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 `
 
 export const Logo = styled.img`
   margin: 0rem 1rem;
-  max-height: 100px;
+  max-height: 3rem;
 `
 
