@@ -2,11 +2,10 @@ import React from 'react'
 import { fromJS, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { UserChannel, GameChannel, DashboardChannel } from 'services/channels'
 import GameList from 'components/OpenGamesList'
 import StartNewGame from 'components/StartNewGame'
-import Footer from 'components/Footer'
 import { Wrapper } from './Styles'
 
 class Dashboard extends React.PureComponent {
