@@ -32,6 +32,11 @@ class GamesChannel < ApplicationCable::Channel
     game.initialize!
   end
 
+  def reset_game
+    game = find_game
+    game.reset!
+  end
+
   private
   def find_game
     puts params[:id]
