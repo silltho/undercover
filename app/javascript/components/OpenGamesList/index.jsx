@@ -1,28 +1,35 @@
 import React from 'react'
 import { List } from 'immutable'
 import PropTypes from 'prop-types'
+import GameItem from 'components/GameItem'
+import Button from 'components/Button'
+import Footer from 'components/Footer'
+import {
+  Wrapper,
+  GameList
+} from './Styles'
 
 class OpenGamesList extends React.PureComponent {
-  refreshOpenGames = () => {
-    this.props.onGetOpenGames()
-  }
-
   renderGame = (game) => (
-    <li
+    <GameItem
       key={`game_${game.get('id')}`}
-      onClick={() => this.props.joinGame(game.get('id'))}
-    >
-      {game.get('title')}
-    </li>
+      joinGame={this.props.joinGame}
+      game={game}
+    />
   )
 
   render() {
     const openGames = this.props.openGames.map((game) => this.renderGame(game))
 
     return (
-      <div>
-        {openGames.size > 0 ? openGames : '<ListItem primaryText="keine Games gefunden :(" />'}
-      </div>
+      <Wrapper>
+        <GameList>
+          {openGames.size > 0 ? openGames : (<div>keine Games gefunden :(</div>)}
+        </GameList>
+        <Footer>
+          <Button onClick={this.props.openStartNewGame} text="Start new Game" />
+        </Footer>
+      </Wrapper>
     )
   }
 }
@@ -34,7 +41,8 @@ OpenGamesList.defaultProps = {
 OpenGamesList.propTypes = {
   openGames: PropTypes.instanceOf(List),
   onGetOpenGames: PropTypes.func.isRequired,
-  joinGame: PropTypes.func.isRequired
+  joinGame: PropTypes.func.isRequired,
+	openStartNewGame: PropTypes.func.isRequired
 }
 
 export default OpenGamesList

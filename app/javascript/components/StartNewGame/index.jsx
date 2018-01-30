@@ -22,33 +22,22 @@ class StartNewGame extends React.PureComponent {
     this.setState({
       title: ''
     })
+    this.props.onRequestClose()
   }
 
   render() {
-    const {
-      isOpen,
-      closeModal
-    } = this.props
     return (
-      <Modal
-        onRequestClose={closeModal}
-        isOpen={isOpen}
-        title="Start new Game"
-        width={'55em'}
-      >
-        <Content>
-          <FontAwesome name="rocket" />
-          <input name="create-game-input" onChange={this.onInputChange} />
-          <button onClick={this.createGame}>start new game</button>
-        </Content>
-      </Modal>
+      <div>
+        <FontAwesome name="rocket" />
+        <input name="create-game-input" onChange={this.onInputChange} />
+        <button onClick={this.createGame}>start new game</button>
+      </div>
     )
   }
 }
 
 StartNewGame.propTypes = {
-	isOpen: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired,
+	onRequestClose: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired
 }
 
