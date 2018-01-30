@@ -5,18 +5,19 @@ import Dashboard from 'containers/Dashboard'
 import Lobby from 'containers/Lobby'
 import Header from 'components/Header'
 import Game from 'components/Game'
+import { AppContainer } from './Styles'
 
 class App extends React.PureComponent {
   render() {
     return (
-        <div>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route path="/lobby" component={Lobby} />
-            <Route path="/game" component={Game} />
-          </Switch>
-        </div>
+      <AppContainer>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/lobby" component={Lobby} />
+          <Route path="/game" component={Game} />
+        </Switch>
+      </AppContainer>
     )
   }
 }
