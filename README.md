@@ -43,10 +43,13 @@ Webpack Dev Server: ``ruby ./bin/webpack-dev-server``
 ### Overcommit
 todo
 
-## Windows (RubyOnRails-Fixes) 
+## Ruby Stuff, Windows, Mac, Archive
 SSL_CERT_FILE (Rails)  
 https://gist.github.com/fnichol/867550  
 https://superdevresources.com/ssl-error-ruby-gems-windows/   
 
 RAILS ENV  
 https://gorails.com/setup/windows/10   
+
+PRISTINE (GEM)
+https://www.justinweiss.com/articles/3-quick-gem-tricks/  
