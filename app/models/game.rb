@@ -11,7 +11,7 @@ class Game < ApplicationRecord
     state :initialized, :running, :done
     after_all_transitions :log_status_change
 
-    event :initialize do
+    event :initializing do
       transitions :from => :waiting, :to => :initialized, :after => :initialize_players
     end
 

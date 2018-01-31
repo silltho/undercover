@@ -29,7 +29,7 @@ class GamesChannel < ApplicationCable::Channel
 
   def initialize_game
     game = find_game
-    game.initialize!
+    game.initializing!
   end
 
   def reset_game
