@@ -24,6 +24,7 @@ export const TitleLine = styled.div`
   height: 0;
   width: 3.5rem;
   position: relative;
+  flex: 1;
   
   &:after {
     content: ' ';
@@ -40,6 +41,7 @@ export const TitleText = styled.div`
   text-align: center;
   font-family: ${LOGO_FONT};
   font-size: 2rem;
+  margin: 0 1rem;
 `
 
 export const NewGameForm = styled.div`
