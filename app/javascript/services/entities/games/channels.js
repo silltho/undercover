@@ -6,7 +6,7 @@ let dispatch
 let channel
 let gameId
 
-function joinGame(id) {
+function joinGameChannel(id) {
   if (gameId !== id) {
     if (channel) channel.unsubscribe()
     gameId = id
@@ -30,6 +30,6 @@ function init(store) {
 
 export default {
   init,
-  joinGame,
+	joinGameChannel,
   leaveGame
 }

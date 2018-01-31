@@ -15,10 +15,11 @@ class GameItem extends React.PureComponent {
     this.props.joinGame(this.props.game.get('id'))
   }
 
-  renderPlayerSlots = (players) => {
-    const slots = players.map(() => (<PlayerSlot full />))
-    while (slots.length < 8) {
-      slots.push(<PlayerSlot />)
+  renderPlayerSlots = (players = []) => {
+    const slots = []
+    for (let i = 0; i < 8; i += 1) {
+	    const key = `game_${this.props.game.get('id')}_slot_${i}`
+	    slots.push(<PlayerSlot key={key} full={players.get(i)} />)
     }
     return slots
   }
@@ -27,7 +28,6 @@ class GameItem extends React.PureComponent {
     const {
       game
     } = this.props
-    console.log(game.toJS())
 
     return (
       <Wrapper onClick={this.joinGame}>
@@ -36,7 +36,7 @@ class GameItem extends React.PureComponent {
         </GameTitle>
         <GameInfo>
           <PlayerSlotWrapper>
-            {this.renderPlayerSlots(game.get('players'))}
+            {this.renderPlayerSlots(game.get('users'))}
           </PlayerSlotWrapper>
           <GameStatus>
             private
