@@ -5,21 +5,24 @@ import {
   Wrapper,
   GameTitle,
   GameStatus,
-	GameInfo,
+  GameInfo,
   PlayerSlot,
   PlayerSlotWrapper
 } from './Styles'
 
 class GameItem extends React.PureComponent {
   joinGame = () => {
-    this.props.joinGame(this.props.game.get('id'))
+    if (this.props.game.get('full')) alert('Das Game ist bereits voll!')
+    else {
+	    this.props.joinGame(this.props.game.get('id'))
+    }
   }
 
   renderPlayerSlots = (players = []) => {
     const slots = []
-    for (let i = 0; i < 8; i += 1) {
-	    const key = `game_${this.props.game.get('id')}_slot_${i}`
-	    slots.push(<PlayerSlot key={key} full={players.get(i)} />)
+    for (let i = 0; i < 17; i += 1) {
+      const key = `game_${this.props.game.get('id')}_slot_${i}`
+      slots.push(<PlayerSlot key={key} full={players.get(i)} />)
     }
     return slots
   }
@@ -31,7 +34,7 @@ class GameItem extends React.PureComponent {
 
     return (
       <Wrapper onClick={this.joinGame}>
-        <GameTitle>
+        <GameTitle closed={game.get('full')}>
           {game.get('title')}
         </GameTitle>
         <GameInfo>
@@ -39,7 +42,7 @@ class GameItem extends React.PureComponent {
             {this.renderPlayerSlots(game.get('users'))}
           </PlayerSlotWrapper>
           <GameStatus>
-            private
+            {game.get('full') ? 'closed' : 'open'}
           </GameStatus>
         </GameInfo>
       </Wrapper>
@@ -48,7 +51,7 @@ class GameItem extends React.PureComponent {
 }
 
 GameItem.propTypes = {
-  game: PropTypes.instanceOf(Map),
+  game: PropTypes.instanceOf(Map).isRequired,
   joinGame: PropTypes.func.isRequired
 }
 

@@ -2,13 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import Title from 'components/Title'
 import {
   Wrapper,
-  Title,
   NewGameForm,
-  GameTitleInput,
-  TitleLine,
-  TitleText
+  GameTitleInput
 } from './Styles'
 
 class StartNewGame extends React.PureComponent {
@@ -40,13 +38,7 @@ class StartNewGame extends React.PureComponent {
   render() {
     return (
       <Wrapper>
-        <Title>
-          <TitleLine />
-          <TitleText>
-            New<br />Game
-          </TitleText>
-          <TitleLine right />
-        </Title>
+        <Title title={(<div>New<br />Game</div>)} />
         <NewGameForm>
           <label htmlFor="create-game-title">Game Title:</label>
           <GameTitleInput id="create-game-title" onChange={this.onInputChange} onKeyDown={this.onInputKeyDown}/>
@@ -54,6 +46,7 @@ class StartNewGame extends React.PureComponent {
           <input id="create-game-private" type="checkbox" />
         </NewGameForm>
         <Footer>
+          <Button onClick={this.props.onRequestClose} text="back" />
           <Button onClick={this.createGame} text="start new game" />
         </Footer>
       </Wrapper>
