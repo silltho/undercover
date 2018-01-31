@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   min-height: 3rem;
   font-family: ${LOGO_FONT};
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
 `
