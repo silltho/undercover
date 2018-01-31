@@ -35,7 +35,7 @@ class Lobby extends React.PureComponent {
       <Wrapper>
         <Title title={currentGame && currentGame.get('title')} />
         <PlayerCount>
-          {currentGame && currentGame.get('users').size} Player
+          {currentGame && currentGame.get('players').size} Player
         </PlayerCount>
         <Footer>
           <Button onClick={this.leaveGame} text="exit" />

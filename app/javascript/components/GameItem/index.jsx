@@ -39,7 +39,7 @@ class GameItem extends React.PureComponent {
         </GameTitle>
         <GameInfo>
           <PlayerSlotWrapper>
-            {this.renderPlayerSlots(game.get('users'))}
+            {this.renderPlayerSlots(game.get('players'))}
           </PlayerSlotWrapper>
           <GameStatus>
             {game.get('full') ? 'closed' : 'open'}

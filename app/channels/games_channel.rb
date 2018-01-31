@@ -11,6 +11,7 @@ class GamesChannel < ApplicationCable::Channel
     data["players"] = game.users.to_a
     GamesChannel.broadcast_to(find_game, type: 'join_game', data: data)
   end
+=end
 
   def unsubscribed
     GamesUsers.where(game_id: params[:id]).where(user_id: current_user.id).destroy_all
@@ -18,7 +19,7 @@ class GamesChannel < ApplicationCable::Channel
       destroy_game
     end
   end
-=end
+
 
   def destroy_game
     game = find_game

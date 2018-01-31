@@ -2,10 +2,10 @@ class Game < ApplicationRecord
   include AASM
   require 'faker'
   belongs_to :user
-  has_many :games_users, class_name: 'GamesUsers', dependent: :destroy
-  has_many :users, through: :games_users
-  accepts_nested_attributes_for :games_users
-  attribute :users
+  has_many :players, class_name: 'GamesUsers', dependent: :destroy
+  has_many :users, through: :players
+  accepts_nested_attributes_for :players
+  attribute :players
   attribute :full
 
   def full
