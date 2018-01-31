@@ -12,15 +12,15 @@ class DashboardChannel < ApplicationCable::Channel
   end
 
   def join_game(params)
-    game = Game.find(params[:id])
+    game = Game.find(params['id'])
     #validierung (max 8 player, keine doppelten einträge)
-    game.users << current_user
+    #game.users << current_user
     ActionCable.server.broadcast('dashboard', type: 'player_joined_game', data: game)
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.id)
   end
 
   def leave_game
-    GamesUsers.where(game_id: params[:id]).where(user_id: current_user.id).destroy_all
+    GamesUsers.where(game_id: params['id']).where(user_id: current_user.id).destroy_all
     ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
     #Game löschen falls keine player darin sind
   end
