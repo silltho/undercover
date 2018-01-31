@@ -18,7 +18,7 @@ function joinGameChannel(id) {
   }
 }
 
-function leaveGame() {
+function unsubscribe() {
   gameId = null
   channel.unsubscribe()
 }
@@ -31,5 +31,5 @@ function init(store) {
 export default {
   init,
 	joinGameChannel,
-  leaveGame
+	unsubscribe
 }
