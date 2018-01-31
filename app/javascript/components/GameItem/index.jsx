@@ -12,7 +12,10 @@ import {
 
 class GameItem extends React.PureComponent {
   joinGame = () => {
-    this.props.joinGame(this.props.game.get('id'))
+    if (this.props.game.get('full')) alert('Das Game ist bereits voll!')
+    else {
+	    this.props.joinGame(this.props.game.get('id'))
+    }
   }
 
   renderPlayerSlots = (players = []) => {
@@ -48,7 +51,7 @@ class GameItem extends React.PureComponent {
 }
 
 GameItem.propTypes = {
-  game: PropTypes.instanceOf(Map),
+  game: PropTypes.instanceOf(Map).isRequired,
   joinGame: PropTypes.func.isRequired
 }
 

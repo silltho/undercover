@@ -26,7 +26,6 @@ function joinGame(gameId) {
 }
 
 function leaveGame(gameId) {
-	console.log('leave', gameId)
 	channel.perform(LEAVE_GAME_REQUEST, { id: gameId })
 }
 
