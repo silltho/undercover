@@ -11,5 +11,11 @@ export const ButtonWrapper = styled.button`
   border: 3px solid ${PINK};
   padding: 0.5rem 1rem;
   text-transform: uppercase;
+  flex: 1;
+  margin-left: 1rem;
+  
+  &:first-child {
+   margin: 0;
+  }
 `
 

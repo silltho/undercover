@@ -8,6 +8,13 @@ import {
 	GameChannel
 } from 'services/channels'
 import { leaveGame } from 'services/actions'
+import Button from 'components/Button'
+import Footer from 'components/Footer'
+import Title from 'components/Title'
+import {
+  Wrapper,
+	PlayerCount
+} from './Styles'
 
 function getGame(state) {
   const gameId = state.getIn(['App', 'currentGameId'])
@@ -21,30 +28,23 @@ class Lobby extends React.PureComponent {
 	  this.props.history.push('/')
   }
 
-  renderPlayer = (player) => (
-    <li key={`player_${player.get('id')}`}>
-      {player.get('email')}
-    </li>
-  )
-
   render() {
     const { currentGame } = this.props
-    console.log('current', currentGame.toJS())
-    const players = currentGame.get('users', List()).map(this.renderPlayer)
-    console.log(currentGame.toJS())
 
     return (
-      <div>
-        <span>Players:</span>
-        <ul>
-          {players}
-        </ul>
-        <button onClick={this.leaveGame}>leave Game</button>
-      </div>
+      <Wrapper>
+        <Title title={currentGame && currentGame.get('title')} />
+        <PlayerCount>
+          {currentGame && currentGame.get('users').size} Player
+        </PlayerCount>
+        <Footer>
+          <Button onClick={this.leaveGame} text="exit" />
+          <Button onClick={() => alert('lets start this shit!')} text="start" />
+        </Footer>
+      </Wrapper>
     )
   }
 }
-
 
 Lobby.propTypes = {
   history: PropTypes.object.isRequired,

@@ -6,10 +6,9 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 `
 
-export const GameList = styled.div`
-	display: flex;
-	flex-direction: column;
+export const PlayerCount = styled.div`
 	flex: 1;
-	overflow-y: auto;
-	overflow-x: hidden;
+	align-items: center;
+  display: flex;
+  justify-content: center;
 `
