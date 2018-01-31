@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { UserChannel, GameChannel, DashboardChannel } from 'services/channels'
-import GameList from 'components/OpenGamesList'
+import GameList from 'components/GamesList'
 import StartNewGame from 'components/StartNewGame'
 import { Wrapper } from './Styles'
 

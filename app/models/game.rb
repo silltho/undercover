@@ -6,6 +6,11 @@ class Game < ApplicationRecord
   has_many :users, through: :games_users
   accepts_nested_attributes_for :games_users
   attribute :users
+  attribute :full
+
+  def full
+    self.users.size >= 1
+  end
 
 =begin
     aasm :whiny_transitions => false do

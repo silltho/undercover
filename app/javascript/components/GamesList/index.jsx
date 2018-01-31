@@ -9,7 +9,7 @@ import {
   GameList
 } from './Styles'
 
-class OpenGamesList extends React.PureComponent {
+class GamesList extends React.PureComponent {
   renderGame = (game) => (
     <GameItem
       key={`game_${game.get('id')}`}
@@ -34,15 +34,15 @@ class OpenGamesList extends React.PureComponent {
   }
 }
 
-OpenGamesList.defaultProps = {
+GamesList.defaultProps = {
   openGames: List()
 }
 
-OpenGamesList.propTypes = {
+GamesList.propTypes = {
   openGames: PropTypes.instanceOf(List),
   onGetOpenGames: PropTypes.func.isRequired,
   joinGame: PropTypes.func.isRequired,
 	openStartNewGame: PropTypes.func.isRequired
 }
 
-export default OpenGamesList
+export default GamesList
