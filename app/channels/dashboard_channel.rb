@@ -14,7 +14,7 @@ class DashboardChannel < ApplicationCable::Channel
   def join_game(params)
     game = Game.find(params['id'])
     #validierung (max 8 player, keine doppelten einträge)
-    game.users << current_user
+    #game.users << current_user
     ActionCable.server.broadcast('dashboard', type: 'player_joined_game', data: game)
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.id)
   end
