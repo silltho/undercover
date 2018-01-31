@@ -1,7 +1,3 @@
-/*export const GAME_CREATED = 'game_created'
-export const GAME_DESTROYED = 'game_destroyed'
-export const CREATE_GAME = 'create_game'*/
-
 export const CREATE_GAME_REQUEST = 'create_game'
 export const CREATE_GAME_SUCCESS = 'create_game_success'
 export const CREATE_GAME_ERROR = 'create_game_error'
@@ -15,3 +11,4 @@ export const PLAYER_JOINED_GAME = 'player_joined_game'
 export const LEAVE_GAME_REQUEST = 'leave_game'
 export const LEAVE_GAME_SUCCESS = 'leave_game_success'
 export const LEAVE_GAME_ERROR = 'leave_game_error'
+export const PLAYER_LEFT_GAME = 'player_left_game'

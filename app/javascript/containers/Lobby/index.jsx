@@ -3,7 +3,10 @@ import { Map, List } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { DashboardChannel } from 'services/channels'
+import {
+  DashboardChannel,
+	GameChannel
+} from 'services/channels'
 import { leaveGame } from 'services/actions'
 
 function getGame(state) {
@@ -14,7 +17,7 @@ function getGame(state) {
 
 class Lobby extends React.PureComponent {
   leaveGame = () => {
-	  this.props.leaveGame()
+	  this.props.leaveGame(this.props.currentGame.get('id'))
 	  this.props.history.push('/')
   }
 
@@ -50,8 +53,9 @@ Lobby.propTypes = {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  leaveGame: () => {
-    DashboardChannel.leaveGame()
+  leaveGame: (gameId) => {
+    DashboardChannel.leaveGame(gameId)
+    GameChannel.unsubscribe()
     dispatch(leaveGame())
   }
 })

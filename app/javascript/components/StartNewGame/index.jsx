@@ -25,6 +25,10 @@ class StartNewGame extends React.PureComponent {
     })
   }
 
+  onInputKeyDown = (e) => {
+    if (e.key === 'Enter') this.createGame()
+  }
+
   createGame = () => {
     this.props.createGame(this.state.title)
     this.setState({
@@ -45,7 +49,7 @@ class StartNewGame extends React.PureComponent {
         </Title>
         <NewGameForm>
           <label htmlFor="create-game-title">Game Title:</label>
-          <GameTitleInput id="create-game-title" onChange={this.onInputChange} />
+          <GameTitleInput id="create-game-title" onChange={this.onInputChange} onKeyDown={this.onInputKeyDown}/>
           <label htmlFor="create-game-private">Private:</label>
           <input id="create-game-private" type="checkbox" />
         </NewGameForm>

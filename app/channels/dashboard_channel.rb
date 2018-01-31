@@ -19,8 +19,9 @@ class DashboardChannel < ApplicationCable::Channel
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.id)
   end
 
-  def leave_game
+  def leave_game(params)
     GamesUsers.where(game_id: params['id']).where(user_id: current_user.id).destroy_all
+    game = Game.find(params['id'])
     ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
     #Game löschen falls keine player darin sind
   end

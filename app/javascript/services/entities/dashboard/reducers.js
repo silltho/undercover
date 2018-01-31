@@ -3,7 +3,8 @@ import {
 	PLAYER_CREATED_GAME,
 	PLAYER_JOINED_GAME,
 	GAME_DESTROYED,
-	CREATE_GAME
+	CREATE_GAME,
+	PLAYER_LEFT_GAME
 } from './constants'
 
 const initialState = fromJS({})
@@ -18,6 +19,10 @@ function dashboardReducer(state = initialState, action) {
       const game = fromJS(action.data)
       return state.updateIn(['games'], (games) => games.push(game))
 	  case PLAYER_JOINED_GAME: {
+		  const gameIndex = getGameIndex(state.get('games'), action.data.id)
+		  return state.setIn(['games', gameIndex], fromJS(action.data))
+	  }
+	  case PLAYER_LEFT_GAME: {
 		  const gameIndex = getGameIndex(state.get('games'), action.data.id)
 		  return state.setIn(['games', gameIndex], fromJS(action.data))
 	  }
