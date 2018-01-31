@@ -1,16 +1,15 @@
 class Game < ApplicationRecord
-  #include AASM
-  #require 'faker'
+  include AASM
+  require 'faker'
   belongs_to :user
   has_many :games_users, class_name: 'GamesUsers', dependent: :destroy
   has_many :users, through: :games_users
   accepts_nested_attributes_for :games_users
   attribute :users
 
-=begin
     aasm :whiny_transitions => false do
     state :waiting, :initial => true
-    state :initialized, :running, :done
+    state :initialized, :informed, :exchanged, :skills_used, :finished
     after_all_transitions :log_status_change
 
     event :initializing do
@@ -18,16 +17,31 @@ class Game < ApplicationRecord
     end
 
     event :start do
-      transitions :from => :initialized, :to => :running
+      transitions :from => :initialized, :to => :informed
+    end
+
+    event :exchanging do
+      transitions :from => :informed, :to => :exchanged
+    end
+
+    event :use_skills do
+      transitions :from => :exchanged, :to => :skills_used, :after => :update_round
+    end
+
+    event :informing do
+      transitions :from => :skills_used, :to => :informed
     end
 
     event :finish do
-      transitions :from => :running, :to => :done
+      transitions :from => :informed, :to => :finished
     end
 
     event :reset do
       transitions :from => :initialized, :to => :waiting
-      transitions :from => :running, :to => :waiting
+      transitions :from => :informed, :to => :waiting
+      transitions :from => :exchanged, :to => :waiting
+      transitions :from => :skills_used, :to => :waiting
+      transitions :from => :finished, :to => :waiting
     end
 
   end
@@ -37,16 +51,27 @@ class Game < ApplicationRecord
   end
 
   def initialize_players
-    data = []
-    self.users.each do |player|
-      player.get_codename
-      player.get_character
+    data = Hash.new
+    data['round'] = self.round
+    players = Array.new
+    self.users.each do |user|
+      user.get_init_data
+      players << GamesUsers.where(game: self, user: user).first
     end
-    data << self.users.to_a
+    data['players'] = players
     GamesChannel.broadcast_to(self, type: 'initialized_game', data: data)
     self.start
   end
 
+  def update_round
+    self.round = 0 if self.round.blank?
+    self.round += 1
+    self.save
+    data = self.round
+    GamesChannel.broadcast_to(self, type: 'update_round', data: data)
+  end
+
+=begin
   def update_ui
   end
 
@@ -79,6 +104,7 @@ class Game < ApplicationRecord
   private
 
   def process_activities
-    end
+  end
 =end
+
 end
