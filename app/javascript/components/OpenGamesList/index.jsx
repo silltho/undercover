@@ -27,7 +27,7 @@ class OpenGamesList extends React.PureComponent {
           {openGames.size > 0 ? openGames : (<div>keine Games gefunden :(</div>)}
         </GameList>
         <Footer>
-          <Button onClick={this.props.openStartNewGame} text="Start new Game" />
+          <Button onClick={this.props.openStartNewGame} text="create new game" />
         </Footer>
       </Wrapper>
     )

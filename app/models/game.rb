@@ -1,12 +1,14 @@
 class Game < ApplicationRecord
-  include AASM
-  require 'faker'
+  #include AASM
+  #require 'faker'
   belongs_to :user
   has_many :games_users, class_name: 'GamesUsers', dependent: :destroy
   has_many :users, through: :games_users
   accepts_nested_attributes_for :games_users
+  attribute :users
 
-  aasm :whiny_transitions => false do
+=begin
+    aasm :whiny_transitions => false do
     state :waiting, :initial => true
     state :initialized, :running, :done
     after_all_transitions :log_status_change
@@ -77,5 +79,6 @@ class Game < ApplicationRecord
   private
 
   def process_activities
-  end
+    end
+=end
 end

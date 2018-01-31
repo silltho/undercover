@@ -1,6 +1,8 @@
 import { createChannel } from 'services/cable'
 import {
-  CREATE_GAME
+	CREATE_GAME_REQUEST,
+  LEAVE_GAME_REQUEST,
+  JOIN_GAME_REQUEST
 } from './constants'
 
 let dispatch
@@ -16,10 +18,20 @@ function init(store) {
 }
 
 function createGame(title) {
-  channel.perform(CREATE_GAME, { title })
+	channel.perform(CREATE_GAME_REQUEST, { title })
+}
+
+function joinGame(gameId) {
+	channel.perform(JOIN_GAME_REQUEST, { id: gameId })
+}
+
+function leaveGame(gameId) {
+	channel.perform(LEAVE_GAME_REQUEST, { id: gameId })
 }
 
 export default {
   init,
-  createGame
+  createGame,
+  joinGame,
+  leaveGame
 }

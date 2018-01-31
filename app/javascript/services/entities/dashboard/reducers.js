@@ -1,8 +1,9 @@
 import { fromJS } from 'immutable'
 import {
-  GAME_CREATED,
-  GAME_DESTROYED,
-  CREATE_GAME
+	PLAYER_CREATED_GAME,
+	PLAYER_JOINED_GAME,
+	GAME_DESTROYED,
+	CREATE_GAME
 } from './constants'
 
 const initialState = fromJS({})
@@ -13,20 +14,18 @@ function getGameIndex(games, gameId) {
 
 function dashboardReducer(state = initialState, action) {
   switch (action.type) {
-    case GAME_CREATED:
+    case PLAYER_CREATED_GAME:
       const game = fromJS(action.data)
-      console.log('game created:', action.data)
       return state.updateIn(['games'], (games) => games.push(game))
+	  case PLAYER_JOINED_GAME: {
+		  const gameIndex = getGameIndex(state.get('games'), action.data.id)
+		  return state.setIn(['games', gameIndex], fromJS(action.data))
+	  }
     case GAME_DESTROYED: {
         console.log('game_destroyed:', action.data)
         const gameIndex = getGameIndex(state.get('games'), action.data)
         return state.updateIn(['games'], (games) => games.delete(gameIndex))
     }
-	  case CREATE_GAME: {
-		  const game = fromJS(action.data)
-		  console.log('new Game:', game.toJS())
-		  return state.updateIn(['games'], (games) => games.push(game))
-	  }
     default:
       return state
   }

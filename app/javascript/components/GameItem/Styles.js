@@ -6,6 +6,7 @@ import {
 } from 'styles/variables'
 
 export const Wrapper = styled.div`
+  margin-right: 5px;
   & + & {
     margin-top: 1rem;
   }
@@ -42,4 +43,34 @@ export const GameTitle = styled.div`
     top: 0;
     right: -3px;
   }
+`
+
+export const GameStatus = styled.div`
+  color: ${PINK};
+`
+
+export const GameInfo = styled.div`
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 800;
+`
+
+export const PlayerSlot = styled.div`
+  border-radius: 50%;
+  border: 2px solid ${PINK};
+  background-color: ${(props) => props.full ? PINK : 'transparent'};
+  margin-left: 0.5rem;
+  height: 0.7rem;
+  width: 0.7rem;
+  
+  &:first-child {
+    margin-left: 0;
+  }
+`
+
+export const PlayerSlotWrapper = styled.div`
+  display: flex;
 `

@@ -76,7 +76,10 @@ Dashboard.propTypes = {
 export const mapDispatchToProps = () => ({
   getOpenGames: UserChannel.getOpenGames,
   createGame: DashboardChannel.createGame,
-  joinGame: GameChannel.joinGame
+  joinGame: (gameId) => {
+    DashboardChannel.joinGame(gameId)
+    GameChannel.joinGameChannel(gameId)
+  }
 })
 
 const mapStateToProps = (state) => ({

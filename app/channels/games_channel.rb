@@ -1,11 +1,9 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
     stream_for find_game
-    puts 'test'
-    puts params
-    join_game
   end
 
+=begin
   def join_game
     game = find_game
     game.users << current_user
@@ -20,6 +18,7 @@ class GamesChannel < ApplicationCable::Channel
       destroy_game
     end
   end
+=end
 
   def destroy_game
     game = find_game
