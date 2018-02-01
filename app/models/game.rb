@@ -61,8 +61,12 @@ class Game < ApplicationRecord
     self.users.each do |user|
       user.get_init_data
     end
-    data['players'] = self.players
-    GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
+    data['all_players'] = self.players
+    self.users.each do |user|
+      data['current_player'] = user.player
+      UserChannel.broadcast_to(current_user, type: 'player_initialized_game', data: data)
+    end
+    #GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
     self.start
   end
 

@@ -1,10 +1,11 @@
 <div class='town-container'>
   <div class='play-game-button-container'}>
-    <% if current_user %>
-        Hello <%= current_user.email %> <br>
+    <% if @current_user.blank? %>
+        <%= link_to "Play", login_form_path, :remote => true %>
+    <% else %>
+        <%= render 'user_greeting' if @current_user%>
     <% end %>
-
-    <%= link_to "PLAY", login_form_path, class: 'play-game-button' %>
   </div>
 </div>
+
 
