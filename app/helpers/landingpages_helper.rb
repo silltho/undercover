@@ -14,4 +14,15 @@ module LandingpagesHelper
       "#{current_year}"
     end
   end
+
+  def test(text)
+    if current_user
+      current_user.email
+    end
+
+    unless current_user
+      link_to "Connect With Facebook", "/auth/facebook"
+      link_to "Connect With Google", "/auth/google_oauth2"
+    end
+  end
 end
