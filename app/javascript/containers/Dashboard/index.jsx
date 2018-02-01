@@ -1,5 +1,5 @@
 import React from 'react'
-import { fromJS, List } from 'immutable'
+import { fromJS, List, Map } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -17,8 +17,8 @@ class Dashboard extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentGameId && nextProps.currentGameId !== -1) {
-      this.joinGame(nextProps.currentGameId)
+    if (nextProps.currentGame && nextProps.currentGame.get('id')) {
+      this.joinGame(nextProps.currentGame.get('id'))
     }
   }
 
@@ -61,7 +61,7 @@ class Dashboard extends React.PureComponent {
 }
 
 Dashboard.defaultProps = {
-  currentGameId: null
+  currentGame: null
 }
 
 Dashboard.propTypes = {
@@ -70,7 +70,7 @@ Dashboard.propTypes = {
   getOpenGames: PropTypes.func.isRequired,
   createGame: PropTypes.func.isRequired,
   joinGame: PropTypes.func.isRequired,
-  currentGameId: PropTypes.number
+  currentGame: PropTypes.instanceOf(Map)
 }
 
 export const mapDispatchToProps = () => ({
@@ -84,7 +84,7 @@ export const mapDispatchToProps = () => ({
 
 const mapStateToProps = (state) => ({
   games: state.getIn(['Dashboard', 'openGames'], fromJS([])),
-  currentGameId: state.getIn(['App', 'currentGameId'], -1)
+  currentGame: state.getIn(['App', 'currentGame'], null)
 })
 
 export default withRouter(connect(

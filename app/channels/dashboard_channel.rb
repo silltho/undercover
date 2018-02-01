@@ -8,7 +8,7 @@ class DashboardChannel < ApplicationCable::Channel
     game = Game.create(title: params['title'], user: current_user)
     game.users << current_user
     ActionCable.server.broadcast('dashboard', type: 'player_created_game', data: game)
-    UserChannel.broadcast_to(current_user, type: 'create_game_success', data: game.id)
+    UserChannel.broadcast_to(current_user, type: 'create_game_success', data: game)
   end
 
   def join_game(params)
@@ -16,7 +16,7 @@ class DashboardChannel < ApplicationCable::Channel
     #validierung (max 8 player, keine doppelten einträge)
     game.users << current_user
     ActionCable.server.broadcast('dashboard', type: 'player_joined_game', data: game)
-    UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.id)
+    UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game)
   end
 
   def leave_game(params)

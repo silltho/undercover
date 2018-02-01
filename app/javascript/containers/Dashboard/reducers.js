@@ -4,18 +4,21 @@ import {
   PLAYER_JOINED_GAME,
   PLAYER_LEFT_GAME,
   PLAYER_STARTED_GAME,
-	PLAYER_REMOVED_GAME
-} from './constants'
+  PLAYER_REMOVED_GAME,
+	GET_OPEN_GAMES
+} from 'services/constants'
 
 const initialState = fromJS({ Dashboard: {} })
 
 function getGameIndex(state, gameId) {
-	const games = state.getIn(['Dashboard', 'openGames'])
+  const games = state.getIn(['Dashboard', 'openGames'])
   return games.findIndex((game) => game.get('id') === gameId)
 }
 
 function dashboardReducer(state = initialState, action) {
   switch (action.type) {
+	  case GET_OPEN_GAMES:
+		  return state.setIn(['Dashboard', 'openGames'], fromJS(action.data.games))
     case PLAYER_CREATED_GAME: {
       const game = fromJS(action.data)
       return state.updateIn(['Dashboard', 'openGames'], (games) => games.push(game))
