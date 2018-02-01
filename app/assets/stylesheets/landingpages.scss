@@ -21,7 +21,7 @@
   }
 }
 
-.play-game-button {
+.play-game-button-container {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -32,6 +32,7 @@
   border: 3px solid $g_Pink;
   box-shadow: 15px 15px 113px 0px $g_DarkBlue;
   color: $g_Pink !important;
+  text-align: center;
 }
 
 .login-modal {

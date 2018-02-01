@@ -1,5 +1,10 @@
 <div class='town-container'>
-  <%= link_to "PLAY", games_path, class: 'play-game-button'%>
+  <div class='play-game-button-container'}>
+    <% if current_user %>
+        Hello <%= current_user.email %> <br>
+    <% end %>
+
+    <%= link_to "PLAY", login_form_path, class: 'play-game-button' %>
+  </div>
 </div>
 
-<%= render 'landingpages/login' %>

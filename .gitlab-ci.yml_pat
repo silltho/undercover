@@ -1,0 +1,40 @@
+image: ruby:2.3.3
+
+stages:
+ - build
+ - deploy
+
+build:
+  stage: build
+  before_script:
+    - apt-get update
+    - apt-get install zip -y
+  script:
+    - zip -r -q data *
+
+  artifacts:
+    paths:
+    - ./data.zip
+    expire_in: 1 week
+
+deploy:
+  stage: deploy
+  cache:
+    paths:
+    - node_modules
+  before_script:
+    - apt-get update
+    # - npm install -g yarn
+    - apt-get install openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$STAGING_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - ssh-add -l
+    - ssh -o StrictHostKeyChecking=no pat@46.38.235.104 uptime
+  script:
+    - ssh pat@46.38.235.104 "screen -S undercover -X quit || true"
+    - ssh pat@46.38.235.104 "rm -rf /var/www/html/dev_undercover/*"
+    - scp -r ./data.zip pat@46.38.235.104:/var/www/html/dev_undercover/
+    - ssh pat@46.38.235.104 "unzip -q /var/www/html/dev_undercover/data.zip -d /var/www/html/dev_undercover/"
+    - TERM=vt100; export TERM
+    - ssh -tt pat@46.38.235.104 "TERM=vt100; export TERM; cd /var/www/html/dev_undercover/; source /etc/profile.d/rvm.sh; mv /var/www/html/dev_undercover/config/database.yml_template /var/www/html/dev_undercover/config/database.yml; bundle install --quiet; yarn install; rails db:migrate; screen -S undercover bundle exec foreman start; rm data.zip;"
+
