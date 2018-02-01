@@ -15,6 +15,7 @@ class GamesChannel < ApplicationCable::Channel
   def initialize_game
     game = find_game
     game.initializing!
+    ActionCable.server.broadcast('dashboard', type: 'game_started', data: game)
   end
 
   def reset_game
