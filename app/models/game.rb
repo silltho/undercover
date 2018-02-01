@@ -2,10 +2,10 @@ class Game < ApplicationRecord
   include AASM
   require 'faker'
   belongs_to :user
-  has_many :games_users, class_name: 'GamesUsers', dependent: :destroy
-  has_many :users, through: :games_users
-  accepts_nested_attributes_for :games_users
-  attribute :users
+  has_many :players, class_name: 'GamesUsers', dependent: :destroy
+  has_many :users, through: :players
+  accepts_nested_attributes_for :players
+  attribute :players
   attribute :full
 
   def full
@@ -58,12 +58,10 @@ class Game < ApplicationRecord
   def initialize_players
     data = Hash.new
     data['round'] = self.round
-    players = Array.new
     self.users.each do |user|
       user.get_init_data
-      players << GamesUsers.where(game: self, user: user).first
     end
-    data['players'] = players
+    data['players'] = self.players
     GamesChannel.broadcast_to(self, type: 'initialized_game', data: data)
     self.start
   end
