@@ -25,7 +25,7 @@ function dashboardReducer(state = initialState, action) {
     }
     case PLAYER_JOINED_GAME: {
       const gameIndex = getGameIndex(state, action.data.id)
-      return state.setIn(['Dashboard', 'openGames', gameIndex], fromJS(action.data))
+	    return state.setIn(['Dashboard', 'openGames', gameIndex], fromJS(action.data))
     }
     case PLAYER_LEFT_GAME: {
       const gameIndex = getGameIndex(state, action.data.id)

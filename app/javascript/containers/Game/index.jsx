@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { List, Map } from 'immutable'
-import GameStart from 'components/GameStart/index'
-import GameInfo from 'components/GameInfo/index'
-import GameExchange from 'components/GameExchange/index'
-import GameActivity from 'components/GameActivity/index'
+import GameStart from 'components/GameStart'
+import GameInfo from 'components/GameInfo'
+import GameExchange from 'components/GameExchange'
+import GameActivity from 'components/GameActivity'
 
 const gamePhases = {
   start: 'start',
