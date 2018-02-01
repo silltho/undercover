@@ -1,5 +1,5 @@
 before_script:
-  - git remote add ssh://dokku@projects.multimediatechnology.at:5412/undercover -f
+  - git remote add dokku ssh://dokku@projects.multimediatechnology.at:5412/undercover
 
 deploy:
   script:
