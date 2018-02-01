@@ -18,3 +18,13 @@
 //= require_tree .
 
 // $(".button-collapse").sideNav();
+
+document.addEventListener('DOMContentLoaded', () => {
+  alert('hi1')
+  const loginForm = document.getElementsByClassName('login-modal')[0]
+  const loginEl = document.getElementsByClassName('play-game-button')[0]
+  loginEl.addEventListener('click', (e) => {
+    e.preventDefault()
+    loginForm.classList.remove('hidden')
+  })
+})

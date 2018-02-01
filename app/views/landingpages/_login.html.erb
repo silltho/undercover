@@ -1,1 +1,12 @@
-<%= test("hi") %>
+<div class="login-modal hidden">
+
+  <% if current_user %>
+      Hello <%= current_user.email %>
+  <% end %>
+
+  <% unless current_user %>
+      <%= link_to "Connect With Facebook", "/auth/facebook" %><br>
+      <%= link_to "Connect With Google", "/auth/google_oauth2" %>
+  <% end %>
+
+</div>

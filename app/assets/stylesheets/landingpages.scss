@@ -34,3 +34,20 @@
   color: $g_Pink !important;
 }
 
+.login-modal {
+  display: block;
+  position: absolute;
+  left: 50%;
+  font-size: 30px;
+  top: 50%;
+  background-color: $g_DarkBlue;
+  color: $g_Pink;
+  padding: 35px;
+  border-radius: 10px;
+  border: 2px solid $g_Pink;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.hidden {
+  display: none;
+}
