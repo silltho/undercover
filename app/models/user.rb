@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :identities
-  has_many :games_users, class_name: 'GamesUsers'
-  has_many :games, through: :games_users
-  accepts_nested_attributes_for :games_users
+  has_many :players, class_name: 'GamesUsers'
+  has_many :games, through: :players
+  accepts_nested_attributes_for :players
 
 
   def self.find_or_create_omniauth(auth)
