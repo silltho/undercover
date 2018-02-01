@@ -79,7 +79,6 @@ class Game < ApplicationRecord
   end
 
   def start_timer
-    #gehört sowas ned eher ins frontend?
   end
 
   def get_news
@@ -102,9 +101,6 @@ class Game < ApplicationRecord
 
   def save_results
   end
-
-
-  private
 
   def process_activities
   end

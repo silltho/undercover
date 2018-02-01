@@ -33,7 +33,40 @@ class GamesChannel < ApplicationCable::Channel
     ActionCable.server.broadcast('dashboard', type: 'game_started', data: game)
   end
 
+  def start_game
+    game = find_game
+    game.start!
+    #send first issue to all players with information about who is in the game
+    #TODO Anna: think about how to save newspaper in db
+    #TODO Tom: maybe just display draft of the newspaper made by artists for prototype
+  end
+
+  def exchanging_phase
+    game = find_game
+    #display fancy stuff because in the backend nothing is really going on
+    game.exchanging
+  end
+
+  def skill_using_phase
+    game = find_game
+    #send possible actions to user and react accordingly.
+    game.use_skills!
+  end
+
+  def informing_phase
+    game = find_game
+    game.informing!
+    #send newspaper issue to all players with information about who died and stuff
+  end
+
+  def finish_game
+    game = find_game
+    game.finish!
+    #save all the stuff to a statistics table
+  end
+
   def reset_game
+    #just for debugging
     game = find_game
     game.reset!
   end
