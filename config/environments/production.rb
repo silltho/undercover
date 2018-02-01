@@ -14,7 +14,7 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  config.secret_key_base = '<%= ENV["SECRET_KEY_BASE"] %>'
+  # config.secret_key_base = '<%= ENV["SECRET_KEY_BASE"] %>'
   config.read_encrypted_secrets = true
 
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
