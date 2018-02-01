@@ -11,6 +11,6 @@ stages:
 deploy_to_dokku:
   stage: deploy
   script:
-    - git push dokku@projects.multimediatechnology.at:5412/undercover master -f
+    - git push dokku master -f
     - dokku run rails db:migrate
 
