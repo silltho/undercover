@@ -19,15 +19,19 @@ class LandingpagesController < ApplicationController
   end
 
   def login_form
-    if current_user
-      redirect_to app_url
+
+   # if current_user
+      #redirect_to app_url
+
+    #end
+
+    #unless current_user
+   #   render 'landingpages/login_form'
+    #end
+    respond_to do |format|
+      format.js
     end
 
-    unless current_user
-      render 'landingpages/login_form'
-
-      # link_to "Connect With Facebook", "/auth/facebook"
-      link_to "Connect With Google", "/auth/google_oauth2"
-    end
   end
+
 end
