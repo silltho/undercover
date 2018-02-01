@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {
   DashboardChannel,
-	GameChannel
+  GameChannel
 } from 'services/channels'
 import { leaveGame } from 'services/actions'
 import Button from 'components/Button'
@@ -13,19 +13,19 @@ import Footer from 'components/Footer'
 import Title from 'components/Title'
 import {
   Wrapper,
-	PlayerCount
+  PlayerCount
 } from './Styles'
 
-function getGame(state) {
-  const gameId = state.getIn(['App', 'currentGameId'])
-  const index = state.getIn(['Dashboard', 'openGames']).findIndex((game) => game.get('id') === gameId)
-  return state.getIn(['Dashboard', 'openGames', index])
-}
-
 class Lobby extends React.PureComponent {
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.currentGame) {
+      this.props.history.push('/')
+    }
+  }
+
   leaveGame = () => {
-	  this.props.leaveGame(this.props.currentGame.get('id'))
-	  this.props.history.push('/')
+    this.props.leaveGame(this.props.currentGame.get('id'))
+    this.props.history.push('/')
   }
 
   initializeGame = () => {
@@ -68,7 +68,7 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state) => ({
-  currentGame: getGame(state)
+  currentGame: state.getIn(['App', 'currentGame'], null)
 })
 
 export default withRouter(connect(

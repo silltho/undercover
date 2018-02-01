@@ -1,7 +1,6 @@
 class DashboardChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'dashboard'
-    GetOpenGamesJob.perform_later(current_user)
   end
 
   def create_game(params)

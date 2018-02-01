@@ -3,7 +3,8 @@ import {
   CREATE_GAME_SUCCESS,
   JOIN_GAME_SUCCESS,
   LEAVE_GAME_SUCCESS,
-  GET_USERINFO
+  GET_USERINFO,
+	GET_CURRENT_GAME
 } from 'services/constants'
 
 const initialState = fromJS({
@@ -16,6 +17,7 @@ const initialState = fromJS({
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_GAME_SUCCESS:
+    case GET_CURRENT_GAME:
     case JOIN_GAME_SUCCESS: {
       return state.setIn(['App', 'currentGame'], fromJS(action.data))
     }
