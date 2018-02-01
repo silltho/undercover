@@ -9,7 +9,7 @@ class Game < ApplicationRecord
   attribute :full
 
   def full
-    self.users.size >= 1
+    self.users.size >= 16
   end
 
     aasm :whiny_transitions => false do
