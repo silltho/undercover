@@ -1,42 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map } from 'immutable'
 
 class GameStart extends React.PureComponent {
-  renderAnonymPlayer = (player) => (
-    <li key={`anonym-player-${player.nickname}`}>{player.nickname}</li>
-  )
-
-  renderKnownPlayer = (player) => (
-    <li key={`known-player-${player.username}`}>{player.username} - {player.role}</li>
+  renderPlayer = (player) => (
+    <li key={`player-${player.get('id')}`}>{player.get('codename')}</li>
   )
 
   render() {
     const {
       currentPlayer,
-      players
+      players,
+      roleDetails
     } = this.props
-    const anonymPlayers = players
-      .filter((player) => !player.username)
-      .map(this.renderAnonymPlayer)
-    const knownPlayers = players
-      .filter((player) => player.username)
-      .map(this.renderKnownPlayer)
+    const renderedPlayers = players.map(this.renderPlayer)
 
     return (
       <div>
         <div>Dein Deckname: {currentPlayer.get('codename')}</div>
-        <div>Deine Rolle: {currentPlayer.getIn(['role', ])}</div>
-        <div>Spieler die du kennst:
-          <ul>
-            {knownPlayers}
-          </ul>
-        </div>
+        <div>Deine Rolle: {roleDetails.get('name')}</div>
         <div>Andere Spieler:
           <ul>
-	          {anonymPlayers}
+	          {renderedPlayers}
           </ul>
         </div>
-        <button onClick={startGame}>
+        <button>
           verstanden
         </button>
       </div>
@@ -45,7 +33,8 @@ class GameStart extends React.PureComponent {
 }
 
 GameStart.propTypes = {
-  currentPlayer: PropTypes.object.isRequired,
+	currentPlayer: PropTypes.instanceOf(Map).isRequired,
+	roleDetails: PropTypes.instanceOf(Map).isRequired,
   players: PropTypes.array.isRequired
 }
 

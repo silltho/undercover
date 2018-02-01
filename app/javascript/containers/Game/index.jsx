@@ -24,35 +24,36 @@ class Game extends React.PureComponent {
 
   startGame = () => {
     this.setState({
-      gamestate: gamePhases.info
+      currentPhase: gamePhases.info
     })
   }
 
   readInfos = () => {
     this.setState({
-      gamestate: gamePhases.exchange
+      currentPhase: gamePhases.exchange
     })
   }
 
   endExchange = () => {
     this.setState({
-      gamestate: gamePhases.activity
+      currentPhase: gamePhases.activity
     })
   }
 
   useActivity = () => {
     this.setState({
-      gamestate: gamePhases.info
+      currentPhase: gamePhases.info
     })
   }
 
-  renderGamestate = () => {
-    switch (this.state.gamestate) {
+  renderCurrentPhase = () => {
+    switch (this.state.currentPhase) {
       case gamePhases.start:
         return (
           <GameStart
             currentPlayer={this.props.currentPlayer}
             players={this.props.players}
+            roleDetails={this.props.roleDetails}
           />
         )
       case gamePhases.info:
@@ -82,14 +83,16 @@ class Game extends React.PureComponent {
   render() {
     return (
       <div>
-        {this.renderGamestate()}
+        {this.renderCurrentPhase()}
       </div>
     )
   }
 }
 
 Game.propTypes = {
-  players: PropTypes.instanceOf(List).isRequired
+  players: PropTypes.instanceOf(List).isRequired,
+	roleDetails: PropTypes.instanceOf(Map).isRequired,
+  currentPlayer: PropTypes.instanceOf(Map).isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -97,7 +100,8 @@ export const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   players: state.getIn(['Game', 'players'], List()),
-  currentPlayer: state.getIn(['Game', 'currentPlayer'], Map())
+  currentPlayer: state.getIn(['Game', 'current_player'], Map()),
+  roleDetails: state.getIn(['Game', 'role_details'], Map())
 })
 
 export default connect(
