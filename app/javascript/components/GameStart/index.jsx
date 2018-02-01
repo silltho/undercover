@@ -12,9 +12,8 @@ class GameStart extends React.PureComponent {
 
   render() {
     const {
-      currentUser,
-      players,
-      startGame
+      currentPlayer,
+      players
     } = this.props
     const anonymPlayers = players
       .filter((player) => !player.username)
@@ -25,8 +24,8 @@ class GameStart extends React.PureComponent {
 
     return (
       <div>
-        <div>Dein Deckname: {currentUser.nickname}</div>
-        <div>Deine Rolle: {currentUser.role}</div>
+        <div>Dein Deckname: {currentPlayer.get('codename')}</div>
+        <div>Deine Rolle: {currentPlayer.getIn(['role', ])}</div>
         <div>Spieler die du kennst:
           <ul>
             {knownPlayers}
@@ -46,9 +45,8 @@ class GameStart extends React.PureComponent {
 }
 
 GameStart.propTypes = {
-  currentUser: PropTypes.object.isRequired,
-  players: PropTypes.array.isRequired,
-  startGame: PropTypes.func.isRequired
+  currentPlayer: PropTypes.object.isRequired,
+  players: PropTypes.array.isRequired
 }
 
 export default GameStart

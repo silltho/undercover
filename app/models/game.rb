@@ -61,7 +61,7 @@ class Game < ApplicationRecord
     self.users.each do |user|
       user.get_init_data
     end
-    self.users each do |user|
+    self.users.each do |user|
       data['players'] = self.players
       data['current_player'] = user.players.where(game: self).first
       data['role_details'] = user.players.where(game: self).first.role

@@ -1,5 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { List, Map } from 'immutable'
 import GameStart from 'components/GameStart/index'
 import GameInfo from 'components/GameInfo/index'
 import GameExchange from 'components/GameExchange/index'
@@ -48,7 +50,10 @@ class Game extends React.PureComponent {
     switch (this.state.gamestate) {
       case gamePhases.start:
         return (
-          <GameStart />
+          <GameStart
+            currentPlayer={this.props.currentPlayer}
+            players={this.props.players}
+          />
         )
       case gamePhases.info:
         return (
@@ -84,12 +89,15 @@ class Game extends React.PureComponent {
 }
 
 Game.propTypes = {
+  players: PropTypes.instanceOf(List).isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state) => ({
+  players: state.getIn(['Game', 'players'], List()),
+  currentPlayer: state.getIn(['Game', 'currentPlayer'], Map())
 })
 
 export default connect(
