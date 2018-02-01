@@ -24,7 +24,7 @@ class GamesList extends React.PureComponent {
     return (
       <Wrapper>
         <GameList>
-          {openGames.size > 0 ? openGames : (<div>keine Games gefunden :(</div>)}
+          {openGames.size > 0 ? openGames : (<div style={{ textAlign: 'center' }}>keine Games gefunden :(</div>)}
         </GameList>
         <Footer>
           <Button onClick={this.props.openStartNewGame} text="create new game" />

@@ -58,13 +58,11 @@ class Game < ApplicationRecord
   def initialize_players
     data = Hash.new
     data['round'] = self.round
-    players = Array.new
     self.users.each do |user|
       user.get_init_data
-      players << GamesUsers.where(game: self, user: user).first
     end
-    data['players'] = players
-    GamesChannel.broadcast_to(self, type: 'initialized_game', data: data)
+    data['players'] = self.players
+    GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
     self.start
   end
 
@@ -81,7 +79,6 @@ class Game < ApplicationRecord
   end
 
   def start_timer
-    #gehört sowas ned eher ins frontend?
   end
 
   def get_news
@@ -104,9 +101,6 @@ class Game < ApplicationRecord
 
   def save_results
   end
-
-
-  private
 
   def process_activities
   end

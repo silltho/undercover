@@ -1,1 +1,1 @@
-export * from './entities/games/actions'
+export * from './entities/dashboard/actions'
