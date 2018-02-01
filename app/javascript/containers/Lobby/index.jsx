@@ -18,14 +18,19 @@ import {
 
 function getGame(state) {
   const gameId = state.getIn(['App', 'currentGameId'])
-  const index = state.get('games').findIndex((game) => game.get('id') === gameId)
-  return state.getIn(['games', index])
+  const index = state.getIn(['Dashboard', 'openGames']).findIndex((game) => game.get('id') === gameId)
+  return state.getIn(['Dashboard', 'openGames', index])
 }
 
 class Lobby extends React.PureComponent {
   leaveGame = () => {
 	  this.props.leaveGame(this.props.currentGame.get('id'))
 	  this.props.history.push('/')
+  }
+
+  initializeGame = () => {
+    this.props.initializeGame()
+    this.props.history.push('/game')
   }
 
   render() {
@@ -39,7 +44,7 @@ class Lobby extends React.PureComponent {
         </PlayerCount>
         <Footer>
           <Button onClick={this.leaveGame} text="exit" />
-          <Button onClick={() => alert('lets start this shit!')} text="start" />
+          <Button onClick={this.initializeGame} text="start" />
         </Footer>
       </Wrapper>
     )
@@ -49,7 +54,8 @@ class Lobby extends React.PureComponent {
 Lobby.propTypes = {
   history: PropTypes.object.isRequired,
   currentGame: PropTypes.instanceOf(Map).isRequired,
-  leaveGame: PropTypes.func.isRequired
+  leaveGame: PropTypes.func.isRequired,
+  initializeGame: PropTypes.func.isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -57,7 +63,8 @@ export const mapDispatchToProps = (dispatch) => ({
     DashboardChannel.leaveGame(gameId)
     GameChannel.unsubscribe()
     dispatch(leaveGame())
-  }
+  },
+  initializeGame: GameChannel.initializeGame
 })
 
 const mapStateToProps = (state) => ({

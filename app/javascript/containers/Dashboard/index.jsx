@@ -83,7 +83,7 @@ export const mapDispatchToProps = () => ({
 })
 
 const mapStateToProps = (state) => ({
-  games: state.get('games', fromJS([])),
+  games: state.getIn(['Dashboard', 'openGames'], fromJS([])),
   currentGameId: state.getIn(['App', 'currentGameId'], -1)
 })
 
