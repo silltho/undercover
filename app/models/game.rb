@@ -62,7 +62,7 @@ class Game < ApplicationRecord
       user.get_init_data
     end
     data['players'] = self.players
-    GamesChannel.broadcast_to(self, type: 'initialized_game', data: data)
+    GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
     self.start
   end
 

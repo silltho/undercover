@@ -14,7 +14,7 @@ function usersReducer(state = initialState, action) {
         .set('currentUser', action.data)
     case GET_OPEN_GAMES:
       console.log('open Games:', action.data.games)
-      return state.set('games', fromJS(action.data.games))
+      return state.setIn(['Dashboard', 'openGames'], fromJS(action.data.games))
     default:
       return state
   }

@@ -1,11 +1,13 @@
 import appReducer from 'containers/App/reducers'
+import gameReducer from 'containers/Game/reducers'
 
 import usersReducer from './entities/users/reducers'
 import gamesReducer from './entities/games/reducers'
 import dashboardReducer from './entities/dashboard/reducers'
 
 const reducers = [
-	appReducer,
+  appReducer,
+  gameReducer,
   usersReducer,
   gamesReducer,
   dashboardReducer
