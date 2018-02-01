@@ -4,7 +4,12 @@ before_script:
   - chmod 600 ~/.ssh/id_rsa
   - ssh-keyscan -H 'projects.multimediatechnology.at' >> ~/.ssh/known_hosts
 
-deploy:
+stages:
+  - deploy
+
+deploy_to_dokku:
+  stage: deploy
   script:
-      - git push dokku@projects.multimediatechnology.at:5412/undercover master -f
-      - dokku run rails db:migrate
+    - git push dokku@projects.multimediatechnology.at:5412/undercover master -f
+    - dokku run rails db:migrate
+
