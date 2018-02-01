@@ -9,5 +9,4 @@ class GamesUsers < ApplicationRecord
   belongs_to :role
   validates :user, uniqueness: { scope: :game,
                                  message: "you can only join the same game once" }
-  attribute :role
 end
