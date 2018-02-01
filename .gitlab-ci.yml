@@ -3,7 +3,7 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
   - ssh-keyscan -H 'projects.multimediatechnology.at' >> ~/.ssh/known_hosts
-  - git remote add dokku ssh://dokku@projects.multimediatechnology.at:5412/undercover
+  # - git remote add dokku ssh://dokku@projects.multimediatechnology.at:5412/undercover
   - cat ~/.ssh/known_hosts
 
 stages:
