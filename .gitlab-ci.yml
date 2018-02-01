@@ -1,9 +1,9 @@
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - chmod 700 ~/.ssh/id_rsa
-  - mkdir -p ~/.ssh
   - ssh-add -l
   # - git remote add dokku ssh://dokku@projects.multimediatechnology.at:5412/undercover
 
