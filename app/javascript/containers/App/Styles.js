@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import {
-	DARK_BLUE,
-	WHITE,
-	MAIN_FONT
+  DARK_BLUE,
+  WHITE,
+  MAIN_FONT
 } from 'styles/variables'
 
 export const AppContainer = styled.div`
@@ -12,5 +12,6 @@ export const AppContainer = styled.div`
   font-family: ${MAIN_FONT};
   display: flex;
   flex-direction: column;
-	height: 100%;
+  height: 100%;
+  min-height: 30rem;
 `

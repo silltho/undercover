@@ -23,6 +23,14 @@ class DashboardChannel < ApplicationCable::Channel
     GamesUsers.where(game_id: params['id']).where(user_id: current_user.id).destroy_all
     game = Game.find(params['id'])
     ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
-    #Game löschen falls keine player darin sind
+    if GamesUsers.where(game_id: params[:id]).length === 0
+      remove_game
+    end
+  end
+
+  def remove_game
+    game = find_game
+    game.destroy
+    ActionCable.server.broadcast('dashboard', type: 'player_removed_game', data: game)
   end
 end

@@ -42,8 +42,6 @@ class StartNewGame extends React.PureComponent {
         <NewGameForm>
           <label htmlFor="create-game-title">Game Title:</label>
           <GameTitleInput id="create-game-title" onChange={this.onInputChange} onKeyDown={this.onInputKeyDown}/>
-          <label htmlFor="create-game-private">Private:</label>
-          <input id="create-game-private" type="checkbox" />
         </NewGameForm>
         <Footer>
           <Button onClick={this.props.onRequestClose} text="back" />

@@ -33,6 +33,7 @@ export const TitleLine = styled.div`
 export const TitleText = styled.div`
   line-height: 1.5rem;
   text-align: center;
+  text-transform: uppercase;
   font-family: ${LOGO_FONT};
   font-size: 2rem;
   margin: 0 1rem;
