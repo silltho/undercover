@@ -1,3 +1,4 @@
-script:
-    - git push dokku master -f
-    - dokku run rails db:migrate
+deploy:
+  script:
+      - git push dokku master -f
+      - dokku run rails db:migrate
