@@ -65,7 +65,7 @@ class Game < ApplicationRecord
       data['players'] = self.players
       data['current_player'] = user.players.where(game: self).first
       data['role_details'] = user.players.where(game: self).first.role
-      data['players'] = data['players'] - data['current_player']
+      #data['players'] = data['players'] - data['current_player']
       UserChannel.broadcast_to(user, type: 'player_initialized_game', data: data)
     end
     #GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
