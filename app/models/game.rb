@@ -60,15 +60,14 @@ class Game < ApplicationRecord
     data['round'] = self.round
     roles_array = assign_roles(self.users.size)
     GamesChannel.broadcast_to(self, type: 'assigned_roles', data: roles_array)
-    self.users.each do |user|
-      user.get_character(roles_array.delete(roles_array.sample))
-      user.get_codename
+    self.players.each do |player|
+      player.get_character(roles_array.delete(roles_array.sample))
+      player.get_codename
     end
-    self.users.each do |user|
+    self.players.each do |player|
       data['players'] = self.players
-      data['current_player'] = user.players.where(game: self).first
-      data['role_details'] = user.players.where(game: self).first.role
-      #data['players'] = data['players'] - data['current_player']
+      data['current_player'] = player
+      data['role_details'] = player.role
       UserChannel.broadcast_to(user, type: 'player_initialized_game', data: data)
     end
     self.start
