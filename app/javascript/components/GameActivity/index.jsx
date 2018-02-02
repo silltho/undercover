@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import { Wrapper } from './Styles'
+import Footer from 'components/Footer'
+import Button from 'components/Button'
+import {
+  Wrapper,
+  RoleImage,
+  RoleName
+} from './Styles'
 
 class GameActivity extends React.PureComponent {
 
@@ -12,9 +18,13 @@ class GameActivity extends React.PureComponent {
     } = this.props
 
     return (
-      <Wrapper background={roleDetails.get('image')}>
-        <div>{roleDetails.get('name')}</div>
-        <button onClick={endGame}>Exit</button>
+      <Wrapper>
+        <RoleImage background={roleDetails.get('image')}>
+          <RoleName>{roleDetails.get('name')}</RoleName>
+        </RoleImage>
+        <Footer>
+          <Button onClick={endGame} text="exit" />
+        </Footer>
       </Wrapper>
     )
   }

@@ -22,6 +22,10 @@ class Game extends React.PureComponent {
     }
   }
 
+  endGame = () => {
+    this.props.history.push('/')
+  }
+
   startGame = () => {
     this.setState({
       currentPhase: gamePhases.info
@@ -74,6 +78,7 @@ class Game extends React.PureComponent {
       case gamePhases.activity:
         return (
           <GameActivity
+            endGame={this.endGame}
             roleDetails={this.props.roleDetails}
           />
         )
@@ -83,15 +88,12 @@ class Game extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        {this.renderCurrentPhase()}
-      </div>
-    )
+    return this.renderCurrentPhase()
   }
 }
 
 Game.propTypes = {
+  history: PropTypes.object.isRequired,
   players: PropTypes.instanceOf(List).isRequired,
 	roleDetails: PropTypes.instanceOf(Map).isRequired,
   currentPlayer: PropTypes.instanceOf(Map).isRequired,

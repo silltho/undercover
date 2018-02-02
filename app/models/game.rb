@@ -89,7 +89,7 @@ class Game < ApplicationRecord
     self.players.each do |player|
       data["Mafia"] += 1 if player.role.party == "Mafia"
       data["Town"]+= 1 if player.role.party == "Town"
-      data["Anarchist"]+= 1 if player.role.party == "Anarchist"
+      data["Anarchist"]+= 1 if player.role.party == "Anarchists"
     end
     GamesChannel.broadcast_to(self, type: 'party_members', data: data)
   end

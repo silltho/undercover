@@ -1,6 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
+import Footer from 'components/Footer'
+import Button from 'components/Button'
+import {
+  Wrapper,
+  PartyDistribution
+} from './Styles'
 
 class GameStart extends React.PureComponent {
   renderPlayer = (player) => (
@@ -19,15 +25,22 @@ class GameStart extends React.PureComponent {
     //const renderedPlayers = players.map(this.renderPlayer)
 
     return (
-      <div>
-        <div>
-          Mafia: {partyMembers.get('Mafia')}
-        </div>
-        <div>
-          Town: {partyMembers.get('Town')}
-        </div>
-        <button onClick={startGame}>got it</button>
-      </div>
+      <Wrapper>
+        <PartyDistribution>
+          <div>
+            Mafia: {partyMembers.get('Mafia')}
+          </div>
+          <div>
+            Town: {partyMembers.get('Town')}
+          </div>
+          <div>
+            Anarchists: {partyMembers.get('Anarchist')}
+          </div>
+        </PartyDistribution>
+        <Footer>
+          <Button onClick={startGame} text="got it" />
+        </Footer>
+      </Wrapper>
     )
   }
 }
