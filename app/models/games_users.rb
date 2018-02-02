@@ -6,6 +6,7 @@ class GamesUsers < ApplicationRecord
   end
   belongs_to :game
   belongs_to :user
+  belongs_to :role, optional: true
   validates :user, uniqueness: { scope: :game,
                                  message: "you can only join the same game once" }
 end

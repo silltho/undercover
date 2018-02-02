@@ -1,6 +1,8 @@
 class LandingpagesController < ApplicationController
   def index
     render layout: "application"
+    puts @current_user
+    @current_user = current_user
   end
 
   def gameplay

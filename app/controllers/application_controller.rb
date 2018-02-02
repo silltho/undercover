@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-  	redirect_to :login unless signed_in?
+  	redirect_to login_form_path unless cookies.signed[:user_id]
   end
 
   def current_user

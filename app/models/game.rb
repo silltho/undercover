@@ -9,7 +9,7 @@ class Game < ApplicationRecord
   attribute :full
 
   def full
-    self.users.size >= 1
+    self.users.size >= 16
   end
 
     aasm :whiny_transitions => false do
@@ -58,13 +58,18 @@ class Game < ApplicationRecord
   def initialize_players
     data = Hash.new
     data['round'] = self.round
+    roles_array = assign_roles(self.users.size)
+    puts roles_array
     self.users.each do |user|
-      user.get_init_data
+      user.get_character(roles_array.delete(roles_array.sample))
+      user.get_codename
     end
-    data['all_players'] = self.players
     self.users.each do |user|
-      data['current_player'] = user.player
-      UserChannel.broadcast_to(current_user, type: 'player_initialized_game', data: data)
+      data['players'] = self.players
+      data['current_player'] = user.players.where(game: self).first
+      data['role_details'] = user.players.where(game: self).first.role
+      #data['players'] = data['players'] - data['current_player']
+      UserChannel.broadcast_to(user, type: 'player_initialized_game', data: data)
     end
     #GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
     self.start
