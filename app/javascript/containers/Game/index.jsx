@@ -55,6 +55,7 @@ class Game extends React.PureComponent {
             players={this.props.players}
             roleDetails={this.props.roleDetails}
             startGame={this.endExchange}
+            partyMembers={this.props.partyMembers}
           />
         )
       case gamePhases.info:
@@ -93,7 +94,8 @@ class Game extends React.PureComponent {
 Game.propTypes = {
   players: PropTypes.instanceOf(List).isRequired,
 	roleDetails: PropTypes.instanceOf(Map).isRequired,
-  currentPlayer: PropTypes.instanceOf(Map).isRequired
+  currentPlayer: PropTypes.instanceOf(Map).isRequired,
+  partyMembers: PropTypes.instanceOf(Map).isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -102,7 +104,8 @@ export const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   players: state.getIn(['Game', 'players'], List()),
   currentPlayer: state.getIn(['Game', 'current_player'], Map()),
-  roleDetails: state.getIn(['Game', 'role_details'], Map())
+	roleDetails: state.getIn(['Game', 'role_details'], Map()),
+	partyMembers: state.getIn(['Game', 'party_members'], Map())
 })
 
 export default connect(

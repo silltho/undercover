@@ -12,22 +12,21 @@ class GameStart extends React.PureComponent {
     const {
       currentPlayer,
       players,
-      roleDetails
+      roleDetails,
+      startGame,
+      partyMembers
     } = this.props
-    const renderedPlayers = players.map(this.renderPlayer)
+    //const renderedPlayers = players.map(this.renderPlayer)
 
     return (
       <div>
-        <div>Dein Deckname: {currentPlayer.get('codename')}</div>
-        <div>Deine Rolle: {roleDetails.get('name')}</div>
-        <div>Andere Spieler:
-          <ul>
-	          {renderedPlayers}
-          </ul>
+        <div>
+          Mafia: {partyMembers.get('Mafia')}
         </div>
-        <button onClick={this.props.startGame}>
-          verstanden
-        </button>
+        <div>
+          Town: {partyMembers.get('Town')}
+        </div>
+        <button onClick={startGame}>got it</button>
       </div>
     )
   }
@@ -37,7 +36,8 @@ GameStart.propTypes = {
 	currentPlayer: PropTypes.instanceOf(Map).isRequired,
 	roleDetails: PropTypes.instanceOf(Map).isRequired,
   players: PropTypes.instanceOf(List).isRequired,
-  startGame: PropTypes.func.isRequired
+  startGame: PropTypes.func.isRequired,
+	partyMembers: PropTypes.instanceOf(Map).isRequired
 }
 
 export default GameStart

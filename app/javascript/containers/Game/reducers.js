@@ -14,7 +14,7 @@ function gameReducer(state = initialState, action) {
       return state.setIn(['Game'], fromJS(action.data))
     }
     case PARTY_MEMBERS: {
-	    return state.setIn(['Game', 'partyMembers'], fromJS(action.data))
+	    return state.setIn(['Game', 'party_members'], fromJS(action.data))
     }
     default:
       return state
