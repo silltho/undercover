@@ -83,11 +83,7 @@ class Game extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        {this.renderCurrentPhase()}
-      </div>
-    )
+    return this.renderCurrentPhase()
   }
 }
 
