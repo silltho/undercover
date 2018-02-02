@@ -9,19 +9,12 @@ class User < ApplicationRecord
     where(email: auth['info']['email']).first_or_create
   end
 
-  def get_init_data
-    get_codename
-    get_character
-  end
-
-  protected
   def get_codename
     name = Faker::Name.name
     GamesUsers.where(user_id: self.id).update(codename: name)
   end
 
-  def get_character
-    role = Role.all.sample.id
+  def get_character(role)
     GamesUsers.where(user_id: self.id).update(role_id: role)
   end
 end

@@ -58,8 +58,11 @@ class Game < ApplicationRecord
   def initialize_players
     data = Hash.new
     data['round'] = self.round
+    roles_array = assign_roles(self.users.size)
+    puts roles_array
     self.users.each do |user|
-      user.get_init_data
+      user.get_character(roles_array.delete(roles_array.sample))
+      user.get_codename
     end
     self.users.each do |user|
       data['players'] = self.players
