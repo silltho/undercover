@@ -25,7 +25,6 @@ class Lobby extends React.PureComponent {
 
   leaveGame = () => {
     this.props.leaveGame(this.props.currentGame.get('id'))
-    this.props.history.push('/')
   }
 
   initializeGame = () => {
@@ -38,7 +37,7 @@ class Lobby extends React.PureComponent {
 
     return (
       <Wrapper>
-        <Title title={currentGame && currentGame.get('title')} />
+        <Title title={currentGame ? currentGame.get('title') : '...loading'} />
         <PlayerCount>
           {currentGame && currentGame.get('players').size} Player
         </PlayerCount>
@@ -51,9 +50,13 @@ class Lobby extends React.PureComponent {
   }
 }
 
+Lobby.defaultProps = {
+  currentGame: null
+}
+
 Lobby.propTypes = {
   history: PropTypes.object.isRequired,
-  currentGame: PropTypes.instanceOf(Map).isRequired,
+  currentGame: PropTypes.instanceOf(Map),
   leaveGame: PropTypes.func.isRequired,
   initializeGame: PropTypes.func.isRequired
 }
@@ -68,7 +71,7 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state) => ({
-  currentGame: state.getIn(['App', 'currentGame'], null)
+  currentGame: state.getIn(['App', 'currentGame'], {})
 })
 
 export default withRouter(connect(

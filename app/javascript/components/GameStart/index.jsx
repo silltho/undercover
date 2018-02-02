@@ -1,54 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map, List } from 'immutable'
 
 class GameStart extends React.PureComponent {
-  renderAnonymPlayer = (player) => (
-    <li key={`anonym-player-${player.nickname}`}>{player.nickname}</li>
+  renderPlayer = (player) => (
+    <li key={`player-${player.get('id')}`}>{player.get('codename')}</li>
   )
 
-  renderKnownPlayer = (player) => (
-    <li key={`known-player-${player.username}`}>{player.username} - {player.role}</li>
-  )
 
   render() {
     const {
-      currentUser,
+      currentPlayer,
       players,
-      startGame
+      roleDetails,
+      startGame,
+      partyMembers
     } = this.props
-    const anonymPlayers = players
-      .filter((player) => !player.username)
-      .map(this.renderAnonymPlayer)
-    const knownPlayers = players
-      .filter((player) => player.username)
-      .map(this.renderKnownPlayer)
+    //const renderedPlayers = players.map(this.renderPlayer)
 
     return (
       <div>
-        <div>Dein Deckname: {currentUser.nickname}</div>
-        <div>Deine Rolle: {currentUser.role}</div>
-        <div>Spieler die du kennst:
-          <ul>
-            {knownPlayers}
-          </ul>
+        <div>
+          Mafia: {partyMembers.get('Mafia')}
         </div>
-        <div>Andere Spieler:
-          <ul>
-	          {anonymPlayers}
-          </ul>
+        <div>
+          Town: {partyMembers.get('Town')}
         </div>
-        <button onClick={startGame}>
-          verstanden
-        </button>
+        <button onClick={startGame}>got it</button>
       </div>
     )
   }
 }
 
 GameStart.propTypes = {
-  currentUser: PropTypes.object.isRequired,
-  players: PropTypes.array.isRequired,
-  startGame: PropTypes.func.isRequired
+	currentPlayer: PropTypes.instanceOf(Map).isRequired,
+	roleDetails: PropTypes.instanceOf(Map).isRequired,
+  players: PropTypes.instanceOf(List).isRequired,
+  startGame: PropTypes.func.isRequired,
+	partyMembers: PropTypes.instanceOf(Map).isRequired
 }
 
 export default GameStart

@@ -35,8 +35,8 @@ class Dashboard extends React.PureComponent {
   }
 
   joinGame = (id) => {
-    this.props.history.push('/lobby')
     this.props.joinGame(id)
+	  this.props.history.push('/lobby')
   }
 
   render() {

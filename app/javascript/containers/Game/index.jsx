@@ -1,9 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import GameStart from 'components/GameStart/index'
-import GameInfo from 'components/GameInfo/index'
-import GameExchange from 'components/GameExchange/index'
-import GameActivity from 'components/GameActivity/index'
+import { List, Map } from 'immutable'
+import GameStart from 'components/GameStart'
+import GameInfo from 'components/GameInfo'
+import GameExchange from 'components/GameExchange'
+import GameActivity from 'components/GameActivity'
 
 const gamePhases = {
   start: 'start',
@@ -22,33 +24,39 @@ class Game extends React.PureComponent {
 
   startGame = () => {
     this.setState({
-      gamestate: gamePhases.info
+      currentPhase: gamePhases.info
     })
   }
 
   readInfos = () => {
     this.setState({
-      gamestate: gamePhases.exchange
+      currentPhase: gamePhases.exchange
     })
   }
 
   endExchange = () => {
     this.setState({
-      gamestate: gamePhases.activity
+      currentPhase: gamePhases.activity
     })
   }
 
   useActivity = () => {
     this.setState({
-      gamestate: gamePhases.info
+      currentPhase: gamePhases.info
     })
   }
 
-  renderGamestate = () => {
-    switch (this.state.gamestate) {
+  renderCurrentPhase = () => {
+    switch (this.state.currentPhase) {
       case gamePhases.start:
         return (
-          <GameStart />
+          <GameStart
+            currentPlayer={this.props.currentPlayer}
+            players={this.props.players}
+            roleDetails={this.props.roleDetails}
+            startGame={this.endExchange}
+            partyMembers={this.props.partyMembers}
+          />
         )
       case gamePhases.info:
         return (
@@ -66,7 +74,7 @@ class Game extends React.PureComponent {
       case gamePhases.activity:
         return (
           <GameActivity
-            useActivity={this.useActivity}
+            roleDetails={this.props.roleDetails}
           />
         )
       default:
@@ -77,19 +85,27 @@ class Game extends React.PureComponent {
   render() {
     return (
       <div>
-        {this.renderGamestate()}
+        {this.renderCurrentPhase()}
       </div>
     )
   }
 }
 
 Game.propTypes = {
+  players: PropTypes.instanceOf(List).isRequired,
+	roleDetails: PropTypes.instanceOf(Map).isRequired,
+  currentPlayer: PropTypes.instanceOf(Map).isRequired,
+  partyMembers: PropTypes.instanceOf(Map).isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state) => ({
+  players: state.getIn(['Game', 'players'], List()),
+  currentPlayer: state.getIn(['Game', 'current_player'], Map()),
+	roleDetails: state.getIn(['Game', 'role_details'], Map()),
+	partyMembers: state.getIn(['Game', 'party_members'], Map())
 })
 
 export default connect(

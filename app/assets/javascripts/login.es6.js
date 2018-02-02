@@ -2,9 +2,8 @@
 // $(".button-collapse").sideNav();
 
 $(document).ready(() => {
-  $('.play-game-button').on('click', (e) => {
+  $('.play-game-button').on('click', () => {
     $('.login-modal').removeClass('hidden')
-    e.preventDefault()
   })
 })
 

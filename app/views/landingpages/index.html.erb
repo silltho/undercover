@@ -2,9 +2,68 @@
   <div class='play-game-button-container'}>
     <% if current_user %>
         Hello <%= current_user.email %> <br>
+        <%= link_to "PLAY", '/app', class: 'play-game-button' %>
+    <% else %>
+        <a id="open-modal" onclick="modal.open()">Play</a>
     <% end %>
-
-    <%= link_to "PLAY", login_form_path, class: 'play-game-button' %>
   </div>
 </div>
+
+<script>
+    class Modal {
+        constructor(content = "", nameElement = "modal") {
+            this.namePlugin = 'modal'
+            this.versionPlugin = '';
+            this.nameElement = nameElement;
+            this.content = content;
+            this.html = `
+      <div id="${this.nameElement}-${this.namePlugin}-modal" class="${this.namePlugin}-modal">
+        <span id="${this.nameElement}-${this.namePlugin}-close" class="${this.namePlugin}-close">X</span>
+        <div id="${this.nameElement}-${this.namePlugin}-content" class="${this.namePlugin}-content">${this.content}</div>
+      </div>
+    `;
+            this._render();
+            this._closeEvents();
+        }
+
+        _render() {
+            let container = document.createElement('div');
+            container.id = `${this.nameElement}-${this.namePlugin}-container`;
+            container.className = `${this.namePlugin}-container`;
+            let overlay = document.createElement('div');
+            overlay.id = `${this.nameElement}-${this.namePlugin}-overlay`;
+            overlay.className = `${this.namePlugin}-overlay`;
+            container.innerHTML = this.html;
+            container.appendChild(overlay);
+            document.body.appendChild(container);
+        }
+
+        _closeEvents() {
+            document.getElementById(`${this.nameElement}-${this.namePlugin}-close`).addEventListener("click", (e) => {
+                this.close();
+            });
+            document.getElementById(`${this.nameElement}-${this.namePlugin}-overlay`).addEventListener("click", (e) => {
+                this.close();
+            });
+            document.addEventListener("keyup", (e) => {
+                if(e.keyCode == 27 || e.keyCode == 13) {
+                    this.close();
+                }
+            });
+        }
+
+        open() {
+            document.getElementById(`${this.nameElement}-${this.namePlugin}-overlay`).style.display = "block";
+            document.getElementById(`${this.nameElement}-${this.namePlugin}-modal`).style.display = "block";
+        }
+
+        close() {
+            document.getElementById(`${this.nameElement}-${this.namePlugin}-overlay`).style.display = "none";
+            document.getElementById(`${this.nameElement}-${this.namePlugin}-modal`).style.display = "none";
+        }
+    }
+
+    let modal = new Modal("<h3>In order to play undercover, please login</h3><p><a href='/auth/facebook'>Facebook</a> or <a href='/auth/google_oauth2'>Google</a></p>", "modalTest");
+</script>
+
 

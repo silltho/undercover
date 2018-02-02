@@ -1,5 +1,5 @@
-<div class="login-modal hidden">
-
+<div class='town-container'>
+  <div class='play-game-button-container'}>
   <% if current_user %>
       hi <%= current_user %>
   <% end %>
@@ -9,4 +9,5 @@
       <%= link_to "Connect With Google", "/auth/google_oauth2" %>
   <% end %>
 
+  </div>
 </div>
