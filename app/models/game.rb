@@ -67,7 +67,7 @@ class Game < ApplicationRecord
       data['players'] = self.players
       data['current_player'] = player
       data['role_details'] = player.role
-      UserChannel.broadcast_to(user, type: 'player_initialized_game', data: data)
+      UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
     end
     get_party_members
     self.start

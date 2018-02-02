@@ -1,23 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map } from 'immutable'
 
 class GameActivity extends React.PureComponent {
 
   render() {
     const {
-      useActivity
+      roleDetails,
+      endGame
     } = this.props
     return (
       <div>
-        Aktivität
-        <button onClick={useActivity}>Aktivität verwenden</button>
+        <div>{roleDetails.toJS().toString()}</div>
+        <button onClick={endGame}>Exit</button>
       </div>
     )
   }
 }
 
 GameActivity.propTypes = {
-	useActivity: PropTypes.func.isRequired
+	roleDetails: PropTypes.instanceOf(Map).isRequired,
+  endGame: PropTypes.func.isRequired
 }
 
 export default GameActivity

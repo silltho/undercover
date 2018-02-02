@@ -25,7 +25,6 @@ class Lobby extends React.PureComponent {
 
   leaveGame = () => {
     this.props.leaveGame(this.props.currentGame.get('id'))
-    this.props.history.push('/')
   }
 
   initializeGame = () => {

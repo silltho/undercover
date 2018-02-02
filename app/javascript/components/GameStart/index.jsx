@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 
 class GameStart extends React.PureComponent {
   renderPlayer = (player) => (
     <li key={`player-${player.get('id')}`}>{player.get('codename')}</li>
   )
+
 
   render() {
     const {
@@ -24,7 +25,7 @@ class GameStart extends React.PureComponent {
 	          {renderedPlayers}
           </ul>
         </div>
-        <button>
+        <button onClick={this.props.startGame}>
           verstanden
         </button>
       </div>
@@ -35,7 +36,8 @@ class GameStart extends React.PureComponent {
 GameStart.propTypes = {
 	currentPlayer: PropTypes.instanceOf(Map).isRequired,
 	roleDetails: PropTypes.instanceOf(Map).isRequired,
-  players: PropTypes.array.isRequired
+  players: PropTypes.instanceOf(List).isRequired,
+  startGame: PropTypes.func.isRequired
 }
 
 export default GameStart

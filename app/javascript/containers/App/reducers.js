@@ -5,7 +5,8 @@ import {
   LEAVE_GAME_SUCCESS,
   GET_USERINFO,
   GET_CURRENT_GAME,
-  PLAYER_CREATED_GAME
+  PLAYER_JOINED_GAME,
+  PLAYER_LEFT_GAME
 } from 'services/constants'
 
 const initialState = fromJS({
@@ -28,7 +29,8 @@ function appReducer(state = initialState, action) {
     case GET_USERINFO: {
       return state.setIn(['App', 'currentUser'], fromJS(action.data))
     }
-    case PLAYER_CREATED_GAME: {
+    case PLAYER_LEFT_GAME:
+    case PLAYER_JOINED_GAME: {
       const game = fromJS(action.data)
       if (state.getIn(['App', 'currentGame', 'id']) === game.get('id')) {
         return state.setIn(['App', 'currentGame'], game)

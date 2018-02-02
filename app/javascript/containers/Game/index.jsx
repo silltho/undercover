@@ -54,6 +54,7 @@ class Game extends React.PureComponent {
             currentPlayer={this.props.currentPlayer}
             players={this.props.players}
             roleDetails={this.props.roleDetails}
+            startGame={this.endExchange}
           />
         )
       case gamePhases.info:
@@ -72,7 +73,7 @@ class Game extends React.PureComponent {
       case gamePhases.activity:
         return (
           <GameActivity
-            useActivity={this.useActivity}
+            roleDetails={this.props.roleDetails}
           />
         )
       default:
