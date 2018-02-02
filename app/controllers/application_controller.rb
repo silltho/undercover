@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :signed_in
 
   def app
+    redirect_to root_path unless signed_in?
+
     @current_user = {
         name: 'User1234',
         id: '123'
@@ -16,15 +18,15 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-  	redirect_to login_form_path unless cookies.signed[:user_id]
+    redirect_to login_form_path unless cookies.signed[:user_id]
   end
 
   def current_user
-  	@current_user = User.find(cookies.signed[:user_id]) if cookies.signed[:user_id]
+    @current_user = User.find(cookies.signed[:user_id]) if cookies.signed[:user_id]
   end
 
   def signed_in?
-  	# converts current_user to a boolean by negating the negation
-  	!!current_user
+    # converts current_user to a boolean by negating the negation
+    !!current_user
   end
 end

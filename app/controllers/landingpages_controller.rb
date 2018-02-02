@@ -21,19 +21,8 @@ class LandingpagesController < ApplicationController
   end
 
   def login_form
-
-   # if current_user
-      #redirect_to app_url
-
-    #end
-
-    #unless current_user
-   #   render 'landingpages/login_form'
-    #end
     respond_to do |format|
       format.js
     end
-
   end
-
 end
