@@ -59,7 +59,7 @@ class Game < ApplicationRecord
     data = Hash.new
     data['round'] = self.round
     roles_array = assign_roles(self.users.size)
-    puts roles_array
+    GamesChannel.broadcast_to(self, type: 'assigned_roles', data: roles_array)
     self.users.each do |user|
       user.get_character(roles_array.delete(roles_array.sample))
       user.get_codename
@@ -71,7 +71,6 @@ class Game < ApplicationRecord
       #data['players'] = data['players'] - data['current_player']
       UserChannel.broadcast_to(user, type: 'player_initialized_game', data: data)
     end
-    #GamesChannel.broadcast_to(self, type: 'player_initialized_game', data: data)
     self.start
   end
 
