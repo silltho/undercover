@@ -18,7 +18,7 @@ class Game < ApplicationRecord
     after_all_transitions :log_status_change
 
     event :initializing do
-      transitions :from => :waiting, :to => :initialized, :after => :player_started_game
+      transitions :from => :waiting, :to => :initialized, :after => :start_game
     end
 
     event :start do
@@ -55,7 +55,7 @@ class Game < ApplicationRecord
     puts "Game #{self.id} '#{self.title}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
-  def player_started_game
+  def start_game
     data = Hash.new
     data['round'] = self.round
     roles_array = assign_roles(self.users.size)
