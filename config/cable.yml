@@ -10,3 +10,4 @@ production:
   adapter: redis
   url: <%= ENV['REDIS_URL'] %>
   channel_prefix: undercover_production
+
