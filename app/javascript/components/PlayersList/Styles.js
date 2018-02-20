@@ -6,9 +6,13 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `
 
-export const PartyDistribution = styled.div`
+export const PlayerList = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 `
 
+export const PlayerItem = styled.div`
+`
