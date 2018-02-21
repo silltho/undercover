@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 
 class GameInfo extends React.PureComponent {
   renderInfo = (info) => (
-    <li>{info}</li>
+    <li key={`info_${info}`}>{info}</li>
   )
 
   render() {
     const {
       day,
       informations,
-	    readInfos
+      readInfos
     } = this.props
 
     const renderedInformations = informations.map(this.renderInfo)
@@ -32,7 +32,7 @@ class GameInfo extends React.PureComponent {
 GameInfo.propTypes = {
   day: PropTypes.number.isRequired,
   informations: PropTypes.array.isRequired,
-	readInfos: PropTypes.func.isRequired
+  readInfos: PropTypes.func.isRequired
 }
 
 export default GameInfo

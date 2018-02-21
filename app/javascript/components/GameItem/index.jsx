@@ -14,11 +14,11 @@ class GameItem extends React.PureComponent {
   joinGame = () => {
     if (this.props.game.get('full')) alert('Das Game ist bereits voll!')
     else {
-	    this.props.joinGame(this.props.game.get('id'))
+      this.props.joinGame(this.props.game.get('id'))
     }
   }
 
-  renderPlayerSlots = (players = []) => {
+  renderPlayerSlots = (players) => {
     const slots = []
     for (let i = 0; i < 17; i += 1) {
       const key = `game_${this.props.game.get('id')}_slot_${i}`

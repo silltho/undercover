@@ -1,9 +1,9 @@
 import React from 'react'
+import LogoImg from 'assets/images/palm_tree.png'
 import {
   Wrapper,
   Logo
 } from './Styles'
-import LogoImg from 'assets/images/palm_tree.png'
 
 class Header extends React.PureComponent {
   render() {

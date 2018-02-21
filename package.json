@@ -11,6 +11,10 @@
       "node_modules",
       "app/javascript"
     ],
+    "moduleNameMapper": {
+      ".(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/javascript/config/fileStub.js",
+      ".(scss)$": "<rootDir>/app/javascript/config/styleStub.js"
+    },
     "coverageThreshold": {
       "global": {
         "branches": 70,
@@ -22,6 +26,9 @@
     "collectCoverageFrom": [
       "app/javascript/**/*.{js,jsx}",
       "!**/app/javascript/packs/**",
+      "!**/app/javascript/services/**",
+      "!**/app/javascript/containers/**",
+      "!**/app/javascript/**/Styles.js",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
@@ -64,7 +71,6 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
     "jest-enzyme": "^4.0.1",
-    "mock-socket": "^7.1.0",
     "node-sass": "^4.7.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.0.0",
