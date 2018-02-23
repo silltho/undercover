@@ -64,6 +64,7 @@ class Game < ApplicationRecord
       player.get_codename
     end
     self.players.each do |player|
+      #player.get_relations
       data['players'] = self.players
       data['current_player'] = player
       data['role_details'] = player.role

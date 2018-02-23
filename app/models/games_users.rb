@@ -24,25 +24,28 @@ class GamesUsers < ApplicationRecord
     rel = []
     case role
       when "Godfather"
-        rel.push(Role.where(name: "Bodyguard").pluck(:id))
+        rel.push(query_relation_information("Bodyguard"))
       when "Bodyguard"
-        rel.push(Role.where(name: "Godfather").pluck(:id))
+        rel.push(query_relation_information("Godfather"))
       when "President"
-        rel.push(Role.where(name: "Chief").pluck(:id))
+        rel.push(query_relation_information("Chief"))
       when "Chief"
-        rel.push(Role.where(name: "President").pluck(:id))
-        rel.push(Role.where(name: "Officer").pluck(:id))
+        rel.push(query_relation_information("President"))
+        rel.push(query_relation_information("Officer"))
       when "Officer"
-        rel.add(Role.where(name: "Chief").pluck(:id))
+        rel.push(query_relation_information("Chief"))
       when "Agent"
-        rel.push(Role.where(name: "Chief").pluck(:id))
-        rel.push(Role.where(name: "President").pluck(:id))
-        rel.push(Role.where(name: "Officer").pluck(:id))
+        rel.push(query_relation_information("Chief"))
+        rel.push(query_relation_information("President"))
+        rel.push(query_relation_information("Officer"))
       else
         rel = []
     end
-
     self.update(relations: rel)
+  end
+
+  def query_relation_information(role)
+    GamesUsers.where(game: self).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
   end
 
 end
