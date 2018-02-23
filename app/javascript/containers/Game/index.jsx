@@ -22,6 +22,10 @@ class Game extends React.PureComponent {
     }
   }
 
+  endGame = () => {
+    this.props.history.push('/')
+  }
+
   startGame = () => {
     this.setState({
       currentPhase: gamePhases.info
@@ -54,6 +58,8 @@ class Game extends React.PureComponent {
             currentPlayer={this.props.currentPlayer}
             players={this.props.players}
             roleDetails={this.props.roleDetails}
+            startGame={this.endExchange}
+            partyMembers={this.props.partyMembers}
           />
         )
       case gamePhases.info:
@@ -72,7 +78,8 @@ class Game extends React.PureComponent {
       case gamePhases.activity:
         return (
           <GameActivity
-            useActivity={this.useActivity}
+            endGame={this.endGame}
+            roleDetails={this.props.roleDetails}
           />
         )
       default:
@@ -81,18 +88,16 @@ class Game extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        {this.renderCurrentPhase()}
-      </div>
-    )
+    return this.renderCurrentPhase()
   }
 }
 
 Game.propTypes = {
+  history: PropTypes.object.isRequired,
   players: PropTypes.instanceOf(List).isRequired,
 	roleDetails: PropTypes.instanceOf(Map).isRequired,
-  currentPlayer: PropTypes.instanceOf(Map).isRequired
+  currentPlayer: PropTypes.instanceOf(Map).isRequired,
+  partyMembers: PropTypes.instanceOf(Map).isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -101,7 +106,8 @@ export const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   players: state.getIn(['Game', 'players'], List()),
   currentPlayer: state.getIn(['Game', 'current_player'], Map()),
-  roleDetails: state.getIn(['Game', 'role_details'], Map())
+	roleDetails: state.getIn(['Game', 'role_details'], Map()),
+	partyMembers: state.getIn(['Game', 'party_members'], Map())
 })
 
 export default connect(

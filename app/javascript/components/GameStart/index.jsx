@@ -1,33 +1,46 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
+import PlayersList from 'components/PlayersList'
+import Footer from 'components/Footer'
+import Button from 'components/Button'
+import {
+  Wrapper,
+  PartyDistribution
+} from './Styles'
 
 class GameStart extends React.PureComponent {
-  renderPlayer = (player) => (
-    <li key={`player-${player.get('id')}`}>{player.get('codename')}</li>
-  )
 
   render() {
     const {
       currentPlayer,
       players,
-      roleDetails
+      roleDetails,
+      startGame,
+      partyMembers
     } = this.props
-    const renderedPlayers = players.map(this.renderPlayer)
 
     return (
-      <div>
-        <div>Dein Deckname: {currentPlayer.get('codename')}</div>
-        <div>Deine Rolle: {roleDetails.get('name')}</div>
-        <div>Andere Spieler:
-          <ul>
-	          {renderedPlayers}
-          </ul>
-        </div>
-        <button>
-          verstanden
-        </button>
-      </div>
+      <Wrapper>
+        <PartyDistribution>
+          <div>
+            Party Distribution:
+          </div>
+          <div>
+            Mafia: {partyMembers.get('Mafia')}
+          </div>
+          <div>
+            Town: {partyMembers.get('Town')}
+          </div>
+          <div>
+            Anarchists: {partyMembers.get('Anarchist')}
+          </div>
+        </PartyDistribution>
+        <PlayersList players={players} />
+        <Footer>
+          <Button onClick={startGame} text="got it" />
+        </Footer>
+      </Wrapper>
     )
   }
 }
@@ -35,7 +48,9 @@ class GameStart extends React.PureComponent {
 GameStart.propTypes = {
 	currentPlayer: PropTypes.instanceOf(Map).isRequired,
 	roleDetails: PropTypes.instanceOf(Map).isRequired,
-  players: PropTypes.array.isRequired
+  players: PropTypes.instanceOf(List).isRequired,
+  startGame: PropTypes.func.isRequired,
+	partyMembers: PropTypes.instanceOf(Map).isRequired
 }
 
 export default GameStart

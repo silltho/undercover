@@ -5,7 +5,7 @@ import {
   ModalWrapper,
   Header,
   CloseIcon,
-	CloseIconWrapper
+  CloseIconWrapper
 } from './Styles'
 
 const overlay = {
@@ -30,9 +30,9 @@ const content = {
 }
 
 class Modal extends React.PureComponent {
-	componentWillMount() {
-		ReactModal.setAppElement('body')
-	}
+  componentWillMount() {
+    ReactModal.setAppElement('body')
+  }
 
   render() {
     const {

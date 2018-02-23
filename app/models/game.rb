@@ -18,7 +18,7 @@ class Game < ApplicationRecord
     after_all_transitions :log_status_change
 
     event :initializing do
-      transitions :from => :waiting, :to => :initialized, :after => :initialize_players
+      transitions :from => :waiting, :to => :initialized, :after => :start_game
     end
 
     event :start do
@@ -55,22 +55,21 @@ class Game < ApplicationRecord
     puts "Game #{self.id} '#{self.title}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
-  def initialize_players
+  def start_game
     data = Hash.new
     data['round'] = self.round
     roles_array = assign_roles(self.users.size)
-    GamesChannel.broadcast_to(self, type: 'assigned_roles', data: roles_array)
     self.players.each do |player|
       player.get_character(roles_array.delete(roles_array.sample))
       player.get_codename
-      player.get_relations
     end
     self.players.each do |player|
       data['players'] = self.players
       data['current_player'] = player
       data['role_details'] = player.role
-      UserChannel.broadcast_to(user, type: 'player_initialized_game', data: data)
+      UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
     end
+    get_party_members
     self.start
   end
 
@@ -80,6 +79,23 @@ class Game < ApplicationRecord
     self.save
     data = self.round
     GamesChannel.broadcast_to(self, type: 'update_round', data: data)
+  end
+
+  def get_party_members
+    data = Hash.new
+    data["Mafia"] = 0
+    data["Town"] = 0
+    data["Anarchist"] = 0
+    self.players.each do |player|
+      data["Mafia"] += 1 if player.role.party == "Mafia"
+      data["Town"]+= 1 if player.role.party == "Town"
+      data["Anarchist"]+= 1 if player.role.party == "Anarchists"
+    end
+    GamesChannel.broadcast_to(self, type: 'party_members', data: data)
+  end
+
+  def get_population
+    self.players.where(state: "alive").count
   end
 
 =begin
