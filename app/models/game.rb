@@ -99,6 +99,15 @@ class Game < ApplicationRecord
     self.players.where(state: "alive").count
   end
 
+  def create_game_code
+    code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,8].join
+    self.update(code: code)
+  end
+
+  def get_game_code
+    self.code
+  end
+
 =begin
   def update_ui
   end
