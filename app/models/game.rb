@@ -63,10 +63,11 @@ class Game < ApplicationRecord
       player.get_codename
     end
     self.players.each do |player|
-      #player.get_relations
+      player.get_relations
       data['players'] = self.players
       data['current_player'] = player
       data['role_details'] = player.role
+      data['relations'] = player.relations
       UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
     end
     get_party_members
