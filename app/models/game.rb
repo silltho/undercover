@@ -7,6 +7,7 @@ class Game < ApplicationRecord
   accepts_nested_attributes_for :players
   attribute :players
   attribute :full
+  attribute :aasm_state
 
   def full
     self.users.size >= 16
@@ -14,38 +15,38 @@ class Game < ApplicationRecord
 
     aasm :whiny_transitions => false do
     state :waiting, :initial => true
-    state :initialized, :informed, :exchanged, :skills_used, :finished
+    state :initialized, :inform, :exchange, :activity, :finished
     after_all_transitions :log_status_change
 
     event :initializing do
-      transitions :from => :waiting, :to => :initialized, :after => :start_game
+      transitions :from => :waiting, :to => :initialized, :after => :init_game
     end
 
-    event :start do
-      transitions :from => :initialized, :to => :informed
+    event :started do
+      transitions :from => :initialized, :to => :inform
     end
 
-    event :exchanging do
-      transitions :from => :informed, :to => :exchanged
+    event :exchanged do
+      transitions :from => :exchange, :to => :activity
     end
 
-    event :use_skills do
-      transitions :from => :exchanged, :to => :skills_used, :after => :update_round
+    event :skills_used do
+      transitions :from => :activity, :to => :inform, :after => :update_round
     end
 
-    event :informing do
-      transitions :from => :skills_used, :to => :informed
+    event :informed do
+      transitions :from => :inform, :to => :exchange
     end
 
     event :finish do
-      transitions :from => :informed, :to => :finished
+      transitions :from => :inform, :to => :finished
     end
 
     event :reset do
       transitions :from => :initialized, :to => :waiting
-      transitions :from => :informed, :to => :waiting
-      transitions :from => :exchanged, :to => :waiting
-      transitions :from => :skills_used, :to => :waiting
+      transitions :from => :inform, :to => :waiting
+      transitions :from => :exchange, :to => :waiting
+      transitions :from => :activity, :to => :waiting
       transitions :from => :finished, :to => :waiting
     end
 
@@ -55,7 +56,7 @@ class Game < ApplicationRecord
     puts "Game #{self.id} '#{self.title}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
-  def start_game
+  def init_game
     data = Hash.new
     data['round'] = self.round
     roles_array = assign_roles(self.users.size)
@@ -70,7 +71,6 @@ class Game < ApplicationRecord
       UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
     end
     get_party_members
-    self.start
   end
 
   def update_round

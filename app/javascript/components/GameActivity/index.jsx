@@ -23,7 +23,7 @@ class GameActivity extends React.PureComponent {
           <RoleName>{roleDetails.get('name')}</RoleName>
         </RoleImage>
         <Footer>
-          <Button onClick={endGame} text="exit" />
+          <Button onClick={endGame} text="use skill" />
         </Footer>
       </Wrapper>
     )

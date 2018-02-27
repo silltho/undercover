@@ -2,7 +2,11 @@ import {
   createChannel
 } from 'services/cable'
 import {
-  INITIALIZE_GAME
+  INITIALIZE_GAME,
+  START_GAME,
+  END_INFO_PHASE,
+  END_EXCHANGE_PHASE,
+  USE_SKILL
 } from './constants'
 
 let dispatch
@@ -30,6 +34,22 @@ function initializeGame() {
   channel.perform(INITIALIZE_GAME)
 }
 
+function endInfoPhase() {
+  channel.perform(END_INFO_PHASE)
+}
+
+function endExchangePhase() {
+  channel.perform(END_EXCHANGE_PHASE)
+}
+
+function useSkill() {
+  channel.perform(USE_SKILL)
+}
+
+function startGame() {
+  channel.perform(START_GAME)
+}
+
 function init(store) {
   dispatch = store.dispatch
 }
@@ -38,5 +58,9 @@ export default {
   init,
   joinGameChannel,
   unsubscribe,
-	initializeGame
+  initializeGame,
+  endExchangePhase,
+  endInfoPhase,
+  useSkill,
+  startGame
 }

@@ -6,7 +6,11 @@ import {
   GET_USERINFO,
   GET_CURRENT_GAME,
   PLAYER_JOINED_GAME,
-  PLAYER_LEFT_GAME
+  PLAYER_LEFT_GAME,
+  INFO_PHASE_ENDED,
+  ACTIVITY_PHASE_ENDED,
+  EXCHANGE_PHASE_ENDED,
+  PLAYER_STARTED_GAME
 } from 'services/constants'
 
 const initialState = fromJS({
@@ -18,8 +22,12 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case CREATE_GAME_SUCCESS:
+    case PLAYER_STARTED_GAME:
+	  case CREATE_GAME_SUCCESS:
     case GET_CURRENT_GAME:
+    case INFO_PHASE_ENDED:
+    case ACTIVITY_PHASE_ENDED:
+    case EXCHANGE_PHASE_ENDED:
     case JOIN_GAME_SUCCESS: {
       return state.setIn(['App', 'currentGame'], fromJS(action.data))
     }
