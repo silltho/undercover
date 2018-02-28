@@ -4,6 +4,7 @@ class Game < ApplicationRecord
   has_many :players, class_name: 'GamesUsers', dependent: :destroy
   attribute :full
   attribute :aasm_state
+  attribute :players
 
   def full
     self.players.size >= 16

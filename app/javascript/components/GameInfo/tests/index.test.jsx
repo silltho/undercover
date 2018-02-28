@@ -20,6 +20,6 @@ const renderComponent = (props = defaultProps) => mount(
 describe('<GameInfo />', () => {
   it('should render a <div>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find('div').length).toEqual(1)
+    expect(renderedComponent.find('div').length).toEqual(3)
   })
 })
