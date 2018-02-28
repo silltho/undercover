@@ -2,13 +2,10 @@ class Game < ApplicationRecord
   include AASM
   require 'faker'
   has_many :players, class_name: 'GamesUsers', dependent: :destroy
-  has_many :users, through: :players
-  accepts_nested_attributes_for :players
-  attribute :players
   attribute :full
 
   def full
-    self.users.size >= 16
+    self.players.size >= 16
   end
 
     aasm :whiny_transitions => false do
@@ -57,18 +54,18 @@ class Game < ApplicationRecord
   def start_game
     data = Hash.new
     data['round'] = self.round
-    roles_array = assign_roles(self.users.size)
+    roles_array = assign_roles(self.players.size)
     self.players.each do |player|
       player.get_character(roles_array.delete(roles_array.sample))
       player.get_codename
     end
     self.players.each do |player|
-      player.get_relations
+      #player.get_relations
       data['players'] = self.players
       data['current_player'] = player
       data['role_details'] = player.role
-      data['relations'] = player.relations
-      UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
+      #data['relations'] = player.relations
+      UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
     end
     get_party_members
     self.start
@@ -100,7 +97,7 @@ class Game < ApplicationRecord
   end
 
   def create_game_code
-    code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,8].join
+    code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,4].join
     self.update(code: code)
   end
 

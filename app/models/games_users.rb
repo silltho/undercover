@@ -4,11 +4,8 @@ class GamesUsers < ApplicationRecord
     state :alive, :initial => true
     state :dead, :disconnected, :imprisoned
   end
-  belongs_to :game
-  belongs_to :user
+  belongs_to :game, optional: true
   belongs_to :role, optional: true
-  validates :user, uniqueness: { scope: :game,
-                                 message: "you can only join the same game once" }
 
   def get_codename
     name = Faker::Name.name
@@ -20,9 +17,9 @@ class GamesUsers < ApplicationRecord
   end
 
   def get_relations
-    role = Role.find(self.role_id).name
+    name = self.role.name
     rel = []
-    case role
+    case name
       when "Godfather"
         rel.push(query_relation_information("Bodyguard"))
       when "Bodyguard"
@@ -45,7 +42,7 @@ class GamesUsers < ApplicationRecord
   end
 
   def query_relation_information(role)
-    GamesUsers.where(game: self).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
+    GamesUsers.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
   end
 
 end

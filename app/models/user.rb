@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :identities
-  has_many :players, class_name: 'GamesUsers'
-  has_many :games, through: :players
+  #has_many :players, class_name: 'GamesUsers'
+  #has_many :games, through: :players
   accepts_nested_attributes_for :players
 
 
