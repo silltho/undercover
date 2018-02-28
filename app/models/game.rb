@@ -1,7 +1,6 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  belongs_to :user
   has_many :players, class_name: 'GamesUsers', dependent: :destroy
   has_many :users, through: :players
   accepts_nested_attributes_for :players
@@ -65,9 +64,11 @@ class Game < ApplicationRecord
       player.get_codename
     end
     self.players.each do |player|
+      player.get_relations
       data['players'] = self.players
       data['current_player'] = player
       data['role_details'] = player.role
+      data['relations'] = player.relations
       UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
     end
     get_party_members
@@ -96,6 +97,15 @@ class Game < ApplicationRecord
 
   def get_population
     self.players.where(state: "alive").count
+  end
+
+  def create_game_code
+    code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,8].join
+    self.update(code: code)
+  end
+
+  def get_game_code
+    self.code
   end
 
 =begin
