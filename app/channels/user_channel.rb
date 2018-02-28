@@ -11,7 +11,7 @@ class UserChannel < ApplicationCable::Channel
   end
 
   def get_current_game
-    current_game = Game.joins(:users).where(aasm_state: 'waiting' ,users: {id: current_user.id}).first
+    current_game = Game.where(aasm_state: 'waiting' , player: {id: current_user.id}).first
     UserChannel.broadcast_to(current_user, type: 'get_current_game', data: current_game)
   end
 end
