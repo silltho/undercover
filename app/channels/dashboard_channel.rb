@@ -5,7 +5,6 @@ class DashboardChannel < ApplicationCable::Channel
 
   def create_game(params)
     game = Game.create(title: params['title'])
-    game.create_game_code
     ActionCable.server.broadcast('dashboard', type: 'player_created_game', data: game)
     UserChannel.broadcast_to(current_user, type: 'create_game_success', data: game)
   end

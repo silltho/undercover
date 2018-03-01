@@ -5,6 +5,7 @@ class Game < ApplicationRecord
   attribute :full
   attribute :aasm_state
   attribute :players
+  after_create :create_game_code
 
   def full
     self.players.size >= 16
