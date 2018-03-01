@@ -109,6 +109,7 @@ class Game < ApplicationRecord
 
   def add_player(player)
     self.players << player
+    get_game_object
   end
 
   def create_game_code

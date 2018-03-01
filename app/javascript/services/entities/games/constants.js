@@ -1,4 +1,5 @@
 export const INITIALIZE_GAME = 'initialize_game'
+export const GAME_UPDATED = 'game_updated'
 export const PLAYER_INITIALIZED_GAME = 'player_initialized_game'
 export const PARTY_MEMBERS = 'party_members'
 
