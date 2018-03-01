@@ -1,6 +1,8 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
-    stream_for find_game
+    game = find_game
+    stream_for game
+    game.add_player(current_user)
   end
 
   def unsubscribed
@@ -62,8 +64,6 @@ class GamesChannel < ApplicationCable::Channel
 
   private
   def find_game
-    game = Game.where(code: params[:gamecode], aasm_state: 'waiting')
-    game.add_player(current_user)
-    game
+    Game.where(code: params[:gamecode], aasm_state: 'waiting').first
   end
 end
