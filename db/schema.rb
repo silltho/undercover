@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301091037) do
+ActiveRecord::Schema.define(version: 20180301134126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 20180301091037) do
     t.string "provider"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "newspapers", force: :cascade do |t|
+    t.bigint "game_id"
+    t.integer "round"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "committer_id"
+    t.bigint "victim_id"
+    t.boolean "success"
+    t.index ["committer_id"], name: "index_newspapers_on_committer_id"
+    t.index ["game_id"], name: "index_newspapers_on_game_id"
+    t.index ["victim_id"], name: "index_newspapers_on_victim_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -65,5 +78,8 @@ ActiveRecord::Schema.define(version: 20180301091037) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "newspapers", "games"
+  add_foreign_key "newspapers", "players", column: "committer_id"
+  add_foreign_key "newspapers", "players", column: "victim_id"
   add_foreign_key "players", "games"
 end

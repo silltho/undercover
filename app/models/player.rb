@@ -6,6 +6,7 @@ class Player < ApplicationRecord
   end
   belongs_to :game, optional: true
   belongs_to :role, optional: true
+  has_many :newspapers
 
   def get_player_object
     {
@@ -61,7 +62,7 @@ class Player < ApplicationRecord
   end
 
   def query_relation_information(role)
-    Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
+    Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :name  )
   end
 
 end
