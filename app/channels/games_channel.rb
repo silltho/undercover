@@ -6,7 +6,7 @@ class GamesChannel < ApplicationCable::Channel
   def unsubscribed
     game = find_game
     if game.waiting?
-      GamesUsers.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
+      Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
       game = Game.find(params['id'])
       ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
     end

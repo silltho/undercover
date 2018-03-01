@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226163343) do
+ActiveRecord::Schema.define(version: 20180301091037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,22 +24,22 @@ ActiveRecord::Schema.define(version: 20180226163343) do
     t.string "code"
   end
 
-  create_table "games_users", force: :cascade do |t|
+  create_table "identities", force: :cascade do |t|
+    t.string "uid"
+    t.string "provider"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "players", force: :cascade do |t|
     t.bigint "game_id"
     t.string "codename"
     t.bigint "role_id"
     t.string "state"
     t.integer "relations", default: [], array: true
     t.string "session_id"
-    t.index ["game_id"], name: "index_games_users_on_game_id"
-    t.index ["role_id"], name: "index_games_users_on_role_id"
-  end
-
-  create_table "identities", force: :cascade do |t|
-    t.string "uid"
-    t.string "provider"
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_identities_on_user_id"
+    t.index ["game_id"], name: "index_players_on_game_id"
+    t.index ["role_id"], name: "index_players_on_role_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -65,5 +65,5 @@ ActiveRecord::Schema.define(version: 20180226163343) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "games_users", "games"
+  add_foreign_key "players", "games"
 end
