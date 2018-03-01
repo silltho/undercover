@@ -96,8 +96,6 @@ class Game < ApplicationRecord
     data = self.round
   end
 
-  private
-
   def get_party_members
     data = Hash.new
     data["Mafia"], data["Town"], data["Anarchist"] = 0
