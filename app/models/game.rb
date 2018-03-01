@@ -52,14 +52,13 @@ class Game < ApplicationRecord
   end
 
   def get_game_object
-    data = {
+     {
               id: self.id,
               aasm_state: self.aasm_state,
               round: self.round,
               players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
               party_distribution: self.get_party_members
-           }
-    GamesChannel.broadcast_to(self, type: 'game_updated', data: data)
+     }
   end
 
   def get_game_code
@@ -87,7 +86,7 @@ class Game < ApplicationRecord
       UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
     end
     get_party_members
-    get_game_object
+    GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
   def update_round
@@ -110,7 +109,7 @@ class Game < ApplicationRecord
 
   def add_player(player)
     self.players << player
-    get_game_object
+    GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
   def create_game_code

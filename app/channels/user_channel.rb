@@ -1,7 +1,7 @@
 class UserChannel < ApplicationCable::Channel
   def subscribed
     stream_for current_user
-    #get_current_game
+    UserChannel.broadcast_to(current_user, type: 'game_updated', data: self.game.get_game_object) if self.game.not.null
   end
 
   def create_game
