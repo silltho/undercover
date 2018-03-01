@@ -25,13 +25,13 @@ class Lobby extends React.PureComponent {
 
     return (
       <Wrapper>
-        <Title title={game ? game.get('title') : '...loading'} />
+        <Title title="Gamelobby" />
         <PlayerCount>
           {game && game.get('players').size} Player
         </PlayerCount>
         <Footer>
           <Button onClick={this.leaveGame} text="exit" />
-          <Button onClick={this.initializeGame} text="start" />
+          <Button onClick={this.props.initializeGame} text="start" />
         </Footer>
       </Wrapper>
     )
