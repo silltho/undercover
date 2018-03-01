@@ -17,12 +17,12 @@ function init(store) {
   dispatch = store.dispatch
 }
 
-function createGame(title) {
-	channel.perform(CREATE_GAME_REQUEST, { title })
+function createGame() {
+	channel.perform(CREATE_GAME_REQUEST)
 }
 
-function joinGame(gameId) {
-	channel.perform(JOIN_GAME_REQUEST, { id: gameId })
+function joinGame(gamecode) {
+	channel.perform(JOIN_GAME_REQUEST, { code: gamecode })
 }
 
 function leaveGame(gameId) {

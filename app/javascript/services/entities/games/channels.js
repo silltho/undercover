@@ -17,7 +17,7 @@ function joinGameChannel(id) {
   if (gameId !== id) {
     if (channel) channel.unsubscribe()
     gameId = id
-    channel = createChannel({ channel: 'GamesChannel', id }, {
+    channel = createChannel({ channel: 'GamesChannel', gamecode: id }, {
       received(data) {
         dispatch(data)
       }

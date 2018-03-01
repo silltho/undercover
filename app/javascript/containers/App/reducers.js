@@ -14,36 +14,15 @@ import {
 } from 'services/constants'
 
 const initialState = fromJS({
-  App: {
-    currentUser: null,
-    currentGame: null
-  }
+  Game: {},
+  Player: {},
+  RoundInformation: {}
 })
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case PLAYER_STARTED_GAME:
-	  case CREATE_GAME_SUCCESS:
-    case GET_CURRENT_GAME:
-    case INFO_PHASE_ENDED:
-    case ACTIVITY_PHASE_ENDED:
-    case EXCHANGE_PHASE_ENDED:
-    case JOIN_GAME_SUCCESS: {
-      return state.setIn(['App', 'currentGame'], fromJS(action.data))
-    }
-    case LEAVE_GAME_SUCCESS: {
-      return state.setIn(['App', 'currentGame'], null)
-    }
-    case GET_USERINFO: {
-      return state.setIn(['App', 'currentUser'], fromJS(action.data))
-    }
-    case PLAYER_LEFT_GAME:
-    case PLAYER_JOINED_GAME: {
-      const game = fromJS(action.data)
-      if (state.getIn(['App', 'currentGame', 'id']) === game.get('id')) {
-        return state.setIn(['App', 'currentGame'], game)
-      }
-      return state
+    case CREATE_GAME_SUCCESS: {
+      return state.setIn(['Game'], fromJS(action.data))
     }
     default:
       return state

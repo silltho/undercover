@@ -1,6 +1,3 @@
-export const CREATE_GAME_REQUEST = 'create_game'
-export const CREATE_GAME_SUCCESS = 'create_game_success'
-export const CREATE_GAME_ERROR = 'create_game_error'
 export const PLAYER_CREATED_GAME = 'player_created_game'
 
 export const JOIN_GAME_REQUEST = 'join_game'
