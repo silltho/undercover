@@ -62,7 +62,8 @@ class GamesChannel < ApplicationCable::Channel
 
   private
   def find_game
-    puts params[:id]
-    game = Game.find(params[:id])
+    puts params[:gamecode]
+    game = Game.where(code: params[:gamecode])
+    console.log(game)
   end
 end

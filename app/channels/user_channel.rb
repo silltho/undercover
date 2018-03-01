@@ -6,6 +6,11 @@ class UserChannel < ApplicationCable::Channel
     get_current_game
   end
 
+  def create_game
+    new_game = Game.create
+    UserChannel.broadcast_to(current_user, type: 'create_game_success', data: new_game)
+  end
+
   def get_userinfo
     UserChannel.broadcast_to(current_user, type: 'get_userinfo', data: current_user)
   end
