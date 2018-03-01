@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  has_many :players, class_name: 'GamesUsers', dependent: :destroy
+  has_many :players, class_name: 'Player', dependent: :destroy
   attribute :full
   attribute :aasm_state
   attribute :players

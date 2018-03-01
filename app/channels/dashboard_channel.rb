@@ -19,10 +19,10 @@ class DashboardChannel < ApplicationCable::Channel
   end
 
   def leave_game(params)
-    GamesUsers.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
+    Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
     game = Game.find(params['id'])
     ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
-    if GamesUsers.where(game_id: params[:id]).length === 0
+    if Player.where(game_id: params[:id]).length === 0
       remove_game
     end
   end

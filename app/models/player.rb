@@ -1,4 +1,4 @@
-class GamesUsers < ApplicationRecord
+class Player < ApplicationRecord
   include AASM
   aasm :column => 'state', :whiny_transitions => false do
     state :alive, :initial => true
@@ -61,7 +61,7 @@ class GamesUsers < ApplicationRecord
   end
 
   def query_relation_information(role)
-    GamesUsers.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
+    Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
   end
 
 end
