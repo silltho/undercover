@@ -7,6 +7,25 @@ class GamesUsers < ApplicationRecord
   belongs_to :game, optional: true
   belongs_to :role, optional: true
 
+  def get_player_object
+    {
+        id: self.id,
+        codename: self.codename,
+        state: self.state,
+        role: {
+            id: self.role.try(:id),
+            name: self.try(:role).try(:name),
+            image: self.try(:role).try(:image),
+            skill: {
+                active: self.try(:role).try(:active),
+                img_active: nil,
+                passive: self.try(:role).try(:passive),
+                img_passive: nil
+            }
+        }
+    }
+  end
+
   def get_codename
     name = Faker::Name.name
     self.update(codename: name)
