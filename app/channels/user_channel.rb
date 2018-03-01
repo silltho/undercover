@@ -1,9 +1,7 @@
 class UserChannel < ApplicationCable::Channel
   def subscribed
     stream_for current_user
-    get_userinfo
-    GetOpenGamesJob.perform_later(current_user)
-    get_current_game
+    #get_current_game
   end
 
   def create_game

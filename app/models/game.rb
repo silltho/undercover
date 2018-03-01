@@ -107,6 +107,9 @@ class Game < ApplicationRecord
     data
   end
 
+  def add_player(player)
+    self.players << player
+  end
 
   def create_game_code
     code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,4].join

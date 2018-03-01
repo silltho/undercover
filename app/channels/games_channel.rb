@@ -62,8 +62,8 @@ class GamesChannel < ApplicationCable::Channel
 
   private
   def find_game
-    puts params[:gamecode]
-    game = Game.where(code: params[:gamecode])
-    console.log(game)
+    game = Game.where(code: params[:gamecode], aasm_state: 'waiting')
+    game.add_player(current_user)
+    game
   end
 end
