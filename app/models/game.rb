@@ -49,6 +49,21 @@ class Game < ApplicationRecord
 
   end
 
+  def get_game_object
+    data = {
+              id: self.id,
+              aasm_state: self.aasm_state,
+              round: self.round,
+              players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
+              party_distribution: self.get_party_members
+           }
+    GamesChannel.broadcast_to(self, type: 'game_updated', data: data)
+  end
+
+  def get_game_code
+    self.code
+  end
+
   def log_status_change
     puts "Game #{self.id} '#{self.title}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
@@ -70,6 +85,7 @@ class Game < ApplicationRecord
       UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
     end
     get_party_members
+    get_game_object
   end
 
   def update_round
@@ -77,33 +93,25 @@ class Game < ApplicationRecord
     self.round += 1
     self.save
     data = self.round
-    GamesChannel.broadcast_to(self, type: 'update_round', data: data)
   end
+
+  private
 
   def get_party_members
     data = Hash.new
-    data["Mafia"] = 0
-    data["Town"] = 0
-    data["Anarchist"] = 0
+    data["Mafia"], data["Town"], data["Anarchist"] = 0
     self.players.each do |player|
-      data["Mafia"] += 1 if player.role.party == "Mafia"
-      data["Town"]+= 1 if player.role.party == "Town"
-      data["Anarchist"]+= 1 if player.role.party == "Anarchists"
+      data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
+      data["Town"]+= 1 if player.role.try(:party) == "Town"
+      data["Anarchist"]+= 1 if player.role.try(:party) == "Anarchists"
     end
-    GamesChannel.broadcast_to(self, type: 'party_members', data: data)
+    data
   end
 
-  def get_population
-    self.players.where(state: "alive").count
-  end
 
   def create_game_code
     code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,4].join
     self.update(code: code)
-  end
-
-  def get_game_code
-    self.code
   end
 
 =begin
