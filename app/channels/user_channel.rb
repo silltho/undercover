@@ -10,6 +10,14 @@ class UserChannel < ApplicationCable::Channel
     UserChannel.broadcast_to(current_user, type: 'create_game_success', data: new_game)
   end
 
+  def leave_game (params)
+    Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
+    game = Game.find(params['id'])
+    game.get_game_object
+    UserChannel.broadcast_to(current_user, type: 'leave_game_success', data: game)
+    #destroy game if no players left
+  end
+
   def get_userinfo
     UserChannel.broadcast_to(current_user, type: 'get_userinfo', data: current_user)
   end

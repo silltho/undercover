@@ -17,10 +17,6 @@ const gamePhases = {
 }
 
 class Game extends React.PureComponent {
-  endGame = () => {
-    this.props.history.push('/')
-  }
-
   renderCurrentPhase = () => {
     switch (this.props.currentGame.get('aasm_state')) {
       case gamePhases.initialized:
@@ -64,23 +60,13 @@ class Game extends React.PureComponent {
 }
 
 Game.propTypes = {
-  history: PropTypes.object.isRequired,
-  players: PropTypes.instanceOf(List).isRequired,
-  roleDetails: PropTypes.instanceOf(Map).isRequired,
-  currentPlayer: PropTypes.instanceOf(Map).isRequired,
-  currentGame: PropTypes.instanceOf(Map).isRequired,
-  partyMembers: PropTypes.instanceOf(Map).isRequired
+  game: PropTypes.instanceOf(Map).isRequired
 }
 
-export const mapDispatchToProps = (dispatch) => ({
-})
+export const mapDispatchToProps = (dispatch) => ({})
 
 const mapStateToProps = (state) => ({
-  players: state.getIn(['Game', 'players'], List()),
-  currentPlayer: state.getIn(['Game', 'current_player'], Map()),
-  currentGame: state.getIn(['App', 'currentGame'], Map()),
-  roleDetails: state.getIn(['Game', 'role_details'], Map()),
-  partyMembers: state.getIn(['Game', 'party_members'], Map()),
+  game: state.get('Game')
 })
 
 export default connect(

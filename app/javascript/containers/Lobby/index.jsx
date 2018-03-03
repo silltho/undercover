@@ -3,16 +3,16 @@ import { Map } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
-  DashboardChannel,
+  UserChannel,
   GameChannel
 } from 'services/channels'
-import { leaveGame } from 'services/actions'
 import Button from 'components/Button'
 import Footer from 'components/Footer'
 import Title from 'components/Title'
 import {
   Wrapper,
-  PlayerCount
+  PlayerCount,
+  RoomCode
 } from './Styles'
 
 class Lobby extends React.PureComponent {
@@ -26,6 +26,7 @@ class Lobby extends React.PureComponent {
     return (
       <Wrapper>
         <Title title="Gamelobby" />
+        <RoomCode>Roomcode: {game.get('code')}</RoomCode>
         <PlayerCount>
           {game && game.get('players').size} Player
         </PlayerCount>
@@ -44,11 +45,10 @@ Lobby.propTypes = {
   initializeGame: PropTypes.func.isRequired
 }
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = () => ({
   leaveGame: (gameId) => {
-    DashboardChannel.leaveGame(gameId)
+    UserChannel.leaveGame(gameId)
     GameChannel.unsubscribe()
-    dispatch(leaveGame())
   },
   initializeGame: GameChannel.initializeGame
 })

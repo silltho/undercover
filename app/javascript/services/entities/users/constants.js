@@ -5,3 +5,6 @@ export const GET_CURRENT_GAME = 'get_current_game'
 export const CREATE_GAME_REQUEST = 'create_game'
 export const CREATE_GAME_SUCCESS = 'create_game_success'
 export const CREATE_GAME_ERROR = 'create_game_error'
+
+export const LEAVE_GAME_REQUEST = 'leave_game'
+export const LEAVE_GAME_SUCCESS = 'leave_game_success'

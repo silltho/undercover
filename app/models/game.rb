@@ -54,6 +54,7 @@ class Game < ApplicationRecord
   def get_game_object
      {
               id: self.id,
+              code: self.code,
               aasm_state: self.aasm_state,
               round: self.round,
               players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
