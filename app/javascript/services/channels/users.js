@@ -4,7 +4,7 @@ import {
   GET_USERINFO,
   CREATE_GAME_REQUEST,
   LEAVE_GAME_REQUEST
-} from './constants'
+} from '../constants'
 
 let dispatch
 

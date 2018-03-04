@@ -1,6 +1,6 @@
-import UserChannel from './entities/users/channels'
-import GameChannel from './entities/games/channels'
-import DashboardChannel from './entities/dashboard/channels'
+import UserChannel from './channels/users'
+import GameChannel from './channels/games'
+import DashboardChannel from './channels/dashboard'
 
 export default (store) => {
   UserChannel.init(store)

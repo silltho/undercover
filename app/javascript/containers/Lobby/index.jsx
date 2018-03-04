@@ -31,7 +31,7 @@ class Lobby extends React.PureComponent {
           {game && game.get('players').size} Player
         </PlayerCount>
         <Footer>
-          <Button onClick={this.leaveGame} text="exit" />
+          <Button onClick={this.leaveGame} text="leave" />
           <Button onClick={this.props.initializeGame} text="start" />
         </Footer>
       </Wrapper>

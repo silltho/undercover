@@ -7,7 +7,7 @@ import {
   END_INFO_PHASE,
   END_EXCHANGE_PHASE,
   USE_SKILL
-} from './constants'
+} from '../constants'
 
 let dispatch
 let channel

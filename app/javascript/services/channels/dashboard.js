@@ -3,7 +3,7 @@ import {
 	CREATE_GAME_REQUEST,
   LEAVE_GAME_REQUEST,
   JOIN_GAME_REQUEST
-} from './constants'
+} from '../constants'
 
 let dispatch
 
