@@ -1,30 +1,21 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
-    puts 'game subscribe !!!!!!!!!!'
     game = find_game
     stream_for game
-    puts '1---------------------------------------'
-    puts game.players
-    puts '---------------------------------------'
-    game.add_player(current_user)
-    puts '2---------------------------------------'
-    puts game.players
-    puts '---------------------------------------'
   end
 
-  #def unsubscribed
-    #game = find_game
-    #if game.waiting?
-    #  Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
-    #  game = Game.find(params['id'])
-    #  ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
-    #end
-  #end
+  def unsubscribed
+    game = find_game
+    if game.waiting?
+      #TODO remove player
+      game.broadcast_game_updated
+    end
+  end
 
   def initialize_game
     game = find_game
     game.initializing!
-    ActionCable.server.broadcast('dashboard', type: 'player_started_game', data: game)
+    game.broadcast_game_updated
   end
 
   def start_game
@@ -33,20 +24,20 @@ class GamesChannel < ApplicationCable::Channel
     #send first issue to all players with information about who is in the game
     #TODO Anna: think about how to save newspaper in db
     #TODO Tom: maybe just display draft of the newspaper made by artists for prototype
-    GamesChannel.broadcast_to(game, type: 'info_phase_ended', data: game)
+    game.broadcast_game_updated
   end
 
   def end_info_phase
     game = find_game
     #display fancy stuff because in the backend nothing is really going on
     game.informed!
-    GamesChannel.broadcast_to(game, type: 'info_phase_ended', data: game)
+    game.broadcast_game_updated
   end
 
   def end_exchange_phase
     game = find_game
     game.exchanged!
-    GamesChannel.broadcast_to(game, type: 'exchange_phase_ended', data: game)
+    game.broadcast_game_updated
     #send newspaper issue to all players with information about who died and stuff
   end
 
@@ -54,13 +45,14 @@ class GamesChannel < ApplicationCable::Channel
     game = find_game
     #send possible actions to user and react accordingly.
     game.skills_used!
-    GamesChannel.broadcast_to(find_game, type: 'activity_phase_ended', data: find_game)
+    game.broadcast_game_updated
   end
 
   def finish_game
     game = find_game
     game.finish!
     #save all the stuff to a statistics table
+    game.broadcast_game_updated
   end
 
   def reset_game
