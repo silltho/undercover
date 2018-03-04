@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { List, Map } from 'immutable'
+import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
 import GameStart from 'components/GameStart'
 import GameInfo from 'components/GameInfo'
@@ -18,7 +18,7 @@ const gamePhases = {
 
 class Game extends React.PureComponent {
   renderCurrentPhase = () => {
-    switch (this.props.currentGame.get('aasm_state')) {
+    switch (this.props.game.get('aasm_state')) {
       case gamePhases.initialized:
         return (
           <GameStart

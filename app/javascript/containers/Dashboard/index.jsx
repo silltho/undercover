@@ -1,5 +1,4 @@
 import React from 'react'
-import { Map } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GameChannel, UserChannel } from 'services/channels'
@@ -8,7 +7,7 @@ import {
   Wrapper,
   ButtonContainer,
   RoomCodeInput,
-	JoinGameForm
+  JoinGameForm
 } from './Styles'
 
 class Dashboard extends React.PureComponent {
@@ -19,15 +18,15 @@ class Dashboard extends React.PureComponent {
     }
   }
 
-	onInputChange = (e) => {
-		this.setState({
-			gamecode: e.target.value
-		})
-	}
+  onInputChange = (e) => {
+    this.setState({
+      gamecode: e.target.value
+    })
+  }
 
-	onInputKeyDown = (e) => {
-		if (e.key === 'Enter') this.joinGame()
-	}
+  onInputKeyDown = (e) => {
+    if (e.key === 'Enter') this.joinGame()
+  }
 
   joinGame = () => {
     this.props.joinGame(this.state.gamecode)
@@ -49,18 +48,19 @@ class Dashboard extends React.PureComponent {
 }
 
 Dashboard.defaultProps = {
-  currentGame: null
 }
 
 Dashboard.propTypes = {
   createGame: PropTypes.func.isRequired,
-  joinGame: PropTypes.func.isRequired,
-  currentGame: PropTypes.instanceOf(Map)
+  joinGame: PropTypes.func.isRequired
 }
 
 export const mapDispatchToProps = () => ({
   createGame: UserChannel.createGame,
-  joinGame: GameChannel.joinGameChannel
+  joinGame: (gameCode) => {
+    GameChannel.joinGameChannel(gameCode)
+    UserChannel.joinGame(gameCode)
+  }
 })
 
 const mapStateToProps = (state) => ({})

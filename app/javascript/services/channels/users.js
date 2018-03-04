@@ -1,9 +1,8 @@
 import { createChannel } from 'services/cable'
 import {
-  GET_OPEN_GAMES,
-  GET_USERINFO,
   CREATE_GAME_REQUEST,
-  LEAVE_GAME_REQUEST
+  LEAVE_GAME_REQUEST,
+  JOIN_GAME_REQUEST
 } from '../constants'
 
 let dispatch
@@ -26,18 +25,13 @@ function leaveGame(gameId) {
 	channel.perform(LEAVE_GAME_REQUEST, { id: gameId })
 }
 
-function getOpenGames() {
-  channel.perform(GET_OPEN_GAMES)
-}
-
-function getUserinfo() {
-  channel.perform(GET_USERINFO)
+function joinGame(gameCode) {
+	channel.perform(JOIN_GAME_REQUEST, { gamecode: gameCode })
 }
 
 export default {
   init,
-  getOpenGames,
-  getUserinfo,
   createGame,
-  leaveGame
+  leaveGame,
+  joinGame
 }

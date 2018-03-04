@@ -1,12 +1,9 @@
 import appReducer from 'containers/App/reducers'
 import gameReducer from 'containers/Game/reducers'
 
-import dashboardReducer from '../containers/Dashboard/reducers'
-
 const reducers = [
   appReducer,
-  gameReducer,
-  dashboardReducer
+  gameReducer
 ]
 
 // Reduce reducers to provide a single entity state object,
