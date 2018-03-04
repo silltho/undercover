@@ -110,6 +110,8 @@ class Game < ApplicationRecord
 
   def add_player(player)
     self.players << player
+    puts '---------------------addplayer'
+    puts self.players.select(:id, :codename, :state, :role_id, :relations).to_a
     GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 

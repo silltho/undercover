@@ -26,8 +26,9 @@ function joinGameChannel(id) {
 }
 
 function unsubscribe() {
-  gameId = null
   channel.unsubscribe()
+	gameId = null
+  channel = null
 }
 
 function initializeGame() {

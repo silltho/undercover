@@ -15,6 +15,7 @@ class UserChannel < ApplicationCable::Channel
     game = Game.find(params['id'])
     game.get_game_object
     UserChannel.broadcast_to(current_user, type: 'leave_game_success', data: game)
+    GamesChannel.broadcast_to(game, type: 'game_updated', data: game)
     #destroy game if no players left
   end
 

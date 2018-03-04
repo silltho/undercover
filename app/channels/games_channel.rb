@@ -1,18 +1,25 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
+    puts 'game subscribe !!!!!!!!!!'
     game = find_game
     stream_for game
+    puts '1---------------------------------------'
+    puts game.players
+    puts '---------------------------------------'
     game.add_player(current_user)
+    puts '2---------------------------------------'
+    puts game.players
+    puts '---------------------------------------'
   end
 
-  def unsubscribed
-    game = find_game
-    if game.waiting?
-      Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
-      game = Game.find(params['id'])
-      ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
-    end
-  end
+  #def unsubscribed
+    #game = find_game
+    #if game.waiting?
+    #  Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
+    #  game = Game.find(params['id'])
+    #  ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
+    #end
+  #end
 
   def initialize_game
     game = find_game
