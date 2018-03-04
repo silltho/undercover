@@ -51,6 +51,10 @@ class Game < ApplicationRecord
 
   end
 
+  def broadcast_game_updated
+    GamesChannel.broadcast_to(self, type: 'game_updated', data: self.get_game_object)
+  end
+
   def get_game_object
      {
               id: self.id,
@@ -86,8 +90,6 @@ class Game < ApplicationRecord
       #data['relations'] = player.relations
       UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
     end
-    get_party_members
-    GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
   def update_round
@@ -110,46 +112,12 @@ class Game < ApplicationRecord
 
   def add_player(player)
     self.players << player
-    puts '---------------------addplayer'
     puts self.players.select(:id, :codename, :state, :role_id, :relations).to_a
-    GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
   def create_game_code
     code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,4].join
     self.update(code: code)
   end
-
-=begin
-  def update_ui
-  end
-
-  def start_timer
-  end
-
-  def get_news
-  end
-
-  def get_population
-  end
-
-  def get_mafia_members
-  end
-
-  def get_town_members
-  end
-
-  def get_processed_activities
-  end
-
-  def display_town
-  end
-
-  def save_results
-  end
-
-  def process_activities
-  end
-=end
 
 end
