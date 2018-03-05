@@ -25,13 +25,13 @@ class GameStart extends React.PureComponent {
             Party Distribution:
           </div>
           <div>
-            Mafia: {game.getIn(['party_distribution', 'Mafia'])}
+            Mafia: {game.getIn(['party_distribution', 'Mafia']) || 0}
           </div>
           <div>
-            Town: {game.getIn(['party_distribution', 'Town'])}
+            Town: {game.getIn(['party_distribution', 'Town']) || 0}
           </div>
           <div>
-            Anarchists: {game.getIn(['party_distribution', 'Anarchists'])}
+            Anarchists: {game.getIn(['party_distribution', 'Anarchists']) || 0}
           </div>
         </PartyDistribution>
         <PlayersList players={game.get('players')} />
