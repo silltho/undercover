@@ -26,11 +26,9 @@ class App extends React.PureComponent {
     }
     if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') === 'waiting') {
       this.setState({ component: <Lobby /> })
-	    console.log('lobby')
     }
     if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') !== 'waiting') {
 	    this.setState({ component: <Game /> })
-      console.log('game')
     }
   }
 

@@ -22,11 +22,9 @@ class Game extends React.PureComponent {
       case gamePhases.initialized:
         return (
           <GameStart
-            currentPlayer={this.props.currentPlayer}
-            players={this.props.players}
-            roleDetails={this.props.roleDetails}
+            game={this.props.game}
+            player={this.props.player}
             startGame={GameChannel.startGame}
-            partyMembers={this.props.partyMembers}
           />
         )
       case gamePhases.info:
@@ -46,7 +44,7 @@ class Game extends React.PureComponent {
         return (
           <GameActivity
             endGame={GameChannel.useSkill}
-            roleDetails={this.props.roleDetails}
+            roleDetails={this.props.player.get('role')}
           />
         )
       default:
@@ -60,13 +58,15 @@ class Game extends React.PureComponent {
 }
 
 Game.propTypes = {
-  game: PropTypes.instanceOf(Map).isRequired
+	game: PropTypes.instanceOf(Map).isRequired,
+	player: PropTypes.instanceOf(Map).isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({})
 
 const mapStateToProps = (state) => ({
-  game: state.get('Game')
+  game: state.get('Game'),
+  player: state.get('Player')
 })
 
 export default connect(
