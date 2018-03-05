@@ -58,17 +58,17 @@ class Game extends React.PureComponent {
 }
 
 Game.propTypes = {
-	game: PropTypes.instanceOf(Map).isRequired,
-	player: PropTypes.instanceOf(Map).isRequired,
-	endExchangePhase: PropTypes.func.isRequired,
-	endInfoPhase: PropTypes.func.isRequired,
-	startGame: PropTypes.func.isRequired,
-	useSkill: PropTypes.func.isRequired
+  game: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired,
+  endExchangePhase: PropTypes.func.isRequired,
+  endInfoPhase: PropTypes.func.isRequired,
+  startGame: PropTypes.func.isRequired,
+  useSkill: PropTypes.func.isRequired
 }
 
 export const mapDispatchToProps = () => ({
-	endExchangePhase: GameChannel.endExchangePhase,
-	endInfoPhase: GameChannel.endInfoPhase,
+  endExchangePhase: GameChannel.endExchangePhase,
+  endInfoPhase: GameChannel.endInfoPhase,
   startGame: GameChannel.startGame,
   useSkill: GameChannel.useSkill
 })

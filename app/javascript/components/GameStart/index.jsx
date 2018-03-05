@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Map, List } from 'immutable'
+import { Map } from 'immutable'
 import PlayersList from 'components/PlayersList'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
@@ -13,7 +13,6 @@ class GameStart extends React.PureComponent {
 
   render() {
     const {
-      player,
       game,
       startGame
     } = this.props
@@ -44,8 +43,8 @@ class GameStart extends React.PureComponent {
 }
 
 GameStart.propTypes = {
-	player: PropTypes.instanceOf(Map).isRequired,
-	game: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired, // eslint-disable-line react/no-unused-prop-types
+  game: PropTypes.instanceOf(Map).isRequired,
   startGame: PropTypes.func.isRequired
 }
 

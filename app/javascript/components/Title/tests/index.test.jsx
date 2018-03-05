@@ -5,7 +5,7 @@ import Title from '../index'
 import { Wrapper } from '../Styles'
 
 const defaultProps = {
-	title: 'blahblah'
+  title: 'blahblah'
 }
 
 const renderComponent = (props = defaultProps) => mount(

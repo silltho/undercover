@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Wrapper,
+  Wrapper
 } from './Styles'
 
 class Footer extends React.PureComponent {
@@ -16,6 +16,10 @@ class Footer extends React.PureComponent {
       </Wrapper>
     )
   }
+}
+
+Footer.defaultProps = {
+  children: {}
 }
 
 Footer.propTypes = {

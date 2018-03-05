@@ -4,7 +4,7 @@ import { mount } from 'enzyme'
 import JoinGameForm from '../index'
 import {
   Wrapper,
-	RoomCodeInput
+  RoomCodeInput
 } from '../Styles'
 
 const defaultProps = {

@@ -31,7 +31,7 @@ class GameActivity extends React.PureComponent {
 }
 
 GameActivity.propTypes = {
-	roleDetails: PropTypes.instanceOf(Map).isRequired,
+  roleDetails: PropTypes.instanceOf(Map).isRequired,
   endGame: PropTypes.func.isRequired
 }
 
