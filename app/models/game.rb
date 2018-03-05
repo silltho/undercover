@@ -61,7 +61,7 @@ class Game < ApplicationRecord
         code: self.code,
         aasm_state: self.aasm_state,
         round: self.round,
-        players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
+        players: self.players.to_a,
         party_distribution: self.get_party_members
      }
   end
