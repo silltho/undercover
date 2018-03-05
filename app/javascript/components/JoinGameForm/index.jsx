@@ -31,7 +31,13 @@ class JoinGameForm extends React.PureComponent {
   render() {
     return (
       <Wrapper>
-        <RoomCodeInput id="game-code-input" placeholder="Game Code" onChange={this.onInputChange} onKeyDown={this.onInputKeyDown} />
+        <RoomCodeInput
+          id="game-code-input"
+          placeholder="Game Code"
+          type="number"
+          onChange={this.onInputChange}
+          onKeyDown={this.onInputKeyDown}
+        />
         <Button text="join" onClick={this.joinGame} />
       </Wrapper>
     )

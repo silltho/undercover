@@ -19,6 +19,7 @@ class UserChannel < ApplicationCable::Channel
   end
 
   def join_game (params)
+    #Anna TODO Validierung
     game = Game.where(code: params['gamecode'], aasm_state: 'waiting').first
     game.add_player(current_user)
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
