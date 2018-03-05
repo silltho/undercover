@@ -54,7 +54,7 @@ export const mapDispatchToProps = () => ({
 })
 
 const mapStateToProps = (state) => ({
-	game: state.get('Game')
+  game: state.get('Game')
 })
 
 export default connect(

@@ -22,13 +22,13 @@ class App extends React.PureComponent {
       GameChannel.joinGameChannel(nextProps.game.get('code'))
     }
     if (!nextProps.game.has('id')) {
-	    this.setState({ component: <Dashboard /> })
+      this.setState({ component: <Dashboard /> })
     }
     if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') === 'waiting') {
       this.setState({ component: <Lobby /> })
     }
     if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') !== 'waiting') {
-	    this.setState({ component: <Game /> })
+      this.setState({ component: <Game /> })
     }
   }
 

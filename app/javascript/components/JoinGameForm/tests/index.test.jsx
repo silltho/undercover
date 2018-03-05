@@ -1,34 +1,33 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import StartNewGame from '../index'
+import JoinGameForm from '../index'
 import {
   Wrapper,
-  GameTitleInput
+  RoomCodeInput
 } from '../Styles'
 
 const defaultProps = {
-  onRequestClose: jest.fn(),
-  createGame: jest.fn()
+  joinGame: jest.fn()
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <StartNewGame {...props} />
+  <JoinGameForm {...props} />
 )
 
-describe('<StartNewGame />', () => {
+describe('<JoinGameForm />', () => {
   it('should render the <Wrapper>', () => {
     const renderedComponent = renderComponent()
     expect(renderedComponent.find(Wrapper).length).toEqual(1)
   })
 
-  it('should update title when the <GameTitleInput> changes', () => {
+  it('should update gamecode when the <RoomCodeInput> changes', () => {
     const renderedComponent = renderComponent()
     const evt = {
       target: { value: 'test1234' }
     }
-    renderedComponent.find(GameTitleInput).simulate('change', evt)
-    expect(renderedComponent.state().title).toEqual(evt.target.value)
+    renderedComponent.find(RoomCodeInput).simulate('change', evt)
+    expect(renderedComponent.state().gamecode).toEqual(evt.target.value)
   })
 
   it('should submit form if enter is pressed', () => {
@@ -36,12 +35,10 @@ describe('<StartNewGame />', () => {
     const evt = {
       key: 'Enter'
     }
-    const title = 'testtitle123'
-    renderedComponent.setState({ title })
-    renderedComponent.find(GameTitleInput).simulate('keyDown', evt)
-    expect(defaultProps.createGame).toHaveBeenCalledWith(title)
-    expect(defaultProps.onRequestClose).toHaveBeenCalled()
-    expect(renderedComponent.state().title).toEqual('')
+    const gamecode = 'testtitle123'
+    renderedComponent.setState({ gamecode })
+    renderedComponent.find(RoomCodeInput).simulate('keyDown', evt)
+    expect(defaultProps.joinGame).toHaveBeenCalledWith(gamecode)
   })
 
   it('should not submit form if any other key is pressed', () => {
@@ -50,7 +47,7 @@ describe('<StartNewGame />', () => {
       key: 'A'
     }
     renderedComponent.instance().createGame = jest.fn()
-    renderedComponent.find(GameTitleInput).simulate('keyDown', evt)
+    renderedComponent.find(RoomCodeInput).simulate('keyDown', evt)
     expect(renderedComponent.instance().createGame).toHaveBeenCalledTimes(0)
   })
 })
