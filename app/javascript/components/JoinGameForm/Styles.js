@@ -6,14 +6,14 @@ import {
 } from 'styles/variables'
 
 export const Wrapper = styled.div`
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 `
 
 export const RoomCodeInput = styled.input`
   background-color: ${BLACK};
   color: ${WHITE};
-  border: 2px solid ${PINK};
+  border: 3px solid ${PINK};
   line-height: 2rem;
   padding: 0.2rem 0.5rem;
   max-width: 8rem;
