@@ -6,7 +6,7 @@ class UserChannel < ApplicationCable::Channel
 
   def create_game
     new_game = Game.create
-    new_game.players << current_user
+    new_game.add_player(current_user)
     UserChannel.broadcast_to(current_user, type: 'create_game_success', data: new_game.get_game_object)
   end
 
