@@ -12,41 +12,41 @@ class Game < ApplicationRecord
     self.players.size >= 16
   end
 
-    aasm :whiny_transitions => false do
-    state :waiting, :initial => true
+    aasm whiny_transitions: false do
+    state :waiting, initial: true
     state :initialized, :inform, :exchange, :activity, :finished
     after_all_transitions :log_status_change
 
     event :initializing do
-      transitions :from => :waiting, :to => :initialized, :after => :init_game
+      transitions from: :waiting, to: :initialized, after: :init_game
     end
 
     event :started do
-      transitions :from => :initialized, :to => :inform
+      transitions from: :initialized, to: :inform
     end
 
     event :exchanged do
-      transitions :from => :exchange, :to => :activity
+      transitions from: :exchange, to: :activity
     end
 
     event :skills_used do
-      transitions :from => :activity, :to => :inform, :after => :update_round
+      transitions from: :activity, to: :inform, after: :update_round
     end
 
     event :informed do
-      transitions :from => :inform, :to => :exchange
+      transitions from: :inform, to: :exchange
     end
 
     event :finish do
-      transitions :from => :inform, :to => :finished
+      transitions from: :inform, to: :finished
     end
 
     event :reset do
-      transitions :from => :initialized, :to => :waiting
-      transitions :from => :inform, :to => :waiting
-      transitions :from => :exchange, :to => :waiting
-      transitions :from => :activity, :to => :waiting
-      transitions :from => :finished, :to => :waiting
+      transitions from: :initialized, to: :waiting
+      transitions from: :inform, to: :waiting
+      transitions from: :exchange, to: :waiting
+      transitions from: :activity, to: :waiting
+      transitions from: :finished, to: :waiting
     end
 
   end
@@ -57,12 +57,12 @@ class Game < ApplicationRecord
 
   def get_game_object
      {
-              id: self.id,
-              code: self.code,
-              aasm_state: self.aasm_state,
-              round: self.round,
-              players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
-              party_distribution: self.get_party_members
+        id: self.id,
+        code: self.code,
+        aasm_state: self.aasm_state,
+        round: self.round,
+        players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
+        party_distribution: self.get_party_members
      }
   end
 
@@ -100,7 +100,9 @@ class Game < ApplicationRecord
 
   def get_party_members
     data = Hash.new
-    data["Mafia"], data["Town"], data["Anarchist"] = 0
+    data["Mafia"] = 0
+    data["Town"] = 0
+    data["Anarchist"] = 0
     self.players.each do |player|
       data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
       data["Town"]+= 1 if player.role.try(:party) == "Town"
@@ -111,12 +113,18 @@ class Game < ApplicationRecord
 
   def add_player(player)
     self.players << player
-    puts self.players.select(:id, :codename, :state, :role_id, :relations).to_a
   end
 
   def create_game_code
-    code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,4].join
+    code = nil
+    until unique_game_code(code) && code != nil
+      code = ('0'..'9').to_a.shuffle[0,4].join
+    end
     self.update(code: code)
+  end
+
+  def unique_game_code(code)
+    !Game.where(code: code).where(aasm_state: 'waiting').exists?
   end
 
 end
