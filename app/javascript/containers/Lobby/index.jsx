@@ -1,80 +1,63 @@
 import React from 'react'
-import { Map, List } from 'immutable'
+import { Map } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import {
-  DashboardChannel,
+  UserChannel,
   GameChannel
 } from 'services/channels'
-import { leaveGame } from 'services/actions'
 import Button from 'components/Button'
 import Footer from 'components/Footer'
 import Title from 'components/Title'
 import {
   Wrapper,
-  PlayerCount
+  PlayerCount,
+  RoomCode
 } from './Styles'
 
 class Lobby extends React.PureComponent {
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.currentGame) {
-      this.props.history.push('/')
-    }
-  }
-
   leaveGame = () => {
-    this.props.leaveGame(this.props.currentGame.get('id'))
-  }
-
-  initializeGame = () => {
-    this.props.initializeGame()
-    this.props.history.push('/game')
+    this.props.leaveGame(this.props.game.get('id'))
   }
 
   render() {
-    const { currentGame } = this.props
+    const { game } = this.props
 
     return (
       <Wrapper>
-        <Title title={currentGame ? currentGame.get('title') : '...loading'} />
+        <Title title="Gamelobby" />
+        <RoomCode>Roomcode: {game.get('code')}</RoomCode>
         <PlayerCount>
-          {currentGame && currentGame.get('players').size} Player
+          {game && game.get('players').size} Player
         </PlayerCount>
         <Footer>
-          <Button onClick={this.leaveGame} text="exit" />
-          <Button onClick={this.initializeGame} text="start" />
+          <Button onClick={this.leaveGame} text="leave" />
+          <Button onClick={this.props.initializeGame} text="start" />
         </Footer>
       </Wrapper>
     )
   }
 }
 
-Lobby.defaultProps = {
-  currentGame: null
-}
-
 Lobby.propTypes = {
-  history: PropTypes.object.isRequired,
-  currentGame: PropTypes.instanceOf(Map),
+  game: PropTypes.instanceOf(Map).isRequired,
   leaveGame: PropTypes.func.isRequired,
   initializeGame: PropTypes.func.isRequired
 }
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = () => ({
   leaveGame: (gameId) => {
-    DashboardChannel.leaveGame(gameId)
+    UserChannel.leaveGame(gameId)
     GameChannel.unsubscribe()
-    dispatch(leaveGame())
   },
   initializeGame: GameChannel.initializeGame
 })
 
 const mapStateToProps = (state) => ({
-  currentGame: state.getIn(['App', 'currentGame'], {})
+	game: state.get('Game')
 })
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Lobby))
+)(Lobby)

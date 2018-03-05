@@ -6,11 +6,11 @@ import GamesStart from '../index'
 import { Wrapper } from '../Styles'
 
 const defaultProps = {
-  currentPlayer: fromJS({}),
-  roleDetails: fromJS({}),
-  players: fromJS([]),
-  startGame: jest.fn(),
-  partyMembers: fromJS({})
+  player: fromJS({}),
+  game: fromJS({
+    party_distribution: {}
+  }),
+  startGame: jest.fn()
 }
 
 const renderComponent = (props = defaultProps) => mount(

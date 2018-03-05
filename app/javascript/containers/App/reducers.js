@@ -1,41 +1,35 @@
-import { fromJS } from 'immutable'
+import { fromJS, Map } from 'immutable'
 import {
   CREATE_GAME_SUCCESS,
-  JOIN_GAME_SUCCESS,
+  GAME_UPDATED,
+  GAME_DELETE,
   LEAVE_GAME_SUCCESS,
-  GET_USERINFO,
-  GET_CURRENT_GAME,
-  PLAYER_JOINED_GAME,
-  PLAYER_LEFT_GAME
+  PLAYER_INITIALIZED_GAME
 } from 'services/constants'
 
 const initialState = fromJS({
-  App: {
-    currentUser: null,
-    currentGame: null
-  }
+  Game: {},
+  Player: {},
+  RoundInformation: {}
 })
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case CREATE_GAME_SUCCESS:
-    case GET_CURRENT_GAME:
-    case JOIN_GAME_SUCCESS: {
-      return state.setIn(['App', 'currentGame'], fromJS(action.data))
+    case GAME_UPDATED:
+    case CREATE_GAME_SUCCESS: {
+      const game = state.get('Game', Map())
+      return state.setIn(['Game'], game.merge(fromJS(action.data)))
     }
-    case LEAVE_GAME_SUCCESS: {
-      return state.setIn(['App', 'currentGame'], null)
+    case LEAVE_GAME_SUCCESS:
+    case GAME_DELETE: {
+      return state.set('Game', fromJS({}))
     }
-    case GET_USERINFO: {
-      return state.setIn(['App', 'currentUser'], fromJS(action.data))
-    }
-    case PLAYER_LEFT_GAME:
-    case PLAYER_JOINED_GAME: {
-      const game = fromJS(action.data)
-      if (state.getIn(['App', 'currentGame', 'id']) === game.get('id')) {
-        return state.setIn(['App', 'currentGame'], game)
-      }
+    case PLAYER_INITIALIZED_GAME: {
+      const player = fromJS(action.data.current_player)
+      const role = fromJS(action.data.role_details)
       return state
+        .set('Player', player)
+        .setIn(['Player', 'role'], role)
     }
     default:
       return state

@@ -1,14 +1,31 @@
-class GamesUsers < ApplicationRecord
+class Player < ApplicationRecord
   include AASM
   aasm :column => 'state', :whiny_transitions => false do
     state :alive, :initial => true
     state :dead, :disconnected, :imprisoned
   end
-  belongs_to :game
-  belongs_to :user
+  belongs_to :game, optional: true
   belongs_to :role, optional: true
-  validates :user, uniqueness: { scope: :game,
-                                 message: "you can only join the same game once" }
+  has_many :newspapers
+
+  def get_player_object
+    {
+        id: self.id,
+        codename: self.codename,
+        state: self.state,
+        role: {
+            id: self.role.try(:id),
+            name: self.try(:role).try(:name),
+            image: self.try(:role).try(:image),
+            skill: {
+                active: self.try(:role).try(:active),
+                img_active: nil,
+                passive: self.try(:role).try(:passive),
+                img_passive: nil
+            }
+        }
+    }
+  end
 
   def get_codename
     name = Faker::Name.name
@@ -20,9 +37,9 @@ class GamesUsers < ApplicationRecord
   end
 
   def get_relations
-    role = Role.find(self.role_id).name
+    name = self.role.name
     rel = []
-    case role
+    case name
       when "Godfather"
         rel.push(query_relation_information("Bodyguard"))
       when "Bodyguard"
@@ -45,7 +62,7 @@ class GamesUsers < ApplicationRecord
   end
 
   def query_relation_information(role)
-    GamesUsers.where(game: self).where(roles: {name: role}).pluck(:codename, :role_id, :name  )
+    Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :name  )
   end
 
 end

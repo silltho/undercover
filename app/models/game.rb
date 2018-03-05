@@ -1,78 +1,94 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  belongs_to :user
-  has_many :players, class_name: 'GamesUsers', dependent: :destroy
-  has_many :users, through: :players
-  accepts_nested_attributes_for :players
-  attribute :players
+  has_many :players
+  has_many :newspapers, dependent: :destroy
   attribute :full
+  attribute :aasm_state
+  attribute :players
+  after_create :create_game_code
 
   def full
-    self.users.size >= 16
+    self.players.size >= 16
   end
 
-    aasm :whiny_transitions => false do
-    state :waiting, :initial => true
-    state :initialized, :informed, :exchanged, :skills_used, :finished
+    aasm whiny_transitions: false do
+    state :waiting, initial: true
+    state :initialized, :inform, :exchange, :activity, :finished
     after_all_transitions :log_status_change
 
     event :initializing do
-      transitions :from => :waiting, :to => :initialized, :after => :start_game
+      transitions from: :waiting, to: :initialized, after: :init_game
     end
 
-    event :start do
-      transitions :from => :initialized, :to => :informed
+    event :started do
+      transitions from: :initialized, to: :inform
     end
 
-    event :exchanging do
-      transitions :from => :informed, :to => :exchanged
+    event :exchanged do
+      transitions from: :exchange, to: :activity
     end
 
-    event :use_skills do
-      transitions :from => :exchanged, :to => :skills_used, :after => :update_round
+    event :skills_used do
+      transitions from: :activity, to: :inform, after: :update_round
     end
 
-    event :informing do
-      transitions :from => :skills_used, :to => :informed
+    event :informed do
+      transitions from: :inform, to: :exchange
     end
 
     event :finish do
-      transitions :from => :informed, :to => :finished
+      transitions from: :inform, to: :finished
     end
 
     event :reset do
-      transitions :from => :initialized, :to => :waiting
-      transitions :from => :informed, :to => :waiting
-      transitions :from => :exchanged, :to => :waiting
-      transitions :from => :skills_used, :to => :waiting
-      transitions :from => :finished, :to => :waiting
+      transitions from: :initialized, to: :waiting
+      transitions from: :inform, to: :waiting
+      transitions from: :exchange, to: :waiting
+      transitions from: :activity, to: :waiting
+      transitions from: :finished, to: :waiting
     end
 
+  end
+
+  def broadcast_game_updated
+    GamesChannel.broadcast_to(self, type: 'game_updated', data: self.get_game_object)
+  end
+
+  def get_game_object
+     {
+        id: self.id,
+        code: self.code,
+        aasm_state: self.aasm_state,
+        round: self.round,
+        players: self.players.select(:id, :codename, :state, :role_id, :relations).to_a,
+        party_distribution: self.get_party_members
+     }
+  end
+
+  def get_game_code
+    self.code
   end
 
   def log_status_change
     puts "Game #{self.id} '#{self.title}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
-  def start_game
+  def init_game
     data = Hash.new
     data['round'] = self.round
-    roles_array = assign_roles(self.users.size)
+    roles_array = assign_roles(self.players.size)
     self.players.each do |player|
       player.get_character(roles_array.delete(roles_array.sample))
       player.get_codename
     end
     self.players.each do |player|
-      player.get_relations
-      data['players'] = self.players
+      #player.get_relations
       data['current_player'] = player
       data['role_details'] = player.role
-      data['relations'] = player.relations
-      UserChannel.broadcast_to(player.user, type: 'player_initialized_game', data: data)
+      #data['relations'] = player.relations
+      UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
     end
-    get_party_members
-    self.start
   end
 
   def update_round
@@ -80,56 +96,27 @@ class Game < ApplicationRecord
     self.round += 1
     self.save
     data = self.round
-    GamesChannel.broadcast_to(self, type: 'update_round', data: data)
   end
 
   def get_party_members
     data = Hash.new
-    data["Mafia"] = 0
-    data["Town"] = 0
-    data["Anarchist"] = 0
+    data["Mafia"], data["Town"], data["Anarchist"] = 0
     self.players.each do |player|
-      data["Mafia"] += 1 if player.role.party == "Mafia"
-      data["Town"]+= 1 if player.role.party == "Town"
-      data["Anarchist"]+= 1 if player.role.party == "Anarchists"
+      data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
+      data["Town"]+= 1 if player.role.try(:party) == "Town"
+      data["Anarchist"]+= 1 if player.role.try(:party) == "Anarchists"
     end
-    GamesChannel.broadcast_to(self, type: 'party_members', data: data)
+    data
   end
 
-  def get_population
-    self.players.where(state: "alive").count
+  def add_player(player)
+    self.players << player
   end
 
-=begin
-  def update_ui
+  def create_game_code
+    #Anna Todo Check if valid
+    code = (('A'..'Z').to_a + ('0'..'9').to_a).shuffle[0,4].join
+    self.update(code: code)
   end
-
-  def start_timer
-  end
-
-  def get_news
-  end
-
-  def get_population
-  end
-
-  def get_mafia_members
-  end
-
-  def get_town_members
-  end
-
-  def get_processed_activities
-  end
-
-  def display_town
-  end
-
-  def save_results
-  end
-
-  def process_activities
-  end
-=end
 
 end

@@ -1,37 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Footer from 'components/Footer'
+import Button from 'components/Button'
 
 class GameInfo extends React.PureComponent {
-  renderInfo = (info) => (
-    <li key={`info_${info}`}>{info}</li>
-  )
-
   render() {
     const {
-      day,
-      informations,
       readInfos
     } = this.props
 
-    const renderedInformations = informations.map(this.renderInfo)
-
     return (
       <div>
-        Infos von Tag {day}
-        <ul>
-          {renderedInformations}
-        </ul>
-        <button onClick={readInfos}>
-          gelesen
-        </button>
+        <div>Info-phase</div>
+        <Footer>
+          <Button onClick={readInfos} text="gelesen" />
+        </Footer>
       </div>
     )
   }
 }
 
 GameInfo.propTypes = {
-  day: PropTypes.number.isRequired,
-  informations: PropTypes.array.isRequired,
   readInfos: PropTypes.func.isRequired
 }
 

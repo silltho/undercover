@@ -1,89 +1,54 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { List, Map } from 'immutable'
+import { Map } from 'immutable'
+import { GameChannel } from 'services/channels'
 import GameStart from 'components/GameStart'
 import GameInfo from 'components/GameInfo'
 import GameExchange from 'components/GameExchange'
 import GameActivity from 'components/GameActivity'
 
 const gamePhases = {
-  start: 'start',
-  info: 'info',
+  waiting: 'waiting',
+  info: 'inform',
   exchange: 'exchange',
-  activity: 'activity'
+  activity: 'activity',
+  initialized: 'initialized'
 }
 
 class Game extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentPhase: gamePhases.start
-    }
-  }
-
-  endGame = () => {
-    this.props.history.push('/')
-  }
-
-  startGame = () => {
-    this.setState({
-      currentPhase: gamePhases.info
-    })
-  }
-
-  readInfos = () => {
-    this.setState({
-      currentPhase: gamePhases.exchange
-    })
-  }
-
-  endExchange = () => {
-    this.setState({
-      currentPhase: gamePhases.activity
-    })
-  }
-
-  useActivity = () => {
-    this.setState({
-      currentPhase: gamePhases.info
-    })
-  }
-
   renderCurrentPhase = () => {
-    switch (this.state.currentPhase) {
-      case gamePhases.start:
+    switch (this.props.game.get('aasm_state')) {
+      case gamePhases.initialized:
         return (
           <GameStart
-            currentPlayer={this.props.currentPlayer}
-            players={this.props.players}
-            roleDetails={this.props.roleDetails}
-            startGame={this.endExchange}
-            partyMembers={this.props.partyMembers}
+            game={this.props.game}
+            player={this.props.player}
+            startGame={this.props.startGame}
           />
         )
       case gamePhases.info:
         return (
           <GameInfo
             day={1}
-            readInfos={this.readInfos}
+            readInfos={this.props.endInfoPhase}
           />
         )
       case gamePhases.exchange:
         return (
           <GameExchange
-            endExchange={this.endExchange}
+            endExchange={this.props.endExchangePhase}
           />
         )
       case gamePhases.activity:
         return (
           <GameActivity
-            endGame={this.endGame}
-            roleDetails={this.props.roleDetails}
+            endGame={this.props.useSkill}
+            roleDetails={this.props.player.get('role')}
           />
         )
       default:
-        return (<div>default</div>)
+        return (<div>game is in a unknown state</div>)
     }
   }
 
@@ -93,21 +58,24 @@ class Game extends React.PureComponent {
 }
 
 Game.propTypes = {
-  history: PropTypes.object.isRequired,
-  players: PropTypes.instanceOf(List).isRequired,
-	roleDetails: PropTypes.instanceOf(Map).isRequired,
-  currentPlayer: PropTypes.instanceOf(Map).isRequired,
-  partyMembers: PropTypes.instanceOf(Map).isRequired
+	game: PropTypes.instanceOf(Map).isRequired,
+	player: PropTypes.instanceOf(Map).isRequired,
+	endExchangePhase: PropTypes.func.isRequired,
+	endInfoPhase: PropTypes.func.isRequired,
+	startGame: PropTypes.func.isRequired,
+	useSkill: PropTypes.func.isRequired
 }
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = () => ({
+	endExchangePhase: GameChannel.endExchangePhase,
+	endInfoPhase: GameChannel.endInfoPhase,
+  startGame: GameChannel.startGame,
+  useSkill: GameChannel.useSkill
 })
 
 const mapStateToProps = (state) => ({
-  players: state.getIn(['Game', 'players'], List()),
-  currentPlayer: state.getIn(['Game', 'current_player'], Map()),
-	roleDetails: state.getIn(['Game', 'role_details'], Map()),
-	partyMembers: state.getIn(['Game', 'party_members'], Map())
+  game: state.get('Game'),
+  player: state.get('Player')
 })
 
 export default connect(

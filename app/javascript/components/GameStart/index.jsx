@@ -13,11 +13,9 @@ class GameStart extends React.PureComponent {
 
   render() {
     const {
-      currentPlayer,
-      players,
-      roleDetails,
-      startGame,
-      partyMembers
+      player,
+      game,
+      startGame
     } = this.props
 
     return (
@@ -27,16 +25,16 @@ class GameStart extends React.PureComponent {
             Party Distribution:
           </div>
           <div>
-            Mafia: {partyMembers.get('Mafia')}
+            Mafia: {game.getIn(['party_distribution', 'Mafia']) || 0}
           </div>
           <div>
-            Town: {partyMembers.get('Town')}
+            Town: {game.getIn(['party_distribution', 'Town']) || 0}
           </div>
           <div>
-            Anarchists: {partyMembers.get('Anarchist')}
+            Anarchists: {game.getIn(['party_distribution', 'Anarchists']) || 0}
           </div>
         </PartyDistribution>
-        <PlayersList players={players} />
+        <PlayersList players={game.get('players')} />
         <Footer>
           <Button onClick={startGame} text="got it" />
         </Footer>
@@ -46,11 +44,9 @@ class GameStart extends React.PureComponent {
 }
 
 GameStart.propTypes = {
-	currentPlayer: PropTypes.instanceOf(Map).isRequired,
-	roleDetails: PropTypes.instanceOf(Map).isRequired,
-  players: PropTypes.instanceOf(List).isRequired,
-  startGame: PropTypes.func.isRequired,
-	partyMembers: PropTypes.instanceOf(Map).isRequired
+	player: PropTypes.instanceOf(Map).isRequired,
+	game: PropTypes.instanceOf(Map).isRequired,
+  startGame: PropTypes.func.isRequired
 }
 
 export default GameStart

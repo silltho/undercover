@@ -1,64 +1,60 @@
 class GamesChannel < ApplicationCable::Channel
   def subscribed
-    stream_for find_game
-  end
-
-  def unsubscribed
     game = find_game
-    if game.waiting?
-      GamesUsers.where(game_id: params['id']).where(user_id: current_user.id).destroy_all
-      game = Game.find(params['id'])
-      ActionCable.server.broadcast('dashboard', type: 'player_left_game', data: game)
-    end
+    stream_for game
   end
 
   def initialize_game
-    game = find_game
+    game = current_user.game
     game.initializing!
-    ActionCable.server.broadcast('dashboard', type: 'player_started_game', data: game)
+    game.broadcast_game_updated
   end
 
   def start_game
-    game = find_game
-    game.start!
+    game = current_user.game
+    game.started!
     #send first issue to all players with information about who is in the game
     #TODO Anna: think about how to save newspaper in db
     #TODO Tom: maybe just display draft of the newspaper made by artists for prototype
+    game.broadcast_game_updated
   end
 
-  def exchanging_phase
-    game = find_game
+  def end_info_phase
+    game = current_user.game
     #display fancy stuff because in the backend nothing is really going on
-    game.exchanging
+    game.informed!
+    game.broadcast_game_updated
   end
 
-  def skill_using_phase
-    game = find_game
-    #send possible actions to user and react accordingly.
-    game.use_skills!
-  end
-
-  def informing_phase
-    game = find_game
-    game.informing!
+  def end_exchange_phase
+    game = current_user.game
+    game.exchanged!
+    game.broadcast_game_updated
     #send newspaper issue to all players with information about who died and stuff
   end
 
+  def use_skill
+    game = current_user.game
+    #send possible actions to user and react accordingly.
+    game.skills_used!
+    game.broadcast_game_updated
+  end
+
   def finish_game
-    game = find_game
+    game = current_user.game
     game.finish!
     #save all the stuff to a statistics table
+    game.broadcast_game_updated
   end
 
   def reset_game
     #just for debugging
-    game = find_game
+    game = current_user.game
     game.reset!
   end
 
   private
   def find_game
-    puts params[:id]
-    game = Game.find(params[:id])
+    Game.where(code: params[:gamecode], aasm_state: 'waiting').first
   end
 end

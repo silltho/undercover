@@ -1,17 +1,28 @@
 class UserChannel < ApplicationCable::Channel
   def subscribed
     stream_for current_user
-    get_userinfo
-    GetOpenGamesJob.perform_later(current_user)
-    get_current_game
+    current_user.game.broadcast_game_updated unless current_user.game.nil?
   end
 
-  def get_userinfo
-    UserChannel.broadcast_to(current_user, type: 'get_userinfo', data: current_user)
+  def create_game
+    new_game = Game.create
+    new_game.add_player(current_user)
+    UserChannel.broadcast_to(current_user, type: 'create_game_success', data: new_game.get_game_object)
   end
 
-  def get_current_game
-    current_game = Game.joins(:users).where(aasm_state: 'waiting' ,users: {id: current_user.id}).first
-    UserChannel.broadcast_to(current_user, type: 'get_current_game', data: current_game)
+  def leave_game (params)
+    Player.where(game_id: params['id']).where(session_id: current_user.session_id).update(game_id: nil, role_id: nil, codename: nil)
+    game = Game.find(params['id'])
+    UserChannel.broadcast_to(current_user, type: 'leave_game_success', data: game.get_game_object)
+    game.broadcast_game_updated
+    #destroy game if no players left
+  end
+
+  def join_game (params)
+    #Anna TODO Validierung
+    game = Game.where(code: params['gamecode'], aasm_state: 'waiting').first
+    game.add_player(current_user)
+    UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
+    game.broadcast_game_updated
   end
 end

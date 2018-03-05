@@ -10,31 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202084117) do
+ActiveRecord::Schema.define(version: 20180301134126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
     t.string "title"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "aasm_state"
     t.integer "round"
-    t.index ["user_id"], name: "index_games_on_user_id"
-  end
-
-  create_table "games_users", force: :cascade do |t|
-    t.bigint "game_id"
-    t.bigint "user_id"
-    t.string "codename"
-    t.bigint "role_id"
-    t.string "state"
-    t.integer "relations", default: [], array: true
-    t.index ["game_id"], name: "index_games_users_on_game_id"
-    t.index ["role_id"], name: "index_games_users_on_role_id"
-    t.index ["user_id"], name: "index_games_users_on_user_id"
+    t.string "code"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -42,6 +29,30 @@ ActiveRecord::Schema.define(version: 20180202084117) do
     t.string "provider"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "newspapers", force: :cascade do |t|
+    t.bigint "game_id"
+    t.integer "round"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "committer_id"
+    t.bigint "victim_id"
+    t.boolean "success"
+    t.index ["committer_id"], name: "index_newspapers_on_committer_id"
+    t.index ["game_id"], name: "index_newspapers_on_game_id"
+    t.index ["victim_id"], name: "index_newspapers_on_victim_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.bigint "game_id"
+    t.string "codename"
+    t.bigint "role_id"
+    t.string "state"
+    t.integer "relations", default: [], array: true
+    t.string "session_id"
+    t.index ["game_id"], name: "index_players_on_game_id"
+    t.index ["role_id"], name: "index_players_on_role_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -67,7 +78,8 @@ ActiveRecord::Schema.define(version: 20180202084117) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "games", "users"
-  add_foreign_key "games_users", "games"
-  add_foreign_key "games_users", "users"
+  add_foreign_key "newspapers", "games"
+  add_foreign_key "newspapers", "players", column: "committer_id"
+  add_foreign_key "newspapers", "players", column: "victim_id"
+  add_foreign_key "players", "games"
 end
