@@ -1,8 +1,12 @@
 import styled from 'styled-components'
-import { LOGO_FONT } from 'styles/variables'
+import {
+	LOGO_FONT,
+	PINK
+} from 'styles/variables'
 
 export const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 3rem;
@@ -12,8 +16,19 @@ export const Wrapper = styled.div`
   margin-bottom: 1.5rem;
 `
 
+export const Title = styled.div`
+	display: flex;
+`
+
 export const Logo = styled.img`
   margin: 0rem 1rem;
   max-height: 3rem;
+`
+
+export const Line = styled.div`
+ border: 0; 
+ height: 1px; 
+ background-color: ${PINK};
+ width: 100%;
 `
 
