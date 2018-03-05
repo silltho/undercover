@@ -22,7 +22,7 @@ class PlayersList extends React.PureComponent {
     return (
       <Wrapper>
         <div>
-          Town Population:
+          <u>Town Population:</u>
         </div>
         <PlayerList>
           {renderedPlayers}

@@ -22,7 +22,7 @@ class GameStart extends React.PureComponent {
       <Wrapper>
         <PartyDistribution>
           <div>
-            Party Distribution:
+            <u>Party Distribution:</u>
           </div>
           <div>
             Mafia: {game.getIn(['party_distribution', 'Mafia']) || 0}
