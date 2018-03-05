@@ -24,26 +24,26 @@ class Game extends React.PureComponent {
           <GameStart
             game={this.props.game}
             player={this.props.player}
-            startGame={GameChannel.startGame}
+            startGame={this.props.startGame}
           />
         )
       case gamePhases.info:
         return (
           <GameInfo
             day={1}
-            readInfos={GameChannel.endInfoPhase}
+            readInfos={this.props.endInfoPhase}
           />
         )
       case gamePhases.exchange:
         return (
           <GameExchange
-            endExchange={GameChannel.endExchangePhase}
+            endExchange={this.props.endExchangePhase}
           />
         )
       case gamePhases.activity:
         return (
           <GameActivity
-            endGame={GameChannel.useSkill}
+            endGame={this.props.useSkill}
             roleDetails={this.props.player.get('role')}
           />
         )
@@ -59,10 +59,19 @@ class Game extends React.PureComponent {
 
 Game.propTypes = {
 	game: PropTypes.instanceOf(Map).isRequired,
-	player: PropTypes.instanceOf(Map).isRequired
+	player: PropTypes.instanceOf(Map).isRequired,
+	endExchangePhase: PropTypes.func.isRequired,
+	endInfoPhase: PropTypes.func.isRequired,
+	startGame: PropTypes.func.isRequired,
+	useSkill: PropTypes.func.isRequired
 }
 
-export const mapDispatchToProps = (dispatch) => ({})
+export const mapDispatchToProps = () => ({
+	endExchangePhase: GameChannel.endExchangePhase,
+	endInfoPhase: GameChannel.endInfoPhase,
+  startGame: GameChannel.startGame,
+  useSkill: GameChannel.useSkill
+})
 
 const mapStateToProps = (state) => ({
   game: state.get('Game'),
