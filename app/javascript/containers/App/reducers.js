@@ -25,11 +25,11 @@ function appReducer(state = initialState, action) {
       return state.set('Game', fromJS({}))
     }
     case PLAYER_INITIALIZED_GAME: {
-	    const player = fromJS(action.data.current_player)
-	    const role = fromJS(action.data.role_details)
+      const player = fromJS(action.data.current_player)
+      const role = fromJS(action.data.role_details)
       return state
-	      .set('Player', player)
-	      .setIn(['Player', 'role'], role)
+        .set('Player', player)
+        .setIn(['Player', 'role'], role)
     }
     default:
       return state
