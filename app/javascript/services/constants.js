@@ -15,9 +15,6 @@ export const PLAYER_INITIALIZED_GAME = 'player_initialized_game'
 
 export const START_GAME = 'start_game'
 export const END_INFO_PHASE = 'end_info_phase'
-export const INFO_PHASE_ENDED = 'info_phase_ended'
 export const END_EXCHANGE_PHASE = 'end_exchange_phase'
-export const EXCHANGE_PHASE_ENDED = 'exchange_phase_ended'
 export const USE_SKILL = 'use_skill'
-export const ACTIVITY_PHASE_ENDED = 'activity_phase_ended'
 
