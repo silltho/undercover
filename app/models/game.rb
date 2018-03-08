@@ -77,6 +77,7 @@ class Game < ApplicationRecord
 
   def init_game
     data = Hash.new
+    reload
     data['round'] = self.round
     roles_array = assign_roles(self.players.size)
     self.players.each do |player|
@@ -84,7 +85,7 @@ class Game < ApplicationRecord
       player.get_codename
     end
     self.players.each do |player|
-      #player.get_relations
+      #player.
       data['current_player'] = player
       data['role_details'] = player.role
       #data['relations'] = player.relations
