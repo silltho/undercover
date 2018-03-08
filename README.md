@@ -53,3 +53,13 @@ https://gorails.com/setup/windows/10
 
 PRISTINE (GEM)
 https://www.justinweiss.com/articles/3-quick-gem-tricks/  
+
+DOKKU  
+https://github.com/dokku/dokku  
+https://github.com/SebastianSzturo/dokku-cli  
+dokku runs rails db:migrate
+dokku ps           # List processes running in app container(s)  
+dokku ps:rebuild   # Rebuild the app  
+dokku ps:restart   # Restart the app container  
+dokku ps:start     # Start the app container  
+dokku ps:stop      # Stop the app container  
