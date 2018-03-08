@@ -52,6 +52,7 @@ class Game < ApplicationRecord
   end
 
   def broadcast_game_updated
+    reload
     GamesChannel.broadcast_to(self, type: 'game_updated', data: self.get_game_object)
   end
 
