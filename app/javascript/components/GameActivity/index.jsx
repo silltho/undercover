@@ -14,7 +14,7 @@ class GameActivity extends React.PureComponent {
   render() {
     const {
       roleDetails,
-      endGame
+      useSkill
     } = this.props
 
     return (
@@ -23,7 +23,7 @@ class GameActivity extends React.PureComponent {
           <RoleName>{roleDetails.get('name')}</RoleName>
         </RoleImage>
         <Footer>
-          <Button onClick={endGame} text="use skill" />
+          <Button onClick={useSkill} text={roleDetails.get('active')} />
         </Footer>
       </Wrapper>
     )
@@ -32,7 +32,7 @@ class GameActivity extends React.PureComponent {
 
 GameActivity.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
-  endGame: PropTypes.func.isRequired
+  useSkill: PropTypes.func.isRequired
 }
 
 export default GameActivity
