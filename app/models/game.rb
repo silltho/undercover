@@ -84,7 +84,7 @@ class Game < ApplicationRecord
       player.get_character(roles_array.delete(roles_array.sample))
       player.get_codename
     end
-    self.players.each do |player|
+    players.each do |player|
       #player.
       data['current_player'] = player
       data['role_details'] = player.role
@@ -97,24 +97,22 @@ class Game < ApplicationRecord
     self.round = 0 if self.round.blank?
     self.round += 1
     self.save
-    data = self.round
+    self.round
   end
 
   def get_party_members
-    data = Hash.new
-    data["Mafia"] = 0
-    data["Town"] = 0
-    data["Anarchist"] = 0
+    data = {}
+    %w[Mafia Town Anarchists].each{ |k| data[k] = 0 }
     self.players.each do |player|
       data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
       data["Town"]+= 1 if player.role.try(:party) == "Town"
-      data["Anarchist"]+= 1 if player.role.try(:party) == "Anarchists"
+      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists"
     end
     data
   end
 
   def add_player(player)
-    self.players << player
+    players << player
   end
 
   def create_game_code
@@ -122,7 +120,7 @@ class Game < ApplicationRecord
     until unique_game_code(code) && code != nil
       code = ('0'..'9').to_a.shuffle[0,4].join
     end
-    self.update(code: code)
+    update(code: code)
   end
 
   def unique_game_code(code)
