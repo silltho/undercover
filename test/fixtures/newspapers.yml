@@ -3,11 +3,11 @@
 one:
   game: one
   round: 1
-  player: one
-  player: one
+  #player: one
+  #player: one
 
 two:
   game: two
   round: 1
-  player: two
-  player: two
+  #player: two
+  #player: two
