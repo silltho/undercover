@@ -8,9 +8,9 @@ import {
 } from 'services/channels'
 import Button from 'components/Button'
 import Footer from 'components/Footer'
-import Title from 'components/Title'
+import Content from 'components/Content'
+import Header from 'components/Header'
 import {
-  Wrapper,
   PlayerCount,
   RoomCode
 } from './Styles'
@@ -24,17 +24,20 @@ class Lobby extends React.PureComponent {
     const { game } = this.props
 
     return (
-      <Wrapper>
-        <Title title="Gamelobby" />
-        <RoomCode>Roomcode: {game.get('code')}</RoomCode>
-        <PlayerCount>
-          {game && game.get('players').size} Player
-        </PlayerCount>
+      <React.Fragment>
+        <Header>
+          <RoomCode>Roomcode: {game.get('code')}</RoomCode>
+        </Header>
+        <Content>
+          <PlayerCount>
+            {game && game.get('players').size} Player
+          </PlayerCount>
+        </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />
           <Button onClick={this.props.initializeGame} text="start" />
         </Footer>
-      </Wrapper>
+      </React.Fragment>
     )
   }
 }

@@ -30,7 +30,7 @@ class Game extends React.PureComponent {
       case gamePhases.info:
         return (
           <GameInfo
-            day={1}
+            round={this.props.game.get('round') || 0}
             readInfos={this.props.endInfoPhase}
           />
         )
