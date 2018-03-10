@@ -9,7 +9,7 @@ class Game < ApplicationRecord
   after_create :create_game_code
 
   def full
-    self.players.size >= 16
+    players.size >= 16
   end
 
     aasm whiny_transitions: false do
@@ -25,16 +25,16 @@ class Game < ApplicationRecord
       transitions from: :initialized, to: :inform
     end
 
+    event :informed do
+      transitions from: :inform, to: :exchange
+    end
+
     event :exchanged do
       transitions from: :exchange, to: :activity
     end
 
     event :skills_used do
       transitions from: :activity, to: :inform, after: :update_round
-    end
-
-    event :informed do
-      transitions from: :inform, to: :exchange
     end
 
     event :finish do
@@ -53,7 +53,7 @@ class Game < ApplicationRecord
 
   def broadcast_game_updated
     reload
-    GamesChannel.broadcast_to(self, type: 'game_updated', data: self.get_game_object)
+    GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
   def get_game_object
@@ -67,23 +67,15 @@ class Game < ApplicationRecord
      }
   end
 
-  def get_game_code
-    self.code
-  end
-
   def log_status_change
     puts "Game with code #{self.code}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
   def init_game
-    data = Hash.new
+    data = {}
     reload
-    data['round'] = self.round
-    roles_array = assign_roles(self.players.size)
-    self.players.each do |player|
-      player.get_character(roles_array.delete(roles_array.sample))
-      player.get_codename
-    end
+    data['round'] = round
+    init_players
     players.each do |player|
       #player.
       data['current_player'] = player
@@ -93,11 +85,17 @@ class Game < ApplicationRecord
     end
   end
 
+  def init_players
+    roles_array = assign_roles(players.size)
+    players.each do |player|
+      player.get_character(roles_array.delete(roles_array.sample))
+      player.get_codename
+    end
+  end
+
   def update_round
-    self.round = 0 if self.round.blank?
-    self.round += 1
-    self.save
-    self.round
+    value = self.round + 1
+    update(round: value)
   end
 
   def get_party_members
