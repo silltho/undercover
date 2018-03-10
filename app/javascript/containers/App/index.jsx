@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { GameChannel } from 'services/channels'
 import Dashboard from 'containers/Dashboard'
 import Lobby from 'containers/Lobby'
-import Header from 'components/Header'
 import Game from 'containers/Game'
 import { AppContainer } from './Styles'
 
@@ -35,7 +34,6 @@ class App extends React.PureComponent {
   render() {
     return (
       <AppContainer>
-        <Header />
         {this.state.component}
       </AppContainer>
     )

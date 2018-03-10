@@ -1,15 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
-import {
-  Wrapper,
-  RoleImage,
-  RoleName
-} from './Styles'
+import TargetSelection from 'components/TargetSelection'
+import RoleOverview from 'components/RoleOverview'
 
 class GameActivity extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showTargetSelection: false
+    }
+  }
+
+  showTargetSelection = () => {
+    this.setState({ showTargetSelection: true })
+  }
+
+  hideTargetSelection = () => {
+    this.setState({ showTargetSelection: false })
+  }
 
   render() {
     const {
@@ -18,14 +27,21 @@ class GameActivity extends React.PureComponent {
     } = this.props
 
     return (
-      <Wrapper>
-        <RoleImage background={roleDetails.get('image')}>
-          <RoleName>{roleDetails.get('name')}</RoleName>
-        </RoleImage>
-        <Footer>
-          <Button onClick={useSkill} text={roleDetails.get('active')} />
-        </Footer>
-      </Wrapper>
+      <React.Fragment>
+        {this.state.showTargetSelection ?
+          <TargetSelection
+            roleDetails={roleDetails}
+            players={roleDetails}
+            useSkill={useSkill}
+            onRequestHide={this.hideTargetSelection}
+          /> :
+          <RoleOverview
+            roleDetails={roleDetails}
+            showTargetSelection={this.showTargetSelection}
+            skipPhase={useSkill}
+          />
+        }
+      </React.Fragment>
     )
   }
 }
