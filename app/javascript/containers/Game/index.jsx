@@ -24,11 +24,7 @@ class Game extends React.PureComponent {
           <GameStart
             game={this.props.game}
             player={this.props.player}
-            startGame={() => {
-	            this.props.startGame()
-              setTimeout(this.props.endInfoPhase, 100)
-	            setTimeout(this.props.endExchangePhase, 200)
-            }}
+            startGame={this.props.startGame}
           />
         )
       case gamePhases.info:
@@ -47,7 +43,7 @@ class Game extends React.PureComponent {
       case gamePhases.activity:
         return (
           <GameActivity
-            useSkill={() => {}}
+            useSkill={this.props.useSkill}
             roleDetails={this.props.player.get('role')}
           />
         )
