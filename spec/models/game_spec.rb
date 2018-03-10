@@ -8,6 +8,13 @@ RSpec.describe Game, type: :model do
     expect(game).to be_valid
   end
 
+  it 'creates a valid game code' do
+    code = game.create_game_code
+    expect(code.length).to eql(4)
+    expect(code).to be_a_kind_of(String)
+    expect(code).not_to match('/[a-zA-Z]+/')
+  end
+
   it 'has a valid game code' do
     game = Game.create
     expect(game.code.length).to eql(4)
@@ -69,9 +76,9 @@ RSpec.describe Game, type: :model do
     expect(game).to have_state(:inform)
   end
 
-  it 'is full if 16 players have joined' do
+  it 'is full if 9 players have joined' do
     game = Game.create(id: 7)
-    15.times do
+    8.times do
      p = Player.new
      game.players << p
     end
@@ -97,16 +104,17 @@ RSpec.describe Game, type: :model do
     expect(game.players.count).to eql(2)
   end
 
-  it 'only allowes unique game codes' do
+  it 'only allows unique game codes' do
     game = Game.create(id: 11)
     expect(game.unique_game_code(game.code)).to be false
+    expect(game.unique_game_code(game.create_game_code)).to be true
   end
 
-  it 'assigns roles and codenames to players' do
+  it 'assigns roles and code-names to players' do
     game = Game.create(id: 12)
     expect(game.players.count).to eql(0)
-    p1 =  Player.create()
-    p2 = Player.create()
+    p1 =  Player.create
+    p2 = Player.create
     game.players << [p1, p2]
     expect(game.players.count).to eql(2)
     expect(p1.role_id).to be_nil

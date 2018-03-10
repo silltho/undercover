@@ -2,14 +2,14 @@ class Game < ApplicationRecord
   include AASM
   require 'faker'
   has_many :players
-  has_many :newspapers, dependent: :destroy
+  has_many :articles, dependent: :destroy
   attribute :full
   attribute :aasm_state
   attribute :players
-  after_create :create_game_code
+  after_create :set_game_code
 
   def full
-    players.size >= 16
+    players.size >= 9
   end
 
     aasm whiny_transitions: false do
@@ -57,13 +57,12 @@ class Game < ApplicationRecord
   end
 
   def get_game_object
-     {
-        id: self.id,
-        code: self.code,
-        aasm_state: self.aasm_state,
-        round: self.round,
-        players: self.players.to_a,
-        party_distribution: self.get_party_members
+     {  id: id,
+        code: code,
+        aasm_state: aasm_state,
+        round: round,
+        players: players.to_a,
+        party_distribution: get_party_members
      }
   end
 
@@ -77,10 +76,8 @@ class Game < ApplicationRecord
     data['round'] = round
     init_players
     players.each do |player|
-      #player.
       data['current_player'] = player
       data['role_details'] = player.role
-      #data['relations'] = player.relations
       UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
     end
   end
@@ -88,8 +85,8 @@ class Game < ApplicationRecord
   def init_players
     roles_array = assign_roles(players.size)
     players.each do |player|
-      player.get_character(roles_array.delete(roles_array.sample))
-      player.get_codename
+      player.assign_character(roles_array.delete(roles_array.sample))
+      player.create_codename
     end
   end
 
@@ -101,7 +98,7 @@ class Game < ApplicationRecord
   def get_party_members
     data = {}
     %w[Mafia Town Anarchists].each{ |k| data[k] = 0 }
-    self.players.each do |player|
+   players.each do |player|
       data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
       data["Town"]+= 1 if player.role.try(:party) == "Town"
       data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists"
@@ -118,11 +115,20 @@ class Game < ApplicationRecord
     until unique_game_code(code) && code != nil
       code = ('0'..'9').to_a.shuffle[0,4].join
     end
-    update(code: code)
+    code
+  end
+
+  def set_game_code
+    update(code: create_game_code)
   end
 
   def unique_game_code(code)
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
+  end
+
+  def use_skill(victim)
+    Article.create(game: current_user.game, round: current_user.game.round, committer: self, victim: victim, success: true)
+    puts "#{current_user} used #{current_user.active} on #{victim}"
   end
 
 end
