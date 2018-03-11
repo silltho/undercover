@@ -12,42 +12,42 @@ class Game < ApplicationRecord
     players.size >= 9
   end
 
-    aasm whiny_transitions: false do
-    state :waiting, initial: true
-    state :initialized, :inform, :exchange, :activity, :finished
-    after_all_transitions :log_status_change
+  aasm whiny_transitions: false do
+  state :waiting, initial: true
+  state :initialized, :inform, :exchange, :activity, :finished
+  after_all_transitions :log_status_change
 
-    event :initializing do
-      transitions from: :waiting, to: :initialized, after: :init_game
-    end
+  event :initializing do
+    transitions from: :waiting, to: :initialized, after: :init_game
+  end
 
-    event :started do
-      transitions from: :initialized, to: :inform
-    end
+  event :started do
+    transitions from: :initialized, to: :inform
+  end
 
-    event :informed do
-      transitions from: :inform, to: :exchange
-    end
+  event :informed do
+    transitions from: :inform, to: :exchange
+  end
 
-    event :exchanged do
-      transitions from: :exchange, to: :activity
-    end
+  event :exchanged do
+    transitions from: :exchange, to: :activity
+  end
 
-    event :skills_used do
-      transitions from: :activity, to: :inform, after: :update_round
-    end
+  event :skills_used do
+    transitions from: :activity, to: :inform, after: :update_round
+  end
 
-    event :finish do
-      transitions from: :inform, to: :finished
-    end
+  event :finish do
+    transitions from: :inform, to: :finished
+  end
 
-    event :reset do
-      transitions from: :initialized, to: :waiting
-      transitions from: :inform, to: :waiting
-      transitions from: :exchange, to: :waiting
-      transitions from: :activity, to: :waiting
-      transitions from: :finished, to: :waiting
-    end
+  event :reset do
+    transitions from: :initialized, to: :waiting
+    transitions from: :inform, to: :waiting
+    transitions from: :exchange, to: :waiting
+    transitions from: :activity, to: :waiting
+    transitions from: :finished, to: :waiting
+  end
 
   end
 
@@ -57,13 +57,13 @@ class Game < ApplicationRecord
   end
 
   def get_game_object
-     {  id: id,
-        code: code,
-        aasm_state: aasm_state,
-        round: round,
-        players: players.to_a,
-        party_distribution: get_party_members
-     }
+    {  id: id,
+      code: code,
+      aasm_state: aasm_state,
+      round: round,
+      players: players.to_a,
+      party_distribution: get_party_members
+    }
   end
 
   def log_status_change
@@ -98,7 +98,7 @@ class Game < ApplicationRecord
   def get_party_members
     data = {}
     %w[Mafia Town Anarchists].each{ |k| data[k] = 0 }
-   players.each do |player|
+    players.each do |player|
       data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
       data["Town"]+= 1 if player.role.try(:party) == "Town"
       data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists"
@@ -130,5 +130,4 @@ class Game < ApplicationRecord
     Article.create(game: current_user.game, round: current_user.game.round, committer: self, victim: victim, success: true)
     puts "#{current_user} used #{current_user.active} on #{victim}"
   end
-
 end
