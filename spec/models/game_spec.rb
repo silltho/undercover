@@ -90,9 +90,9 @@ RSpec.describe Game, type: :model do
 
   it 'updates the round' do
     game = Game.create(id: 8)
-    expect(game.round).to eql(0)
-    game.update_round
     expect(game.round).to eql(1)
+    game.update_round
+    expect(game.round).to eql(2)
   end
 
   it 'adds players to the game' do
@@ -127,5 +127,17 @@ RSpec.describe Game, type: :model do
     expect(p2.role).not_to be_nil
     expect(p1.codename).not_to be_nil
     expect(p2.codename).not_to be_nil
+  end
+
+  it 'returns an array with articles' do
+    game = Game.create(id: 14)
+    expect(game.players.count).to eql(0)
+    p1 =  Player.create(id: 3)
+    p2 = Player.create(id: 4)
+    game.players << p1
+    game.players << p2
+    game.initializing!
+    p1.use_skill(p2)
+    expect(game.create_stories(1)).to be_an_instance_of(Array)
   end
 end

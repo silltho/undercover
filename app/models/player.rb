@@ -1,12 +1,26 @@
 class Player < ApplicationRecord
   include AASM
-  aasm column: 'state', whiny_transitions: false do
-    state :alive, initial: true
-    state :dead, :disconnected, :imprisoned
-  end
   belongs_to :game, optional: true
   belongs_to :role, optional: true
   has_many :articles
+
+  aasm column: 'state', whiny_transitions: false do
+    state :alive, initial: true
+    state :dead, :imprisoned
+
+    event :imprison do
+      transitions from: :alive, to: :imprisoned
+    end
+
+    event :release do
+      transitions from: :imprisoned, to: :alive
+    end
+
+    event :die do
+      transitions from: :alive, to: :dead
+      transitions from: :imprisoned, to: :dead
+    end
+  end
 
   def get_player_object
     {
@@ -16,6 +30,11 @@ class Player < ApplicationRecord
       role: { id: role.try(:id),
               name: self.try(:role).try(:name),
               image: self.try(:role).try(:image),
+              goal: role.try(:goal),
+              lore: role.try(:lore),
+              punchline: role.try(:punchline),
+              active: role.try(:active_text),
+              passive: role.try(:passive_text),
               skill: { active: self.try(:role).try(:active),
                        img_active: nil,
                        passive: self.try(:role).try(:passive),
@@ -64,12 +83,11 @@ class Player < ApplicationRecord
   end
 
   def use_skill(victim)
-    create_article(victim, calculate_success(self, victim, role.active))
+    create_article(victim, calculate_success(self, victim))
   end
 
   def create_article(victim, success)
     Article.create(game: victim.game, round: victim.game.round, committer_id: id, victim_id: victim.id, success: success)
-    puts "#{self.codename} used #{role.try(:active)} on #{victim.codename}"
   end
 
   def calculate_success(*)

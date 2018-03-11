@@ -134,11 +134,11 @@ class Game < ApplicationRecord
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
   end
 
-  def create_stories(game, round)
+  def create_stories(round)
     newspaper = []
-    Article.where(game: game).where(round: round).each do |article|
-      newspaper << "#{article.committer.codename} successfully used #{article.committer.role.active} on #{article.victim.codename}." if article.success
-      newspaper << "#{article.committer.codename} tried to use #{article.committer.role.active} on #{article.victim.codename} but failed." unless article.success
+    Article.where(game: self).where(round: round).each do |article|
+      newspaper << "#{article.committer.codename} successfully used #{article.committer.try(:role).try(:active)} on #{article.victim.codename}." if article.success
+      newspaper << "#{article.committer.codename} tried to use #{article.committer.try(:role).try(:active)} on #{article.victim.codename} but failed." unless article.success
     end
     newspaper
   end
