@@ -70,7 +70,7 @@ class Game < ApplicationRecord
     { id: id,
       round: round,
       game: self,
-      stories: create_stories(self, round)
+      stories: create_stories(round)
     }
   end
 
