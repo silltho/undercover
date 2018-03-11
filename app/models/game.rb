@@ -66,6 +66,14 @@ class Game < ApplicationRecord
     }
   end
 
+  def get_newspaper_object(round)
+    { id: id,
+      round: round,
+      game: self,
+      stories: create_stories(self, round)
+    }
+  end
+
   def log_status_change
     puts "Game with code #{self.code}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
@@ -126,8 +134,13 @@ class Game < ApplicationRecord
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
   end
 
-  def use_skill(victim)
-    Article.create(game: current_user.game, round: current_user.game.round, committer: self, victim: victim, success: true)
-    puts "#{current_user} used #{current_user.active} on #{victim}"
+  def create_stories(game, round)
+    newspaper = []
+    Article.where(game: game).where(round: round).each do |article|
+      newspaper << "#{article.committer.codename} successfully used #{article.committer.role.active} on #{article.victim.codename}." if article.success
+      newspaper << "#{article.committer.codename} tried to use #{article.committer.role.active} on #{article.victim.codename} but failed." unless article.success
+    end
+    newspaper
   end
+
 end

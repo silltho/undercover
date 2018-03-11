@@ -63,4 +63,17 @@ class Player < ApplicationRecord
     Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :name  )
   end
 
+  def use_skill(victim)
+    create_article(victim, calculate_success(self, victim, role.active))
+  end
+
+  def create_article(victim, success)
+    Article.create(game: victim.game, round: victim.game.round, committer_id: id, victim_id: victim.id, success: success)
+    puts "#{self.codename} used #{role.try(:active)} on #{victim.codename}"
+  end
+
+  def calculate_success(*)
+    true
+  end
+
 end

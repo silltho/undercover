@@ -20,4 +20,14 @@ RSpec.describe Player, type: :model do
   it 'is alive at the beginning' do
     expect(player).to have_state(:alive)
   end
+
+  it 'can use a skill on another player' do
+    p1 = Player.create(id: 3)
+    p2 = Player.create(id: 4)
+    g = Game.create(id: 13)
+    g.players << p1
+    g.players << p2
+    g.init_game
+    expect(p1.use_skill(p2)).to be true
+  end
 end

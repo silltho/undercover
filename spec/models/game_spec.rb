@@ -113,18 +113,19 @@ RSpec.describe Game, type: :model do
   it 'assigns roles and code-names to players' do
     game = Game.create(id: 12)
     expect(game.players.count).to eql(0)
-    p1 =  Player.create
-    p2 = Player.create
-    game.players << [p1, p2]
+    p1 =  Player.create(id: 1)
+    p2 = Player.create(id: 2)
+    game.players << p1
+    game.players << p2
     expect(game.players.count).to eql(2)
-    expect(p1.role_id).to be_nil
-    expect(p2.role_id).to be_nil
+    expect(p1.role).to be_nil
+    expect(p2.role).to be_nil
     expect(p1.codename).to be_nil
     expect(p2.codename).to be_nil
     game.init_players
-    expect(p1.role_id).to_not be_nil
-    expect(p2.role_id).to_not be_nil
-    expect(p1.codename).to_not be_nil
-    expect(p2.codename).to_not be_nil
+    expect(p1.role).not_to be_nil
+    expect(p2.role).not_to be_nil
+    expect(p1.codename).not_to be_nil
+    expect(p2.codename).not_to be_nil
   end
 end
