@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map } from 'immutable'
 import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
@@ -9,7 +10,8 @@ class GameInfo extends React.PureComponent {
   render() {
     const {
       round,
-      readInfos
+      readInfos,
+      roundInformation
     } = this.props
 
     return (
@@ -18,19 +20,21 @@ class GameInfo extends React.PureComponent {
           Tag {round}
         </Header>
         <Content>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
-          <div>Info-phase</div>
+          {
+            roundInformation.map((infos) => {
+              return (
+                <div>
+                  <ul>
+                    {
+                      infos.map((info) => (
+                        <div>{info}</div>
+                      ))
+                    }
+                  </ul>
+                </div>
+              )
+            })
+          }
         </Content>
         <Footer>
           <Button onClick={readInfos} text="gelesen" />
@@ -46,7 +50,8 @@ GameInfo.defaultProps = {
 
 GameInfo.propTypes = {
   round: PropTypes.number,
-  readInfos: PropTypes.func.isRequired
+  readInfos: PropTypes.func.isRequired,
+  roundInformation: PropTypes.instanceOf(Map).isRequired
 }
 
 export default GameInfo

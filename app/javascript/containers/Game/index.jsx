@@ -31,6 +31,7 @@ class Game extends React.PureComponent {
         return (
           <GameInfo
             round={this.props.game.get('round') || 0}
+            roundInformation={this.props.roundInformation}
             readInfos={this.props.endInfoPhase}
           />
         )
@@ -44,6 +45,7 @@ class Game extends React.PureComponent {
         return (
           <GameActivity
             useSkill={this.props.useSkill}
+            allSkillsUsed={this.props.allSkillsUsed}
             player={this.props.player}
             game={this.props.game}
           />
@@ -61,22 +63,26 @@ class Game extends React.PureComponent {
 Game.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
+  roundInformation: PropTypes.instanceOf(Map).isRequired,
   endExchangePhase: PropTypes.func.isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
-  useSkill: PropTypes.func.isRequired
+  useSkill: PropTypes.func.isRequired,
+	allSkillsUsed: PropTypes.func.isRequired
 }
 
 export const mapDispatchToProps = () => ({
   endExchangePhase: GameChannel.endExchangePhase,
   endInfoPhase: GameChannel.endInfoPhase,
   startGame: GameChannel.startGame,
-  useSkill: GameChannel.useSkill
+  useSkill: GameChannel.useSkill,
+  allSkillsUsed: GameChannel.allSkillsUsed
 })
 
 const mapStateToProps = (state) => ({
   game: state.get('Game'),
-  player: state.get('Player')
+  player: state.get('Player'),
+  roundInformation: state.get('RoundInformation')
 })
 
 export default connect(
