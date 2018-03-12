@@ -56,9 +56,9 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
-  def broadcast_newspaper_updated(round)
+  def broadcast_information_updated(round)
     reload
-    GamesChannel.broadcast_to(self, type: 'newspaper_updated', data: get_newspaper_object(round))
+    GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object(round))
   end
 
   def get_game_object
@@ -140,12 +140,12 @@ class Game < ApplicationRecord
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
   end
 
-  def use_skill(committer, victim)
-    create_article(committer, victim, calculate_success(committer, victim))
+  def use_skill(victim)
+    create_article(victim, calculate_success(current_user, victim))
   end
 
-  def create_article(committer, victim, success)
-    Article.create(game: self, round: self.round, committer_id: committer, victim_id: victim, success: success)
+  def create_article(victim, success)
+    Article.create(game: self, round: self.round, committer_id: current_user.id, victim_id: victim, success: success)
   end
 
   def calculate_success(*)

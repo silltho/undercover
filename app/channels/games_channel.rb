@@ -21,7 +21,7 @@ class GamesChannel < ApplicationCable::Channel
 
   def end_info_phase
     game = current_user.game
-    display_newspaper(game.round)
+    game.broadcast_information_updated(game.round)
     game.informed!
     game.broadcast_game_updated
   end
@@ -34,18 +34,13 @@ class GamesChannel < ApplicationCable::Channel
 
   def use_skill(params)
     game = current_user.game
-    game.use_skill(params['committer'], params['victim'])
+    game.use_skill(params['victim'])
   end
 
   def all_skills_used
     game = current_user.game
     game.skills_used!
     game.broadcast_game_updated
-  end
-
-  def display_newspaper(round)
-    game = current_user.game
-    game.broadcast_newspaper_updated(round)
   end
 
   def finish_game
