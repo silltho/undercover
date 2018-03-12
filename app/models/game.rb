@@ -75,7 +75,7 @@ class Game < ApplicationRecord
     data = {}
     reload
     round.times do |n|
-      data[n] = create_stories(round)
+      data[n] = create_stories(n)
     end
     data
   end
