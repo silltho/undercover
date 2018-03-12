@@ -26,8 +26,9 @@ class GamesChannel < ApplicationCable::Channel
     game.broadcast_game_updated
   end
 
-  def end_exchange_phase
+  def end_exchange_phase(params)
     game = current_user.game
+    game.get_newspaper_object(params['round'])
     game.exchanged!
     game.broadcast_game_updated
     #send newspaper issue to all players with information about who died and stuff

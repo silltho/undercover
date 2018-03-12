@@ -25,4 +25,8 @@ class UserChannel < ApplicationCable::Channel
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
     game.broadcast_game_updated
   end
+
+  def use_skill(params)
+    Player.where(game_id: params['id']).where(session_id: current_user.session_id).use_skill(params['victim'])
+  end
 end
