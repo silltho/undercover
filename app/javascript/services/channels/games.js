@@ -43,8 +43,8 @@ function endExchangePhase() {
   channel.perform(END_EXCHANGE_PHASE)
 }
 
-function useSkill() {
-  channel.perform(USE_SKILL)
+function useSkill(victim) {
+  channel.perform(USE_SKILL, { victim })
 }
 
 function startGame() {

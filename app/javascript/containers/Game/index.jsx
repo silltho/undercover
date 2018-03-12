@@ -44,7 +44,8 @@ class Game extends React.PureComponent {
         return (
           <GameActivity
             useSkill={this.props.useSkill}
-            roleDetails={this.props.player.get('role')}
+            player={this.props.player}
+            game={this.props.game}
           />
         )
       default:

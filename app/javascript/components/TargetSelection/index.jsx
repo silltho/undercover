@@ -1,28 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map, List } from 'immutable'
 import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import VictimsItem from './VictimItem'
 
 class TargetSelection extends React.PureComponent {
   render() {
     const {
-      roleDetails,
       onRequestHide,
-      useSkill
+      useSkill,
+      victims,
+      player
     } = this.props
+
+    const renderedVictims = victims
+      .filter((victim) => victim.get('id') === player.get('id'))
+      .map((victim) => (
+        <VictimsItem
+          key={`victim-${victim.get('id')}`}
+          victim={victim}
+          useSkill={useSkill}
+        />
+      ))
 
     return (
       <React.Fragment>
         <Header>
-          Who do you want to {roleDetails.get('active')}
+          Who do you want to {player.getIn(['role', 'active'])}
         </Header>
         <Content>
-          <div onClick={useSkill}>player1</div>
-          <div onClick={useSkill}>player2</div>
-          <div onClick={useSkill}>player3</div>
-          <div onClick={useSkill}>player4</div>
+          {renderedVictims}
         </Content>
         <Footer>
           <Button onClick={onRequestHide} text="Back" />
@@ -36,10 +46,10 @@ TargetSelection.defaultProps = {
 }
 
 TargetSelection.propTypes = {
-	roleDetails: PropTypes.instanceOf(Map).isRequired,
-	players: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired,
+  victims: PropTypes.instanceOf(List).isRequired,
   useSkill: PropTypes.func.isRequired,
-	onRequestHide: PropTypes.func.isRequired
+  onRequestHide: PropTypes.func.isRequired
 }
 
 export default TargetSelection

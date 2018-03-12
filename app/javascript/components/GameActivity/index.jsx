@@ -22,21 +22,24 @@ class GameActivity extends React.PureComponent {
 
   render() {
     const {
-      roleDetails,
-      useSkill
+      useSkill,
+      player,
+      game
     } = this.props
+
+    const victims = game.get('players')
 
     return (
       <React.Fragment>
         {this.state.showTargetSelection ?
           <TargetSelection
-            roleDetails={roleDetails}
-            players={roleDetails}
+            player={player}
+            victims={victims}
             useSkill={useSkill}
             onRequestHide={this.hideTargetSelection}
           /> :
           <RoleOverview
-            roleDetails={roleDetails}
+            roleDetails={player.get('role')}
             showTargetSelection={this.showTargetSelection}
             skipPhase={useSkill}
           />
@@ -47,7 +50,8 @@ class GameActivity extends React.PureComponent {
 }
 
 GameActivity.propTypes = {
-  roleDetails: PropTypes.instanceOf(Map).isRequired,
+  game: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired,
   useSkill: PropTypes.func.isRequired
 }
 
