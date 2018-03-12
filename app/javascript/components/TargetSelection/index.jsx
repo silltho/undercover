@@ -17,7 +17,7 @@ class TargetSelection extends React.PureComponent {
     } = this.props
 
     const renderedVictims = victims
-      .filter((victim) => victim.get('id') === player.get('id'))
+      .filter((victim) => victim.get('id') !== player.get('id'))
       .map((victim) => (
         <VictimsItem
           key={`victim-${victim.get('id')}`}
