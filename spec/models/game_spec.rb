@@ -137,7 +137,18 @@ RSpec.describe Game, type: :model do
     game.players << p1
     game.players << p2
     game.initializing!
-    p1.use_skill(p2)
+    game.use_skill(p1, p2)
     expect(game.create_stories(1)).to be_an_instance_of(Array)
+  end
+
+  it 'can use a skill on another player' do
+    p1 = Player.create(id: 3)
+    p2 = Player.create(id: 4)
+    g = Game.create(id: 13)
+    g.players << p1
+    g.players << p2
+    g.init_game
+    expect(g).to receive(:create_article)
+    g.use_skill(p1, p2)
   end
 end

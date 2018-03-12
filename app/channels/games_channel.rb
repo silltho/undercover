@@ -21,24 +21,31 @@ class GamesChannel < ApplicationCable::Channel
 
   def end_info_phase
     game = current_user.game
-    #display fancy stuff because in the backend nothing is really going on
+    display_newspaper(game.round)
     game.informed!
     game.broadcast_game_updated
   end
 
-  def end_exchange_phase(params)
+  def end_exchange_phase
     game = current_user.game
-    game.get_newspaper_object(params['round'])
     game.exchanged!
     game.broadcast_game_updated
-    #send newspaper issue to all players with information about who died and stuff
   end
 
-  def use_skill
+  def use_skill(params)
     game = current_user.game
-    #send possible actions to user and react accordingly.
+    game.use_skill(params['committer'], params['victim'])
+  end
+
+  def all_skills_used
+    game = current_user.game
     game.skills_used!
     game.broadcast_game_updated
+  end
+
+  def display_newspaper(round)
+    game = current_user.game
+    game.broadcast_newspaper_updated(round)
   end
 
   def finish_game

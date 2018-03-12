@@ -81,17 +81,4 @@ class Player < ApplicationRecord
   def query_relation_information(role)
     Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :name  )
   end
-
-  def use_skill(victim)
-    create_article(victim, calculate_success(self, victim))
-  end
-
-  def create_article(victim, success)
-    Article.create(game: victim.game, round: victim.game.round, committer_id: id, victim_id: victim.id, success: success)
-  end
-
-  def calculate_success(*)
-    true
-  end
-
 end

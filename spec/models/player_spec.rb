@@ -47,20 +47,4 @@ RSpec.describe Player, type: :model do
     expect(player).to transition_from(:alive).to(:dead).on_event(:die)
     expect(player).to have_state(:dead)
   end
-
-  it 'can use a skill on another player' do
-    p1 = Player.create(id: 3)
-    p2 = Player.create(id: 4)
-    g = Game.create(id: 13)
-    g.players << p1
-    g.players << p2
-    g.init_game
-    expect(p1).to receive(:create_article)
-    expect(p2).to receive(:create_article)
-    p1.use_skill(p2)
-    p2.use_skill(p1)
-  end
-
-  it 'creates a new article' do
-  end
 end

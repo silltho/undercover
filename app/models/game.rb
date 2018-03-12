@@ -56,6 +56,11 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
+  def broadcast_newspaper_updated(round)
+    reload
+    GamesChannel.broadcast_to(self, type: 'newspaper_updated', data: get_newspaper_object(round))
+  end
+
   def get_game_object
     {  id: id,
       code: code,
@@ -67,11 +72,12 @@ class Game < ApplicationRecord
   end
 
   def get_newspaper_object(round)
-    { id: id,
-      round: round,
-      game: self,
-      stories: create_stories(round)
-    }
+    data = {}
+    reload
+    round.times do |n|
+      data[n] = create_stories(round)
+    end
+    data
   end
 
   def log_status_change
@@ -132,6 +138,19 @@ class Game < ApplicationRecord
 
   def unique_game_code(code)
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
+  end
+
+  def use_skill(committer, victim)
+    create_article(committer, victim, calculate_success(committer, victim))
+  end
+
+  def create_article(committer, victim, success)
+    Article.create(game: self, round: self.round, committer_id: committer, victim_id: victim, success: success)
+  end
+
+  def calculate_success(*)
+    #activity stack is here
+    true
   end
 
   def create_stories(round)
