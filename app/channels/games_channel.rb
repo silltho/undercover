@@ -34,7 +34,7 @@ class GamesChannel < ApplicationCable::Channel
 
   def use_skill(params)
     game = current_user.game
-    game.use_skill(params['victim'])
+    game.use_skill(current_user, params['victim'])
   end
 
   def all_skills_used

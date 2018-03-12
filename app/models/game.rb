@@ -140,12 +140,12 @@ class Game < ApplicationRecord
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
   end
 
-  def use_skill(victim)
-    create_article(victim, calculate_success(current_user, victim))
+  def use_skill(committer, victim)
+    create_article(committer.id, victim, calculate_success(committer, victim))
   end
 
-  def create_article(victim, success)
-    Article.create(game: self, round: self.round, committer_id: current_user.id, victim_id: victim, success: success)
+  def create_article(committer, victim, success)
+    Article.create(game: self, round: self.round, committer_id: committer, victim_id: victim, success: success)
   end
 
   def calculate_success(*)

@@ -3,8 +3,6 @@ require 'aasm/rspec'
 
 RSpec.describe Game, type: :model do
   let!(:game) { Game.new }
-  let(:player) { Player.new }
-  before { allow(controller).to receive(:current_user) { player } }
 
   it 'is valid with valid attributes' do
     expect(game).to be_valid
@@ -134,12 +132,12 @@ RSpec.describe Game, type: :model do
   it 'returns an array with articles' do
     game = Game.create(id: 14)
     expect(game.players.count).to eql(0)
-    current_user =  Player.create(id: 3)
+    p1 =  Player.create(id: 3)
     p2 = Player.create(id: 4)
-    game.players << current_user
+    game.players << p1
     game.players << p2
     game.initializing!
-    game.use_skill(p2)
+    game.use_skill(p1, p2)
     expect(game.create_stories(1)).to be_an_instance_of(Array)
   end
 
@@ -151,6 +149,8 @@ RSpec.describe Game, type: :model do
     g.players << p2
     g.init_game
     expect(g).to receive(:create_article)
+    expect(g).to receive(:create_article)
     g.use_skill(p1, p2)
+    g.use_skill(p2, p1)
   end
 end
