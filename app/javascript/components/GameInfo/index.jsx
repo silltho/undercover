@@ -27,7 +27,7 @@ class GameInfo extends React.PureComponent {
                   <ul>
                     {
                       infos.map((info) => (
-                        <div>{info}</div>
+                        <li>{info}</li>
                       ))
                     }
                   </ul>
