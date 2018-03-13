@@ -1,17 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: 
-  type: 
-  skill: 
-  power: 
-  attribute: 
+  name:
+  power:
   rank: MyString
 
 two:
-  name: 
-  type: 
-  skill: 
-  power: 
-  attribute: 
+  name:
+  power:
   rank: MyString

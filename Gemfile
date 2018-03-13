@@ -17,6 +17,8 @@ gem 'jquery-rails'
 gem 'normalize-rails'
 gem 'aasm'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+gem 'rspec'
+gem 'rubocop'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
@@ -62,6 +64,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do

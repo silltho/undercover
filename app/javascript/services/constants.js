@@ -13,8 +13,11 @@ export const GAME_UPDATED = 'game_updated'
 export const GAME_DELETE = 'game_delete'
 export const PLAYER_INITIALIZED_GAME = 'player_initialized_game'
 
+export const INFORMATION_UPDATED = 'information_updated'
+
 export const START_GAME = 'start_game'
 export const END_INFO_PHASE = 'end_info_phase'
 export const END_EXCHANGE_PHASE = 'end_exchange_phase'
 export const USE_SKILL = 'use_skill'
+export const ALL_SKILLS_USED = 'all_skills_used'
 

@@ -6,7 +6,7 @@ import {
   TitleText
 } from './Styles'
 
-class Footer extends React.PureComponent {
+class Heading extends React.PureComponent {
   render() {
     const {
       title
@@ -24,8 +24,8 @@ class Footer extends React.PureComponent {
   }
 }
 
-Footer.propTypes = {
+Heading.propTypes = {
   title: PropTypes.node.isRequired
 }
 
-export default Footer
+export default Heading

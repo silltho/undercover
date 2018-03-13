@@ -6,7 +6,8 @@ import {
   START_GAME,
   END_INFO_PHASE,
   END_EXCHANGE_PHASE,
-  USE_SKILL
+  USE_SKILL,
+  ALL_SKILLS_USED
 } from '../constants'
 
 let dispatch
@@ -27,7 +28,7 @@ function joinGameChannel(id) {
 
 function unsubscribe() {
   channel.unsubscribe()
-	gameId = null
+  gameId = null
   channel = null
 }
 
@@ -43,8 +44,12 @@ function endExchangePhase() {
   channel.perform(END_EXCHANGE_PHASE)
 }
 
-function useSkill() {
-  channel.perform(USE_SKILL)
+function useSkill(victim) {
+  channel.perform(USE_SKILL, { victim })
+}
+
+function allSkillsUsed() {
+  channel.perform(ALL_SKILLS_USED)
 }
 
 function startGame() {
@@ -63,5 +68,6 @@ export default {
   endExchangePhase,
   endInfoPhase,
   useSkill,
-  startGame
+  startGame,
+  allSkillsUsed
 }

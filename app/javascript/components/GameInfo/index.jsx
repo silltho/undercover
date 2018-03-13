@@ -1,27 +1,57 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map } from 'immutable'
+import Header from 'components/Header'
+import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
 
 class GameInfo extends React.PureComponent {
   render() {
     const {
-      readInfos
+      round,
+      readInfos,
+      roundInformation
     } = this.props
 
     return (
-      <div>
-        <div>Info-phase</div>
+      <React.Fragment>
+        <Header>
+          Tag {round}
+        </Header>
+        <Content>
+          {
+            roundInformation.map((infos) => {
+              return (
+                <div>
+                  <ul>
+                    {
+                      infos.map((info) => (
+                        <li>{info}</li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              )
+            })
+          }
+        </Content>
         <Footer>
           <Button onClick={readInfos} text="gelesen" />
         </Footer>
-      </div>
+      </React.Fragment>
     )
   }
 }
 
+GameInfo.defaultProps = {
+  round: 0
+}
+
 GameInfo.propTypes = {
-  readInfos: PropTypes.func.isRequired
+  round: PropTypes.number,
+  readInfos: PropTypes.func.isRequired,
+  roundInformation: PropTypes.instanceOf(Map).isRequired
 }
 
 export default GameInfo

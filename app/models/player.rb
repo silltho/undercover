@@ -1,43 +1,60 @@
 class Player < ApplicationRecord
   include AASM
-  aasm :column => 'state', :whiny_transitions => false do
-    state :alive, :initial => true
-    state :dead, :disconnected, :imprisoned
-  end
   belongs_to :game, optional: true
   belongs_to :role, optional: true
-  has_many :newspapers
+  has_many :articles
+
+  aasm column: 'state', whiny_transitions: false do
+    state :alive, initial: true
+    state :dead, :imprisoned
+
+    event :imprison do
+      transitions from: :alive, to: :imprisoned
+    end
+
+    event :release do
+      transitions from: :imprisoned, to: :alive
+    end
+
+    event :die do
+      transitions from: :alive, to: :dead
+      transitions from: :imprisoned, to: :dead
+    end
+  end
 
   def get_player_object
     {
-        id: self.id,
-        codename: self.codename,
-        state: self.state,
-        role: {
-            id: self.role.try(:id),
-            name: self.try(:role).try(:name),
-            image: self.try(:role).try(:image),
-            skill: {
-                active: self.try(:role).try(:active),
-                img_active: nil,
-                passive: self.try(:role).try(:passive),
-                img_passive: nil
+      id: id,
+      codename: codename,
+      state: state,
+      role: { id: role.try(:id),
+              name: self.try(:role).try(:name),
+              image: self.try(:role).try(:image),
+              goal: role.try(:goal),
+              lore: role.try(:lore),
+              punchline: role.try(:punchline),
+              active: role.try(:active_text),
+              passive: role.try(:passive_text),
+              skill: { active: self.try(:role).try(:active),
+                       img_active: nil,
+                       passive: self.try(:role).try(:passive),
+                       img_passive: nil
+                     }
             }
-        }
     }
   end
 
-  def get_codename
+  def create_codename
     name = Faker::Name.name
-    self.update(codename: name)
+    update(codename: name)
   end
 
-  def get_character(role)
-    self.update(role_id: role)
+  def assign_character(role)
+    update(role_id: role)
   end
 
   def get_relations
-    name = self.role.name
+    name = role.name
     rel = []
     case name
       when "Godfather"
@@ -64,5 +81,4 @@ class Player < ApplicationRecord
   def query_relation_information(role)
     Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :name  )
   end
-
 end

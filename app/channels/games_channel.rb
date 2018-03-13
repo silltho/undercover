@@ -21,7 +21,6 @@ class GamesChannel < ApplicationCable::Channel
 
   def end_info_phase
     game = current_user.game
-    #display fancy stuff because in the backend nothing is really going on
     game.informed!
     game.broadcast_game_updated
   end
@@ -30,13 +29,17 @@ class GamesChannel < ApplicationCable::Channel
     game = current_user.game
     game.exchanged!
     game.broadcast_game_updated
-    #send newspaper issue to all players with information about who died and stuff
   end
 
-  def use_skill
+  def use_skill(params)
     game = current_user.game
-    #send possible actions to user and react accordingly.
+    game.use_skill(current_user, params['victim'])
+  end
+
+  def all_skills_used
+    game = current_user.game
     game.skills_used!
+    game.broadcast_information_updated(game.round - 1)
     game.broadcast_game_updated
   end
 
