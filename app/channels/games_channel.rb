@@ -39,7 +39,7 @@ class GamesChannel < ApplicationCable::Channel
   def all_skills_used
     game = current_user.game
     game.skills_used!
-    game.broadcast_information_updated(game.round+1)
+    game.broadcast_information_updated(game.round)
     game.broadcast_game_updated
   end
 
