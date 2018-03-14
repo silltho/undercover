@@ -5,17 +5,36 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import DayButton from './DayButton'
 
 class GameInfo extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      selectedDay: this.props.roundInformation.size - 1
+      selectedDay: (this.props.roundInformation.size - 1).toString()
     }
   }
 
   switchToDay = (day) => {
     this.setState({ selectedDay: day })
+  }
+
+  renderInfo = (info, index) => (
+    <li key={`info_${index}`}>{info}</li>
+  )
+
+  renderDayButton = (day) => {
+    if (this.props.roundInformation.get(day).size > 0) {
+      const isActive = this.state.selectedDay === day
+      return (
+        <DayButton
+          key={`day_${day}`}
+          switchToDay={this.switchToDay}
+          day={day}
+          active={isActive}
+        />)
+    }
+    return null
   }
 
   render() {
@@ -25,13 +44,12 @@ class GameInfo extends React.PureComponent {
       roundInformation
     } = this.props
 
-    const infos = roundInformation.get(this.state.selectedDay.toString(), [])
-    const renderedInfos = infos.map((info, index) => (<li key={`info_${index}`}>{info}</li>))
+    console.log('day', this.state.selectedDay)
 
-    const renderedDayButtons = roundInformation.keySeq().map((key) => {
-      if (roundInformation.get(key).size > 0) return (<Button key={`day_${key}`} onClick={() => this.switchToDay(key)} text={key} />)
-      return null
-    })
+
+    const infos = roundInformation.get(this.state.selectedDay, [])
+    const renderedInfos = infos.map(this.renderInfo)
+    const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
 
     return (
       <React.Fragment>
