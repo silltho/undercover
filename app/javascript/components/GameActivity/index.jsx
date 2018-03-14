@@ -8,8 +8,15 @@ class GameActivity extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      showTargetSelection: false
+      showTargetSelection: false,
+      selectedTarget: false
     }
+  }
+
+  selectTarget = (targetId) => {
+    this.setState({ selectedTarget: targetId })
+    this.props.useSkill(targetId)
+    this.hideTargetSelection()
   }
 
   showTargetSelection = () => {
@@ -22,31 +29,28 @@ class GameActivity extends React.PureComponent {
 
   render() {
     const {
-      useSkill,
       player,
       game,
       allSkillsUsed
     } = this.props
 
     const victims = game.get('players')
+    const currentTargetIndex = victims.findIndex((victim) => victim.get('id') === this.state.selectedTarget)
+    const currentTarget = currentTargetIndex >= 0 ? victims.get(currentTargetIndex) : Map()
 
-    return (
-      <React.Fragment>
-        {this.state.showTargetSelection ?
-          <TargetSelection
-            player={player}
-            victims={victims}
-            useSkill={useSkill}
-            onRequestHide={this.hideTargetSelection}
-          /> :
-          <RoleOverview
-            roleDetails={player.get('role')}
-            showTargetSelection={this.showTargetSelection}
-            skipPhase={allSkillsUsed}
-          />
-        }
-      </React.Fragment>
-    )
+    return this.state.showTargetSelection ?
+      <TargetSelection
+        player={player}
+        victims={victims}
+        onSelectTarget={this.selectTarget}
+        onRequestHide={this.hideTargetSelection}
+      /> :
+      <RoleOverview
+        roleDetails={player.get('role')}
+        showTargetSelection={this.showTargetSelection}
+        skipPhase={allSkillsUsed}
+        currentTarget={currentTarget}
+      />
   }
 }
 
