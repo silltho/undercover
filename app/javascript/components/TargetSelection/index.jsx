@@ -11,7 +11,7 @@ class TargetSelection extends React.PureComponent {
   render() {
     const {
       onRequestHide,
-      useSkill,
+	    onSelectTarget,
       victims,
       player
     } = this.props
@@ -22,7 +22,7 @@ class TargetSelection extends React.PureComponent {
         <VictimsItem
           key={`victim-${victim.get('id')}`}
           victim={victim}
-          useSkill={useSkill}
+          useSkill={onSelectTarget}
         />
       ))
 
@@ -48,7 +48,7 @@ TargetSelection.defaultProps = {
 TargetSelection.propTypes = {
   player: PropTypes.instanceOf(Map).isRequired,
   victims: PropTypes.instanceOf(List).isRequired,
-  useSkill: PropTypes.func.isRequired,
+  onSelectTarget: PropTypes.func.isRequired,
   onRequestHide: PropTypes.func.isRequired
 }
 

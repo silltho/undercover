@@ -14,8 +14,11 @@ class RoleOverview extends React.PureComponent {
     const {
       roleDetails,
       showTargetSelection,
-      skipPhase
+      skipPhase,
+      currentTarget
     } = this.props
+
+    const skillText = currentTarget.has('codename') ? `${roleDetails.get('active')}:  ${currentTarget.get('codename')}` : roleDetails.get('active')
 
     return (
       <React.Fragment>
@@ -27,7 +30,7 @@ class RoleOverview extends React.PureComponent {
         </Content>
         <Footer>
           <Button onClick={skipPhase} text="Skip" />
-          <Button onClick={showTargetSelection} text={roleDetails.get('active')} />
+          <Button onClick={showTargetSelection} text={skillText} />
         </Footer>
       </React.Fragment>
     )
@@ -35,12 +38,14 @@ class RoleOverview extends React.PureComponent {
 }
 
 RoleOverview.defaultProps = {
+  currentTarget: false
 }
 
 RoleOverview.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
   showTargetSelection: PropTypes.func.isRequired,
-  skipPhase: PropTypes.func.isRequired
+  skipPhase: PropTypes.func.isRequired,
+  currentTarget: PropTypes.instanceOf(Map)
 }
 
 export default RoleOverview
