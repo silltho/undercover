@@ -30,23 +30,18 @@ class GameActivity extends React.PureComponent {
 
     const victims = game.get('players')
 
-    return (
-      <React.Fragment>
-        {this.state.showTargetSelection ?
-          <TargetSelection
-            player={player}
-            victims={victims}
-            useSkill={useSkill}
-            onRequestHide={this.hideTargetSelection}
-          /> :
-          <RoleOverview
-            roleDetails={player.get('role')}
-            showTargetSelection={this.showTargetSelection}
-            skipPhase={allSkillsUsed}
-          />
-        }
-      </React.Fragment>
-    )
+    return this.state.showTargetSelection ?
+      <TargetSelection
+        player={player}
+        victims={victims}
+        useSkill={useSkill}
+        onRequestHide={this.hideTargetSelection}
+      /> :
+      <RoleOverview
+        roleDetails={player.get('role')}
+        showTargetSelection={this.showTargetSelection}
+        skipPhase={allSkillsUsed}
+      />
   }
 }
 

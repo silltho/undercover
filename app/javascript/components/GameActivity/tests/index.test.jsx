@@ -2,18 +2,22 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
 
+import RoleOverview from 'components/RoleOverview'
+import TargetSelection from 'components/TargetSelection'
+
 import GameActivity from '../index'
-import {
-  RoleName,
-  RoleImage
-} from '../Styles'
 
 const defaultProps = {
-  roleDetails: fromJS({
-    name: 'testRoleName',
-    image: 'test/img/test'
+  game: fromJS({
+    players: []
   }),
-  endGame: jest.fn()
+  player: fromJS({
+    role: {
+      active: 'skillName'
+    }
+  }),
+  useSkill: () => {},
+  allSkillsUsed: () => {}
 }
 
 const renderComponent = (props = defaultProps) => mount(
@@ -21,9 +25,15 @@ const renderComponent = (props = defaultProps) => mount(
 )
 
 describe('<GameActivity />', () => {
-  it('should render a <RoleImage> and <RoleName>', () => {
+  it('should render the <RoleOverview>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find(RoleName).length).toEqual(1)
-    expect(renderedComponent.find(RoleImage).length).toEqual(1)
+    expect(renderedComponent.find(RoleOverview).length).toEqual(1)
+  })
+
+  it('should render the <TargetSelection>', () => {
+    const renderedComponent = renderComponent()
+    renderedComponent.instance().showTargetSelection()
+    renderedComponent.update()
+    expect(renderedComponent.find(TargetSelection).length).toEqual(1)
   })
 })
