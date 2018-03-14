@@ -24,17 +24,14 @@ class GameInfo extends React.PureComponent {
   )
 
   renderDayButton = (day) => {
-    if (this.props.roundInformation.get(day).size > 0) {
-      const isActive = this.state.selectedDay === day
-      return (
-        <DayButton
-          key={`day_${day}`}
-          switchToDay={this.switchToDay}
-          day={day}
-          active={isActive}
-        />)
-    }
-    return null
+    const isActive = this.state.selectedDay === day
+    return (
+      <DayButton
+        key={`day_${day}`}
+        switchToDay={this.switchToDay}
+        day={day}
+        active={isActive}
+      />)
   }
 
   render() {
@@ -55,7 +52,7 @@ class GameInfo extends React.PureComponent {
         </Header>
         <Content>
           <ul>
-            {renderedInfos}
+            {renderedInfos.length > 0 ? renderedInfos : (<li>--no infos--</li>)}
           </ul>
         </Content>
         <Footer>
