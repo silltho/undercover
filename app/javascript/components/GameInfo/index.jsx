@@ -44,9 +44,6 @@ class GameInfo extends React.PureComponent {
       roundInformation
     } = this.props
 
-    console.log('day', this.state.selectedDay)
-
-
     const infos = roundInformation.get(this.state.selectedDay, [])
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
