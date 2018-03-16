@@ -46,7 +46,7 @@ export const Section = styled.div`
 
 export const SectionText = styled.div`
   text-align: center;
-  padding 0.5rem;
+  padding: 1rem 0.5rem;
 `
 
 export const SectionWrapper = styled.div`
