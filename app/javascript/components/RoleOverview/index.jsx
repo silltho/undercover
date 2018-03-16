@@ -38,7 +38,7 @@ class RoleOverview extends React.PureComponent {
 }
 
 RoleOverview.defaultProps = {
-  currentTarget: false
+  currentTarget: Map()
 }
 
 RoleOverview.propTypes = {

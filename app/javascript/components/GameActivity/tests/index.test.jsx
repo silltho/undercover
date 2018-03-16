@@ -36,4 +36,27 @@ describe('<GameActivity />', () => {
     renderedComponent.update()
     expect(renderedComponent.find(TargetSelection).length).toEqual(1)
   })
+
+  it('should hideTargetSelection', () => {
+    const renderedComponent = renderComponent()
+    renderedComponent.setState({ showTargetSelection: true })
+    renderedComponent.instance().hideTargetSelection()
+    renderedComponent.update()
+    expect(renderedComponent.state().showTargetSelection).toEqual(false)
+    expect(renderedComponent.find(RoleOverview).length).toEqual(1)
+  })
+
+  it('should selectTarget', () => {
+    const targetId = '1234'
+    const props = {
+      ...defaultProps,
+      useSkill: jest.fn()
+    }
+    const renderedComponent = renderComponent(props)
+    renderedComponent.instance().hideTargetSelection = jest.fn()
+    renderedComponent.instance().selectTarget(targetId)
+    expect(props.useSkill).toHaveBeenCalledWith(targetId)
+    expect(renderedComponent.instance().hideTargetSelection).toHaveBeenCalledTimes(1)
+    expect(renderedComponent.find(RoleOverview).length).toEqual(1)
+  })
 })

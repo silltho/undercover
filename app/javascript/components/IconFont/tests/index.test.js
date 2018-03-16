@@ -1,12 +1,19 @@
 import React from 'react'
-import {shallow} from 'enzyme'
-import 'utils/jest'
+import { shallow } from 'enzyme'
 
-import IconFont from '../index'
+import IconFont, { ICONS } from '../index'
 
-describe('IconFont', () => {
-  it('should apply fixed width', () => {
-    /*const renderedComponent = shallow(<IconFont name="album" fixedWidth />)
-    expect(renderedComponent).toHaveStyleRule('width', '1.65em')*/
+const defaultProps = {
+  icon: ICONS.home
+}
+
+const renderComponent = (props = defaultProps) => shallow(
+  <IconFont {...props} />
+)
+
+describe('<IconFont>', () => {
+  it('should render a <span>', () => {
+    const renderedComponent = renderComponent()
+	  expect(renderedComponent.find('span').length).toEqual(1)
   })
 })

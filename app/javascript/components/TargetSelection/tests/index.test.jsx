@@ -11,7 +11,7 @@ import RoleOverview from '../index'
 const defaultProps = {
   player: fromJS({}),
   victims: fromJS([]),
-  useSkill: () => {},
+  onSelectTarget: () => {},
   onRequestHide: () => {}
 }
 
