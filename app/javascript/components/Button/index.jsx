@@ -7,11 +7,12 @@ class Button extends React.PureComponent {
     const {
       text,
       onClick,
-      className
+      className,
+      children
     } = this.props
     return (
       <ButtonWrapper onClick={onClick} className={className}>
-        {text}
+        {text || children}
       </ButtonWrapper>
     )
   }
@@ -24,7 +25,8 @@ Button.defaultProps = {
 Button.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string,
+  children: PropTypes.node
 }
 
 export default Button

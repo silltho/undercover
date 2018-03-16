@@ -5,6 +5,7 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   RoleImage
 } from './Styles'
@@ -29,8 +30,10 @@ class RoleOverview extends React.PureComponent {
           <RoleImage background={roleDetails.get('image')} />
         </Content>
         <Footer>
-          <Button onClick={skipPhase} text="Skip" />
           <Button onClick={showTargetSelection} text={skillText} />
+          <Button onClick={skipPhase}>
+            <IconFont icon={ICONS.next2} />
+          </Button>
         </Footer>
       </React.Fragment>
     )
