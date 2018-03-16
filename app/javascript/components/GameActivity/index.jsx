@@ -44,6 +44,7 @@ class GameActivity extends React.PureComponent {
         victims={victims}
         onSelectTarget={this.selectTarget}
         onRequestHide={this.hideTargetSelection}
+        currentTarget={currentTarget}
       /> :
       <RoleOverview
         roleDetails={player.get('role')}
