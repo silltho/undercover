@@ -8,12 +8,12 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin: 0 0.5rem;
 `
 
 export const TitleLine = styled.div`
   border: 1.5px solid ${PINK};
   height: 0;
-  width: 3.5rem;
   position: relative;
   flex: 1;
   
@@ -22,7 +22,7 @@ export const TitleLine = styled.div`
     border-radius: 50%;
     border: 0.3rem solid ${PINK};
     position: absolute;
-    top: -0.3rem;
+    top: -0.25rem;
     ${(props) => props.right ? { right: '-0.3rem' } : { left: '-0.3rem' }}
   }
 `

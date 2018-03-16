@@ -13,7 +13,9 @@ import {
   Container,
   Logo,
   Section,
-  SectionText
+  SectionText,
+	SectionWrapper,
+  ActiveIcon
 } from './Styles'
 
 class RoleInformation extends React.PureComponent {
@@ -29,17 +31,20 @@ class RoleInformation extends React.PureComponent {
           <Container>
             <RoleName align="center">{roleDetails.get('name')}</RoleName>
             <Logo src={LogoImage} />
-            <Section>
-              <SectionText>{roleDetails.get('punchline')}</SectionText>
-            </Section>
-            <Section>
-              <Heading title="Goal" />
-              <SectionText>{roleDetails.get('goal')}</SectionText>
-            </Section>
-            <Section>
-              <Heading title="Active" />
-              <SectionText>{roleDetails.get('active_text')}</SectionText>
-            </Section>
+            <SectionWrapper>
+              <Section>
+                <SectionText>{roleDetails.get('punchline')}</SectionText>
+              </Section>
+              <Section>
+                <Heading title="Goal" />
+                <SectionText>{roleDetails.get('goal')}</SectionText>
+              </Section>
+              <Section>
+                <Heading title="Active" />
+                <ActiveIcon icon={ICONS.bullhorn} />
+                <SectionText>{roleDetails.get('active_text')}</SectionText>
+              </Section>
+            </SectionWrapper>
           </Container>
         </Content>
         <Footer>

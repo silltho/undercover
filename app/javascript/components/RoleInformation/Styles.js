@@ -1,8 +1,17 @@
 import styled from 'styled-components'
 import {
   PINK,
-	DARK_BLUE
+  DARK_BLUE,
+  LOGO_FONT
 } from 'styles/variables'
+import IconFont from 'components/IconFont'
+
+export const ActiveIcon = styled(IconFont)`
+  font-size: 3rem;
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0;
+`
 
 export const Container = styled.div`
   border: 1px solid ${PINK};
@@ -12,8 +21,8 @@ export const Container = styled.div`
 `
 
 export const RoleName = styled.span`
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: ${LOGO_FONT};
+  font-size: 2rem;
   background-color: ${DARK_BLUE};
   position: absolute;
   left: 50%;
@@ -38,4 +47,7 @@ export const Section = styled.div`
 export const SectionText = styled.div`
   text-align: center;
   padding 0.5rem;
+`
+
+export const SectionWrapper = styled.div`
 `
