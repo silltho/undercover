@@ -4,7 +4,6 @@ import LogoImg from 'assets/images/palm_tree.png'
 import {
   Wrapper,
   Logo,
-  Line,
   Title
 } from './Styles'
 
@@ -21,7 +20,6 @@ class Header extends React.PureComponent {
             </Title>
           )
         }
-        <Line />
       </Wrapper>
     )
   }

@@ -42,6 +42,14 @@ export const Logo = styled.img`
 export const Section = styled.div`
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 export const SectionText = styled.div`

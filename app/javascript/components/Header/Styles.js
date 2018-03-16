@@ -12,8 +12,9 @@ export const Wrapper = styled.div`
   min-height: 3rem;
   font-family: ${LOGO_FONT};
   font-size: 3rem;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid ${PINK};
 `
 
 export const Title = styled.div`
@@ -24,11 +25,3 @@ export const Logo = styled.img`
   margin: 0rem 1rem;
   max-height: 3rem;
 `
-
-export const Line = styled.div`
- border: 0; 
- height: 1px; 
- background-color: ${PINK};
- width: 100%;
-`
-

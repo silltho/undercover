@@ -6,5 +6,5 @@ export const Wrapper = styled.div`
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-
+	padding: 0 2rem;
 `
