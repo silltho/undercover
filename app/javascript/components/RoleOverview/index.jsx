@@ -15,6 +15,7 @@ class RoleOverview extends React.PureComponent {
     const {
       roleDetails,
       showTargetSelection,
+	    showRoleInformation,
       skipPhase,
       currentTarget
     } = this.props
@@ -30,6 +31,9 @@ class RoleOverview extends React.PureComponent {
           <RoleImage background={roleDetails.get('image')} />
         </Content>
         <Footer>
+          <Button onClick={showRoleInformation}>
+            <IconFont icon={ICONS.home} />
+          </Button>
           <Button onClick={showTargetSelection} text={skillText} />
           <Button onClick={skipPhase}>
             <IconFont icon={ICONS.next2} />
@@ -46,7 +50,8 @@ RoleOverview.defaultProps = {
 
 RoleOverview.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
-  showTargetSelection: PropTypes.func.isRequired,
+	showTargetSelection: PropTypes.func.isRequired,
+	showRoleInformation: PropTypes.func.isRequired,
   skipPhase: PropTypes.func.isRequired,
   currentTarget: PropTypes.instanceOf(Map)
 }

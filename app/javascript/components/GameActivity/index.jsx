@@ -3,12 +3,19 @@ import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
+import RoleInformation from 'components/RoleInformation'
+
+const VIEWS = {
+  roleOverview: 'ROLE_OVERVIEW',
+  roleInformation: 'ROLE_INFORMATION',
+  targetSelection: 'TARGET_SELECTION'
+}
 
 class GameActivity extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      showTargetSelection: false,
+      currentView: VIEWS.roleOverview,
       selectedTarget: false
     }
   }
@@ -20,13 +27,16 @@ class GameActivity extends React.PureComponent {
   }
 
   showTargetSelection = () => {
-    this.setState({ showTargetSelection: true })
+    this.setState({ currentView: VIEWS.targetSelection })
   }
 
-  hideTargetSelection = () => {
-    this.setState({ showTargetSelection: false })
+  showRoleOverview = () => {
+    this.setState({ currentView: VIEWS.roleOverview })
   }
 
+  showRoleInformation = () => {
+    this.setState({ currentView: VIEWS.roleInformation })
+  }
   render() {
     const {
       player,
@@ -38,20 +48,34 @@ class GameActivity extends React.PureComponent {
     const currentTargetIndex = victims.findIndex((victim) => victim.get('id') === this.state.selectedTarget)
     const currentTarget = currentTargetIndex >= 0 ? victims.get(currentTargetIndex) : Map()
 
-    return this.state.showTargetSelection ?
-      <TargetSelection
-        player={player}
-        victims={victims}
-        onSelectTarget={this.selectTarget}
-        onRequestHide={this.hideTargetSelection}
-        currentTarget={currentTarget}
-      /> :
-      <RoleOverview
-        roleDetails={player.get('role')}
-        showTargetSelection={this.showTargetSelection}
-        skipPhase={allSkillsUsed}
-        currentTarget={currentTarget}
-      />
+    switch (this.state.currentView) {
+      default:
+      case VIEWS.roleOverview:
+        return (
+          <RoleOverview
+            roleDetails={player.get('role')}
+            showTargetSelection={this.showTargetSelection}
+            showRoleInformation={this.showRoleInformation}
+            skipPhase={allSkillsUsed}
+            currentTarget={currentTarget}
+          />
+        )
+      case VIEWS.roleInformation: return (
+        <RoleInformation
+          roleDetails={player.get('role')}
+          onRequestHide={this.showRoleOverview}
+        />
+      )
+      case VIEWS.targetSelection: return (
+        <TargetSelection
+          player={player}
+          victims={victims}
+          onSelectTarget={this.selectTarget}
+          onRequestHide={this.showRoleOverview}
+          currentTarget={currentTarget}
+        />
+      )
+    }
   }
 }
 

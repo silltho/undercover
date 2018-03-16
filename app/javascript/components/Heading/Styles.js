@@ -1,13 +1,10 @@
 import styled from 'styled-components'
 import {
-	LOGO_FONT,
-	BLACK,
-	PINK,
-	WHITE
+  LOGO_FONT,
+  PINK
 } from 'styles/variables'
 
 export const Wrapper = styled.div`
-  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -31,10 +28,11 @@ export const TitleLine = styled.div`
 `
 
 export const TitleText = styled.div`
+  color: ${PINK};
   line-height: 1.5rem;
   text-align: center;
   text-transform: uppercase;
   font-family: ${LOGO_FONT};
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0 1rem;
 `
