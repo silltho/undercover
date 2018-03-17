@@ -14,7 +14,7 @@ class TargetSelection extends React.PureComponent {
       onSelectTarget,
       victims,
       player,
-	    currentTarget
+      currentTarget
     } = this.props
 
     const renderedVictims = victims
@@ -45,6 +45,7 @@ class TargetSelection extends React.PureComponent {
 }
 
 TargetSelection.defaultProps = {
+  currentTarget: Map()
 }
 
 TargetSelection.propTypes = {

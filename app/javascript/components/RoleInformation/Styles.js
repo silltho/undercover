@@ -59,5 +59,6 @@ export const SectionText = styled.div`
 `
 
 export const SectionWrapper = styled.div`
+  width: 100%;
   overflow-y: scroll;
 `

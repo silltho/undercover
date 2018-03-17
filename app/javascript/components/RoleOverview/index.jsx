@@ -5,7 +5,7 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
-import IconFont, { ICONS } from 'components/IconFont'
+import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import {
   RoleImage
 } from './Styles'
@@ -20,7 +20,7 @@ class RoleOverview extends React.PureComponent {
       currentTarget
     } = this.props
 
-    const skillText = currentTarget.has('codename') ? `${roleDetails.get('active')}:  ${currentTarget.get('codename')}` : roleDetails.get('active')
+    const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
 
     return (
       <React.Fragment>
@@ -34,7 +34,9 @@ class RoleOverview extends React.PureComponent {
           <Button onClick={showRoleInformation}>
             <IconFont icon={ICONS.home} />
           </Button>
-          <Button onClick={showTargetSelection} text={skillText} />
+          <Button onClick={showTargetSelection}>
+            <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
+          </Button>
           <Button onClick={skipPhase}>
             <IconFont icon={ICONS.next2} />
           </Button>

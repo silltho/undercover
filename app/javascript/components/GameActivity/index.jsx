@@ -23,7 +23,7 @@ class GameActivity extends React.PureComponent {
   selectTarget = (targetId) => {
     this.setState({ selectedTarget: targetId })
     this.props.useSkill(targetId)
-    this.hideTargetSelection()
+    this.showRoleOverview()
   }
 
   showTargetSelection = () => {
