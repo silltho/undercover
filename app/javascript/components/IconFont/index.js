@@ -44,6 +44,17 @@ const IconFontWrapper = styled.span`
   ${(props) => props.fixedWidth && fixedWith}
 `
 
+export const ACTIVE_ICONS = {
+  corrupt: ICONS.pacman,
+  blackmail: ICONS.bin,
+  shoot: ICONS.checkmark,
+  free: ICONS.cog,
+  convert: ICONS.cross,
+  imprison: ICONS.hour_glass,
+  spy: ICONS.newspaper,
+  poison: ICONS.image
+}
+
 export { ICONS }
 
 export default IconFontWrapper

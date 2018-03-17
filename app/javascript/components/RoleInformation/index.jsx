@@ -5,7 +5,7 @@ import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
-import IconFont, { ICONS } from 'components/IconFont'
+import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import LogoImage from 'assets/images/logo_frame.png'
 
 import {
@@ -14,7 +14,7 @@ import {
   Logo,
   Section,
   SectionText,
-	SectionWrapper,
+  SectionWrapper,
   ActiveIcon
 } from './Styles'
 
@@ -24,6 +24,8 @@ class RoleInformation extends React.PureComponent {
       roleDetails,
       onRequestHide
     } = this.props
+
+    const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
 
     return (
       <React.Fragment>
@@ -41,7 +43,7 @@ class RoleInformation extends React.PureComponent {
               </Section>
               <Section>
                 <Heading title="Active" />
-                <ActiveIcon icon={ICONS.bullhorn} />
+                <ActiveIcon icon={activeIcon} />
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
               </Section>
             </SectionWrapper>
