@@ -19,6 +19,7 @@ export const Container = styled.div`
   position: relative;
   margin: 2rem 0;
   display: flex;
+  flex: 1;
 `
 
 export const RoleName = styled.span`
