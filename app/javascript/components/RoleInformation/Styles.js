@@ -18,6 +18,7 @@ export const Container = styled.div`
   padding: 1.5rem;
   position: relative;
   margin: 2rem 0;
+  display: flex;
 `
 
 export const RoleName = styled.span`
@@ -58,4 +59,5 @@ export const SectionText = styled.div`
 `
 
 export const SectionWrapper = styled.div`
+  overflow-y: scroll;
 `
