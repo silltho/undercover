@@ -1,4 +1,4 @@
-# README2
+# README2s
 
 Ruby: 2.3.3
 Rails: 5.1.4
@@ -54,7 +54,7 @@ https://gorails.com/setup/windows/10
 PRISTINE (GEM)
 https://www.justinweiss.com/articles/3-quick-gem-tricks/  
 
-DOKKU  
+DOKKU-CLI
 https://github.com/dokku/dokku  
 https://github.com/SebastianSzturo/dokku-cli  
 dokku runs rails db:migrate
