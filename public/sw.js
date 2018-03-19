@@ -1,6 +1,7 @@
 const CACHE_NAME = 'undercover-cache-v1'
 const urlsToCache = [
-  '/',
+	'/',
+	'/app',
   '/styles/main.css',
   '/script/main.js'
 ]
