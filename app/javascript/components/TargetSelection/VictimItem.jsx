@@ -12,13 +12,15 @@ class VictimItem extends React.PureComponent {
 
   render() {
     const {
-      victim
+      victim,
+      isTarget
     } = this.props
 
     return (
       <VictimItemWrapper
         role="button"
         onClick={this.useSkill}
+        isTarget={isTarget}
       >
         {victim.get('codename')}
       </VictimItemWrapper>
@@ -27,11 +29,13 @@ class VictimItem extends React.PureComponent {
 }
 
 VictimItem.defaultProps = {
+  isTarget: false
 }
 
 VictimItem.propTypes = {
   victim: PropTypes.instanceOf(Map).isRequired,
-  useSkill: PropTypes.func.isRequired
+  useSkill: PropTypes.func.isRequired,
+  isTarget: PropTypes.bool
 }
 
 export default VictimItem

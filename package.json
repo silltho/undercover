@@ -3,9 +3,11 @@
   "private": true,
   "scripts": {
     "test": "jest --coverage",
+    "test:watch": "jest --coverage --watchAll",
     "lint": "eslint app/javascript/**/*.jsx"
   },
   "jest": {
+    "collectCoverage": true,
     "setupTestFrameworkScriptFile": "<rootDir>/app/javascript/config/testSetup.js",
     "setupFiles": ["raf/polyfill"],
     "moduleDirectories": [

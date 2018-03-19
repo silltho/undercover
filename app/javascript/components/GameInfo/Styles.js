@@ -10,3 +10,9 @@ export const DayButtonWrapper = styled(Button)`
   color: ${(props) => props.active && BLACK};
 `
 
+export const DayButtonContainer = styled.div`
+  display: flex;
+  flex: 0 0 70;
+  overflow-x: scroll;
+`
+

@@ -6,6 +6,7 @@ import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
 import DayButton from './DayButton'
+import { DayButtonContainer } from './Styles'
 
 class GameInfo extends React.PureComponent {
   constructor(props) {
@@ -13,6 +14,16 @@ class GameInfo extends React.PureComponent {
     this.state = {
       selectedDay: (this.props.roundInformation.size - 1).toString()
     }
+  }
+
+  componentDidMount() {
+    if (this.buttonContainer) {
+      this.buttonContainer.scrollLeft = this.buttonContainer.scrollWidth
+    }
+  }
+
+  setButtonContainerRef = (container) => {
+    this.buttonContainer = container
   }
 
   switchToDay = (day) => {
@@ -56,7 +67,11 @@ class GameInfo extends React.PureComponent {
           </ul>
         </Content>
         <Footer>
-          {renderedDayButtons}
+          {renderedDayButtons.size > 0 && (
+            <DayButtonContainer innerRef={this.setButtonContainerRef}>
+              {renderedDayButtons}
+            </DayButtonContainer>
+          )}
           <Button onClick={readInfos} text="gelesen" />
         </Footer>
       </React.Fragment>

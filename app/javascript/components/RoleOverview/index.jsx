@@ -5,6 +5,7 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import {
   RoleImage
 } from './Styles'
@@ -14,11 +15,12 @@ class RoleOverview extends React.PureComponent {
     const {
       roleDetails,
       showTargetSelection,
+	    showRoleInformation,
       skipPhase,
       currentTarget
     } = this.props
 
-    const skillText = currentTarget.has('codename') ? `${roleDetails.get('active')}:  ${currentTarget.get('codename')}` : roleDetails.get('active')
+    const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
 
     return (
       <React.Fragment>
@@ -29,8 +31,15 @@ class RoleOverview extends React.PureComponent {
           <RoleImage background={roleDetails.get('image')} />
         </Content>
         <Footer>
-          <Button onClick={skipPhase} text="Skip" />
-          <Button onClick={showTargetSelection} text={skillText} />
+          <Button onClick={showRoleInformation}>
+            <IconFont icon={ICONS.home} />
+          </Button>
+          <Button onClick={showTargetSelection}>
+            <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
+          </Button>
+          <Button onClick={skipPhase}>
+            <IconFont icon={ICONS.next2} />
+          </Button>
         </Footer>
       </React.Fragment>
     )
@@ -38,12 +47,13 @@ class RoleOverview extends React.PureComponent {
 }
 
 RoleOverview.defaultProps = {
-  currentTarget: false
+  currentTarget: Map()
 }
 
 RoleOverview.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
-  showTargetSelection: PropTypes.func.isRequired,
+	showTargetSelection: PropTypes.func.isRequired,
+	showRoleInformation: PropTypes.func.isRequired,
   skipPhase: PropTypes.func.isRequired,
   currentTarget: PropTypes.instanceOf(Map)
 }
