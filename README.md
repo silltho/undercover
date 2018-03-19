@@ -19,11 +19,9 @@ Yarn: ``yarn add <packagename>``
 
 **Option 1**  
 
-Foreman: ``bundle exec foreman start``
+Rails Server: ``bundle exec rails s``
 
-(config => Procfile)
-
-**Option 2**  
+**Option 2 (mit Hot Module Replacement)**  
 
 Rails Server: ``bundle exec rails s``
 
