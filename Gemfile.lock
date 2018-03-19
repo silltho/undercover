@@ -95,8 +95,6 @@ GEM
     ffi (1.9.23)
     ffi (1.9.23-x64-mingw32)
     ffi (1.9.23-x86-mingw32)
-    foreman (0.84.0)
-      thor (~> 0.19.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -274,7 +272,7 @@ GEM
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
-    thor (0.19.4)
+    thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
     turbolinks (5.1.0)
@@ -316,7 +314,6 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   dokku-cli
   faker!
-  foreman
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
