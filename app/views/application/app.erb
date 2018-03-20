@@ -15,7 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'app' %>
     <%= javascript_pack_tag 'registerServiceWorker' %>
 
     <style type="text/css">
@@ -25,5 +24,9 @@
     </style>
   </head>
   <body>
+    <noscript>
+      <p>No JavaScript means no game for you. :(</p>
+    </noscript>
+    <%= javascript_pack_tag 'app' %>
   </body>
 </html>
