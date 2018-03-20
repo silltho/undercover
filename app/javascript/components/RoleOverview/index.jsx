@@ -6,6 +6,8 @@ import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
 import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
+import { getImageByRole } from 'config/roleImages'
+
 import {
   RoleImage
 } from './Styles'
@@ -15,12 +17,13 @@ class RoleOverview extends React.PureComponent {
     const {
       roleDetails,
       showTargetSelection,
-	    showRoleInformation,
+      showRoleInformation,
       skipPhase,
       currentTarget
     } = this.props
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
+    const roleImage = getImageByRole(roleDetails.get('name'))
 
     return (
       <React.Fragment>
@@ -28,7 +31,7 @@ class RoleOverview extends React.PureComponent {
           {roleDetails.get('name')}
         </Header>
         <Content>
-          <RoleImage background={roleDetails.get('image')} />
+          <RoleImage background={roleImage} />
         </Content>
         <Footer>
           <Button onClick={showRoleInformation}>
@@ -52,8 +55,8 @@ RoleOverview.defaultProps = {
 
 RoleOverview.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
-	showTargetSelection: PropTypes.func.isRequired,
-	showRoleInformation: PropTypes.func.isRequired,
+  showTargetSelection: PropTypes.func.isRequired,
+  showRoleInformation: PropTypes.func.isRequired,
   skipPhase: PropTypes.func.isRequired,
   currentTarget: PropTypes.instanceOf(Map)
 }
