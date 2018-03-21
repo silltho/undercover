@@ -63,7 +63,7 @@ class GameInfo extends React.PureComponent {
         </Header>
         <Content>
           <ul>
-            {renderedInfos.length > 0 ? renderedInfos : (<li>--no infos--</li>)}
+            {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
           </ul>
         </Content>
         <Footer>
