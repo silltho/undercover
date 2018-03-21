@@ -5,7 +5,7 @@ import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
 
-const VIEWS = {
+export const VIEWS = {
   roleOverview: 'ROLE_OVERVIEW',
   roleInformation: 'ROLE_INFORMATION',
   targetSelection: 'TARGET_SELECTION'

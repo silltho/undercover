@@ -20,7 +20,7 @@ const RoleImages = {
   JUNIOR: JuniorImage
 }
 
-export const getImageByRole = (role) => {
+export const getImageByRole = (role = '') => {
   const key = role.replace(/\s+/g, '').toUpperCase()
   return RoleImages[key]
 }
