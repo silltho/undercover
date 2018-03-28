@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
 import GamePhases from 'config/gamePhases'
+import FadeIn from 'components/Animations/FadeIn'
 import SlideInOut from 'components/Animations/SlideInOut'
 import GameStart from 'components/GameStart'
 import GameInfo from 'components/GameInfo'
@@ -69,9 +70,11 @@ class Game extends React.PureComponent {
 
   render() {
     return (
-      <SlideInOut>
-        {this.renderCurrentPhase()}
-      </SlideInOut>
+      <FadeIn>
+        <SlideInOut>
+          {this.renderCurrentPhase()}
+        </SlideInOut>
+      </FadeIn>
     )
   }
 }

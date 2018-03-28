@@ -5,19 +5,23 @@ import styled, { injectGlobal } from 'styled-components'
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
   .slideInOut-enter {
+    opacity: 0;
     transform: translateX(100%);
   }
   
   .slideInOut-enter.slideInOut-enter-active {
+    opacity: 1;
     transform: translateX(0%);
     transition: all .5s ease-in;
   }
   
   .slideInOut-leave {
+    opacity: 1;
     transform: translateX(0%);
   }
   
   .slideInOut-leave.slideInOut-leave-active {
+    opacity: 0;
     transform: translateX(-100%);
     transition: all .5s ease-in;
   }
