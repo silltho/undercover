@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { GameChannel, UserChannel } from 'services/channels'
 import Header from 'components/Header'
 import Button from 'components/Button'
+import FadeIn from 'components/Animations/FadeIn'
 import JoinGameForm from 'components/JoinGameForm'
 import {
   Wrapper,
@@ -14,11 +15,13 @@ class Dashboard extends React.PureComponent {
   render() {
     return (
       <Wrapper>
-        <Header />
-        <ButtonContainer>
-          <JoinGameForm joinGame={this.props.joinGame} />
-          <Button text="create new game" onClick={this.props.createGame} />
-        </ButtonContainer>
+        <FadeIn>
+          <Header />
+          <ButtonContainer>
+            <JoinGameForm joinGame={this.props.joinGame} />
+            <Button text="create new game" onClick={this.props.createGame} />
+          </ButtonContainer>
+        </FadeIn>
       </Wrapper>
     )
   }

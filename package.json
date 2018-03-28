@@ -63,6 +63,7 @@
     "postcss-smart-import": "^0.7.6",
     "prop-types": "^15.6.0",
     "react": "16.2.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "16.2.0",
     "react-fontawesome": "^1.6.1",
     "react-modal": "^3.1.11",
