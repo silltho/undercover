@@ -1,16 +1,19 @@
 # README2s
 
-Ruby: 2.3.3
-Rails: 5.1.4
+#### Requirements
+- ruby 2.5
+- rails 5.1
+- yarn (brew install yarn)
+- postgres
+- redis (brew install redis)
 
-database.yml_template umbenennen auf database.yml  
-bundle install  
-rails db:create
-rails db:migrate  
-npm install  
-
-Icons:https://github.com/Angelmmiguel/material_icons  
-Materialize: http://materializecss.com/getting-started.html 
+#### Installation
+1. database.yml_template umbenennen auf database.yml  
+2. ``bundle install``
+3. ``rails db:create``
+4. ``rails db:migrate``
+5. ``rails db:seed``
+6. ``yarn``
 
 **Install NPM packages**  
 Yarn: ``yarn add <packagename>``  

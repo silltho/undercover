@@ -21,4 +21,11 @@ describe('<DayButton />', () => {
     const renderedComponent = renderComponent()
     expect(renderedComponent.find(DayButtonWrapper).length).toEqual(1)
   })
+
+  it('should switchToDay', () => {
+    const props = { ...defaultProps, switchToDay: jest.fn() }
+    const renderedComponent = renderComponent(props)
+    renderedComponent.simulate('click')
+    expect(props.switchToDay).toBeCalledWith(props.day)
+  })
 })

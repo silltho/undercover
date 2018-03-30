@@ -13,7 +13,6 @@ gem 'overcommit'
 gem 'redis', '~> 3.3'
 gem 'materialize-sass'
 gem 'material_icons'
-gem 'jquery-rails'
 gem 'normalize-rails'
 gem 'aasm'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
@@ -35,8 +34,6 @@ gem 'webpacker'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -54,9 +51,6 @@ gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'b
 
 #login
 gem 'therubyracer', :platform => :ruby
-gem 'omniauth'
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

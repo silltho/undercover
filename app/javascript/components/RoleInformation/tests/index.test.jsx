@@ -6,23 +6,23 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 
-import RoleOverview from '../index'
+import RoleInformation from '../index'
 
 const defaultProps = {
   player: fromJS({}),
   victims: fromJS([]),
   onSelectTarget: () => {},
-  onRequestHide: () => {}
+  onRequestHide: () => {},
+	roleDetails: fromJS({})
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <RoleOverview {...props} />
+  <RoleInformation {...props} />
 )
 
 describe('<RoleOverview />', () => {
-  it('should render <Header>, <Content>, <Footer>', () => {
+  it('should render <Content>, <Footer>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find(Header).length).toEqual(1)
     expect(renderedComponent.find(Content).length).toEqual(1)
     expect(renderedComponent.find(Footer).length).toEqual(1)
   })

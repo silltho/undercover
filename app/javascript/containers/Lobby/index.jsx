@@ -6,6 +6,7 @@ import {
   UserChannel,
   GameChannel
 } from 'services/channels'
+import FadeIn from 'components/Animations/FadeIn'
 import Button from 'components/Button'
 import Footer from 'components/Footer'
 import Content from 'components/Content'
@@ -14,6 +15,7 @@ import {
   PlayerCount,
   RoomCode
 } from './Styles'
+
 
 class Lobby extends React.PureComponent {
   leaveGame = () => {
@@ -24,7 +26,7 @@ class Lobby extends React.PureComponent {
     const { game } = this.props
 
     return (
-      <React.Fragment>
+      <FadeIn>
         <Header>
           <RoomCode>Roomcode: {game.get('code')}</RoomCode>
         </Header>
@@ -37,7 +39,7 @@ class Lobby extends React.PureComponent {
           <Button onClick={this.leaveGame} text="leave" />
           <Button onClick={this.props.initializeGame} text="start" />
         </Footer>
-      </React.Fragment>
+      </FadeIn>
     )
   }
 }

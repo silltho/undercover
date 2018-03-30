@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import { connect } from 'react-redux'
 import { GameChannel } from 'services/channels'
+import GamePhases from 'config/gamePhases'
 import Dashboard from 'containers/Dashboard'
 import Lobby from 'containers/Lobby'
 import Game from 'containers/Game'
@@ -23,10 +24,10 @@ class App extends React.PureComponent {
     if (!nextProps.game.has('id')) {
       this.setState({ component: <Dashboard /> })
     }
-    if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') === 'waiting') {
+    if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') === GamePhases.WAITING) {
       this.setState({ component: <Lobby /> })
     }
-    if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') !== 'waiting') {
+    if (nextProps.game.has('aasm_state') && nextProps.game.get('aasm_state') !== GamePhases.WAITING) {
       this.setState({ component: <Game /> })
     }
   }

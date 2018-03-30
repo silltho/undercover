@@ -9,9 +9,11 @@ import Footer from 'components/Footer'
 import RoleOverview from '../index'
 
 const defaultProps = {
-  skipPhase: jest.fn(),
-  showTargetSelection: jest.fn(),
+  skipPhase: () => {},
+  showTargetSelection: () => {},
+	showRoleInformation: () => {},
   roleDetails: fromJS({
+    name: 'test',
     active: 'skillName'
   })
 }
