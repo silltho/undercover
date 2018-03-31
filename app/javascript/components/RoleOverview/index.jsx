@@ -19,7 +19,8 @@ class RoleOverview extends React.PureComponent {
       showTargetSelection,
       showRoleInformation,
       skipPhase,
-      currentTarget
+      currentTarget,
+      showRoleCovert
     } = this.props
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
@@ -40,6 +41,9 @@ class RoleOverview extends React.PureComponent {
           <Button onClick={showTargetSelection}>
             <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
           </Button>
+          <Button onClick={showRoleCovert}>
+            <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
+          </Button>
           <Button onClick={skipPhase}>
             <IconFont icon={ICONS.next2} />
           </Button>
@@ -57,6 +61,7 @@ RoleOverview.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
   showTargetSelection: PropTypes.func.isRequired,
   showRoleInformation: PropTypes.func.isRequired,
+  showRoleCovert: PropTypes.func.isRequired,
   skipPhase: PropTypes.func.isRequired,
   currentTarget: PropTypes.instanceOf(Map)
 }
