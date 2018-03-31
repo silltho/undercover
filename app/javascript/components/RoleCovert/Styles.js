@@ -1,14 +1,8 @@
 import styled from 'styled-components'
-import { PINK } from 'styles/variables'
+import { BorderContainer } from 'styles/components'
 import LogoImage from 'assets/images/logo_frame.png'
 
-export const Container = styled.div`
-  border: 1px solid ${PINK};
-  padding: 1.5rem;
-  position: relative;
-  margin: 2rem 0;
-  display: flex;
-  flex: 1;
+export const Container = styled(BorderContainer)`
   background: url(${LogoImage});
   background-size: contain;
   background-position: center;

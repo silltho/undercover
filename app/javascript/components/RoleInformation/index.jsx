@@ -9,8 +9,11 @@ import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import LogoImage from 'assets/images/logo_frame.png'
 
 import {
-  RoleName,
-  Container,
+  BorderContainer,
+  BorderContainerTitel
+} from 'styles/components'
+
+import {
   Logo,
   Section,
   SectionText,
@@ -30,8 +33,8 @@ class RoleInformation extends React.PureComponent {
     return (
       <React.Fragment>
         <Content>
-          <Container>
-            <RoleName align="center">{roleDetails.get('name')}</RoleName>
+          <BorderContainer>
+            <BorderContainerTitel align="center">{roleDetails.get('name')}</BorderContainerTitel>
             <Logo src={LogoImage} />
             <SectionWrapper>
               <Section>
@@ -47,7 +50,7 @@ class RoleInformation extends React.PureComponent {
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
               </Section>
             </SectionWrapper>
-          </Container>
+          </BorderContainer>
         </Content>
         <Footer>
           <Button onClick={onRequestHide}>
