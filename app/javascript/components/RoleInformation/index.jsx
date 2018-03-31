@@ -10,7 +10,8 @@ import LogoImage from 'assets/images/logo_frame.png'
 
 import {
   BorderContainer,
-  BorderContainerTitel
+  BorderContainerTitel,
+  BorderContainerAction
 } from 'styles/components'
 
 import {
@@ -35,7 +36,6 @@ class RoleInformation extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel align="center">{roleDetails.get('name')}</BorderContainerTitel>
-            <Logo src={LogoImage} />
             <SectionWrapper>
               <Section>
                 <SectionText>{roleDetails.get('punchline')}</SectionText>
@@ -50,13 +50,9 @@ class RoleInformation extends React.PureComponent {
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
               </Section>
             </SectionWrapper>
+            <BorderContainerAction onClick={onRequestHide}>back</BorderContainerAction>
           </BorderContainer>
         </Content>
-        <Footer>
-          <Button onClick={onRequestHide}>
-            <IconFont icon={ICONS.circle_left} />
-          </Button>
-        </Footer>
       </React.Fragment>
     )
   }

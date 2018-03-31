@@ -2,8 +2,7 @@ import styled from 'styled-components'
 import {
   DARK_BLUE,
   LOGO_FONT,
-  PINK,
-  WHITE
+  PINK
 } from './variables'
 
 export const BorderContainer = styled.div`
@@ -28,12 +27,12 @@ export const BorderContainerTitel = styled.span`
 
 export const BorderContainerAction = styled.button`
   text-transform: uppercase;
-  color: ${WHITE};
+  color: ${PINK};
   border: 1px solid ${PINK};
   background-color: ${DARK_BLUE};
   padding: 0.5rem 1rem;
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(56%);
+  transform: translateX(-50%) translateY(50%);
 `

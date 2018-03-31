@@ -36,16 +36,16 @@ class RoleOverview extends React.PureComponent {
         </Content>
         <Footer>
           <Button onClick={showRoleInformation}>
-            <IconFont icon={ICONS.home} />
+            <IconFont icon={ICONS.help2} />
           </Button>
           <Button onClick={showTargetSelection}>
             <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
           </Button>
           <Button onClick={showRoleCovert}>
-            <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
+            hide
           </Button>
           <Button onClick={skipPhase}>
-            <IconFont icon={ICONS.next2} />
+            skip
           </Button>
         </Footer>
       </React.Fragment>

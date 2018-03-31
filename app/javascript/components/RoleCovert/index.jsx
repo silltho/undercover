@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
+import { BorderContainerAction } from 'styles/components'
+
 
 import {
   Container
@@ -15,16 +15,11 @@ class RoleCovert extends React.PureComponent {
     } = this.props
 
     return (
-      <React.Fragment>
-        <Content>
-          <Container />
-        </Content>
-        <Footer>
-          <Button onClick={onRequestHide}>
-            show
-          </Button>
-        </Footer>
-      </React.Fragment>
+      <Content>
+        <Container>
+          <BorderContainerAction onClick={onRequestHide}>show</BorderContainerAction>
+        </Container>
+      </Content>
     )
   }
 }
