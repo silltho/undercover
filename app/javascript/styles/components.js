@@ -5,13 +5,19 @@ import {
   PINK
 } from './variables'
 
+export const Scrollable = styled.div`
+  width: 100%;
+  overflow-y: scroll;
+`
+
 export const BorderContainer = styled.div`
-  border: 1px solid ${PINK};
-  padding: 1.5rem;
+  border: 2px solid ${PINK};
+  padding: 2.5rem 1.5rem;
   position: relative;
   margin: 2rem 0;
   display: flex;
   flex: 1;
+  flex-direction: column;
 `
 
 export const BorderContainerTitel = styled.span`
@@ -28,7 +34,7 @@ export const BorderContainerTitel = styled.span`
 export const BorderContainerAction = styled.button`
   text-transform: uppercase;
   color: ${PINK};
-  border: 1px solid ${PINK};
+  border: 2px solid ${PINK};
   background-color: ${DARK_BLUE};
   padding: 0.5rem 1rem;
   position: absolute;

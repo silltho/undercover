@@ -21,6 +21,7 @@ class VictimItem extends React.PureComponent {
         role="button"
         onClick={this.useSkill}
         isTarget={isTarget}
+        isDead={victim.get('state') === 'dead'}
       >
         {victim.get('codename')}
       </VictimItemWrapper>

@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
 import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerAction
+  BorderContainerAction,
+  Scrollable
 } from 'styles/components'
 import VictimsItem from './VictimItem'
 
@@ -38,7 +37,9 @@ class TargetSelection extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel><IconFont icon={ICONS.night} /></BorderContainerTitel>
-            {renderedVictims}
+            <Scrollable>
+              {renderedVictims}
+            </Scrollable>
             <BorderContainerAction onClick={onRequestHide}>back</BorderContainerAction>
           </BorderContainer>
         </Content>

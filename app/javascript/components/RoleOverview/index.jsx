@@ -5,11 +5,12 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
-import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
+import { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import { getImageByRole } from 'config/roleImages'
 
 import {
-  RoleImage
+  RoleImage,
+  Action
 } from './Styles'
 
 class RoleOverview extends React.PureComponent {
@@ -35,15 +36,11 @@ class RoleOverview extends React.PureComponent {
           <RoleImage background={roleImage} />
         </Content>
         <Footer>
-          <Button onClick={showRoleInformation}>
-            <IconFont icon={ICONS.help2} />
-          </Button>
-          <Button onClick={showTargetSelection}>
-            <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
-          </Button>
+          <Action icon={ICONS.help2} onClick={showRoleInformation} />
           <Button onClick={showRoleCovert}>
             hide
           </Button>
+          <Action icon={activeIcon} onClick={showTargetSelection} />
           <Button onClick={skipPhase}>
             skip
           </Button>
