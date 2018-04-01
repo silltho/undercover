@@ -12,9 +12,9 @@ export const Scrollable = styled.div`
 
 export const BorderContainer = styled.div`
   border: 2px solid ${PINK};
-  padding: 2.5rem 1.5rem;
+  padding: 1.5rem 1.5rem 3rem 1.5rem;
   position: relative;
-  margin: 2rem 0;
+  margin: 1rem 0 2rem 0;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -31,7 +31,8 @@ export const BorderContainerTitel = styled.span`
   transform: translateX(-50%) translateY(-50%);
 `
 
-export const BorderContainerAction = styled.button`
+export const BorderContainerAction = styled.div`
+  display: flex;
   text-transform: uppercase;
   color: ${PINK};
   border: 2px solid ${PINK};
@@ -41,4 +42,13 @@ export const BorderContainerAction = styled.button`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%) translateY(50%);
+`
+
+export const Content = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2rem;
 `

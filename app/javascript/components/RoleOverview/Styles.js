@@ -13,7 +13,7 @@ export const RoleImage = styled.div`
 
 export const Action = styled(IconFont)`
   font-size: 3rem;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   margin-left: 1rem;
   
   &:first-child {

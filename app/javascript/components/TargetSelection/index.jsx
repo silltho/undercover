@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
-import Content from 'components/Content'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   BorderContainerTitel,
   BorderContainerAction,
-  Scrollable
+  Scrollable,
+  Content
 } from 'styles/components'
 import VictimsItem from './VictimItem'
 

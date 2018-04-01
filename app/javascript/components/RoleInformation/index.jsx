@@ -1,21 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
 import Heading from 'components/Heading'
-import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
-import LogoImage from 'assets/images/logo_frame.png'
+import { ACTIVE_ICONS } from 'components/IconFont'
 
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerAction
+  BorderContainerAction,
+  Content
 } from 'styles/components'
 
 import {
-  Logo,
   Section,
   SectionText,
   SectionWrapper,

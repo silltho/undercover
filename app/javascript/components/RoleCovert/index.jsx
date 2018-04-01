@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Content from 'components/Content'
-import { BorderContainerAction } from 'styles/components'
+import {
+  BorderContainerAction,
+  Content
+} from 'styles/components'
 
 
 import {
