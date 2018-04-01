@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
-import Header from 'components/Header'
 import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import IconFont, { ICONS } from 'components/IconFont'
+import {
+  BorderContainer,
+  BorderContainerTitel,
+  BorderContainerAction
+} from 'styles/components'
 import VictimsItem from './VictimItem'
 
 class TargetSelection extends React.PureComponent {
@@ -30,15 +35,13 @@ class TargetSelection extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <Header>
-          Who do you want to {player.getIn(['role', 'active'])}
-        </Header>
         <Content>
-          {renderedVictims}
+          <BorderContainer>
+            <BorderContainerTitel><IconFont icon={ICONS.night} /></BorderContainerTitel>
+            {renderedVictims}
+            <BorderContainerAction onClick={onRequestHide}>back</BorderContainerAction>
+          </BorderContainer>
         </Content>
-        <Footer>
-          <Button onClick={onRequestHide} text="Back" />
-        </Footer>
       </React.Fragment>
     )
   }

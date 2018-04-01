@@ -4,11 +4,13 @@ import { Map } from 'immutable'
 import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
+import RoleCovert from 'components/RoleCovert'
 
 export const VIEWS = {
   roleOverview: 'ROLE_OVERVIEW',
   roleInformation: 'ROLE_INFORMATION',
-  targetSelection: 'TARGET_SELECTION'
+  targetSelection: 'TARGET_SELECTION',
+  roleCovert: 'ROLE_COVERT'
 }
 
 class GameActivity extends React.PureComponent {
@@ -37,6 +39,9 @@ class GameActivity extends React.PureComponent {
   showRoleInformation = () => {
     this.setState({ currentView: VIEWS.roleInformation })
   }
+  showRoleCovert = () => {
+    this.setState({ currentView: VIEWS.roleCovert })
+  }
   render() {
     const {
       player,
@@ -56,6 +61,7 @@ class GameActivity extends React.PureComponent {
             roleDetails={player.get('role')}
             showTargetSelection={this.showTargetSelection}
             showRoleInformation={this.showRoleInformation}
+            showRoleCovert={this.showRoleCovert}
             skipPhase={allSkillsUsed}
             currentTarget={currentTarget}
           />
@@ -73,6 +79,11 @@ class GameActivity extends React.PureComponent {
           onSelectTarget={this.selectTarget}
           onRequestHide={this.showRoleOverview}
           currentTarget={currentTarget}
+        />
+      )
+      case VIEWS.roleCovert: return (
+        <RoleCovert
+          onRequestHide={this.showRoleOverview}
         />
       )
     }
