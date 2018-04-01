@@ -5,6 +5,17 @@ import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
 import RoleCovert from 'components/RoleCovert'
+import Flip from 'components/Animations/Flip'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`
 
 export const VIEWS = {
   roleOverview: 'ROLE_OVERVIEW',
@@ -42,7 +53,8 @@ class GameActivity extends React.PureComponent {
   showRoleCovert = () => {
     this.setState({ currentView: VIEWS.roleCovert })
   }
-  render() {
+
+  renderCard = () => {
     const {
       player,
       game,
@@ -55,8 +67,8 @@ class GameActivity extends React.PureComponent {
 
     switch (this.state.currentView) {
       default:
-      case VIEWS.roleOverview:
-        return (
+      case VIEWS.roleOverview: return (
+        <Wrapper key="role-overview">
           <RoleOverview
             roleDetails={player.get('role')}
             showTargetSelection={this.showTargetSelection}
@@ -65,28 +77,43 @@ class GameActivity extends React.PureComponent {
             skipPhase={allSkillsUsed}
             currentTarget={currentTarget}
           />
-        )
+        </Wrapper>
+      )
       case VIEWS.roleInformation: return (
-        <RoleInformation
-          roleDetails={player.get('role')}
-          onRequestHide={this.showRoleOverview}
-        />
+        <Wrapper key="role-information">
+          <RoleInformation
+            roleDetails={player.get('role')}
+            onRequestHide={this.showRoleOverview}
+          />
+        </Wrapper>
       )
       case VIEWS.targetSelection: return (
-        <TargetSelection
-          player={player}
-          victims={victims}
-          onSelectTarget={this.selectTarget}
-          onRequestHide={this.showRoleOverview}
-          currentTarget={currentTarget}
-        />
+        <Wrapper key="target-selection">
+          <TargetSelection
+            player={player}
+            victims={victims}
+            onSelectTarget={this.selectTarget}
+            onRequestHide={this.showRoleOverview}
+            currentTarget={currentTarget}
+          />
+        </Wrapper>
       )
       case VIEWS.roleCovert: return (
-        <RoleCovert
-          onRequestHide={this.showRoleOverview}
-        />
+        <Wrapper key="role-covert">
+          <RoleCovert
+            onRequestHide={this.showRoleOverview}
+          />
+        </Wrapper>
       )
     }
+  }
+
+  render() {
+    return (
+      <Flip>
+        {this.renderCard()}
+      </Flip>
+    )
   }
 }
 
