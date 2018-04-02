@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
 import IconFont, { ICONS } from 'components/IconFont'
+import {
+  BorderContainer,
+  Content,
+  BorderContainerAction,
+  BorderContainerTitel
+} from 'styles/components'
+
 
 class GameExchange extends React.PureComponent {
   render() {
@@ -14,12 +18,12 @@ class GameExchange extends React.PureComponent {
     return (
       <React.Fragment>
         <Content>
-          <div>Austausch-phase</div>
-          <IconFont icon={ICONS.home} />
+          <BorderContainer>
+            <BorderContainerTitel>Exchange</BorderContainerTitel>
+            <IconFont icon={ICONS.home} />
+            <BorderContainerAction onClick={endExchange}>next</BorderContainerAction>
+          </BorderContainer>
         </Content>
-        <Footer>
-          <Button onClick={endExchange} text="done" />
-        </Footer>
       </React.Fragment>
     )
   }

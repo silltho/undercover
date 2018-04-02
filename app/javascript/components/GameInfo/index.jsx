@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Header from 'components/Header'
-import Content from 'components/Content'
 import Footer from 'components/Footer'
 import Button from 'components/Button'
+import {
+  BorderContainer,
+  Content,
+  BorderContainerAction,
+  BorderContainerTitel
+} from 'styles/components'
+
 import DayButton from './DayButton'
 import { DayButtonContainer } from './Styles'
 
@@ -58,22 +63,20 @@ class GameInfo extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <Header>
-          Tag {round}
-        </Header>
         <Content>
-          <ul>
-            {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
-          </ul>
-        </Content>
-        <Footer>
-          {renderedDayButtons.size > 0 && (
+          <BorderContainer>
+            <BorderContainerTitel>
+              Tag {(parseInt(this.state.selectedDay, 10) + 1)}
+            </BorderContainerTitel>
+            <ul style={{ flex: 1 }}>
+              {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
+            </ul>
             <DayButtonContainer innerRef={this.setButtonContainerRef}>
               {renderedDayButtons}
             </DayButtonContainer>
-          )}
-          <Button onClick={readInfos} text="gelesen" />
-        </Footer>
+            <BorderContainerAction onClick={readInfos}>read</BorderContainerAction>
+          </BorderContainer>
+        </Content>
       </React.Fragment>
     )
   }
