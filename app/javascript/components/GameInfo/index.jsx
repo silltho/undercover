@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
+import Flip from 'components/Animations/Flip'
 import {
   BorderContainer,
   Content,
@@ -11,7 +10,10 @@ import {
 } from 'styles/components'
 
 import DayButton from './DayButton'
-import { DayButtonContainer } from './Styles'
+import {
+  DayButtonContainer,
+  Wrapper
+} from './Styles'
 
 class GameInfo extends React.PureComponent {
   constructor(props) {
@@ -50,23 +52,23 @@ class GameInfo extends React.PureComponent {
       />)
   }
 
-  render() {
+  renderRoundInformation = () => {
     const {
-      round,
       readInfos,
       roundInformation
     } = this.props
 
+    const day = (parseInt(this.state.selectedDay, 10) + 1)
     const infos = roundInformation.get(this.state.selectedDay, [])
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
 
     return (
-      <React.Fragment>
+      <Wrapper key={`round-information-${day}`}>
         <Content>
           <BorderContainer>
             <BorderContainerTitel>
-              Tag {(parseInt(this.state.selectedDay, 10) + 1)}
+              Tag {day}
             </BorderContainerTitel>
             <ul style={{ flex: 1 }}>
               {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
@@ -77,7 +79,15 @@ class GameInfo extends React.PureComponent {
             <BorderContainerAction onClick={readInfos}>read</BorderContainerAction>
           </BorderContainer>
         </Content>
-      </React.Fragment>
+      </Wrapper>
+    )
+  }
+
+  render() {
+    return (
+      <Flip>
+        {this.renderRoundInformation()}
+      </Flip>
     )
   }
 }
