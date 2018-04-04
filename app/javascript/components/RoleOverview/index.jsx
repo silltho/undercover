@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Button from 'components/Button'
 import { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import { getImageByRole } from 'config/roleImages'
 import {
@@ -13,7 +12,8 @@ import {
 
 import {
   RoleImage,
-  Action
+  ActionIcon,
+  ActionButton
 } from './Styles'
 
 class RoleOverview extends React.PureComponent {
@@ -23,7 +23,6 @@ class RoleOverview extends React.PureComponent {
       showTargetSelection,
       showRoleInformation,
       skipPhase,
-      currentTarget,
       showRoleCovert
     } = this.props
 
@@ -34,17 +33,17 @@ class RoleOverview extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
+            <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
             <RoleImage background={roleImage} />
             <BorderContainerFooter>
-              <Action icon={ICONS.help2} onClick={showRoleInformation} />
-              <Button onClick={showRoleCovert}>
+              <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
+              <ActionButton onClick={showRoleCovert}>
                 hide
-              </Button>
-              <Action icon={activeIcon} onClick={showTargetSelection} />
-              <Button onClick={skipPhase}>
+              </ActionButton>
+              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+              {/* <ActionButton onClick={skipPhase}>
                 skip
-              </Button>
+              </ActionButton> */}
             </BorderContainerFooter>
           </BorderContainer>
         </Content>

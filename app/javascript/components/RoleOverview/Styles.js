@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
+import Button from 'components/Button'
 
 export const RoleImage = styled.div`
   flex: 1;
@@ -11,12 +12,15 @@ export const RoleImage = styled.div`
   flex-direction: column;
 `
 
-export const Action = styled(IconFont)`
-  font-size: 3rem;
-  padding: 0 0.5rem;
-  margin-left: 1rem;
+export const ActionIcon = styled(IconFont)`
+  font-size: 2.5rem;
+  padding: 0.5rem 1rem;
+  text-shadow: 2px 2px #000;
   
-  &:first-child {
-    margin: 0;
+  &:active{
+    text-shadow: none;
   }
+`
+export const ActionButton = styled(Button)`
+  margin: 0.5rem 1rem;
 `
