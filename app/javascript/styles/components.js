@@ -25,6 +25,7 @@ export const BorderContainerTitel = styled.span`
   font-size: 2rem;
   background-color: ${DARK_BLUE};
   position: absolute;
+  padding: 0.5rem 1rem;
   left: 50%;
   top: 0;
   transform: translateX(-50%) translateY(-50%);
