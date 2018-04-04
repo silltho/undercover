@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
 import Button from 'components/Button'
+import { PINK } from 'styles/variables'
 
 export const RoleImage = styled.div`
   flex: 1;
@@ -10,6 +11,7 @@ export const RoleImage = styled.div`
   justify-content: flex-end;
   display: flex;
   flex-direction: column;
+  border: 1px solid ${PINK};
 `
 
 export const ActionIcon = styled(IconFont)`
