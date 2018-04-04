@@ -5,25 +5,23 @@ import styled, { injectGlobal } from 'styled-components'
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
   .flip-enter {
-    backface-visibility: hidden;
+    opacity: 0;
     transform: rotateY(180deg);
-    transform-style: preserve-3d;
   }
   
   .flip-enter.flip-enter-active {
+    opacity: 1;
     transform: rotateY(0deg);
-    transition: transform .5s ease-in;
   }
   
   .flip-leave {
-    backface-visibility: hidden;
+    opacity: 1;
     transform: rotateY(0deg);
-    transform-style: preserve-3d;
   }
   
   .flip-leave.flip-leave-active {
+    opacity: 0;
     transform: rotateY(180deg);
-    transition: transform .5s ease-in;
   }
 `
 
@@ -32,6 +30,12 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
+  
+  > * {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: all .5s ease-in-out;
+  }
 `
 
 class Flip extends React.PureComponent {
