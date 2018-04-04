@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import { ICONS, ACTIVE_ICONS } from 'components/IconFont'
-import { getVideoByRole } from 'config/roleImages'
+import { getVideoByRole, getImageByRole } from 'config/roleImages'
 import {
   BorderContainer,
   BorderContainerTitel,
@@ -11,7 +11,7 @@ import {
 } from 'styles/components'
 
 import {
-  RoleVideo,
+  RoleVideoContainer,
   ActionIcon,
   ActionButton
 } from './Styles'
@@ -28,16 +28,20 @@ class RoleOverview extends React.PureComponent {
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
     const roleVideo = getVideoByRole(roleDetails.get('name'))
+    const roleImage = getImageByRole(roleDetails.get('name'))
 
     return (
       <React.Fragment>
         <Content>
           <BorderContainer>
             <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
-            <RoleVideo autoPlay loop="loop">
-              <source src={roleVideo} type="video/mp4" />
-              Your browser does not support the video tag.
-            </RoleVideo>
+            <RoleVideoContainer>
+              <video autoPlay loop="loop">
+                <source src={roleVideo} type="video/mp4" />
+                <source src={roleImage} type="image/jpg" />
+                <span>Your browser does not support the video tag.</span>
+              </video>
+            </RoleVideoContainer>
             <BorderContainerFooter>
               <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
               <ActionButton onClick={showRoleCovert}>

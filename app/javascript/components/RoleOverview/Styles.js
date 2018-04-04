@@ -14,10 +14,16 @@ export const RoleImage = styled.div`
   border: 1px solid ${PINK};
 `
 
-export const RoleVideo = styled.video`
-  max-width: 100%;
-  max-height: 100%;
+export const RoleVideoContainer = styled.div`
+  flex: 1;
   border: 1px solid ${PINK};
+  overflow: hidden;
+  
+  > video {
+    object-fit: cover;
+    min-height: 100%;
+    width: 100%;
+  }
 `
 
 export const ActionIcon = styled(IconFont)`
