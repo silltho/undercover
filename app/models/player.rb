@@ -6,10 +6,20 @@ class Player < ApplicationRecord
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
-    state :dead, :imprisoned
+    state :dead, :imprisoned, :town, :mafia
 
     event :imprison do
       transitions from: :alive, to: :imprisoned
+    end
+
+    event :convert do
+      transitions from: :alive, to: :town
+      transitions from: :town, to: :alive
+    end
+
+    event :corrupt do
+      transitions from: :alive, to: :mafia
+      transitions from: :mafia, to: :alive
     end
 
     event :release do

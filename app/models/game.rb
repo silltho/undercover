@@ -156,10 +156,87 @@ class Game < ApplicationRecord
   def create_stories(round)
     newspaper = []
     Article.where(game: self).where(round: round).each do |article|
-      newspaper << "#{article.committer.codename} successfully used #{article.committer.try(:role).try(:active)} on #{article.victim.codename}." if article.success
-      newspaper << "#{article.committer.codename} tried to use #{article.committer.try(:role).try(:active)} on #{article.victim.codename} but failed." unless article.success
+      role = article.committer.try(:role)
+      victim = article.victim
+      activity = nil
+      case role.name
+        when 'Godfather'
+          activity = corrupt(victim)
+        when 'Junior'
+          activity = poison(victim, victim.role)
+        when 'Bodyguard'
+          activity = blackmail
+        when 'Enforcer'
+          activity = shoot(victim, victim.role)
+        when 'Beagle Boy'
+          activity = free
+        when 'President'
+          activity = convert(victim)
+        when 'Officer'
+          activity = imprison
+        when 'Chief'
+          activity = imprison
+        when 'Agent'
+          activity = spy
+        else
+          activity = "Nothing happened!?"
+      end
+      newspaper << activity
     end
     newspaper
+  end
+
+  # Godfahter
+  def corrupt(victim)
+    if victim.role.name == 'President'
+      "Even the strongest among us are powerless once in a while. "
+    else
+      victim.corrupt!
+      "Corruption!! Money changed somebody’s mind."
+    end
+  end
+
+  # Bodyguard
+  def blackmail
+    'Someone revealed his or her identity'
+  end
+
+  # Enforcer - DEATH
+  def shoot(victim, role)
+    victim.die!
+    "The enforcer has taken out #{victim} (#{role.name}) brutally. "
+  end
+
+  # Beagle Boy
+  def free
+    "Rats! A prisoner escaped with the help of a stranger."
+  end
+
+  # President
+  def convert(victim)
+    if victim.role.name == 'Godfather'
+      "Nice talk honey, but you stand no chance against your opponent."
+    else
+      victim.convert!
+      "A great speach changed somebody's mind."
+    end
+  end
+
+  # Chief, Officer
+  def imprision
+    'Somebody has been locked in Jail.'
+  end
+
+  # Agent
+  def spy
+    'Someone unintentionally revealed his identity'
+  end
+
+  # Junior - DEATH
+  def poison(victim, role)
+    puts "asdfasdf##########"
+    victim.die!
+    "#{victim.codename} (#{role.name}) has been poisoned by Junior. Rest in peace."
   end
 
 end
