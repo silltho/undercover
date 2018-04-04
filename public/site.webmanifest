@@ -42,7 +42,7 @@
           "sizes": "512x512",
           "type": "image/png"
         }
-        ],
+    ],
     "theme_color": "#06232D",
     "background_color": "#06232D",
     "start_url": "/app",
