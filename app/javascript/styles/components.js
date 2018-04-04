@@ -29,6 +29,7 @@ export const BorderContainerTitel = styled.span`
   left: 50%;
   top: 0;
   transform: translateX(-50%) translateY(-50%);
+  white-space:nowrap; //prevent line break
 `
 
 export const BorderContainerFooter = styled.div`

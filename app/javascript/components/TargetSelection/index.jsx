@@ -37,7 +37,7 @@ class TargetSelection extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel><IconFont icon={ICONS.night} /></BorderContainerTitel>
+            <BorderContainerTitel>Select your Target</BorderContainerTitel>
             <Scrollable>
               {renderedVictims}
             </Scrollable>
