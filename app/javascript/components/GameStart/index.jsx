@@ -5,8 +5,9 @@ import PlayersList from 'components/PlayersList'
 import {
   BorderContainer,
   Content,
-  BorderContainerAction,
-  BorderContainerTitel
+  BorderContainerFooter,
+  BorderContainerTitel,
+  Action
 } from 'styles/components'
 
 import {
@@ -41,7 +42,11 @@ class GameStart extends React.PureComponent {
               </div>
             </PartyDistribution>
             <PlayersList players={game.get('players')} />
-            <BorderContainerAction onClick={startGame}>got it</BorderContainerAction>
+            <BorderContainerFooter>
+              <Action onClick={startGame}>
+                got it
+              </Action>
+            </BorderContainerFooter>
           </BorderContainer>
         </Content>
       </React.Fragment>

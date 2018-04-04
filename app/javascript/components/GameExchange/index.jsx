@@ -4,8 +4,9 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerAction,
-  BorderContainerTitel
+  BorderContainerFooter,
+  BorderContainerTitel,
+  Action
 } from 'styles/components'
 
 
@@ -21,7 +22,11 @@ class GameExchange extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel>Exchange</BorderContainerTitel>
             <IconFont icon={ICONS.home} />
-            <BorderContainerAction onClick={endExchange}>next</BorderContainerAction>
+            <BorderContainerFooter>
+              <Action onClick={endExchange}>
+                next
+              </Action>
+            </BorderContainerFooter>
           </BorderContainer>
         </Content>
       </React.Fragment>

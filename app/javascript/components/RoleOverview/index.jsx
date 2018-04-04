@@ -7,7 +7,7 @@ import { getImageByRole } from 'config/roleImages'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerAction,
+  BorderContainerFooter,
   Content
 } from 'styles/components'
 
@@ -36,7 +36,7 @@ class RoleOverview extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
             <RoleImage background={roleImage} />
-            <BorderContainerAction>
+            <BorderContainerFooter>
               <Action icon={ICONS.help2} onClick={showRoleInformation} />
               <Button onClick={showRoleCovert}>
                 hide
@@ -45,7 +45,7 @@ class RoleOverview extends React.PureComponent {
               <Button onClick={skipPhase}>
                 skip
               </Button>
-            </BorderContainerAction>
+            </BorderContainerFooter>
           </BorderContainer>
         </Content>
       </React.Fragment>

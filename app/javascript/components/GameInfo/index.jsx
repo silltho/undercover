@@ -5,8 +5,9 @@ import Flip from 'components/Animations/Flip'
 import {
   BorderContainer,
   Content,
-  BorderContainerAction,
-  BorderContainerTitel
+  BorderContainerFooter,
+  BorderContainerTitel,
+  Action
 } from 'styles/components'
 
 import DayButton from './DayButton'
@@ -76,7 +77,9 @@ class GameInfo extends React.PureComponent {
             <DayButtonContainer innerRef={this.setButtonContainerRef}>
               {renderedDayButtons}
             </DayButtonContainer>
-            <BorderContainerAction onClick={readInfos}>read</BorderContainerAction>
+            <BorderContainerFooter>
+              <Action onClick={readInfos}>read</Action>
+            </BorderContainerFooter>
           </BorderContainer>
         </Content>
       </Wrapper>

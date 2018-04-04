@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  BorderContainerAction,
-  Content
+  BorderContainerFooter,
+  Content,
+  Action
 } from 'styles/components'
 
 
@@ -19,7 +20,11 @@ class RoleCovert extends React.PureComponent {
     return (
       <Content>
         <Container>
-          <BorderContainerAction onClick={onRequestHide}>show</BorderContainerAction>
+          <BorderContainerFooter>
+            <Action onClick={onRequestHide}>
+              show
+            </Action>
+          </BorderContainerFooter>
         </Container>
       </Content>
     )
