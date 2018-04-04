@@ -25,19 +25,18 @@ export const BorderContainerTitel = styled.span`
   font-size: 2rem;
   background-color: ${DARK_BLUE};
   position: absolute;
+  padding: 0.5rem 1rem;
   left: 50%;
   top: 0;
-  padding: 0 1rem;
   transform: translateX(-50%) translateY(-50%);
 `
 
-export const BorderContainerAction = styled.div`
+export const BorderContainerFooter = styled.div`
   display: flex;
   text-transform: uppercase;
   color: ${PINK};
   border: 2px solid ${PINK};
   background-color: ${DARK_BLUE};
-  padding: 0.5rem 1rem;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -51,4 +50,17 @@ export const Content = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   padding: 2rem;
+`
+
+export const Action = styled.div`
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 `

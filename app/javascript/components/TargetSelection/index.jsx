@@ -5,9 +5,10 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerAction,
+  BorderContainerFooter,
   Scrollable,
-  Content
+  Content,
+  Action
 } from 'styles/components'
 import VictimsItem from './VictimItem'
 
@@ -40,7 +41,11 @@ class TargetSelection extends React.PureComponent {
             <Scrollable>
               {renderedVictims}
             </Scrollable>
-            <BorderContainerAction onClick={onRequestHide}>back</BorderContainerAction>
+            <BorderContainerFooter>
+              <Action onClick={onRequestHide}>
+                back
+              </Action>
+            </BorderContainerFooter>
           </BorderContainer>
         </Content>
       </React.Fragment>
