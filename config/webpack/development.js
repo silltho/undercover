@@ -1,11 +1,29 @@
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 
 const customConfig = {
-	plugins: [
-		new ServiceWorkerWebpackPlugin({
-			entry: './app/javascript/packs/registerServiceWorker.js'
-		}),
-	]
+  plugins: [
+    new ServiceWorkerWebpackPlugin({
+      entry: './app/javascript/packs/registerServiceWorker.js'
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.mp4/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            mimtetype: 'video/mp4'
+          }
+        }
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader?attrs[]=video:src'
+      }
+    ]
+  }
 }
 
 const environment = require('./environment')

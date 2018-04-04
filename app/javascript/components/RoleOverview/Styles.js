@@ -14,6 +14,12 @@ export const RoleImage = styled.div`
   border: 1px solid ${PINK};
 `
 
+export const RoleVideo = styled.video`
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid ${PINK};
+`
+
 export const ActionIcon = styled(IconFont)`
   font-size: 2.5rem;
   padding: 0.5rem 1rem;
