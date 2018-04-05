@@ -6,20 +6,10 @@ class Player < ApplicationRecord
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
-    state :dead, :imprisoned, :town, :mafia
+    state :dead, :imprisoned
 
     event :imprison do
       transitions from: :alive, to: :imprisoned
-    end
-
-    event :convert do
-      transitions from: :alive, to: :town
-      transitions from: :town, to: :alive
-    end
-
-    event :corrupt do
-      transitions from: :alive, to: :mafia
-      transitions from: :mafia, to: :alive
     end
 
     event :release do
@@ -59,8 +49,16 @@ class Player < ApplicationRecord
     update(codename: name)
   end
 
+  def change_party
+    update(changed_party: true)
+  end
+
+  def reveal_identity(committer)
+    committer.relations << [codename, role.name]
+  end
+
   def assign_character(role)
-    update(role_id: role)
+    update(role_id: role, changed_party: false, relations: [])
   end
 
   def get_relations
@@ -85,10 +83,13 @@ class Player < ApplicationRecord
       else
         rel = []
     end
-    self.update(relations: rel)
+    update(relations: rel)
   end
 
   def query_relation_information(role)
-    Player.where(game: self).joins(Role).where(roles: {name: role}).pluck(:codename, :name  )
+    role = Role.where(name: role).first
+    known = Player.where(game: game).where(role_id: role).pluck(:id, :codename).first
+    return [known.first, known.second, role.name] if known.present?
+    nil
   end
 end

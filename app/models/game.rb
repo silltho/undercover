@@ -149,20 +149,34 @@ class Game < ApplicationRecord
   end
 
   def calculate_success(c_id, v_id)
-    player_c = Player.find(c_id)
-    role_c = player_c.try(:role).try(:name)
-    player_v = Player.find(v_id)
-    role_v = player_v.try(:role).try(:name)
-    if (role_c == "Godfather" && role_v == "President") || (role_c == "President" && role_v == "Godfather")
+    committer = Player.find(c_id)
+    committer_role = committer.try(:role).try(:name)
+    victim = Player.find(v_id)
+    victim_role = victim.try(:role).try(:name)
+    if (committer_role == "Godfather" && victim_role == "President") || (committer_role == "President" && victim_role == "Godfather")
       false
-    elsif role_c == "Junior"
-      player_v.die!
+    elsif (committer_role == "Godfather" && victim_role == "Junior") || (committer_role == "President" && victim_role == "Junior")
+      false
+    elsif committer_role == "Junior" || committer_role == "Enforcer"
+      victim.die!
+      true
+    elsif committer_role == "President" || committer_role == "Godfather"
+      victim.change_party
+      true
+    elsif committer_role == "Chief" || committer_role == "Officer"
+      victim.imprison!
+      true
+    elsif committer_role == "Bodyguard" || committer_role == "Agent"
+      victim.reveal_identity(committer)
+      true
+    elsif committer_role == "Beagle Boy"
+      victim.release!
       true
     else
       true
     end
   end
-
+  
   def create_stories(round)
     newspaper = []
     Article.where(game: self).where(round: round).each do |article|
