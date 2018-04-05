@@ -74,16 +74,23 @@ class GameInfo extends React.PureComponent {
             <BorderContainerTitel>
               Tag {day}
             </BorderContainerTitel>
-            {renderedInfos.size > 0 ?
-              (<Scrollable>
+            {renderedInfos.size > 0 ? (
+              <Scrollable>
                   <InfoList>
                   {renderedInfos}
                 </InfoList>
-              </Scrollable>) :
-              (<NoInfosMessage>-- no infos for this day --</NoInfosMessage>)}
-            <DayButtonContainer innerRef={this.setButtonContainerRef}>
-              {renderedDayButtons}
-            </DayButtonContainer>
+              </Scrollable>
+              ) : (
+                <NoInfosMessage>-- no infos for this day --</NoInfosMessage>
+              )
+            }
+            {renderedDayButtons.size > 0 ?
+              (
+                <DayButtonContainer innerRef={this.setButtonContainerRef}>
+                  {renderedDayButtons}
+                </DayButtonContainer>
+              ) : null
+            }
             <BorderContainerFooter>
               <Action onClick={readInfos}>read</Action>
             </BorderContainerFooter>
