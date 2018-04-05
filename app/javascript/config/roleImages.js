@@ -1,6 +1,6 @@
 import AgentImage from 'assets/images/roles/agent_town.jpg'
 import BeagleBoyImage from 'assets/images/roles/beagleboy_mafia.jpg'
-import BodyguardImage from 'assets/images/roles/bodyguards_mafia.jpg'
+import BodyguardImage from 'assets/images/roles/bodyguard_mafia.jpg'
 import ChiefImage from 'assets/images/roles/chief_town.jpg'
 import EnforcerImage from 'assets/images/roles/enforcer_mafia.jpg'
 import GodfatherImage from 'assets/images/roles/godfather_mafia.jpg'

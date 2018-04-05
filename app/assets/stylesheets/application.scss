@@ -5,7 +5,31 @@
 *= require material_icons
 */
 
+@import "globals";
+
+html, body, body > div {
+  height: 100%;
+}
+
+/*hide scrollbars*/
+::-webkit-scrollbar {
+  display: none;
+}
+
 ul {
   padding: 0;
+}
+
+#loader {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  color: $g_White;
+  background-color: $g_DarkBlue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 

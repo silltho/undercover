@@ -38,19 +38,12 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'registerServiceWorker' %>
-
-    <style type="text/css">
-      html, body, body > div {
-        height: 100%;
-      }
-
-      /*hide scrollbars*/
-      ::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
   </head>
   <body>
+    <div id="loader">
+      <%= image_tag "spinning-circles.svg" %>
+      <p>preparing the app...</p>
+    </div>
     <noscript>
       <p>No JavaScript means no game for you. :(</p>
     </noscript>

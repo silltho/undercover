@@ -13,7 +13,9 @@ import {
 import DayButton from './DayButton'
 import {
   DayButtonContainer,
-  Wrapper
+  Wrapper,
+  NoInfosMessage,
+  InfoList
 } from './Styles'
 
 class GameInfo extends React.PureComponent {
@@ -71,9 +73,11 @@ class GameInfo extends React.PureComponent {
             <BorderContainerTitel>
               Tag {day}
             </BorderContainerTitel>
-            <ul style={{ flex: 1 }}>
-              {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
-            </ul>
+            {renderedInfos.size > 0 ?
+              (<InfoList>
+                {renderedInfos}
+              </InfoList>) :
+              (<NoInfosMessage>-- no infos for this day --</NoInfosMessage>)}
             <DayButtonContainer innerRef={this.setButtonContainerRef}>
               {renderedDayButtons}
             </DayButtonContainer>

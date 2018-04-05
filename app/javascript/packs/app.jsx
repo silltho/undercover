@@ -21,4 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </Provider>,
     document.body.appendChild(document.createElement('div')),
   )
+  // remove loader
+  const loader = document.getElementById('loader')
+  document.body.removeChild(loader)
 })

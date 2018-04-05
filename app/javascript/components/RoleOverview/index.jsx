@@ -36,9 +36,8 @@ class RoleOverview extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
             <RoleVideoContainer>
-              <video autoPlay loop="loop">
+              <video autoPlay muted loop="loop" poster={roleImage}>
                 <source src={roleVideo} type="video/mp4" />
-                <source src={roleImage} type="image/jpg" />
                 <span>Your browser does not support the video tag.</span>
               </video>
             </RoleVideoContainer>

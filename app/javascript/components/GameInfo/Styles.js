@@ -14,6 +14,23 @@ export const Wrapper = styled.div`
   flex: 1;
 `
 
+export const InfoList = styled.ul`
+  flex: 1;
+  list-style-type: none;
+  text-align: center;
+  
+  > li {
+    margin-top: 1rem;
+  }
+`
+
+export const NoInfosMessage = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const DayButtonWrapper = styled(Button)`
   background-color: ${(props) => props.active && WHITE};
   color: ${(props) => props.active && BLACK};
