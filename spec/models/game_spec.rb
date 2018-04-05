@@ -111,10 +111,13 @@ RSpec.describe Game, type: :model do
   end
 
   it 'assigns roles and code-names to players' do
+    Role.create(id: 1, name: "Godfather", power: 4)
+    Role.create(id: 2, name: "President", power: 4)
+    Role.create(id: 3, name: "Junior", power: 4)
     game = Game.create(id: 12)
     expect(game.players.count).to eql(0)
-    p1 =  Player.create(id: 1)
-    p2 = Player.create(id: 2)
+    p1 = Player.create(id: 4)
+    p2 = Player.create(id: 5)
     game.players << p1
     game.players << p2
     expect(game.players.count).to eql(2)
@@ -122,7 +125,9 @@ RSpec.describe Game, type: :model do
     expect(p2.role).to be_nil
     expect(p1.codename).to be_nil
     expect(p2.codename).to be_nil
-    game.init_players
+    game.init_game
+    p1.reload
+    p2.reload
     expect(p1.role).not_to be_nil
     expect(p2.role).not_to be_nil
     expect(p1.codename).not_to be_nil
@@ -137,7 +142,7 @@ RSpec.describe Game, type: :model do
     game.players << p1
     game.players << p2
     game.initializing!
-    game.use_skill(p1, p2)
+    game.use_skill(p1.id, p2.id)
     expect(game.create_stories(1)).to be_an_instance_of(Array)
   end
 
@@ -150,7 +155,7 @@ RSpec.describe Game, type: :model do
     g.init_game
     expect(g).to receive(:create_article)
     expect(g).to receive(:create_article)
-    g.use_skill(p1, p2)
-    g.use_skill(p2, p1)
+    g.use_skill(p1.id, p2.id)
+    g.use_skill(p2.id, p1.id)
   end
 end
