@@ -38,3 +38,12 @@ export const ActionIcon = styled(IconFont)`
 export const ActionButton = styled(Button)`
   margin: 0.5rem 1rem;
 `
+
+export const Informations = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+  > div > span {
+    float: right;
+  }
+`
