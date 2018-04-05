@@ -1,17 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
 import Heading from 'components/Heading'
-import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
-import LogoImage from 'assets/images/logo_frame.png'
+import { ACTIVE_ICONS } from 'components/IconFont'
 
 import {
-  RoleName,
-  Container,
-  Logo,
+  BorderContainer,
+  BorderContainerTitel,
+  BorderContainerFooter,
+  Content,
+  Action
+} from 'styles/components'
+
+import {
   Section,
   SectionText,
   SectionWrapper,
@@ -30,9 +31,8 @@ class RoleInformation extends React.PureComponent {
     return (
       <React.Fragment>
         <Content>
-          <Container>
-            <RoleName align="center">{roleDetails.get('name')}</RoleName>
-            <Logo src={LogoImage} />
+          <BorderContainer>
+            <BorderContainerTitel align="center">{roleDetails.get('name')}</BorderContainerTitel>
             <SectionWrapper>
               <Section>
                 <SectionText>{roleDetails.get('punchline')}</SectionText>
@@ -47,13 +47,13 @@ class RoleInformation extends React.PureComponent {
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
               </Section>
             </SectionWrapper>
-          </Container>
+            <BorderContainerFooter>
+              <Action onClick={onRequestHide}>
+                back
+              </Action>
+            </BorderContainerFooter>
+          </BorderContainer>
         </Content>
-        <Footer>
-          <Button onClick={onRequestHide}>
-            <IconFont icon={ICONS.circle_left} />
-          </Button>
-        </Footer>
       </React.Fragment>
     )
   }

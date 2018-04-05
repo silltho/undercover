@@ -45,14 +45,14 @@ const IconFontWrapper = styled.span`
 `
 
 export const ACTIVE_ICONS = {
-  corrupt: ICONS.pacman,
-  blackmail: ICONS.bin,
-  shoot: ICONS.checkmark,
-  free: ICONS.cog,
-  convert: ICONS.cross,
-  imprison: ICONS.hour_glass,
-  spy: ICONS.newspaper,
-  poison: ICONS.image
+  corrupt: ICONS.corrupt,
+  blackmail: ICONS.beat,
+  shoot: ICONS.kill,
+  free: ICONS.keys,
+  convert: ICONS.convert,
+  imprison: ICONS.handcuffs,
+  spy: ICONS.goggles,
+  poison: ICONS.beat // missing
 }
 
 export { ICONS }

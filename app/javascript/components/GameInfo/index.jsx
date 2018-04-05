@@ -1,12 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Header from 'components/Header'
-import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
+import Flip from 'components/Animations/Flip'
+import {
+  BorderContainer,
+  Content,
+  BorderContainerFooter,
+  BorderContainerTitel,
+  Action
+} from 'styles/components'
+
 import DayButton from './DayButton'
-import { DayButtonContainer } from './Styles'
+import {
+  DayButtonContainer,
+  Wrapper
+} from './Styles'
 
 class GameInfo extends React.PureComponent {
   constructor(props) {
@@ -45,36 +53,44 @@ class GameInfo extends React.PureComponent {
       />)
   }
 
-  render() {
+  renderRoundInformation = () => {
     const {
-      round,
       readInfos,
       roundInformation
     } = this.props
 
+    const day = (parseInt(this.state.selectedDay, 10) + 1)
     const infos = roundInformation.get(this.state.selectedDay, [])
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
 
     return (
-      <React.Fragment>
-        <Header>
-          Tag {round}
-        </Header>
+      <Wrapper key={`round-information-${day}`}>
         <Content>
-          <ul>
-            {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
-          </ul>
-        </Content>
-        <Footer>
-          {renderedDayButtons.size > 0 && (
+          <BorderContainer>
+            <BorderContainerTitel>
+              Tag {day}
+            </BorderContainerTitel>
+            <ul style={{ flex: 1 }}>
+              {renderedInfos.size > 0 ? renderedInfos : (<li>--no infos--</li>)}
+            </ul>
             <DayButtonContainer innerRef={this.setButtonContainerRef}>
               {renderedDayButtons}
             </DayButtonContainer>
-          )}
-          <Button onClick={readInfos} text="gelesen" />
-        </Footer>
-      </React.Fragment>
+            <BorderContainerFooter>
+              <Action onClick={readInfos}>read</Action>
+            </BorderContainerFooter>
+          </BorderContainer>
+        </Content>
+      </Wrapper>
+    )
+  }
+
+  render() {
+    return (
+      <Flip>
+        {this.renderRoundInformation()}
+      </Flip>
     )
   }
 }

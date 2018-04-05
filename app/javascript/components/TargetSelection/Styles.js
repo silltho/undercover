@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import {
   WHITE,
-  BLACK
+  BLACK,
+  PINK
 } from 'styles/variables'
 
 const targetStyle = {
@@ -10,5 +11,15 @@ const targetStyle = {
 }
 
 export const VictimItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 2px solid ${PINK};
+  padding: 0.5rem;
+  text-align: center;
   ${(props) => props.isTarget && targetStyle}
+  ${(props) => props.isDead && 'opacity: 0.5;'}
+  
+  & + & {
+    margin-top: 0.5rem;
+  }
 `

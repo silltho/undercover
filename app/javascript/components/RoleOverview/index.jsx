@@ -1,15 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import Header from 'components/Header'
-import Content from 'components/Content'
-import Footer from 'components/Footer'
-import Button from 'components/Button'
-import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
-import { getImageByRole } from 'config/roleImages'
+import { ICONS, ACTIVE_ICONS } from 'components/IconFont'
+import { getVideoByRole, getImageByRole } from 'config/roleImages'
+import {
+  BorderContainer,
+  BorderContainerTitel,
+  BorderContainerFooter,
+  Content
+} from 'styles/components'
 
 import {
-  RoleImage
+  RoleVideoContainer,
+  ActionIcon,
+  ActionButton
 } from './Styles'
 
 class RoleOverview extends React.PureComponent {
@@ -19,31 +23,37 @@ class RoleOverview extends React.PureComponent {
       showTargetSelection,
       showRoleInformation,
       skipPhase,
-      currentTarget
+      showRoleCovert
     } = this.props
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
+    const roleVideo = getVideoByRole(roleDetails.get('name'))
     const roleImage = getImageByRole(roleDetails.get('name'))
 
     return (
       <React.Fragment>
-        <Header>
-          {roleDetails.get('name')}
-        </Header>
         <Content>
-          <RoleImage background={roleImage} />
+          <BorderContainer>
+            <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
+            <RoleVideoContainer>
+              <video autoPlay loop="loop">
+                <source src={roleVideo} type="video/mp4" />
+                <source src={roleImage} type="image/jpg" />
+                <span>Your browser does not support the video tag.</span>
+              </video>
+            </RoleVideoContainer>
+            <BorderContainerFooter>
+              <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
+              <ActionButton onClick={showRoleCovert}>
+                hide
+              </ActionButton>
+              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+              {/* <ActionButton onClick={skipPhase}>
+                skip
+              </ActionButton> */}
+            </BorderContainerFooter>
+          </BorderContainer>
         </Content>
-        <Footer>
-          <Button onClick={showRoleInformation}>
-            <IconFont icon={ICONS.home} />
-          </Button>
-          <Button onClick={showTargetSelection}>
-            <IconFont icon={activeIcon} /> {currentTarget.has('id') && currentTarget.get('codename')}
-          </Button>
-          <Button onClick={skipPhase}>
-            <IconFont icon={ICONS.next2} />
-          </Button>
-        </Footer>
       </React.Fragment>
     )
   }
@@ -57,6 +67,7 @@ RoleOverview.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
   showTargetSelection: PropTypes.func.isRequired,
   showRoleInformation: PropTypes.func.isRequired,
+  showRoleCovert: PropTypes.func.isRequired,
   skipPhase: PropTypes.func.isRequired,
   currentTarget: PropTypes.instanceOf(Map)
 }
