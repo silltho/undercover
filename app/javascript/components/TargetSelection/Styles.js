@@ -16,8 +16,13 @@ export const VictimItemWrapper = styled.div`
   border: 2px solid ${PINK};
   padding: 0.5rem;
   text-align: center;
+  cursor: pointer;
   ${(props) => props.isTarget && targetStyle}
   ${(props) => props.isDead && 'opacity: 0.5;'}
+  
+  &:active {
+    ${targetStyle};
+  }
   
   & + & {
     margin-top: 0.5rem;
