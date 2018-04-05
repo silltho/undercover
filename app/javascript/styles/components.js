@@ -18,6 +18,7 @@ export const BorderContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
 `
 
 export const BorderContainerTitel = styled.span`
@@ -42,6 +43,7 @@ export const BorderContainerFooter = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%) translateY(50%);
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
   
   & > * {
     cursor: pointer;
