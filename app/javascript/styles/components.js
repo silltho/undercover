@@ -6,6 +6,7 @@ import {
 } from './variables'
 
 export const Scrollable = styled.div`
+  flex:1;
   width: 100%;
   overflow-y: scroll;
 `

@@ -40,5 +40,6 @@ export const DayButtonContainer = styled.div`
   display: flex;
   flex: 0 0 70;
   overflow-x: scroll;
+  margin: 1rem 0;
 `
 

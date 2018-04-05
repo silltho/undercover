@@ -7,7 +7,8 @@ import {
   Content,
   BorderContainerFooter,
   BorderContainerTitel,
-  Action
+  Action,
+  Scrollable
 } from 'styles/components'
 
 import DayButton from './DayButton'
@@ -74,9 +75,11 @@ class GameInfo extends React.PureComponent {
               Tag {day}
             </BorderContainerTitel>
             {renderedInfos.size > 0 ?
-              (<InfoList>
-                {renderedInfos}
-              </InfoList>) :
+              (<Scrollable>
+                  <InfoList>
+                  {renderedInfos}
+                </InfoList>
+              </Scrollable>) :
               (<NoInfosMessage>-- no infos for this day --</NoInfosMessage>)}
             <DayButtonContainer innerRef={this.setButtonContainerRef}>
               {renderedDayButtons}
