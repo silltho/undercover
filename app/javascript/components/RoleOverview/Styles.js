@@ -27,7 +27,7 @@ export const RoleVideoContainer = styled.div`
 `
 
 export const ActionIcon = styled(IconFont)`
-  font-size: 2.5rem;
+  font-size: 2rem;
   padding: 0.5rem 1rem;
   text-shadow: 2px 2px #000;
   
@@ -35,6 +35,7 @@ export const ActionIcon = styled(IconFont)`
     text-shadow: none;
   }
 `
+
 export const ActionButton = styled(Button)`
   margin: 0.5rem 1rem;
 `
@@ -42,6 +43,7 @@ export const ActionButton = styled(Button)`
 export const Informations = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 1rem 0;
   
   > div > span {
     float: right;

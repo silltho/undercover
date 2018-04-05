@@ -7,7 +7,8 @@ import {
   BorderContainer,
   BorderContainerTitel,
   BorderContainerFooter,
-  Content
+  Content,
+  Action
 } from 'styles/components'
 
 import {
@@ -50,9 +51,9 @@ class RoleOverview extends React.PureComponent {
             </Informations>
             <BorderContainerFooter>
               <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
-              <ActionButton onClick={showRoleCovert}>
+              <Action onClick={showRoleCovert}>
                 hide
-              </ActionButton>
+              </Action>
               <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               {/* <ActionButton onClick={skipPhase}>
                 skip
