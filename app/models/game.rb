@@ -149,10 +149,15 @@ class Game < ApplicationRecord
   end
 
   def calculate_success(c_id, v_id)
-    role_c = Player.find(c_id).try(:role).try(:name)
-    role_v = Player.find(v_id).try(:role).try(:name)
+    player_c = Player.find(c_id)
+    role_c = player_c.try(:role).try(:name)
+    player_v = Player.find(v_id)
+    role_v = player_v.try(:role).try(:name)
     if (role_c == "Godfather" && role_v == "President") || (role_c == "President" && role_v == "Godfather")
       false
+    elsif role_c == "Junior"
+      player_v.die!
+      true
     else
       true
     end

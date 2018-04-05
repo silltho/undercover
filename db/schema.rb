@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311120932) do
+ActiveRecord::Schema.define(version: 20180405125719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20180311120932) do
     t.string "state"
     t.integer "relations", default: [], array: true
     t.string "session_id"
+    t.boolean "changed_party", default: false
     t.index ["game_id"], name: "index_players_on_game_id"
     t.index ["role_id"], name: "index_players_on_role_id"
   end
@@ -69,6 +70,8 @@ ActiveRecord::Schema.define(version: 20180311120932) do
     t.text "punchline"
     t.text "active_text"
     t.text "passive_text"
+    t.text "text_success"
+    t.text "text_fail"
   end
 
   add_foreign_key "articles", "games"
