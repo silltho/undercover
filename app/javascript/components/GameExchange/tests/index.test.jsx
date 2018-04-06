@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import GameExchange from '../index'
+import { Content } from 'styles/components'
 
 
 const defaultProps = {
@@ -13,8 +14,8 @@ const renderComponent = (props = defaultProps) => mount(
 )
 
 describe('<GameExchange />', () => {
-  it('should render a <div>', () => {
+  it('should render a <Content>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find('div').length).toEqual(3)
+    expect(renderedComponent.find(Content).length).toEqual(1)
   })
 })

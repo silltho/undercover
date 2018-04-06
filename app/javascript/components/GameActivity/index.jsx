@@ -6,16 +6,7 @@ import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
 import RoleCovert from 'components/RoleCovert'
 import Flip from 'components/Animations/Flip'
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`
+import { Wrapper } from './Styles'
 
 export const VIEWS = {
   roleOverview: 'ROLE_OVERVIEW',
