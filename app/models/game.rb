@@ -162,8 +162,13 @@ class Game < ApplicationRecord
       victim.die!
       true
     elsif committer_role == "President" || committer_role == "Godfather"
-      victim.change_party
-      true
+      if victim.role.party == committer.role.party
+        false
+      else
+        victim.change_party
+        victim.reload
+        true
+      end
     elsif committer_role == "Chief" || committer_role == "Officer"
       victim.imprison!
       true

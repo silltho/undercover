@@ -190,5 +190,33 @@ RSpec.describe Game, type: :model do
     g.players << p2
     expect(g.calculate_success(p1.id, p2.id)).to be false
     expect(g.calculate_success(p2.id, p1.id)).to be false
+    expect(p1.changed_party).to be false
+    expect(p2.changed_party).to be false
+  end
+
+  it "can convert or corrupt a player of the other fraction" do
+    gf = Role.create(name: "Godfather", id: 1, party: "Mafia")
+    pr = Role.create(name: "President", id: 2, party: "Town")
+    ag = Role.create(name: "Agent", id: 3, party: "Town")
+    bb = Role.create(name: "Beagle Boy", id: 4, party: "Mafia")
+    p1 = Player.create(id: 5, role: gf, changed_party: false)
+    p2 = Player.create(id: 6, role: pr, changed_party: false)
+    p3 = Player.create(id: 7, role: ag, changed_party: false)
+    p4 = Player.create(id: 8, role: bb, changed_party: false)
+    g = Game.create(id: 17)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    g.add_player(p4)
+    expect(g.calculate_success(p2.id, p3.id)).to be false
+    expect(p3.changed_party).to be false
+    expect(g.calculate_success(p1.id, p3.id)).to be true
+    p3.reload
+    expect(p3.changed_party).to be true
+    expect(g.calculate_success(p1.id, p4.id)).to be false
+    expect(p4.changed_party).to be false
+    expect(g.calculate_success(p2.id, p4.id)).to be true
+    p4.reload
+    expect(p4.changed_party).to be true
   end
 end
