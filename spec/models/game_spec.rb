@@ -132,6 +132,8 @@ RSpec.describe Game, type: :model do
     expect(p2.role).not_to be_nil
     expect(p1.codename).not_to be_nil
     expect(p2.codename).not_to be_nil
+    expect(p1.relations).not_to be_nil
+    expect(p2.relations).not_to be_nil
   end
 
   it 'returns an array with articles' do
@@ -157,5 +159,36 @@ RSpec.describe Game, type: :model do
     expect(g).to receive(:create_article)
     g.use_skill(p1.id, p2.id)
     g.use_skill(p2.id, p1.id)
+  end
+
+  it 'can kill any player as Junior' do
+    gf = Role.create(name: "Godfather", id: 1)
+    bg = Role.create(name: "Bodyguard", id: 2)
+    jr = Role.create(name: "Junior", id: 3)
+    ag = Role.create(name: "Agent", id: 4)
+    p1 = Player.create(id: 5, role: gf)
+    p2 = Player.create(id: 6, role: jr)
+    p3 = Player.create(id: 7, role: bg)
+    p4 = Player.create(id: 8, role: ag)
+    g = Game.create(id: 15)
+    g.players << p1
+    g.players << p2
+    g.players << p3
+    g.players << p4
+    expect(g.calculate_success(p2.id, p4.id)).to be true
+    expect(g.calculate_success(p2.id, p1.id)).to be true
+    expect(g.calculate_success(p2.id, p3.id)).to be true
+  end
+
+  it "can't convert or corrupt the head of the other fraction" do
+    gf = Role.create(name: "Godfather", id: 1)
+    pr = Role.create(name: "President", id: 2)
+    p1 = Player.create(id: 5, role: gf)
+    p2 = Player.create(id: 6, role: pr)
+    g = Game.create(id: 15)
+    g.players << p1
+    g.players << p2
+    expect(g.calculate_success(p1.id, p2.id)).to be false
+    expect(g.calculate_success(p2.id, p1.id)).to be false
   end
 end

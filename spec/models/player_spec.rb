@@ -71,15 +71,17 @@ RSpec.describe Player, type: :model do
   end
 
   it 'gets its relations as Godfather' do
-    gf = Role.create(name: "Godfather")
-    bg = Role.create(name: "Bodyguard")
+    gf = Role.create(name: "Godfather", id: 1)
+    bg = Role.create(name: "Bodyguard", id: 2)
     p1 = Player.create(role: gf, id: 8, codename: "player1")
     p2 = Player.create(role: bg, id: 9, codename: "player2")
     expect(p1.relations).to be_empty
     p1.get_relations
     expect(p1.relations).not_to be_empty
     expect(p1.relations.count).to eql(1)
+    expect(p1.relations.first.first).to eql(9)
   end
+
   it 'gets its relations as Chief' do
     ch = Role.create(name: "Chief")
     of = Role.create(name: "Officer")
@@ -90,8 +92,15 @@ RSpec.describe Player, type: :model do
     expect(p1.relations).to be_empty
     p1.get_relations
     expect(p1.relations).not_to be_empty
-    puts p1.relations
     expect(p1.relations.count).to eql(2)
+  end
+
+  it 'gets its relations as Junior' do
+    jr = Role.create(name: "Junior")
+    p = Player.create(role: jr, id: 13, codename: "Giftmischer")
+    expect(p.relations).to be_empty
+    p.get_relations
+    expect(p.relations).to be_empty
   end
 
 

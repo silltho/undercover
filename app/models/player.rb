@@ -62,7 +62,7 @@ class Player < ApplicationRecord
   end
 
   def get_relations
-    name = role.name
+    name = role.try(:name)
     rel = []
     case name
       when "Godfather"
@@ -89,7 +89,7 @@ class Player < ApplicationRecord
   def query_relation_information(role)
     role = Role.where(name: role).first
     known = Player.where(game: game).where(role_id: role).pluck(:id, :codename).first
-    return [known.first, known.second, role.name] if known.present?
+    return [known.first, known.second, role.try(:name)] if known.present?
     nil
   end
 end
