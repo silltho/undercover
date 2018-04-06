@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import LogoImage from 'assets/images/logo_frame.png'
 import {
+  BorderContainer,
   BorderContainerFooter,
   Content,
   Action
@@ -8,7 +10,7 @@ import {
 
 
 import {
-  Container
+  CardBack
 } from './Styles'
 
 class RoleCovert extends React.PureComponent {
@@ -19,13 +21,16 @@ class RoleCovert extends React.PureComponent {
 
     return (
       <Content>
-        <Container>
+        <BorderContainer>
+          <CardBack>
+            <img src={LogoImage} alt="logo"/>
+          </CardBack>
           <BorderContainerFooter>
             <Action onClick={onRequestHide}>
               show
             </Action>
           </BorderContainerFooter>
-        </Container>
+        </BorderContainer>
       </Content>
     )
   }

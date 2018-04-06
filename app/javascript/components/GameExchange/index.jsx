@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
@@ -8,6 +7,11 @@ import {
   BorderContainerTitel,
   Action
 } from 'styles/components'
+
+import {
+  Clock,
+  ClockContainer
+} from './Styles'
 
 
 class GameExchange extends React.PureComponent {
@@ -21,7 +25,9 @@ class GameExchange extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel>Exchange</BorderContainerTitel>
-            <IconFont icon={ICONS.home} />
+            <ClockContainer>
+              <Clock />
+            </ClockContainer>
             <BorderContainerFooter>
               <Action onClick={endExchange}>
                 next

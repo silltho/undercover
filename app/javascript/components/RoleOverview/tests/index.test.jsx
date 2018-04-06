@@ -2,16 +2,16 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
 
-import Header from 'components/Header'
-import Content from 'components/Content'
-import Footer from 'components/Footer'
+import { Content } from 'styles/components'
 
 import RoleOverview from '../index'
 
 const defaultProps = {
+  pseudonym: 'test123',
   skipPhase: () => {},
   showTargetSelection: () => {},
-	showRoleInformation: () => {},
+  showRoleInformation: () => {},
+  showRoleCovert: () => {},
   roleDetails: fromJS({
     name: 'test',
     active: 'skillName'
@@ -25,8 +25,6 @@ const renderComponent = (props = defaultProps) => mount(
 describe('<RoleOverview />', () => {
   it('should render <Header>, <Content>, <Footer>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find(Header).length).toEqual(1)
     expect(renderedComponent.find(Content).length).toEqual(1)
-    expect(renderedComponent.find(Footer).length).toEqual(1)
   })
 })

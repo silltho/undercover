@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import Button from 'components/Button'
 import {
-  WHITE,
-  BLACK
+  PINK,
+  DARK_BLUE
 } from 'styles/variables'
 
 export const Wrapper = styled.div`
@@ -31,14 +30,23 @@ export const NoInfosMessage = styled.div`
   align-items: center;
 `
 
-export const DayButtonWrapper = styled(Button)`
-  background-color: ${(props) => props.active && WHITE};
-  color: ${(props) => props.active && BLACK};
+export const DayButtonWrapper = styled.div`
+  text-align: center;
+  padding: 0.5rem;
+  flex: 1;
+  background-color: ${(props) => props.active ? PINK : DARK_BLUE};
+  color: ${(props) => props.active ? DARK_BLUE : PINK};
+  
+  & + & {
+    border-left: 1px solid ${PINK};
+  }
 `
 
 export const DayButtonContainer = styled.div`
   display: flex;
-  flex: 0 0 70;
   overflow-x: scroll;
+  margin: 1rem 0;
+  border: 1px solid ${PINK};
+  border-radius: 3px;
 `
 

@@ -6,19 +6,21 @@ import {
 } from './variables'
 
 export const Scrollable = styled.div`
+  flex:1;
   width: 100%;
   overflow-y: scroll;
 `
 
 export const BorderContainer = styled.div`
   border: 2px solid ${PINK};
-  padding: 1.5rem 1.5rem 3rem 1.5rem;
+  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
   position: relative;
-  margin: 1rem 0 2rem 0;
+  margin: 1.5rem 1.5rem 2.5rem 1.5rem;
   display: flex;
   flex: 1;
   flex-direction: column;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+  border-radius: 8px;
 `
 
 export const BorderContainerTitel = styled.span`
@@ -45,7 +47,11 @@ export const BorderContainerFooter = styled.div`
   transform: translateX(-50%) translateY(50%);
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
   
-  & > * {
+  > * + * {
+    border-left: solid 1px ${PINK};
+  }
+  
+  > * {
     cursor: pointer;
   }
 `
@@ -56,12 +62,14 @@ export const Content = styled.div`
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 2rem;
 `
 
 export const Action = styled.div`
   padding: 0.5rem 1rem;
   text-shadow: 2px 2px #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);

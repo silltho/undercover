@@ -31,9 +31,11 @@
     "collectCoverageFrom": [
       "app/javascript/**/*.{js,jsx}",
       "!**/app/javascript/packs/**",
+      "!**/app/javascript/config/**",
       "!**/app/javascript/services/**",
       "!**/app/javascript/containers/**",
       "!**/app/javascript/**/Styles.js",
+      "!**/app/javascript/components/Animations/**",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],

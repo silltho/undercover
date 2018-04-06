@@ -7,23 +7,27 @@ import {
   BorderContainer,
   BorderContainerTitel,
   BorderContainerFooter,
-  Content
+  Content,
+  Action
 } from 'styles/components'
 
 import {
   RoleVideoContainer,
   ActionIcon,
-  ActionButton
+  ActionButton,
+  Informations
 } from './Styles'
 
 class RoleOverview extends React.PureComponent {
   render() {
     const {
+      pseudonym,
       roleDetails,
       showTargetSelection,
       showRoleInformation,
       skipPhase,
-      showRoleCovert
+      showRoleCovert,
+      currentTarget
     } = this.props
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
@@ -41,11 +45,15 @@ class RoleOverview extends React.PureComponent {
                 <span>Your browser does not support the video tag.</span>
               </video>
             </RoleVideoContainer>
+            <Informations>
+              <div>Name: <span>{pseudonym}</span></div>
+              <div>Next Target: <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span></div>
+            </Informations>
             <BorderContainerFooter>
               <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
-              <ActionButton onClick={showRoleCovert}>
+              <Action onClick={showRoleCovert}>
                 hide
-              </ActionButton>
+              </Action>
               <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               {/* <ActionButton onClick={skipPhase}>
                 skip
@@ -63,6 +71,7 @@ RoleOverview.defaultProps = {
 }
 
 RoleOverview.propTypes = {
+  pseudonym: PropTypes.string.isRequired,
   roleDetails: PropTypes.instanceOf(Map).isRequired,
   showTargetSelection: PropTypes.func.isRequired,
   showRoleInformation: PropTypes.func.isRequired,
