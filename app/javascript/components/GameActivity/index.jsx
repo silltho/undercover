@@ -61,8 +61,7 @@ class GameActivity extends React.PureComponent {
       case VIEWS.roleOverview: return (
         <Wrapper key="role-overview">
           <RoleOverview
-            pseudonym={player.get('codename')}
-            roleDetails={player.get('role')}
+            player={player}
             showTargetSelection={this.showTargetSelection}
             showRoleInformation={this.showRoleInformation}
             showRoleCovert={this.showRoleCovert}

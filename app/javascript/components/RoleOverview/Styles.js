@@ -3,6 +3,22 @@ import IconFont from 'components/IconFont'
 import Button from 'components/Button'
 import { PINK } from 'styles/variables'
 
+const DeadStyle = `
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: 'DEAD';
+    font-size: 4rem;
+    color: red;
+  }
+  
+  > video {
+    filter: grayscale(1);
+  }
+`
+
 export const RoleImage = styled.div`
   flex: 1;
   background: url(${(props) => props.background});
@@ -18,12 +34,15 @@ export const RoleVideoContainer = styled.div`
   flex: 1;
   border: 1px solid ${PINK};
   overflow: hidden;
+  position: relative;
   
   > video {
     object-fit: cover;
     min-height: 100%;
     width: 100%;
   }
+  
+  ${(props) => props.dead && DeadStyle}
 `
 
 export const ActionIcon = styled(IconFont)`

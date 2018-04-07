@@ -10,6 +10,7 @@ import {
   Content,
   Action
 } from 'styles/components'
+import PlayerStates from 'config/playerStates'
 
 import {
   RoleVideoContainer,
@@ -21,14 +22,17 @@ import {
 class RoleOverview extends React.PureComponent {
   render() {
     const {
-      pseudonym,
-      roleDetails,
+      player,
       showTargetSelection,
       showRoleInformation,
       skipPhase,
       showRoleCovert,
       currentTarget
     } = this.props
+
+    const roleDetails = player.get('role')
+    const pseudonym = player.get('codename')
+    const state = player.get('state')
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
     const roleVideo = getVideoByRole(roleDetails.get('name'))
@@ -39,7 +43,7 @@ class RoleOverview extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
-            <RoleVideoContainer>
+            <RoleVideoContainer dead={state !== PlayerStates.DEAD}>
               <video autoPlay muted loop="loop" poster={roleImage}>
                 <source src={roleVideo} type="video/mp4" />
                 <span>Your browser does not support the video tag.</span>
@@ -54,10 +58,9 @@ class RoleOverview extends React.PureComponent {
               <Action onClick={showRoleCovert}>
                 hide
               </Action>
-              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
-              {/* <ActionButton onClick={skipPhase}>
-                skip
-              </ActionButton> */}
+              { state !== PlayerStates.ALIVE &&
+                <ActionIcon icon={activeIcon} onClick={showTargetSelection}/>
+              }
             </BorderContainerFooter>
           </BorderContainer>
         </Content>
@@ -71,8 +74,7 @@ RoleOverview.defaultProps = {
 }
 
 RoleOverview.propTypes = {
-  pseudonym: PropTypes.string.isRequired,
-  roleDetails: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired,
   showTargetSelection: PropTypes.func.isRequired,
   showRoleInformation: PropTypes.func.isRequired,
   showRoleCovert: PropTypes.func.isRequired,
