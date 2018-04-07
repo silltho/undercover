@@ -10,6 +10,7 @@ import GameStart from 'components/GameStart'
 import GameInfo from 'components/GameInfo'
 import GameExchange from 'components/GameExchange'
 import GameActivity from 'components/GameActivity'
+import GameEnd from 'components/GameEnd'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -60,6 +61,14 @@ class Game extends React.PureComponent {
               allSkillsUsed={this.props.allSkillsUsed}
               player={this.props.player}
               game={this.props.game}
+            />
+          </Wrapper>
+        )
+      case GamePhases.FINISHED:
+        return (
+          <Wrapper key="game-finished">
+            <GameEnd
+              resetGame={() => {}}
             />
           </Wrapper>
         )

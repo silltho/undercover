@@ -1,7 +1,20 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
-import Button from 'components/Button'
 import { PINK } from 'styles/variables'
+
+const ImprisonedStyle = `
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 110%;
+    transform: translate(-17px);
+    content: '';
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 30px, black 3px, #dbdbdb 40px);
+  }
+`
+
 
 const DeadStyle = `
   &:after {
@@ -43,6 +56,7 @@ export const RoleVideoContainer = styled.div`
   }
   
   ${(props) => props.dead && DeadStyle}
+  ${(props) => props.imprisoned && ImprisonedStyle}
 `
 
 export const ActionIcon = styled(IconFont)`
@@ -53,10 +67,6 @@ export const ActionIcon = styled(IconFont)`
   &:active{
     text-shadow: none;
   }
-`
-
-export const ActionButton = styled(Button)`
-  margin: 0.5rem 1rem;
 `
 
 export const Informations = styled.div`

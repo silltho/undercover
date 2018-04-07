@@ -15,7 +15,6 @@ import PlayerStates from 'config/playerStates'
 import {
   RoleVideoContainer,
   ActionIcon,
-  ActionButton,
   Informations
 } from './Styles'
 
@@ -43,7 +42,10 @@ class RoleOverview extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
-            <RoleVideoContainer dead={state !== PlayerStates.DEAD}>
+            <RoleVideoContainer
+              dead={state === PlayerStates.DEAD}
+              imprisoned={state === PlayerStates.IMPRISONED}
+            >
               <video autoPlay muted loop="loop" poster={roleImage}>
                 <source src={roleVideo} type="video/mp4" />
                 <span>Your browser does not support the video tag.</span>
@@ -58,7 +60,7 @@ class RoleOverview extends React.PureComponent {
               <Action onClick={showRoleCovert}>
                 hide
               </Action>
-              { state !== PlayerStates.ALIVE &&
+              { state === PlayerStates.ALIVE &&
                 <ActionIcon icon={activeIcon} onClick={showTargetSelection}/>
               }
             </BorderContainerFooter>
