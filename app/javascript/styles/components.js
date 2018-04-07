@@ -75,7 +75,8 @@ export const Action = styled.div`
     background-color: rgba(0, 0, 0, 0.1);
   }
   
-  &:active {
+  &:active, &:focus {
+    outline: none;
     background-color: rgba(0, 0, 0, 0.5);
   }
 `

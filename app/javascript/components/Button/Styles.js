@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import {
   BLACK,
-  PINK,
-  WHITE
+  PINK
 } from 'styles/variables'
 
 export const ButtonWrapper = styled.button`
-  background-color: ${BLACK};
-  color: ${WHITE};
-  border: 3px solid ${PINK};
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 3px 3px 0 0 ${BLACK};
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   flex: 1;
@@ -16,6 +16,16 @@ export const ButtonWrapper = styled.button`
   
   &:first-child {
    margin: 0;
+  }
+  
+  &:focus, &:active {
+    outline: none;
+  }
+  
+  &:active {
+    border: 3px solid ${PINK};
+    color: ${PINK};
+    box-shadow: none;
   }
 `
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Button from 'components/Button'
+import Input from 'components/Input'
 import {
-  Wrapper,
-  RoomCodeInput
+  Wrapper
 } from './Styles'
 
 class JoinGameForm extends React.PureComponent {
@@ -31,9 +31,10 @@ class JoinGameForm extends React.PureComponent {
   render() {
     return (
       <Wrapper>
-        <RoomCodeInput
-          id="game-code-input"
-          placeholder="Game Code"
+        <Input
+          name="game-code"
+          placeholder="Enter Room Code"
+          label="Room Code"
           type="number"
           onChange={this.onInputChange}
           onKeyDown={this.onInputKeyDown}
