@@ -13,41 +13,41 @@ class Game < ApplicationRecord
   end
 
   aasm whiny_transitions: false do
-  state :waiting, initial: true
-  state :initialized, :inform, :exchange, :activity, :finished
-  after_all_transitions :log_status_change
+    state :waiting, initial: true
+    state :initialized, :inform, :exchange, :activity, :finished
+    after_all_transitions :log_status_change
 
-  event :initializing do
-    transitions from: :waiting, to: :initialized, after: :init_game
-  end
+    event :initializing do
+      transitions from: :waiting, to: :initialized, after: :init_game
+    end
 
-  event :started do
-    transitions from: :initialized, to: :inform
-  end
+    event :started do
+      transitions from: :initialized, to: :inform
+    end
 
-  event :informed do
-    transitions from: :inform, to: :exchange
-  end
+    event :informed do
+      transitions from: :inform, to: :exchange
+    end
 
-  event :exchanged do
-    transitions from: :exchange, to: :activity
-  end
+    event :exchanged do
+      transitions from: :exchange, to: :activity
+    end
 
-  event :skills_used do
-    transitions from: :activity, to: :inform, after: :update_round
-  end
+    event :skills_used do
+      transitions from: :activity, to: :inform, after: :update_round
+    end
 
-  event :finish do
-    transitions from: :inform, to: :finished
-  end
+    event :finish do
+      transitions from: :inform, to: :finished
+    end
 
-  event :reset do
-    transitions from: :initialized, to: :waiting
-    transitions from: :inform, to: :waiting
-    transitions from: :exchange, to: :waiting
-    transitions from: :activity, to: :waiting
-    transitions from: :finished, to: :waiting
-  end
+    event :reset do
+      transitions from: :initialized, to: :waiting
+      transitions from: :inform, to: :waiting
+      transitions from: :exchange, to: :waiting
+      transitions from: :activity, to: :waiting
+      transitions from: :finished, to: :waiting
+    end
 
   end
 
@@ -63,11 +63,11 @@ class Game < ApplicationRecord
 
   def get_game_object
     {  id: id,
-      code: code,
-      aasm_state: aasm_state,
-      round: round,
-      players: players.to_a,
-      party_distribution: get_party_members
+       code: code,
+       aasm_state: aasm_state,
+       round: round,
+       players: players.to_a,
+       party_distribution: get_party_members
     }
   end
 
@@ -101,6 +101,7 @@ class Game < ApplicationRecord
     players.each do |player|
       player.assign_character(roles_array.delete(roles_array.sample))
       player.create_codename
+      player.get_relations
     end
   end
 
@@ -141,25 +142,59 @@ class Game < ApplicationRecord
   end
 
   def use_skill(committer, victim)
-    create_article(committer.id, victim, calculate_success(committer, victim))
+    create_article(committer, victim, calculate_success(committer, victim))
   end
 
   def create_article(committer, victim, success)
-    Article.create(game: self, round: self.round, committer_id: committer, victim_id: victim, success: success)
+    Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
   end
 
-  def calculate_success(*)
-    #activity stack is here
-    true
+  def calculate_success(c_id, v_id)
+    committer = Player.find(c_id)
+    committer_role = committer.try(:role).try(:name)
+    victim = Player.find(v_id)
+    victim_role = victim.try(:role).try(:name)
+    if (committer_role == "Godfather" && victim_role == "President") || (committer_role == "President" && victim_role == "Godfather")
+      false
+    elsif (committer_role == "Godfather" && victim_role == "Junior") || (committer_role == "President" && victim_role == "Junior")
+      false
+    elsif committer_role == "Junior" || committer_role == "Enforcer"
+      victim.die!
+      true
+    elsif committer_role == "President" || committer_role == "Godfather"
+      if victim.role.party == committer.role.party
+        false
+      else
+        victim.change_party
+        victim.reload
+        true
+      end
+    elsif committer_role == "Chief" || committer_role == "Officer"
+      victim.imprison!
+      true
+    elsif committer_role == "Bodyguard" || committer_role == "Agent"
+      victim.reveal_identity(committer)
+      true
+    elsif committer_role == "Beagle Boy"
+      victim.release!
+      true
+    else
+      true
+    end
   end
-
+  
   def create_stories(round)
     newspaper = []
     Article.where(game: self).where(round: round).each do |article|
-      newspaper << "#{article.committer.codename} successfully used #{article.committer.try(:role).try(:active)} on #{article.victim.codename}." if article.success
-      newspaper << "#{article.committer.codename} tried to use #{article.committer.try(:role).try(:active)} on #{article.victim.codename} but failed." unless article.success
+      role = Player.find(article.committer_id).role
+      newspaper << role.try(:text_success) if article.success
+      newspaper << role.try(:text_fail) unless article.success
     end
-    newspaper
+    if newspaper.empty?
+      newspaper << "Nothing happened that night."
+    else
+      newspaper
+    end
   end
-
 end
+
