@@ -20,6 +20,11 @@ class Player < ApplicationRecord
       transitions from: :alive, to: :dead
       transitions from: :imprisoned, to: :dead
     end
+
+    event :reset do
+      transitions from: :imprisoned, to: :alive
+      transitions from: :dead, to: :alive
+    end
   end
 
   def get_player_object
