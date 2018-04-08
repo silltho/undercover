@@ -15,6 +15,9 @@ html, body, body > div {
 ::-webkit-scrollbar {
   display: none;
 }
+* {
+  overflow: -moz-scrollbars-none;
+}
 
 ul {
   padding: 0;
