@@ -63,6 +63,7 @@ class Player < ApplicationRecord
   end
 
   def assign_character(role)
+    reset!
     update(role_id: role, changed_party: false, relations: [])
   end
 

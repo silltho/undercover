@@ -96,8 +96,8 @@ RSpec.describe Player, type: :model do
   end
 
   it 'gets its relations as Junior' do
-    jr = Role.create(name: "Junior")
-    p = Player.create(role: jr, id: 13, codename: "Giftmischer")
+    jr = Role.create(name: 'Junior')
+    p = Player.create(role: jr, id: 13, codename: 'Giftmischer')
     expect(p.relations).to be_empty
     p.get_relations
     expect(p.relations).to be_empty
