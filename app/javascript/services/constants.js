@@ -9,6 +9,7 @@ export const JOIN_GAME_REQUEST = 'join_game'
 export const JOIN_GAME_SUCCESS = 'join_game_success'
 
 export const INITIALIZE_GAME = 'initialize_game'
+export const RESET_GAME = 'reset_game'
 export const GAME_UPDATED = 'game_updated'
 export const GAME_DELETE = 'game_delete'
 export const PLAYER_INITIALIZED_GAME = 'player_initialized_game'

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
+import { resetGameAction } from 'services/actions'
 import GamePhases from 'config/gamePhases'
 import FadeIn from 'components/Animations/FadeIn'
 import SlideInOut from 'components/Animations/SlideInOut'
@@ -68,7 +69,7 @@ class Game extends React.PureComponent {
         return (
           <Wrapper key="game-finished">
             <GameEnd
-              resetGame={() => {}}
+              resetGame={this.props.resetGame}
             />
           </Wrapper>
         )
@@ -96,15 +97,17 @@ Game.propTypes = {
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   useSkill: PropTypes.func.isRequired,
-  allSkillsUsed: PropTypes.func.isRequired
+  allSkillsUsed: PropTypes.func.isRequired,
+  resetGame: PropTypes.func.isRequired
 }
 
-export const mapDispatchToProps = () => ({
+export const mapDispatchToProps = (dispatch) => ({
   endExchangePhase: GameChannel.endExchangePhase,
   endInfoPhase: GameChannel.endInfoPhase,
   startGame: GameChannel.startGame,
   useSkill: GameChannel.useSkill,
-  allSkillsUsed: GameChannel.allSkillsUsed
+  allSkillsUsed: GameChannel.allSkillsUsed,
+  resetGame: () => dispatch(resetGameAction())
 })
 
 const mapStateToProps = (state) => ({

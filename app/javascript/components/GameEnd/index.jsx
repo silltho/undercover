@@ -31,7 +31,6 @@ class GameEnd extends React.PureComponent {
 }
 
 GameEnd.defaultProps = {
-  round: 0
 }
 
 GameEnd.propTypes = {

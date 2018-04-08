@@ -5,7 +5,8 @@ import {
   GAME_DELETE,
   LEAVE_GAME_SUCCESS,
   PLAYER_INITIALIZED_GAME,
-  INFORMATION_UPDATED
+  INFORMATION_UPDATED,
+  RESET_GAME
 } from 'services/constants'
 
 const initialState = fromJS({
@@ -16,6 +17,9 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_GAME: {
+      return initialState
+    }
     case GAME_UPDATED:
     case CREATE_GAME_SUCCESS: {
       const game = state.get('Game', Map())
