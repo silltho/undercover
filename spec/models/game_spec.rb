@@ -148,6 +148,7 @@ RSpec.describe Game, type: :model do
     expect(game.create_stories(1)).to be_an_instance_of(Array)
   end
 
+  # common
   it 'can use a skill on another player' do
     p1 = Player.create(id: 3)
     p2 = Player.create(id: 4)
@@ -161,6 +162,7 @@ RSpec.describe Game, type: :model do
     g.use_skill(p2.id, p1.id)
   end
 
+  # Junior
   it 'can kill any player as Junior' do
     gf = Role.create(name: "Godfather", id: 1)
     bg = Role.create(name: "Bodyguard", id: 2)
@@ -180,6 +182,7 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p2.id, p3.id)).to be true
   end
 
+  # President and Godfather
   it "can't convert or corrupt the head of the other fraction" do
     gf = Role.create(name: "Godfather", id: 1)
     pr = Role.create(name: "President", id: 2)
@@ -194,6 +197,7 @@ RSpec.describe Game, type: :model do
     expect(p2.changed_party).to be false
   end
 
+  # President and Godfather
   it "can convert or corrupt a player of the other fraction" do
     gf = Role.create(name: "Godfather", id: 1, party: "Mafia")
     pr = Role.create(name: "President", id: 2, party: "Town")
@@ -218,5 +222,27 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p2.id, p4.id)).to be true
     p4.reload
     expect(p4.changed_party).to be true
+  end
+
+  it 'can imprison other players as Chief or Officer' do
+    ch = Role.create(name: "Chief", id: 1, party: "Town")
+    of = Role.create(name: "Officer", id: 2, party: "Town")
+    ag = Role.create(name: "Agent", id: 3, party: "Town")
+    gf = Role.create(name: "Godfather", id: 4, party: "Mafia")
+    p1 = Player.create(id: 1, role: ch, changed_party: false)
+    p2 = Player.create(id: 2, role: of, changed_party: false)
+    p3 = Player.create(id: 3, role: ag, changed_party: false)
+    p4 = Player.create(id: 4, role: gf, changed_party: false)
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    g.add_player(p4)
+    expect(g.calculate_success(p1.id, p3.id)).to be true
+    expect(g.calculate_success(p1.id, p4.id)).to be true
+    expect(g.calculate_success(p1.id, p2.id)).to be true
+    expect(g.calculate_success(p2.id, p1.id)).to be true
+    expect(g.calculate_success(p2.id, p3.id)).to be true
+    expect(g.calculate_success(p2.id, p4.id)).to be true
   end
 end

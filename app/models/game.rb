@@ -99,6 +99,8 @@ class Game < ApplicationRecord
   def init_players
     roles_array = assign_roles(players.size)
     players.each do |player|
+      player.reset!
+      player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
       player.create_codename
       player.get_relations
