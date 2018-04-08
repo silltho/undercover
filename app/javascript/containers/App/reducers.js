@@ -30,9 +30,8 @@ function appReducer(state = initialState, action) {
         const playerIndex = data.get('players')
           .findIndex((player) => player.get('id') === playerId)
         const newPlayerProps = data.getIn(['players', playerIndex])
-        newState.setIn(['Player'], state.get('Player').merge(newPlayerProps))
+        return newState.setIn(['Player'], state.get('Player').merge(newPlayerProps))
       }
-      console.log(newState.toJS())
       return newState
     }
     case LEAVE_GAME_SUCCESS:
