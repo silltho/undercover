@@ -48,7 +48,7 @@ class Player < ApplicationRecord
 
   def broadcast_player_updated
     reload
-    UserChannel.broadcast_to(player, type: 'player_updated', data: get_player_object)
+    UserChannel.broadcast_to(self, type: 'player_updated', data: get_player_object)
   end
 
   def create_codename
