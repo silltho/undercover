@@ -19,16 +19,9 @@
 Yarn: ``yarn add <packagename>``  
 
 ## Start
+1. ``bundle exec rails s`` (rails s)
+2. ``ruby ./bin/webpack-dev-server`` (dev server)
 
-**Option 1**  
-
-Rails Server: ``bundle exec rails s``
-
-**Option 2 (mit Hot Module Replacement)**  
-
-Rails Server: ``bundle exec rails s``
-
-Webpack Dev Server: ``ruby ./bin/webpack-dev-server``
 
 ## Linting
 **EsLint**  
@@ -39,10 +32,6 @@ Webpack Dev Server: ``ruby ./bin/webpack-dev-server``
 **Jest**  
 ``yarn test``
 (config => package.json)
-
-## Commit Hooks
-### Overcommit
-todo
 
 ## Ruby Stuff, Windows, Mac, Archive
 SSL_CERT_FILE (Rails)  
