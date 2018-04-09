@@ -41,7 +41,9 @@ class Player < ApplicationRecord
               lore: role.try(:lore),
               punchline: role.try(:punchline),
               active: role.try(:active),
-              passive: role.try(:passive)
+              passive: role.try(:passive),
+              active_text: role.try(:active_text),
+              passive_text: role.try(:passive_text)
             }
     }
   end
