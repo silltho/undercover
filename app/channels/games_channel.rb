@@ -15,9 +15,6 @@ class GamesChannel < ApplicationCable::Channel
     game = current_user.game
     game.reload
     game.started!
-    #send first issue to all players with information about who is in the game
-    #TODO Anna: think about how to save newspaper in db
-    #TODO Tom: maybe just display draft of the newspaper made by artists for prototype
     game.broadcast_game_updated
   end
 
@@ -53,12 +50,10 @@ class GamesChannel < ApplicationCable::Channel
     game = current_user.game
     game.reload
     game.finish!
-    #save all the stuff to a statistics table
     game.broadcast_game_updated
   end
 
   def reset_game
-    #just for debugging
     game = current_user.game
     game.reload
     game.reset!

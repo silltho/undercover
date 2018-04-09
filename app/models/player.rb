@@ -8,17 +8,17 @@ class Player < ApplicationRecord
     state :alive, initial: true
     state :dead, :imprisoned
 
-    event :imprison do
-      transitions from: :alive, to: :imprisoned, after: :broadcast_player_updated
+    event :imprison, after: :broadcast_player_updated do
+      transitions from: :alive, to: :imprisoned
     end
 
-    event :release do
-      transitions from: :imprisoned, to: :alive, after: :broadcast_player_updated
+    event :release, after: :broadcast_player_updated do
+      transitions from: :imprisoned, to: :alive
     end
 
-    event :die do
-      transitions from: :alive, to: :dead, after: :broadcast_player_updated
-      transitions from: :imprisoned, to: :dead, after: :broadcast_player_updated
+    event :die, after: :broadcast_player_updated do
+      transitions from: :alive, to: :dead
+      transitions from: :imprisoned, to: :dead
     end
 
     event :reset do

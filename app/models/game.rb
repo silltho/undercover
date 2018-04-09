@@ -33,8 +33,8 @@ class Game < ApplicationRecord
       transitions from: :exchange, to: :activity
     end
 
-    event :skills_used do
-      transitions from: :activity, to: :inform, after: :update_round
+    event :skills_used, after: :update_round do
+      transitions from: :activity, to: :inform
     end
 
     event :finish do
