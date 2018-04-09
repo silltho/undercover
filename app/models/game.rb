@@ -107,11 +107,13 @@ class Game < ApplicationRecord
 
   def get_party_members
     data = {}
-    %w[Mafia Town Anarchists].each{ |k| data[k] = 0 }
+    %w[Mafia Town Anarchists Prisoners Dead].each{ |k| data[k] = 0 }
     players.each do |player|
-      data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
-      data["Town"]+= 1 if player.role.try(:party) == "Town"
-      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists"
+      data["Mafia"] += 1 if player.role.try(:party) == "Mafia" && player.state == "alive"
+      data["Town"]+= 1 if player.role.try(:party) == "Town" && player.state == "alive"
+      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
+      data["Prisoners"]+= 1  if player.state == "imprisoned"
+      data["Dead"]+= 1 if player.state =="dead"
     end
     data
   end
