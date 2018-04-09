@@ -12,7 +12,7 @@ html, body, body > div {
 }
 
 /*hide scrollbars*/
-::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
