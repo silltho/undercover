@@ -9,9 +9,9 @@ export default {
   help1: 'e907',
   help2: 'e908',
   handcuffs: 'e909',
-  rescue: 'e909a',
-  beat: 'e909b',
-  convert: 'e909c'
+  rescue: 'e90a',
+  beat: 'e90b',
+  convert: 'e90c'
 
   /*
     home: 'e900',
