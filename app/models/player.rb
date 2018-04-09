@@ -2,21 +2,22 @@ class Player < ApplicationRecord
   include AASM
   belongs_to :game, optional: true
   belongs_to :role, optional: true
+  belongs_to :user
   has_many :articles
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
     state :dead, :imprisoned
 
-    event :imprison, after: :broadcast_player_updated do
+    event :imprison do
       transitions from: :alive, to: :imprisoned
     end
 
-    event :release, after: :broadcast_player_updated do
+    event :release do
       transitions from: :imprisoned, to: :alive
     end
 
-    event :die, after: :broadcast_player_updated do
+    event :die do
       transitions from: :alive, to: :dead
       transitions from: :imprisoned, to: :dead
     end
@@ -50,7 +51,7 @@ class Player < ApplicationRecord
 
   def broadcast_player_updated
     reload
-    UserChannel.broadcast_to(self, type: 'player_updated', data: get_player_object)
+    UserChannel.broadcast_to(user, type: 'player_updated', data: get_player_object)
   end
 
   def create_codename

@@ -15,7 +15,6 @@ class Game < ApplicationRecord
   aasm whiny_transitions: false do
     state :waiting, initial: true
     state :initialized, :inform, :exchange, :activity, :finished
-    after_all_transitions :log_status_change
 
     event :initializing do
       transitions from: :waiting, to: :initialized, after: :init_game
@@ -78,10 +77,6 @@ class Game < ApplicationRecord
       data[n] = create_stories(n)
     end
     data
-  end
-
-  def log_status_change
-    puts "Game with code #{self.code}' changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
   def init_game
@@ -196,5 +191,9 @@ class Game < ApplicationRecord
       newspaper
     end
   end
+
+  private
+
+
 end
 
