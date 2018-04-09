@@ -61,7 +61,6 @@ class Player < ApplicationRecord
 
   def change_party
     update(changed_party: true)
-    broadcast_player_updated
   end
 
   def reveal_identity(committer)

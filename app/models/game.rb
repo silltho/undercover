@@ -7,6 +7,7 @@ class Game < ApplicationRecord
   attribute :aasm_state
   attribute :players
   after_create :set_game_code
+  ALWAYS_SUCCESSFUL = %w[blackmail spy shoot imprison free poison].freeze
 
   def full
     players.size >= 9
@@ -136,13 +137,48 @@ class Game < ApplicationRecord
   end
 
   def use_skill(committer, victim)
-    create_article(committer, victim, calculate_success(committer, victim))
+    create_article(committer, victim)
   end
 
-  def create_article(committer, victim, success)
+  def create_article(committer, victim)
+    success = calculate_success(committer, victim)
     Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
   end
 
+  def calculate_success(c_id, v_id)
+    c = Player.find(c_id)
+    v = Player.find(v_id)
+    return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
+    check_immunity_roles(c, v)
+  end
+
+  def check_immunity_roles(committer, victim)
+    if committer.role.party == victim.role.party
+      false
+    elsif committer.role.passive == 'immunity' || victim.role.passive == 'immunity'
+      false
+    else
+      true
+    end
+  end
+
+  # actions are applied to successful happenings
+  def apply_action(committer, victim)
+    action = committer.role.active
+    die = %w[shoot poison]
+    imprison = 'imprison'
+    release = 'free'
+    reveal = %w[blackmail spy]
+    change = %w[corrupt convert]
+    victim.die! if die.include?(action)
+    victim.imprison! if imprison.include?(action)
+    victim.release! if release.include?(action)
+    victim.reveal_identity(committer) if reveal.include?(action)
+    victim.change_party if change.include?(action)
+    victim.broadcast_player_updated
+  end
+
+=begin
   def calculate_success(c_id, v_id)
     committer = Player.find(c_id)
     committer_role = committer.try(:role).try(:name)
@@ -176,19 +212,31 @@ class Game < ApplicationRecord
       true
     end
   end
+=end
+
   
   def create_stories(round)
     newspaper = []
     Article.where(game: self).where(round: round).each do |article|
       role = Player.find(article.committer_id).role
-      newspaper << role.try(:text_success) if article.success
-      newspaper << role.try(:text_fail) unless article.success
+      newspaper << write_success_story(role, article.committer, article.victim) if article.success
+      newspaper << write_fail_story(role) unless article.success
     end
-    if newspaper.empty?
-      newspaper << "Nothing happened that night."
-    else
-      newspaper
-    end
+    newspaper << avoid_empty_newspaper(newspaper)
+    newspaper
+  end
+
+  def avoid_empty_newspaper(newspaper)
+    'Nothing happened that night.' if newspaper.empty?
+  end
+
+  def write_success_story(role, committer, victim)
+    apply_action(committer, victim)
+    role.try(:text_success)
+  end
+
+  def write_fail_story(role)
+    role.try(:text_fail)
   end
 end
 
