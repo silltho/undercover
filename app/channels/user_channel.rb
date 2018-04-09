@@ -1,6 +1,7 @@
 class UserChannel < ApplicationCable::Channel
   def subscribed
     stream_for current_user
+    # TODO: find new fix
     #current_user.game.broadcast_game_updated unless current_user.game.nil?
   end
 
