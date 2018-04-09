@@ -32,21 +32,23 @@ class Player < ApplicationRecord
       id: id,
       codename: codename,
       state: state,
+      changed_party: changed_party,
       role: { id: role.try(:id),
               name: self.try(:role).try(:name),
               image: self.try(:role).try(:image),
+              party: role.try(:party),
               goal: role.try(:goal),
               lore: role.try(:lore),
               punchline: role.try(:punchline),
-              active: role.try(:active_text),
-              passive: role.try(:passive_text),
-              skill: { active: self.try(:role).try(:active),
-                       img_active: nil,
-                       passive: self.try(:role).try(:passive),
-                       img_passive: nil
-                     }
+              active: role.try(:active),
+              passive: role.try(:passive)
             }
     }
+  end
+
+  def broadcast_player_updated
+    reload
+    UserChannel.broadcast_to(player, type: 'player_updated', data: get_player_object)
   end
 
   def create_codename

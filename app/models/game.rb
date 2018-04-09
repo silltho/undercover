@@ -90,9 +90,7 @@ class Game < ApplicationRecord
     data['round'] = round
     init_players
     players.each do |player|
-      data['current_player'] = player
-      data['role_details'] = player.role
-      UserChannel.broadcast_to(player, type: 'player_initialized_game', data: data)
+      player.broadcast_player_updated
     end
   end
 
