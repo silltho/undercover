@@ -29,6 +29,7 @@ class Player < ApplicationRecord
   end
 
   def get_player_object
+    reload
     {
       id: id,
       codename: codename,
@@ -50,7 +51,6 @@ class Player < ApplicationRecord
   end
 
   def broadcast_player_updated
-    reload
     UserChannel.broadcast_to(user, type: 'player_updated', data: get_player_object)
   end
 
@@ -61,7 +61,7 @@ class Player < ApplicationRecord
 
   def change_party
     update(changed_party: true)
-    self.broadcast_player_updated
+    broadcast_player_updated
   end
 
   def reveal_identity(committer)
@@ -69,7 +69,6 @@ class Player < ApplicationRecord
   end
 
   def assign_character(role)
-    reset!
     update(role_id: role, changed_party: false, relations: [])
   end
 

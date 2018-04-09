@@ -61,6 +61,7 @@ class Game < ApplicationRecord
   end
 
   def get_game_object
+    reload
     {  id: id,
        code: code,
        aasm_state: aasm_state,
@@ -72,7 +73,6 @@ class Game < ApplicationRecord
 
   def get_newspaper_object(round)
     data = {}
-    reload
     round.times do |n|
       data[n] = create_stories(n)
     end
@@ -81,7 +81,6 @@ class Game < ApplicationRecord
 
   def init_game
     data = {}
-    reload
     data['round'] = round
     init_players
     players.each do |player|
@@ -191,9 +190,5 @@ class Game < ApplicationRecord
       newspaper
     end
   end
-
-  private
-
-
 end
 
