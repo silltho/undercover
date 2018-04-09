@@ -4,7 +4,7 @@ import {
   GAME_UPDATED,
   GAME_DELETE,
   LEAVE_GAME_SUCCESS,
-  PLAYER_INITIALIZED_GAME,
+  PLAYER_UPDATED,
   INFORMATION_UPDATED,
   RESET_GAME
 } from 'services/constants'
@@ -38,12 +38,9 @@ function appReducer(state = initialState, action) {
     case GAME_DELETE: {
       return state.set('Game', fromJS({}))
     }
-    case PLAYER_INITIALIZED_GAME: {
-      const player = fromJS(action.data.current_player)
-      const role = fromJS(action.data.role_details)
-      return state
-        .set('Player', player)
-        .setIn(['Player', 'role'], role)
+    case PLAYER_UPDATED: {
+      const player = fromJS(action.data)
+      return state.set('Player', player)
     }
     case INFORMATION_UPDATED: {
       return state.set('RoundInformation', fromJS(action.data))
