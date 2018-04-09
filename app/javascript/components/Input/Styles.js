@@ -7,9 +7,9 @@ import {
 const animationTime = '0.5s'
 
 export const Label = styled.label`
-  font-size: 16px;
+  font-size: 1rem;
   position: absolute;
-  top: 0.7em;
+  top: 0.7rem;
   transform: none;
   transition: transform ${animationTime} ease-in-out;
   opacity: 0.5;
@@ -24,10 +24,10 @@ export const Wrapper = styled.div`
 export const Input = styled.input`
     border: none;
     width: 100%;
-    font-size: 1em;
+    font-size: 1rem;
     font-family: inherit;
     border-bottom: 3px solid rgba(255,255,255,0.5);
-    padding: 0.6875em 0 0.5em 0;
+    padding: 0.6875rem 0 0.5rem 0;
     background-color: transparent;
     color: rgba(255,255,255,0.5);
     
