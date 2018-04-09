@@ -3,6 +3,16 @@ require 'aasm/rspec'
 
 RSpec.describe Game, type: :model do
   let!(:game) { Game.new }
+  #game = instance_double("Game", id: 1)
+  # let!(:u1) { instance_double('User', id: 1)}
+  # let!(:u2) { instance_double('User', id: 2)}
+  # let!(:u3) { instance_double('User', id: 3)}
+  # let!(:u4) { instance_double('User', id: 4)}
+  # let!(:p1) { instance_double('Player', id: 1, user: u1)}
+  # let!(:p2) { instance_double('Player', id: 2, user: u2)}
+  # let!(:p3) { instance_double('Player', id: 3, user: u3)}
+  # let!(:p4) { instance_double('Player', id: 1, user: u4)}
+
 
   it 'is valid with valid attributes' do
     expect(game).to be_valid
@@ -96,11 +106,15 @@ RSpec.describe Game, type: :model do
   end
 
   it 'adds players to the game' do
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    p1 = Player.create(user: u1)
+    p2 = Player.create(user: u2)
     game = Game.create(id: 10)
     expect(game.players.count).to eql(0)
-    game.players << Player.create
+    game.add_player(p1)
     expect(game.players.count).to eql(1)
-    game.players << Player.create
+    game.add_player(p2)
     expect(game.players.count).to eql(2)
   end
 
@@ -116,10 +130,12 @@ RSpec.describe Game, type: :model do
     Role.create(id: 3, name: "Junior", power: 4)
     game = Game.create(id: 12)
     expect(game.players.count).to eql(0)
-    p1 = Player.create(id: 4)
-    p2 = Player.create(id: 5)
-    game.players << p1
-    game.players << p2
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    p1 = Player.create(id: 4, user: u1)
+    p2 = Player.create(id: 5, user: u2)
+    game.add_player(p1)
+    game.add_player(p2)
     expect(game.players.count).to eql(2)
     expect(p1.role).to be_nil
     expect(p2.role).to be_nil
@@ -137,10 +153,15 @@ RSpec.describe Game, type: :model do
   end
 
   it 'returns an array with articles' do
+    Role.create(id: 1, name: "Godfather", power: 4, active: "corrupt", passive: "immunity")
+    Role.create(id: 2, name: "President", power: 4, active: "convert", passive: "immunity")
+    Role.create(id: 3, name: "Junior", power: 4, active: "poison")
     game = Game.create(id: 14)
     expect(game.players.count).to eql(0)
-    p1 =  Player.create(id: 3)
-    p2 = Player.create(id: 4)
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    p1 =  Player.create(id: 3, user: u1)
+    p2 = Player.create(id: 4, user: u2)
     game.players << p1
     game.players << p2
     game.initializing!
@@ -150,8 +171,10 @@ RSpec.describe Game, type: :model do
 
   # common
   it 'can use a skill on another player' do
-    p1 = Player.create(id: 3)
-    p2 = Player.create(id: 4)
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    p1 = Player.create(id: 3, user: u1)
+    p2 = Player.create(id: 4, user: u2)
     g = Game.create(id: 13)
     g.players << p1
     g.players << p2
@@ -168,10 +191,14 @@ RSpec.describe Game, type: :model do
     bg = Role.create(name: "Bodyguard", id: 2)
     jr = Role.create(name: "Junior", id: 3)
     ag = Role.create(name: "Agent", id: 4)
-    p1 = Player.create(id: 5, role: gf)
-    p2 = Player.create(id: 6, role: jr)
-    p3 = Player.create(id: 7, role: bg)
-    p4 = Player.create(id: 8, role: ag)
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    u3 = User.create(id: 3)
+    u4 = User.create(id: 4)
+    p1 = Player.create(id: 5, role: gf, user: u1)
+    p2 = Player.create(id: 6, role: jr, user: u2)
+    p3 = Player.create(id: 7, role: bg, user: u3)
+    p4 = Player.create(id: 8, role: ag, user: u4)
     g = Game.create(id: 15)
     g.players << p1
     g.players << p2
@@ -186,8 +213,10 @@ RSpec.describe Game, type: :model do
   it "can't convert or corrupt the head of the other fraction" do
     gf = Role.create(name: "Godfather", id: 1)
     pr = Role.create(name: "President", id: 2)
-    p1 = Player.create(id: 5, role: gf)
-    p2 = Player.create(id: 6, role: pr)
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    p1 = Player.create(id: 5, role: gf, user: u1)
+    p2 = Player.create(id: 6, role: pr, user: u2)
     g = Game.create(id: 15)
     g.players << p1
     g.players << p2
@@ -203,10 +232,14 @@ RSpec.describe Game, type: :model do
     pr = Role.create(name: "President", id: 2, party: "Town")
     ag = Role.create(name: "Agent", id: 3, party: "Town")
     bb = Role.create(name: "Beagle Boy", id: 4, party: "Mafia")
-    p1 = Player.create(id: 5, role: gf, changed_party: false)
-    p2 = Player.create(id: 6, role: pr, changed_party: false)
-    p3 = Player.create(id: 7, role: ag, changed_party: false)
-    p4 = Player.create(id: 8, role: bb, changed_party: false)
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    u3 = User.create(id: 3)
+    u4 = User.create(id: 4)
+    p1 = Player.create(id: 5, role: gf, changed_party: false, user: u1)
+    p2 = Player.create(id: 6, role: pr, changed_party: false, user: u2)
+    p3 = Player.create(id: 7, role: ag, changed_party: false, user: u3)
+    p4 = Player.create(id: 8, role: bb, changed_party: false, user: u4)
     g = Game.create(id: 17)
     g.add_player(p1)
     g.add_player(p2)
@@ -225,14 +258,18 @@ RSpec.describe Game, type: :model do
   end
 
   it 'can imprison other players as Chief or Officer' do
-    ch = Role.create(name: "Chief", id: 1, party: "Town")
-    of = Role.create(name: "Officer", id: 2, party: "Town")
-    ag = Role.create(name: "Agent", id: 3, party: "Town")
-    gf = Role.create(name: "Godfather", id: 4, party: "Mafia")
-    p1 = Player.create(id: 1, role: ch, changed_party: false)
-    p2 = Player.create(id: 2, role: of, changed_party: false)
-    p3 = Player.create(id: 3, role: ag, changed_party: false)
-    p4 = Player.create(id: 4, role: gf, changed_party: false)
+    ch = Role.create(name: "Chief", id: 1, party: "Town", active: "imprison")
+    of = Role.create(name: "Officer", id: 2, party: "Town", active: "imprison")
+    ag = Role.create(name: "Agent", id: 3, party: "Town", active: "spy")
+    gf = Role.create(name: "Godfather", id: 4, party: "Mafia", active: "corrupt", passive: "immunity")
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    u3 = User.create(id: 3)
+    u4 = User.create(id: 4)
+    p1 = Player.create(id: 1, role: ch, changed_party: false, user: u1)
+    p2 = Player.create(id: 2, role: of, changed_party: false, user: u2)
+    p3 = Player.create(id: 3, role: ag, changed_party: false, user: u3)
+    p4 = Player.create(id: 4, role: gf, changed_party: false, user: u4)
     g = Game.create(id: 1)
     g.add_player(p1)
     g.add_player(p2)
