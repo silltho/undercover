@@ -9,16 +9,16 @@ class Player < ApplicationRecord
     state :dead, :imprisoned
 
     event :imprison do
-      transitions from: :alive, to: :imprisoned
+      transitions from: :alive, to: :imprisoned, after: :broadcast_player_updated
     end
 
     event :release do
-      transitions from: :imprisoned, to: :alive
+      transitions from: :imprisoned, to: :alive, after: :broadcast_player_updated
     end
 
     event :die do
-      transitions from: :alive, to: :dead
-      transitions from: :imprisoned, to: :dead
+      transitions from: :alive, to: :dead, after: :broadcast_player_updated
+      transitions from: :imprisoned, to: :dead, after: :broadcast_player_updated
     end
 
     event :reset do
@@ -60,6 +60,7 @@ class Player < ApplicationRecord
 
   def change_party
     update(changed_party: true)
+    self.broadcast_player_updated
   end
 
   def reveal_identity(committer)
