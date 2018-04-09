@@ -219,13 +219,18 @@ class Game < ApplicationRecord
   
   def create_stories(round)
     newspaper = []
-    Article.where(game: self).where(round: round).each do |article|
+    get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
       newspaper << write_success_story(role, article.committer, article.victim) if article.success
       newspaper << write_fail_story(role) unless article.success
     end
     newspaper << avoid_empty_newspaper(newspaper)
     newspaper
+  end
+
+  def get_latest_news(round)
+    ids = Article.where(game: self).where(round: round).group(:committer).maximum(:id).values
+    Article.where(id: ids)
   end
 
   def avoid_empty_newspaper(newspaper)
@@ -239,6 +244,18 @@ class Game < ApplicationRecord
 
   def write_fail_story(role)
     role.try(:text_fail)
+  end
+
+  def is_game_over?
+    statistic = get_party_members
+    statistic["Mafia"].zero? || statistic["Town"].zero? || both_heads_dead?
+  end
+
+  def both_heads_dead?
+    gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
+    pr = Player.where(game: self).where(role: Role.where(name: "President")).first
+    true if gf.state != "alive" && pr.state != "alive"
+    false
   end
 end
 
