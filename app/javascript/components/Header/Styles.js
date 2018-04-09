@@ -11,14 +11,14 @@ export const Wrapper = styled.div`
   align-items: center;
   min-height: 3rem;
   font-family: ${LOGO_FONT};
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 1rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid ${PINK};
 `
 
 export const Title = styled.div`
-	display: flex;
+  display: flex;
 `
 
 export const Logo = styled.img`

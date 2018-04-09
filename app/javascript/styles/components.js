@@ -64,7 +64,10 @@ export const Content = styled.div`
   overflow-x: hidden;
 `
 
-export const Action = styled.div`
+export const Action = styled.button`
+  color: ${PINK};
+  background-color: ${DARK_BLUE};
+  text-transform: uppercase;
   padding: 0.5rem 1rem;
   text-shadow: 2px 2px #000;
   display: flex;
