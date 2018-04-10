@@ -109,13 +109,21 @@ class Game < ApplicationRecord
     data = {}
     %w[Mafia Town Anarchists Prisoners Dead].each{ |k| data[k] = 0 }
     players.each do |player|
-      data["Mafia"] += 1 if player.role.try(:party) == "Mafia" && player.state == "alive"
-      data["Town"]+= 1 if player.role.try(:party) == "Town" && player.state == "alive"
+      data["Mafia"] += 1 if belongs_to_mafia(player) && player.state == "alive"
+      data["Town"]+= 1 if belongs_to_town(player) && player.state == "alive"
       data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
       data["Prisoners"]+= 1  if player.state == "imprisoned"
       data["Dead"]+= 1 if player.state =="dead"
     end
     data
+  end
+
+  def belongs_to_mafia(player)
+    player.role.try(:party) == "Mafia" || (player.role.try(:party) == "Town" && player.role.try(:changed_party) == true)
+  end
+
+  def belongs_to_town(player)
+    player.role.try(:party) == "Town" || (player.role.try(:party) == "Mafia" && player.role.try(:changed_party) == true)
   end
 
   def add_player(player)
@@ -176,7 +184,7 @@ class Game < ApplicationRecord
     victim.imprison! if imprison.include?(action)
     victim.release! if release.include?(action)
     victim.reveal_identity(committer) if reveal.include?(action)
-    victim.change_party if change.include?(action)
+    victim.change_party! if change.include?(action)
     victim.broadcast_player_updated
   end
 

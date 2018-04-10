@@ -59,8 +59,8 @@ class Player < ApplicationRecord
     update(codename: name)
   end
 
-  def change_party
-    update(changed_party: true)
+  def change_party!
+    toggle(:changed_party)
   end
 
   def reveal_identity(committer)
