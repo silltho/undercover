@@ -13,6 +13,7 @@ export const RESET_GAME = 'reset_game'
 export const GAME_UPDATED = 'game_updated'
 export const GAME_DELETE = 'game_delete'
 export const PLAYER_UPDATED = 'player_updated'
+export const PLAYER_INFORMED = 'player_informed'
 
 export const INFORMATION_UPDATED = 'information_updated'
 
