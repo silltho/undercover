@@ -50,8 +50,22 @@ class Player < ApplicationRecord
     }
   end
 
+  def get_victim_object(victim)
+    {
+      name: victim.codename,
+      state: victim.state,
+      role: victim.role.name,
+      party: victim.role.party,
+      changed_party: victim.changed.party
+    }
+  end
+
   def broadcast_player_updated
     UserChannel.broadcast_to(user, type: 'player_updated', data: get_player_object)
+  end
+
+  def broadcast_spy_action(victim)
+    UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
   end
 
   def create_codename

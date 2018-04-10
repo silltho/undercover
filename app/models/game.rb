@@ -183,7 +183,7 @@ class Game < ApplicationRecord
     victim.die! if die.include?(action)
     victim.imprison! if imprison.include?(action)
     victim.release! if release.include?(action)
-    victim.reveal_identity(committer) if reveal.include?(action)
+    committer.broadcast_spy_action(victim) if reveal.include?(action)
     victim.change_party! if change.include?(action)
     victim.broadcast_player_updated
   end
