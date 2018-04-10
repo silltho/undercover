@@ -107,11 +107,13 @@ class Game < ApplicationRecord
 
   def get_party_members
     data = {}
-    %w[Mafia Town Anarchists].each{ |k| data[k] = 0 }
+    %w[Mafia Town Anarchists Prisoners Dead].each{ |k| data[k] = 0 }
     players.each do |player|
-      data["Mafia"] += 1 if player.role.try(:party) == "Mafia"
-      data["Town"]+= 1 if player.role.try(:party) == "Town"
-      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists"
+      data["Mafia"] += 1 if player.role.try(:party) == "Mafia" && player.state == "alive"
+      data["Town"]+= 1 if player.role.try(:party) == "Town" && player.state == "alive"
+      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
+      data["Prisoners"]+= 1  if player.state == "imprisoned"
+      data["Dead"]+= 1 if player.state =="dead"
     end
     data
   end
@@ -217,13 +219,18 @@ class Game < ApplicationRecord
   
   def create_stories(round)
     newspaper = []
-    Article.where(game: self).where(round: round).each do |article|
+    get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
       newspaper << write_success_story(role, article.committer, article.victim) if article.success
       newspaper << write_fail_story(role) unless article.success
     end
     newspaper << avoid_empty_newspaper(newspaper)
     newspaper
+  end
+
+  def get_latest_news(round)
+    ids = Article.where(game: self).where(round: round).group(:committer).maximum(:id).values
+    Article.where(id: ids)
   end
 
   def avoid_empty_newspaper(newspaper)
@@ -237,6 +244,18 @@ class Game < ApplicationRecord
 
   def write_fail_story(role)
     role.try(:text_fail)
+  end
+
+  def is_game_over?
+    statistic = get_party_members
+    statistic["Mafia"].zero? || statistic["Town"].zero? || both_heads_dead?
+  end
+
+  def both_heads_dead?
+    gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
+    pr = Player.where(game: self).where(role: Role.where(name: "President")).first
+    true if gf.state != "alive" && pr.state != "alive"
+    false
   end
 end
 
