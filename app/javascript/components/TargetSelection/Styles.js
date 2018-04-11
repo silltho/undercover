@@ -17,14 +17,11 @@ export const VictimItemWrapper = styled.div`
   padding: 0.5rem;
   text-align: center;
   cursor: pointer;
+  margin-top: 0.5rem;
   ${(props) => props.isTarget && targetStyle}
   ${(props) => props.isDead && 'opacity: 0.5;'}
   
   &:active {
     ${targetStyle};
-  }
-  
-  & + & {
-    margin-top: 0.5rem;
   }
 `
