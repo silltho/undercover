@@ -165,7 +165,7 @@ class Game < ApplicationRecord
   def check_immunity_roles(committer, victim)
     if committer.role.party == victim.role.party
       false
-    elsif committer.role.passive == 'immunity' || victim.role.passive == 'immunity'
+    elsif committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
       false
     else
       true
