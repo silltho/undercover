@@ -6,7 +6,8 @@ import {
   LEAVE_GAME_SUCCESS,
   PLAYER_UPDATED,
   INFORMATION_UPDATED,
-  RESET_GAME
+  RESET_GAME,
+  PLAYER_INFORMED
 } from 'services/constants'
 
 const initialState = fromJS({
@@ -17,6 +18,10 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case PLAYER_INFORMED: {
+      alert(action.data)
+      return
+    }
     case RESET_GAME: {
       return initialState
     }
