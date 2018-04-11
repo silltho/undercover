@@ -72,6 +72,22 @@ RSpec.describe Player, type: :model do
     expect(p1.relations).not_to be_empty
   end
 
+  it 'can spy on or blackmail other players' do
+    gf = Role.create(name: "Godfather", id: 1, party: "Mafia", active: "corrupt", passive: "immunity")
+    pr = Role.create(name: "President", id: 2, party: "Town", active: "convert", passive: "immunity")
+    sp = Role.create(name: "Agent", id: 3, party: "Town", active: "spy")
+    bg = Role.create(name: "Bodyguard", id: 4, party: "Mafia", active: "blackmail")
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    u3 = User.create(id: 3)
+    u4 = User.create(id: 4)
+    p1 =  Player.create(id: 1, user: u1, role: gf)
+    p2 = Player.create(id: 2, user: u2, role: pr)
+    p3 =  Player.create(id: 3, user: u3, role: sp)
+    p4 = Player.create(id: 4, user: u4, role: bg)
+    g = Game.new
+    expect(g.calculate_success(p4.id, p2.id)).to be true
+  end
 =begin
   it 'gets its relations as Godfather' do
     gf = Role.create(name: "Godfather", id: 1)

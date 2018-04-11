@@ -210,7 +210,7 @@ RSpec.describe Game, type: :model do
   end
 
   # President and Godfather
-  it "can't convert or corrupt the head of the other fraction" do
+  it "can't convert or corrupt the head of the other party" do
     gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
     pr = Role.create(name: "President", id: 2, active: "corrupt", passive: "immunity")
     u1 = User.create(id: 1)
@@ -249,6 +249,7 @@ RSpec.describe Game, type: :model do
     expect(p3.changed_party).to be false
     expect(g.calculate_success(p1.id, p3.id)).to be true
     g.apply_action(p1, p3)
+    p3.reload
     expect(p3.changed_party).to be true
     expect(g.calculate_success(p1.id, p4.id)).to be false
     expect(p4.changed_party).to be false
@@ -283,4 +284,5 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p2.id, p3.id)).to be true
     expect(g.calculate_success(p2.id, p4.id)).to be true
   end
+
 end
