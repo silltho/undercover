@@ -19,8 +19,9 @@ const initialState = fromJS({
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case PLAYER_INFORMED: {
+      console.log(action)
       alert(action.data)
-      return
+      return state
     }
     case RESET_GAME: {
       return initialState
