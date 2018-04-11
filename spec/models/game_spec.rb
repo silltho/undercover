@@ -187,9 +187,9 @@ RSpec.describe Game, type: :model do
 
   # Junior
   it 'can kill any player as Junior' do
-    gf = Role.create(name: "Godfather", id: 1)
+    gf = Role.create(name: "Godfather", id: 1, passive: "immunity")
     bg = Role.create(name: "Bodyguard", id: 2)
-    jr = Role.create(name: "Junior", id: 3)
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
     ag = Role.create(name: "Agent", id: 4)
     u1 = User.create(id: 1)
     u2 = User.create(id: 2)
@@ -211,12 +211,12 @@ RSpec.describe Game, type: :model do
 
   # President and Godfather
   it "can't convert or corrupt the head of the other fraction" do
-    gf = Role.create(name: "Godfather", id: 1)
-    pr = Role.create(name: "President", id: 2)
+    gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
+    pr = Role.create(name: "President", id: 2, active: "corrupt", passive: "immunity")
     u1 = User.create(id: 1)
     u2 = User.create(id: 2)
-    p1 = Player.create(id: 5, role: gf, user: u1)
-    p2 = Player.create(id: 6, role: pr, user: u2)
+    p1 = Player.create(id: 5, role: gf, user: u1, changed_party: false)
+    p2 = Player.create(id: 6, role: pr, user: u2, changed_party: false)
     g = Game.create(id: 15)
     g.players << p1
     g.players << p2
@@ -228,10 +228,10 @@ RSpec.describe Game, type: :model do
 
   # President and Godfather
   it "can convert or corrupt a player of the other fraction" do
-    gf = Role.create(name: "Godfather", id: 1, party: "Mafia")
-    pr = Role.create(name: "President", id: 2, party: "Town")
-    ag = Role.create(name: "Agent", id: 3, party: "Town")
-    bb = Role.create(name: "Beagle Boy", id: 4, party: "Mafia")
+    gf = Role.create(name: "Godfather", id: 1, party: "Mafia", active: "corrupt", passive: "immunity")
+    pr = Role.create(name: "President", id: 2, party: "Town", active: "convert", passive: "immunity")
+    ag = Role.create(name: "Agent", id: 3, party: "Town", active: "spy")
+    bb = Role.create(name: "Beagle Boy", id: 4, party: "Mafia", active: "free")
     u1 = User.create(id: 1)
     u2 = User.create(id: 2)
     u3 = User.create(id: 3)
@@ -248,11 +248,12 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p2.id, p3.id)).to be false
     expect(p3.changed_party).to be false
     expect(g.calculate_success(p1.id, p3.id)).to be true
-    p3.reload
+    g.apply_action(p1, p3)
     expect(p3.changed_party).to be true
     expect(g.calculate_success(p1.id, p4.id)).to be false
     expect(p4.changed_party).to be false
     expect(g.calculate_success(p2.id, p4.id)).to be true
+    g.apply_action(p2, p4)
     p4.reload
     expect(p4.changed_party).to be true
   end

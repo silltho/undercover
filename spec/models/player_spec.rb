@@ -51,9 +51,9 @@ RSpec.describe Player, type: :model do
 
   it 'can be converted or corrupted aka change party' do
     u1 = User.create(id: 1)
-    player = Player.new(id: 1, user: u1)
+    player = Player.new(id: 1, user: u1, changed_party: false)
     expect(player.changed_party).to be false
-    player.change_party
+    player.change_party!
     expect(player.changed_party).to be true
   end
 
