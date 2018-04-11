@@ -163,11 +163,11 @@ class Game < ApplicationRecord
   end
 
   def check_for_change(committer, victim)
-    # reconverting is possible
-    if not_same_party_anymore(committer, victim)
-      true
     # president can't convert godfather and vice versa
-    elsif committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
+    if committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
+      true
+    # reconverting is possible
+    elsif not_same_party_anymore(committer, victim)
       false
     # members of the same party do not change party
     elsif same_party(committer, victim)
@@ -202,43 +202,6 @@ class Game < ApplicationRecord
     victim.broadcast_player_updated
   end
 
-=begin
-  def calculate_success(c_id, v_id)
-    committer = Player.find(c_id)
-    committer_role = committer.try(:role).try(:name)
-    victim = Player.find(v_id)
-    victim_role = victim.try(:role).try(:name)
-    if (committer_role == "Godfather" && victim_role == "President") || (committer_role == "President" && victim_role == "Godfather")
-      false
-    elsif (committer_role == "Godfather" && victim_role == "Junior") || (committer_role == "President" && victim_role == "Junior")
-      false
-    elsif committer_role == "Junior" || committer_role == "Enforcer"
-      victim.die!
-      true
-    elsif committer_role == "President" || committer_role == "Godfather"
-      if victim.role.party == committer.role.party
-        false
-      else
-        victim.change_party
-        victim.reload
-        true
-      end
-    elsif committer_role == "Chief" || committer_role == "Officer"
-      victim.imprison!
-      true
-    elsif committer_role == "Bodyguard" || committer_role == "Agent"
-      victim.reveal_identity(committer)
-      true
-    elsif committer_role == "Beagle Boy"
-      victim.release!
-      true
-    else
-      true
-    end
-  end
-=end
-
-  
   def create_stories(round)
     newspaper = []
     get_latest_news(round).each do |article|
