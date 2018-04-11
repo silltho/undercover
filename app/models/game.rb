@@ -159,17 +159,31 @@ class Game < ApplicationRecord
     c = Player.find(c_id)
     v = Player.find(v_id)
     return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
-    check_immunity_roles(c, v)
+    check_for_change(c, v)
   end
 
-  def check_immunity_roles(committer, victim)
-    if committer.role.party == victim.role.party
-      false
+  def check_for_change(committer, victim)
+    # reconverting is possible
+    if not_same_party_anymore(committer, victim)
+      true
+    # president can't convert godfather and vice versa
     elsif committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
       false
+    # members of the same party do not change party
+    elsif same_party(committer, victim)
+      false
+    # if not case applies, converting is possible
     else
       true
     end
+  end
+
+  def same_party(committer, victim)
+    committer.role.party == victim.role.party
+  end
+
+  def not_same_party_anymore(committer, victim)
+    committer.role.party == victim.role.party && committer.changed_party != victim.changed_party
   end
 
   # actions are applied to successful happenings
