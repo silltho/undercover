@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
-import { resetGameAction } from 'services/actions'
+import {
+  resetGameAction,
+  hidePlayerInformationsAction
+} from 'services/actions'
 import GamePhases from 'config/gamePhases'
 import FadeIn from 'components/Animations/FadeIn'
 import SlideInOut from 'components/Animations/SlideInOut'
@@ -12,6 +15,7 @@ import GameInfo from 'components/GameInfo'
 import GameExchange from 'components/GameExchange'
 import GameActivity from 'components/GameActivity'
 import GameEnd from 'components/GameEnd'
+import PlayerInformationModal from 'components/PlayerInformationModal'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -79,11 +83,23 @@ class Game extends React.PureComponent {
   }
 
   render() {
+    const {
+      playerInformation,
+      hidePlayerInformations
+    } = this.props
+    const showPlayerInformationModal = playerInformation.get('show')
+
     return (
       <FadeIn>
         <SlideInOut>
           {this.renderCurrentPhase()}
         </SlideInOut>
+        {showPlayerInformationModal &&
+          <PlayerInformationModal
+            playerInformation={playerInformation}
+            onRequestHide={hidePlayerInformations}
+          />
+        }
       </FadeIn>
     )
   }
@@ -93,12 +109,14 @@ Game.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired,
+  playerInformation: PropTypes.instanceOf(Map).isRequired,
   endExchangePhase: PropTypes.func.isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   useSkill: PropTypes.func.isRequired,
   allSkillsUsed: PropTypes.func.isRequired,
-  resetGame: PropTypes.func.isRequired
+  resetGame: PropTypes.func.isRequired,
+  hidePlayerInformations: PropTypes.func.isRequired
 }
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -107,13 +125,15 @@ export const mapDispatchToProps = (dispatch) => ({
   startGame: GameChannel.startGame,
   useSkill: GameChannel.useSkill,
   allSkillsUsed: GameChannel.allSkillsUsed,
-  resetGame: () => dispatch(resetGameAction())
+  resetGame: () => dispatch(resetGameAction()),
+  hidePlayerInformations: () => dispatch(hidePlayerInformationsAction())
 })
 
 const mapStateToProps = (state) => ({
   game: state.get('Game'),
   player: state.get('Player'),
-  roundInformation: state.get('RoundInformation')
+  roundInformation: state.get('RoundInformation'),
+  playerInformation: state.get('PlayerInformation')
 })
 
 export default connect(

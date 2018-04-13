@@ -15,6 +15,8 @@ export const GAME_DELETE = 'game_delete'
 export const PLAYER_UPDATED = 'player_updated'
 export const PLAYER_INFORMED = 'player_informed'
 
+export const HIDE_PLAYER_INFORMATIONS = 'hide_player_informations'
+
 export const INFORMATION_UPDATED = 'information_updated'
 
 export const START_GAME = 'start_game'

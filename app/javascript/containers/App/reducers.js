@@ -7,21 +7,29 @@ import {
   PLAYER_UPDATED,
   INFORMATION_UPDATED,
   RESET_GAME,
-  PLAYER_INFORMED
+  PLAYER_INFORMED,
+  HIDE_PLAYER_INFORMATIONS
 } from 'services/constants'
 
 const initialState = fromJS({
   Game: {},
   Player: {},
-  RoundInformation: {}
+  RoundInformation: {},
+  PlayerInformation: {
+    informations: [],
+    show: true
+  }
 })
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case HIDE_PLAYER_INFORMATIONS: {
+      return state.setIn(['PlayerInformation', 'show'], false)
+    }
     case PLAYER_INFORMED: {
-      console.log(action)
-      alert(action.data)
-      return state
+      const newInformation = fromJS(action.data)
+      return state.setIn(['PlayerInformation', 'show'], true)
+        .updateIn(['PlayerInformation', 'informations'], (informations) => informations.push(newInformation))
     }
     case RESET_GAME: {
       return initialState
