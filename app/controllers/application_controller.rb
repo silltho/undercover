@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :set_user
 
   def set_user
-    session[:foo] = "bar" if session.id.nil?
     @current_user = User.find_or_create_by(session_id: session.id)
     cookies.signed[:session_id] = session.id
   end

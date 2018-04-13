@@ -1,4 +1,5 @@
 <div class='town-container'>
+  <% session[:foo] = "bar" if session.id.nil? %>
   <div class='play-game-button-container'}>
         <%= link_to "PLAY", '/app', class: 'play-game-button' %>
   </div>
