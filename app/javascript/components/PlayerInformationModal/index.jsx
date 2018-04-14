@@ -7,7 +7,8 @@ import {
   ModalTitel,
   ModalBody,
   ModalButton,
-  Overlay
+  Overlay,
+  Tape
 } from './Styles'
 
 class PlayerInformationModal extends React.PureComponent {
@@ -20,13 +21,11 @@ class PlayerInformationModal extends React.PureComponent {
     return (
       <Overlay>
         <Modal>
-          <ModalTitel>
-            New Information
-          </ModalTitel>
+          <Tape onClick={onRequestHide}>Remove</Tape>
           <ModalBody>
             {playerInformation.get('informations').toString()}
           </ModalBody>
-          <ModalButton onClick={onRequestHide}>close</ModalButton>
+          {/*<ModalButton onClick={onRequestHide}>close</ModalButton>*/}
         </Modal>
       </Overlay>
     )
