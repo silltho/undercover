@@ -4,6 +4,9 @@ import { Map } from 'immutable'
 
 import {
   Modal,
+  ModalTitel,
+  ModalBody,
+  ModalButton,
   Overlay
 } from './Styles'
 
@@ -17,10 +20,13 @@ class PlayerInformationModal extends React.PureComponent {
     return (
       <Overlay>
         <Modal>
-          {
-            playerInformation.get('informations')
-          }
-          <button onClick={onRequestHide}>ok</button>
+          <ModalTitel>
+            New Information
+          </ModalTitel>
+          <ModalBody>
+            {playerInformation.get('informations').toString()}
+          </ModalBody>
+          <ModalButton onClick={onRequestHide}>close</ModalButton>
         </Modal>
       </Overlay>
     )
