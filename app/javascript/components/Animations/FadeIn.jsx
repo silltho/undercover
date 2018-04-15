@@ -14,6 +14,16 @@ injectGlobal`
     transform: translateY(0%);
     transition: all .5s ease-in;
   }
+  .fadeIn-leave {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  
+  .fadeIn-leave.fadeIn-leave-active {
+    opacity: 0;
+    transform: translateY(20%);
+    transition: all .5s ease-in;
+  }
 `
 
 const Wrapper = styled.div`
@@ -40,9 +50,9 @@ class FadeIn extends React.PureComponent {
         {...this.props}
         transitionName="fadeIn"
         transitionEnter={false} // doesnt work on mounting
-        transitionLeave={false} // doesnt work on unmounting
         transitionAppear
         transitionAppearTimeout={500}
+        transitionLeaveTimeout={500}
         component={Wrapper}
       />
     )
