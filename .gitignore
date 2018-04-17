@@ -35,6 +35,7 @@ database.yml
 
 npm-debug.log
 /coverage/*
+stats.hml
 
 # Ignore encrypted secrets key file.
 config/secrets.yml.key

@@ -1,10 +1,13 @@
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
+
 
 const customConfig = {
   plugins: [
     new ServiceWorkerWebpackPlugin({
       entry: './app/javascript/packs/registerServiceWorker.js'
-    })
+    }),
+    new Visualizer()
   ],
   module: {
     rules: [
