@@ -5,7 +5,8 @@ import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
 import {
   resetGameAction,
-  hidePlayerInformationsAction
+  hidePlayerInformationsAction,
+  waitForOpponentAction
 } from 'services/actions'
 import GamePhases from 'config/gamePhases'
 import FadeIn from 'components/Animations/FadeIn'
@@ -84,10 +85,10 @@ class Game extends React.PureComponent {
 
   render() {
     const {
-      playerInformation,
+      app,
       hidePlayerInformations
     } = this.props
-    const showPlayerInformationModal = playerInformation.get('show')
+    const showPlayerInformationModal = app.get('showPlayerInformation')
 
     return (
       <FadeIn>
@@ -96,7 +97,7 @@ class Game extends React.PureComponent {
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal
-            playerInformation={playerInformation}
+            playerInformation={this.props.playerInformation}
             onRequestHide={hidePlayerInformations}
           />
         }
@@ -106,6 +107,7 @@ class Game extends React.PureComponent {
 }
 
 Game.propTypes = {
+  app: PropTypes.instanceOf(Map).isRequired,
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired,
@@ -120,16 +122,32 @@ Game.propTypes = {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  endExchangePhase: GameChannel.endExchangePhase,
-  endInfoPhase: GameChannel.endInfoPhase,
-  startGame: GameChannel.startGame,
-  useSkill: GameChannel.useSkill,
-  allSkillsUsed: GameChannel.allSkillsUsed,
+  endExchangePhase: () => {
+    GameChannel.endExchangePhase()
+    dispatch(waitForOpponentAction())
+  },
+  endInfoPhase: () => {
+    GameChannel.endInfoPhase()
+    dispatch(waitForOpponentAction())
+  },
+  startGame: () => {
+    GameChannel.startGame()
+    dispatch(waitForOpponentAction())
+  },
+  useSkill: (targetId) => {
+    GameChannel.useSkill(targetId)
+    dispatch(waitForOpponentAction())
+  },
+  allSkillsUsed: () => {
+    GameChannel.allSkillsUsed()
+    dispatch(waitForOpponentAction())
+  },
   resetGame: () => dispatch(resetGameAction()),
   hidePlayerInformations: () => dispatch(hidePlayerInformationsAction())
 })
 
 const mapStateToProps = (state) => ({
+  app: state.get('App'),
   game: state.get('Game'),
   player: state.get('Player'),
   roundInformation: state.get('RoundInformation'),

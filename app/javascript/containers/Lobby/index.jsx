@@ -19,6 +19,7 @@ import {
 
 class Lobby extends React.PureComponent {
   leaveGame = () => {
+    console.log('leave game', this.props.game.get('id'))
     this.props.leaveGame(this.props.game.get('id'))
   }
 
