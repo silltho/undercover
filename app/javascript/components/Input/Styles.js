@@ -11,7 +11,8 @@ export const Label = styled.label`
   position: absolute;
   top: 0.7rem;
   transform: none;
-  transition: transform ${animationTime} ease-in-out;
+  transform-origin: top left;
+  transition: all ${animationTime} ease-in-out;
   opacity: 0.5;
 `
 
@@ -21,12 +22,20 @@ export const Wrapper = styled.div`
   position: relative;
 `
 
+export const Line = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  box-shadow: 3px 3px 0 0 #000000;
+  background-color: rgba(255,255,255,0.5);
+`
+
 export const Input = styled.input`
     border: none;
     width: 100%;
     font-size: 1rem;
     font-family: inherit;
-    border-bottom: 3px solid rgba(255,255,255,0.5);
     padding: 0.6875rem 0 0.5rem 0;
     background-color: transparent;
     color: rgba(255,255,255,0.5);
@@ -48,10 +57,10 @@ export const Input = styled.input`
         transition: opacity ${animationTime} ease-in;
       }
       & + ${Label} {
-        transform-origin: top left;
-        transform: scale(0.8) translateY(-1.8rem); 
-        color: ${PINK};
         opacity: 1;
+        transform-origin: top left;
+        transform: scale(0.8) translateY(-100%) translateY(-0.5rem); 
+        color: ${PINK};
       }
     }
 `

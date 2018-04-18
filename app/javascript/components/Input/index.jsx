@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import {
   Wrapper,
   Input,
-  Label
+  Label,
+  Line
 } from './Styles'
 
 class InputComponent extends React.PureComponent {
@@ -30,6 +31,7 @@ class InputComponent extends React.PureComponent {
         <Label htmlFor={`input_${name}`}>
           {label}
         </Label>
+        <Line />
       </Wrapper>
     )
   }
