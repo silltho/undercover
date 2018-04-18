@@ -68,7 +68,8 @@
     "serviceworker-webpack-plugin": "^0.2.3",
     "styled-components": "^2.2.1",
     "url-loader": "^1.0.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "devDependencies": {
     "enzyme": "^3.1.0",
@@ -81,7 +82,6 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
     "jest-enzyme": "^4.0.1",
-    "webpack-dev-server": "^2.9.2",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "webpack-dev-server": "^2.9.2"
   }
 }
