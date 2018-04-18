@@ -11,8 +11,9 @@ export default {
   handcuffs: 'e909',
   rescue: 'e90a',
   beat: 'e90b',
-  convert: 'e90c'
-
+  convert: 'e90c',
+  arrow_left: 'ea40',
+  arrow_right: 'ea3c'
   /*
     home: 'e900',
     newspaper: 'e904',

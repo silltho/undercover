@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import PlayersList from 'components/PlayersList'
+import IconFont, {ICONS} from 'components/IconFont'
 import {
   BorderContainer,
   Content,
@@ -44,7 +45,7 @@ class GameStart extends React.PureComponent {
             <PlayersList players={game.get('players')} />
             <BorderContainerFooter>
               <Action onClick={startGame}>
-                got it
+                <IconFont icon={ICONS.arrow_right} />
               </Action>
             </BorderContainerFooter>
           </BorderContainer>

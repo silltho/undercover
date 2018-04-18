@@ -24,6 +24,7 @@ secrets.*
 
 .byebug_history
 /public/packs
+/public/assets
 /public/packs-test
 /node_modules
 

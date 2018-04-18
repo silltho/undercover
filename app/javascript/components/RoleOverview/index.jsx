@@ -41,7 +41,7 @@ class RoleOverview extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel onClick={skipPhase}>{roleDetails.get('name')}</BorderContainerTitel>
+            <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
               imprisoned={state === PlayerStates.IMPRISONED}
@@ -62,7 +62,10 @@ class RoleOverview extends React.PureComponent {
                 hide
               </Action>
               { state === PlayerStates.ALIVE &&
-                <ActionIcon icon={activeIcon} onClick={showTargetSelection}/>
+                <React.Fragment>
+                  <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+                  <ActionIcon icon={ICONS.arrow_right} onClick={skipPhase} />
+                </React.Fragment>
               }
             </BorderContainerFooter>
           </BorderContainer>

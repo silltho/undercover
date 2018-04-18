@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import IconFont from 'components/IconFont'
 import {
   DARK_BLUE,
   LOGO_FONT,
@@ -81,5 +82,12 @@ export const Action = styled.button`
   &:active, &:focus {
     outline: none;
     background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  ${IconFont} {
+    font-size: 2rem;
+    &:active{
+      text-shadow: none;
+    }
   }
 `
