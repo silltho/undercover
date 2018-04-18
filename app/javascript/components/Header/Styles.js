@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   font-size: 2rem;
   padding: 1rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid ${PINK};
+  border-bottom: 2px solid ${PINK};
 `
 
 export const Title = styled.div`
