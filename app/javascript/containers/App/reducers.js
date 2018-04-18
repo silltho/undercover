@@ -14,8 +14,8 @@ import {
 
 const initialState = fromJS({
   App: {
-    showPlayerInformation: true,
-    waitForOpponents: false
+    showPlayerInformation: false,
+    showWaitForOpponents: true
   },
   Game: {},
   Player: {},
@@ -33,7 +33,7 @@ const initialState = fromJS({
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case WAIT_FOR_OPPONENTS: {
-      return state.setIn(['App', 'waitForOpponents'], true)
+      return state.setIn(['App', 'showWaitForOpponents'], true)
     }
     case HIDE_PLAYER_INFORMATIONS: {
       return state.setIn(['App', 'showPlayerInformation'], false)
@@ -50,7 +50,7 @@ function appReducer(state = initialState, action) {
       const game = state.get('Game', Map())
       const data = fromJS(action.data)
       return state.setIn(['Game'], game.merge(data))
-        .setIn(['App', 'waitForOpponents'], false)
+        .setIn(['App', 'showWaitForOpponents'], false)
     }
     case CREATE_GAME_SUCCESS: {
       const game = state.get('Game', Map())

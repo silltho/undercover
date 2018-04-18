@@ -28,6 +28,19 @@ const Wrapper = styled.div`
   flex: 1;
 `
 
+const WaitingForOpponentsOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  line-height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+`
+
 class Game extends React.PureComponent {
   renderCurrentPhase = () => {
     switch (this.props.game.get('aasm_state')) {
@@ -89,6 +102,7 @@ class Game extends React.PureComponent {
       hidePlayerInformations
     } = this.props
     const showPlayerInformationModal = app.get('showPlayerInformation')
+    const showWaitForOpponents = app.get('showWaitForOpponents')
 
     return (
       <FadeIn>
@@ -100,6 +114,11 @@ class Game extends React.PureComponent {
             playerInformation={this.props.playerInformation}
             onRequestHide={hidePlayerInformations}
           />
+        }
+        {showWaitForOpponents &&
+          <WaitingForOpponentsOverlay>
+            <span>waiting for opponents ...</span>
+          </WaitingForOpponentsOverlay>
         }
       </FadeIn>
     )
