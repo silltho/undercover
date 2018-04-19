@@ -7,26 +7,51 @@ import {
   PLAYER_UPDATED,
   INFORMATION_UPDATED,
   RESET_GAME,
-  PLAYER_INFORMED
+  PLAYER_INFORMED,
+  HIDE_PLAYER_INFORMATIONS,
+  WAIT_FOR_OPPONENTS
 } from 'services/constants'
 
 const initialState = fromJS({
+  App: {
+    showPlayerInformation: false,
+    showWaitForOpponents: true
+  },
   Game: {},
   Player: {},
-  RoundInformation: {}
+  RoundInformation: {},
+  PlayerInformation: {
+    informations: [{
+      name: 'subjectname',
+      role: 'Godfather',
+      state: 'alive',
+      changed_party: false
+    }]
+  }
 })
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case WAIT_FOR_OPPONENTS: {
+      return state.setIn(['App', 'showWaitForOpponents'], true)
+    }
+    case HIDE_PLAYER_INFORMATIONS: {
+      return state.setIn(['App', 'showPlayerInformation'], false)
+    }
     case PLAYER_INFORMED: {
-      console.log(action)
-      alert(action.data)
-      return state
+      const newInformation = fromJS(action.data)
+      return state.setIn(['App', 'showPlayerInformation'], true)
+        .updateIn(['PlayerInformation', 'informations'], (informations) => informations.push(newInformation))
     }
     case RESET_GAME: {
       return initialState
     }
-    case GAME_UPDATED:
+    case GAME_UPDATED: {
+      const game = state.get('Game', Map())
+      const data = fromJS(action.data)
+      return state.setIn(['Game'], game.merge(data))
+        .setIn(['App', 'showWaitForOpponents'], false)
+    }
     case CREATE_GAME_SUCCESS: {
       const game = state.get('Game', Map())
       const data = fromJS(action.data)

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Flip from 'components/Animations/Flip'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
@@ -10,7 +11,6 @@ import {
   Action,
   Scrollable
 } from 'styles/components'
-
 import DayButton from './DayButton'
 import {
   DayButtonContainer,
@@ -76,13 +76,11 @@ class GameInfo extends React.PureComponent {
             </BorderContainerTitel>
             {renderedInfos.size > 0 ? (
               <Scrollable>
-                  <InfoList>
+                <InfoList>
                   {renderedInfos}
                 </InfoList>
               </Scrollable>
-              ) : (
-                <NoInfosMessage>-- no infos for this day --</NoInfosMessage>
-              )
+            ) : (<NoInfosMessage>-- no infos for this day --</NoInfosMessage>)
             }
             {renderedDayButtons.size > 0 ?
               (
@@ -92,7 +90,9 @@ class GameInfo extends React.PureComponent {
               ) : null
             }
             <BorderContainerFooter>
-              <Action onClick={readInfos}>read</Action>
+              <Action onClick={readInfos}>
+                <IconFont icon={ICONS.arrow_right} />
+              </Action>
             </BorderContainerFooter>
           </BorderContainer>
         </Content>

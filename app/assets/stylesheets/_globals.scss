@@ -1,7 +1,7 @@
 /*
     Global Styleguide variables
  */
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Nunito:200,300,400,600|Spectral:200,300,400,500&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Rock+Salt|Nunito:200,300,400,600|Spectral:200,300,400,500&subset=latin-ext');
 
 /* COLORS */
 $g_Black: #000000;
@@ -17,6 +17,7 @@ $g_DarkBlue: #06232D;
 $g_lancelot: 'Abril Fatface', cursive; // logo only
 $g_spectral: 'Spectral', serif; // newspaper headliner, infophase
 $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
+$g_rocksalt: 'Rock Salt', cursive;
 
 /* ASSETS */
 $g_logo_path: asset-path('town.png');
@@ -70,6 +71,7 @@ input[type=number]::-webkit-outer-spin-button {
   LOGO_FONT: $g_lancelot;
   NEWSPAPER_FONT: $g_spectral;
   MAIN_FONT: $g_nunito;
+  NOTE_FONT: $g_rocksalt;
 
   LOGO_PATH: $g_logo_path;
 }
