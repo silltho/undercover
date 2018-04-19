@@ -55,6 +55,7 @@ class Game extends React.PureComponent {
       case GamePhases.FINISHED:
         return (
           <GameEnd
+            winner={this.props.game.get('winner')}
             resetGame={this.props.resetGame}
           />)
       default:
