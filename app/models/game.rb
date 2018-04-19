@@ -256,7 +256,8 @@ class Game < ApplicationRecord
   def both_heads_dead?
     gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
     pr = Player.where(game: self).where(role: Role.where(name: "President")).first
-    true if gf.state != "alive" && pr.state != "alive"
+    ju = Player.where(game: self).where(role: Role.where(name: "Junior")).first
+    true if gf.state != "alive" && pr.state != "alive" && jr.state == "alive"
     false
   end
 end
