@@ -17,80 +17,46 @@ import GameExchange from 'components/GameExchange'
 import GameActivity from 'components/GameActivity'
 import GameEnd from 'components/GameEnd'
 import PlayerInformationModal from 'components/PlayerInformationModal'
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`
-
-const WaitingForOpponentsOverlay = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  text-align: center;
-  line-height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-`
+import {
+  Wrapper,
+  WaitingForOpponentsOverlay
+} from './Styles'
 
 class Game extends React.PureComponent {
   renderCurrentPhase = () => {
     switch (this.props.game.get('aasm_state')) {
       case GamePhases.INITIALIZED:
         return (
-          <Wrapper key="game-start">
-            <GameStart
-              game={this.props.game}
-              player={this.props.player}
-              startGame={this.props.startGame}
-            />
-          </Wrapper>
-        )
+          <GameStart
+            game={this.props.game}
+            player={this.props.player}
+            startGame={this.props.startGame}
+          />)
       case GamePhases.INFO:
         return (
-          <Wrapper key="game-info">
-            <GameInfo
-              round={this.props.game.get('round') || 0}
-              roundInformation={this.props.roundInformation}
-              readInfos={this.props.endInfoPhase}
-            />
-          </Wrapper>
-        )
+          <GameInfo
+            round={this.props.game.get('round') || 0}
+            roundInformation={this.props.roundInformation}
+            readInfos={this.props.endInfoPhase}
+          />)
       case GamePhases.EXCHANGE:
         return (
-          <Wrapper key="game-exchange">
-            <GameExchange
-              endExchange={this.props.endExchangePhase}
-            />
-          </Wrapper>
-        )
+          <GameExchange
+            endExchange={this.props.endExchangePhase}
+          />)
       case GamePhases.ACTIVITY:
         return (
-          <Wrapper key="game-activity">
-            <GameActivity
-              useSkill={this.props.useSkill}
-              allSkillsUsed={this.props.allSkillsUsed}
-              player={this.props.player}
-              game={this.props.game}
-            />
-          </Wrapper>
-        )
+          <GameActivity
+            useSkill={this.props.useSkill}
+            allSkillsUsed={this.props.allSkillsUsed}
+            player={this.props.player}
+            game={this.props.game}
+          />)
       case GamePhases.FINISHED:
         return (
-          <Wrapper key="game-finished">
-            <GameEnd
-              resetGame={this.props.resetGame}
-            />
-          </Wrapper>
-        )
+          <GameEnd
+            resetGame={this.props.resetGame}
+          />)
       default:
         return (<div>game is in a unknown state</div>)
     }
@@ -103,11 +69,14 @@ class Game extends React.PureComponent {
     } = this.props
     const showPlayerInformationModal = app.get('showPlayerInformation')
     const showWaitForOpponents = app.get('showWaitForOpponents')
+    const gamePhaseKey = this.props.game.get('aasm_state')
 
     return (
       <FadeIn>
         <SlideInOut>
-          {this.renderCurrentPhase()}
+          <Wrapper key={`phase-${gamePhaseKey}`}>
+            {this.renderCurrentPhase()}
+          </Wrapper>
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal
