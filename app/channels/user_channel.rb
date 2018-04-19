@@ -13,13 +13,13 @@ class UserChannel < ApplicationCable::Channel
 
   def leave_game(params)
     game = Game.find(params['id'])
-    player = get_player(game).destroy
+    player = Player.where(game: game, user: current_user).first.destroy
     game.players.delete(player)
     UserChannel.broadcast_to(current_user, type: 'leave_game_success', data: game.get_game_object)
     game.broadcast_game_updated
   end
 
-  def join_game (params)
+  def join_game(params)
     game = Game.where(code: params['gamecode'], aasm_state: 'waiting').first
     player = create_new_player(game)
     game.add_player(player) unless game.players.include? player
