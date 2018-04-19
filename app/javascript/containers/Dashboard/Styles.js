@@ -22,3 +22,12 @@ export const ButtonContainer = styled.div`
     margin: 0rem;
   }
 `
+
+export const Title = styled.div`
+  display: flex;
+`
+
+export const Logo = styled.img`
+  margin: 0rem 1rem;
+  max-height: 3rem;
+`

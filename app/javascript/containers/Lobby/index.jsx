@@ -2,15 +2,17 @@ import React from 'react'
 import { Map } from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import FadeIn from 'components/Animations/FadeIn'
+import Button from 'components/Button'
 import {
   UserChannel,
   GameChannel
 } from 'services/channels'
-import FadeIn from 'components/Animations/FadeIn'
-import Button from 'components/Button'
-import Footer from 'components/Footer'
-import Content from 'components/Content'
-import Header from 'components/Header'
+import {
+  Content,
+  Header,
+  Footer
+} from 'styles/components'
 import {
   PlayerCount,
   RoomCode
@@ -19,7 +21,6 @@ import {
 
 class Lobby extends React.PureComponent {
   leaveGame = () => {
-    console.log('leave game', this.props.game.get('id'))
     this.props.leaveGame(this.props.game.get('id'))
   }
 

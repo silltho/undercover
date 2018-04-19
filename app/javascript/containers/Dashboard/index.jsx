@@ -1,14 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import LogoImg from 'assets/images/palm_tree.png'
 import { GameChannel, UserChannel } from 'services/channels'
-import Header from 'components/Header'
 import Button from 'components/Button'
 import FadeIn from 'components/Animations/FadeIn'
 import JoinGameForm from 'components/JoinGameForm'
 import {
+  Header
+} from 'styles/components'
+import {
   Wrapper,
-  ButtonContainer
+  ButtonContainer,
+  Title,
+  Logo
 } from './Styles'
 
 class Dashboard extends React.PureComponent {
@@ -16,7 +21,13 @@ class Dashboard extends React.PureComponent {
     return (
       <Wrapper>
         <FadeIn>
-          <Header />
+          <Header>
+            <Title>
+              <span>Under</span>
+              <Logo src={LogoImg} />
+              <span>Cover</span>
+            </Title>
+          </Header>
           <ButtonContainer>
             <JoinGameForm joinGame={this.props.joinGame} />
             <Button text="create new game" onClick={this.props.createGame} />

@@ -65,6 +65,26 @@ export const Content = styled.div`
   overflow-x: hidden;
 `
 
+export const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+  font-family: ${LOGO_FONT};
+  font-size: 2rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid ${PINK};
+`
+
+export const Footer = styled.div`
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+`
+
 export const Action = styled.button`
   color: ${PINK};
   background-color: ${DARK_BLUE};
