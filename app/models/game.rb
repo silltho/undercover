@@ -61,6 +61,11 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object(round))
   end
 
+  def broadcast_game_ended(data)
+    reload
+    GamesChannel.broadcast_to(self, type: 'game_ended', data: data)
+  end
+
   def get_game_object
     reload
     {  id: id,
@@ -233,7 +238,19 @@ class Game < ApplicationRecord
 
   def is_game_over?
     statistic = get_party_members
-    statistic["Mafia"].zero? || statistic["Town"].zero? || both_heads_dead?
+    if both_heads_dead? || statistic["Mafia"].zero? || statistic["Town"].zero?
+      get_winner
+      true
+    else
+      false
+    end
+  end
+
+  def get_winner
+    statistic = get_party_members
+    broadcast_game_ended(-"Junior won.") if both_heads_dead?
+    broadcast_game_ended(-"Town won.") if statistic["Mafia"].zero?
+    broadcast_game_ended(-"Mafia won.") if statistic["Town"].zero?
   end
 
   def both_heads_dead?
