@@ -1,4 +1,4 @@
-import appReducer from 'containers/App/reducers'
+import appReducer from './reducers/app'
 
 const reducers = [
   appReducer
