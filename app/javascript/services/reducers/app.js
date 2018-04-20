@@ -35,7 +35,6 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case GAME_ENDED : {
       const data = fromJS(action.data)
-      console.log(data)
       return state.setIn(['Game', 'winner'], data)
     }
     case WAIT_FOR_OPPONENTS: {
