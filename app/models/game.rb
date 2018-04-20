@@ -9,6 +9,7 @@ class Game < ApplicationRecord
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot imprison free poison].freeze
 
+
   def full
     players.size >= 9
   end
@@ -22,7 +23,7 @@ class Game < ApplicationRecord
     end
 
     event :started do
-      transitions from: :initialized, to: :inform
+      transitions from: :initialized, to: :activity
     end
 
     event :informed do
@@ -245,6 +246,7 @@ class Game < ApplicationRecord
       false
     end
   end
+
 
   def get_winner
     statistic = get_party_members
