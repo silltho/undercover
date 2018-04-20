@@ -49,7 +49,7 @@ class GameActivity extends React.PureComponent {
     const {
       player,
       game,
-      allSkillsUsed
+      useSkill
     } = this.props
 
     const victims = game.get('players')
@@ -65,7 +65,7 @@ class GameActivity extends React.PureComponent {
             showTargetSelection={this.showTargetSelection}
             showRoleInformation={this.showRoleInformation}
             showRoleCovert={this.showRoleCovert}
-            skipPhase={allSkillsUsed}
+            skipPhase={() => useSkill(null)}
             currentTarget={currentTarget}
           />
         </Wrapper>
