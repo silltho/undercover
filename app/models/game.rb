@@ -157,7 +157,7 @@ class Game < ApplicationRecord
   end
 
   def create_article(committer, victim)
-    success = calculate_success(committer, victim)
+    success = victim.nil? ? false : calculate_success(committer, victim)
     Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
   end
 
@@ -208,12 +208,16 @@ class Game < ApplicationRecord
     victim.broadcast_player_updated
   end
 
+  def all_users_clicked?(round)
+    players.alive.count == Article.where(game: self).where(round: round).group(:committer).maximum(:id).count
+  end
+
   def create_stories(round)
     newspaper = []
     get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
       newspaper << write_success_story(role, article.committer, article.victim) if article.success
-      newspaper << write_fail_story(role) unless article.success
+      newspaper << write_fail_story(role) unless article.victim.nil?
     end
     newspaper << avoid_empty_newspaper(newspaper)
     newspaper
