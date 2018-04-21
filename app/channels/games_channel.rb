@@ -18,6 +18,7 @@ class GamesChannel < ApplicationCable::Channel
 
   def end_info_phase
     @game.reload
+    finish_game if @game.is_game_over?
     @game.informed!
     @game.broadcast_game_updated
   end
@@ -36,7 +37,6 @@ class GamesChannel < ApplicationCable::Channel
   def all_skills_used
     @game.reload
     @game.skills_used!
-    finish_game if @game.is_game_over?
     @game.broadcast_information_updated(@game.round)
     @game.broadcast_game_updated
   end

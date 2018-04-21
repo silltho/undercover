@@ -9,6 +9,7 @@ class Game < ApplicationRecord
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot imprison free poison].freeze
 
+
   def full
     players.size >= 9
   end
@@ -22,7 +23,7 @@ class Game < ApplicationRecord
     end
 
     event :started do
-      transitions from: :initialized, to: :inform
+      transitions from: :initialized, to: :activity
     end
 
     event :informed do
@@ -59,6 +60,11 @@ class Game < ApplicationRecord
   def broadcast_information_updated(round)
     reload
     GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object(round))
+  end
+
+  def broadcast_game_ended(data)
+    reload
+    GamesChannel.broadcast_to(self, type: 'game_ended', data: data)
   end
 
   def get_game_object
@@ -233,13 +239,27 @@ class Game < ApplicationRecord
 
   def is_game_over?
     statistic = get_party_members
-    statistic["Mafia"].zero? || statistic["Town"].zero? || both_heads_dead?
+    if both_heads_dead? || statistic["Mafia"].zero? || statistic["Town"].zero?
+      get_winner
+      true
+    else
+      false
+    end
+  end
+
+
+  def get_winner
+    statistic = get_party_members
+    broadcast_game_ended(-"Junior won.") if both_heads_dead?
+    broadcast_game_ended(-"Town won.") if statistic["Mafia"].zero?
+    broadcast_game_ended(-"Mafia won.") if statistic["Town"].zero?
   end
 
   def both_heads_dead?
     gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
     pr = Player.where(game: self).where(role: Role.where(name: "President")).first
-    true if gf.state != "alive" && pr.state != "alive"
+    ju = Player.where(game: self).where(role: Role.where(name: "Junior")).first
+    true if gf.state != "alive" && pr.state != "alive" && jr.state == "alive"
     false
   end
 end

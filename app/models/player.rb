@@ -5,6 +5,7 @@ class Player < ApplicationRecord
   belongs_to :user
   has_many :articles
 
+
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
     state :dead, :imprisoned

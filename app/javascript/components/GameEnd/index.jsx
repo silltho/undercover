@@ -12,7 +12,8 @@ import {
 class GameEnd extends React.PureComponent {
   render() {
     const {
-      resetGame
+      resetGame,
+      winner
     } = this.props
 
     return (
@@ -21,6 +22,9 @@ class GameEnd extends React.PureComponent {
           <BorderContainerTitel>
             Game Ended
           </BorderContainerTitel>
+          <Content>
+            {winner}
+          </Content>
           <BorderContainerFooter>
             <Action onClick={resetGame}>back to the dashboard</Action>
           </BorderContainerFooter>
@@ -34,6 +38,7 @@ GameEnd.defaultProps = {
 }
 
 GameEnd.propTypes = {
+  winner: PropTypes.string,
   resetGame: PropTypes.func.isRequired
 }
 
