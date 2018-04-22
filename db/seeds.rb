@@ -61,7 +61,7 @@ Role.create(name: 'Beagle Boy',
             active_text: 'Rescue a player from prison. Freedom!',
             passive_text: '',
             text_success: 'Sneaky, sneaky. A prisoner is freed.',
-            text_fail: 'Freeing the prisoner failed.')
+            text_fail: 'A criminal tried to release a free citizen. Whoops!')
 Role.create(name: 'President',
             party: 'Town',
             active: 'convert',
@@ -74,8 +74,8 @@ Role.create(name: 'President',
             punchline: 'Some claim her party’s good work is the reason for their dominant position in the government.',
             active_text: 'Your rhetorical skills will change your target’s mind. Your target will join your forces',
             passive_text: 'This character cannot be corrupted by the godfather.',
-            text_success: 'Successful convert.',
-            text_fail: 'Converting failed.')
+            text_success: 'A criminal has been persuaded to join the townsmen.',
+            text_fail: 'Presidential persuasion was not successful.')
 Role.create(name: 'Chief',
             party: 'Town',
             active: 'imprison',
@@ -88,8 +88,8 @@ Role.create(name: 'Chief',
             punchline: 'Initially he wanted to become a musician, but sadly the band he founded in his youth with four friends broke up.',
             active_text: 'Imprison your target. They will not be able to use their ability at night.',
             passive_text: 'This character protects its leader with his life. If the president would die, you will die instead.',
-            text_success: "Someone was caught by the police and put to jail.",
-            text_fail: 'Imprisoning failed')
+            text_success: "Caught by the police, somebody has been jailed.",
+            text_fail: 'A citizen tried to jail a prison. Choose wisely.')
 Role.create(name: 'Officer',
             party: 'Town',
             active: 'imprison',
@@ -102,8 +102,8 @@ Role.create(name: 'Officer',
             punchline: 'Her secret dream is to be promoted to Chief one day – but until then she focuses on working on her bikini body.',
             active_text: 'Imprison your target. They will not be able to use their ability at night.',
             passive_text: '',
-            text_success: "Someone was caught by the police and put to jail.",
-            text_fail: 'Imprisoning failed')
+            text_success: "Caught by the police, somebody has been jailed.",
+            text_fail: 'A citizen tried to jail a prison. Choose wisely.')
 Role.create(name: 'Agent',
             party: 'Town',
             active: 'spy',

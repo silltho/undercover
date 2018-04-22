@@ -285,4 +285,22 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p2.id, p4.id)).to be true
   end
 
+  it 'can only free people who are acutally in prison' do
+    bb = Role.create(name: "Beagle Boy", id: 3, party: "Mafia", active: "free")
+    gf = Role.create(name: "Godfather", id: 4, party: "Mafia", active: "corrupt", passive: "immunity")
+    of = Role.create(name: "Officer", id: 2, party: "Town", active: "imprison")
+    u1 = User.create(id: 1)
+    u2 = User.create(id: 2)
+    u3 = User.create(id: 3)
+    p1 = Player.create(id: 1, role: bb, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: of, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: gf, changed_party: false, user: u3,  state: "imprisoned")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    expect(g.calculate_success(p1.id, p2.id)).to be false
+    expect(g.calculate_success(p1.id, p3.id)).to be true
+  end
+
 end

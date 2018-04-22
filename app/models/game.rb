@@ -7,7 +7,7 @@ class Game < ApplicationRecord
   attribute :aasm_state
   attribute :players
   after_create :set_game_code
-  ALWAYS_SUCCESSFUL = %w[blackmail spy shoot imprison free poison].freeze
+  ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
 
 
   def full
@@ -165,7 +165,13 @@ class Game < ApplicationRecord
     c = Player.find(c_id)
     v = Player.find(v_id)
     return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
+    return check_for_prisoners(v) if c.role.active == "free"
+    return !check_for_prisoners(v) if c.role.active == "imprison"
     check_for_change(c, v)
+  end
+
+  def check_for_prisoners(victim)
+    victim.imprisoned?
   end
 
   def check_for_change(committer, victim)
@@ -257,7 +263,6 @@ class Game < ApplicationRecord
       false
     end
   end
-
 
   def get_winner
     statistic = get_party_members
