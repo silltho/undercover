@@ -230,7 +230,7 @@ class Game < ApplicationRecord
 
   def write_success_story(role, committer, victim)
     apply_action(committer, victim)
-    role.try(:text_success)
+    generate_success_text(role, victim)
   end
 
   def generate_success_text(role, victim)
