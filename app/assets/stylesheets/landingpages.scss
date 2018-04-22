@@ -6,22 +6,26 @@
 .town-container {
   display: block;
   position: relative;
-  background: url($g_logo_path) repeat-x;
-  background-size: cover;
-  height: 844px;
-  -webkit-animation: town-anim 55s linear infinite;
+  //background: url($g_logo_path) repeat-x;
+  //background-size: cover;
+  //height: 844px;
+  //-webkit-animation: town-anim 55s linear infinite;
 }
 
-@-webkit-keyframes town-anim {
+.town-video {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+
+/*@-webkit-keyframes town-anim {
   from {
     background-position: 0 0;
   }
   to {
     background-position: -4900px 0;
   }
-}
-
-
+}*/
 
 .play-game-button-container {
   position: absolute;
@@ -35,6 +39,7 @@
   box-shadow: 15px 15px 113px 0px $g_DarkBlue;
   color: $g_Pink !important;
   text-align: center;
+  z-index: 999999;
 }
 
 .modal-overlay {
@@ -44,7 +49,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-modal {
@@ -79,3 +84,13 @@
     border-radius: 0;
   }
 }
+
+header {
+}
+
+.town-container {
+}
+
+footer {
+}
+
