@@ -7,7 +7,7 @@ class Game < ApplicationRecord
   attribute :aasm_state
   attribute :players
   after_create :set_game_code
-  ALWAYS_SUCCESSFUL = %w[blackmail spy shoot imprison free poison].freeze
+  ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
 
 
   def full
@@ -157,7 +157,7 @@ class Game < ApplicationRecord
   end
 
   def create_article(committer, victim)
-    success = calculate_success(committer, victim)
+    success = victim.nil? ? false : calculate_success(committer, victim)
     Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
   end
 
@@ -165,7 +165,13 @@ class Game < ApplicationRecord
     c = Player.find(c_id)
     v = Player.find(v_id)
     return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
+    return check_for_prisoners(v) if c.role.active == "free"
+    return !check_for_prisoners(v) if c.role.active == "imprison"
     check_for_change(c, v)
+  end
+
+  def check_for_prisoners(victim)
+    victim.imprisoned?
   end
 
   def check_for_change(committer, victim)
@@ -208,12 +214,16 @@ class Game < ApplicationRecord
     victim.broadcast_player_updated
   end
 
+  def all_users_clicked?(round)
+    players.alive.count == Article.where(game: self).where(round: round).group(:committer).maximum(:id).count
+  end
+
   def create_stories(round)
     newspaper = []
     get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
       newspaper << write_success_story(role, article.committer, article.victim) if article.success
-      newspaper << write_fail_story(role) unless article.success
+      newspaper << write_fail_story(role) unless article.victim.nil?
     end
     newspaper << avoid_empty_newspaper(newspaper)
     newspaper
@@ -230,7 +240,18 @@ class Game < ApplicationRecord
 
   def write_success_story(role, committer, victim)
     apply_action(committer, victim)
-    role.try(:text_success)
+    generate_success_text(role, victim)
+  end
+
+  def generate_success_text(role, victim)
+    return "A criminal has been persuaded to join the townsmen." if role.name == 'President'
+    return "Threatened by a criminal, a player revealed its role." if role.name == 'Bodyguard'
+    return "R.I.P. #{victim.name} (#{victim.role.name}) lies dead on the street." if role.name == 'Enforcer'
+    return "Sneaky, sneaky. A prisoner is freed." if role.name == 'Beagle Boy'
+    return "Corruption! Money changed somebody’s mind." if role.name == 'Godfather'
+    return "Caught by the police, somebody has been jailed" if role.name == 'Chief' || role.name == "Officer"
+    return "Espionage has been carried out." if role.name == 'Agent'
+    "Rats! #{victim.name} (#{victim.role.name}) has been deadly poisoned by the anarchist. " if role.name == 'Anarchist'
   end
 
   def write_fail_story(role)
@@ -246,7 +267,6 @@ class Game < ApplicationRecord
       false
     end
   end
-
 
   def get_winner
     statistic = get_party_members

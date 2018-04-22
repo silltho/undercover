@@ -32,6 +32,7 @@ class GamesChannel < ApplicationCable::Channel
   def use_skill(params)
     @game.reload
     @game.use_skill(current_player.id, params['victim'])
+    all_skills_used if @game.all_users_clicked?(@game.round)
   end
 
   def all_skills_used
