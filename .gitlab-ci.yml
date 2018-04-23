@@ -1,0 +1,25 @@
+#before_script:
+#  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#  - eval $(ssh-agent -s)
+#  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#  - ssh-add -l
+#  - git remote add dokku ssh://dokku@46.38.235.104/undercover.gg
+
+before_script:
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan -H dokku@46.38.235.104:undercover.gg >> ~/.ssh/known_hosts
+
+stages:
+  - deploy
+
+deploy_to_dokku:
+  only:
+    - gitlab-ci-dokku
+  stage: deploy
+  script:
+    - git push dokku@46.38.235.104:undercover.gg master
+    # - dokku run rails db:migrate
+    # - dokku run rails db:seed
+

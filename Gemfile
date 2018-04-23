@@ -11,13 +11,12 @@ gem 'sprockets-es6'
 gem 'bootstrap-modal-rails'
 gem 'overcommit'
 gem 'redis', '~> 3.3'
-gem 'materialize-sass'
-gem 'material_icons'
 gem 'normalize-rails'
 gem 'aasm'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 gem 'rspec'
 gem 'rubocop'
+gem 'dokku-cli'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
@@ -68,11 +67,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-end
-
-group :production do
-  gem 'rails_12factor'
-  gem 'dokku-cli'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

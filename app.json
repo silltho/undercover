@@ -1,0 +1,14 @@
+{
+  "name": "undercover",
+  "description": "webgame",
+  "keywords": [
+    "dokku",
+    "rails",
+    "react"
+  ],
+  "scripts": {
+    "dokku": {
+      "postdeploy": "bundle exec rake db:migrate"
+    }
+  }
+}

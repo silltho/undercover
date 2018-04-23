@@ -13,14 +13,13 @@
 3. ``rails db:create``
 4. ``rails db:migrate``
 5. ``rails db:seed``
-6. ``yarn``
-
-**Install NPM packages**  
-Yarn: ``yarn add <packagename>``  
+6. ``yarn instal``  
 
 ## Start
-1. ``bundle exec rails s`` (rails s)
+1. ``rails`` 
 2. ``ruby ./bin/webpack-dev-server`` (dev server)
+3. ``redis-server`` (if needed manually)  
+4. Don't forget to start Postgres  
 
 
 ## Linting
