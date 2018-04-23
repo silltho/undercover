@@ -226,7 +226,7 @@ class Game < ApplicationRecord
     get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
       newspaper << write_success_story(role, article.committer, article.victim) if article.success
-      newspaper << write_fail_story(role) unless article.victim.nil?
+      newspaper << write_fail_story(role) if !article.victim.nil? && !article.sucess
     end
     newspaper << avoid_empty_newspaper(newspaper)
     newspaper
