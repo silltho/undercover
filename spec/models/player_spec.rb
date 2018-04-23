@@ -30,7 +30,7 @@ RSpec.describe Player, type: :model do
   end
 
   it 'can die if in prison' do
-    user = User.new(id: 1)
+    user = User.new(id: 1, session_id: 1234)
     player = Player.new(user: user)
     player.imprison!
     expect(player).to have_state(:imprisoned)
@@ -50,7 +50,7 @@ RSpec.describe Player, type: :model do
   end
 
   it 'can be converted or corrupted aka change party' do
-    u1 = User.create(id: 1)
+    u1 = User.create(id: 1, session_id: 54245)
     player = Player.new(id: 1, user: u1, changed_party: false)
     expect(player.changed_party).to be false
     player.change_party!
@@ -77,10 +77,10 @@ RSpec.describe Player, type: :model do
     pr = Role.create(name: "President", id: 2, party: "Town", active: "convert", passive: "immunity")
     sp = Role.create(name: "Agent", id: 3, party: "Town", active: "spy")
     bg = Role.create(name: "Bodyguard", id: 4, party: "Mafia", active: "blackmail")
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
-    u3 = User.create(id: 3)
-    u4 = User.create(id: 4)
+    u1 = User.create(id: 1, session_id: 1111)
+    u2 = User.create(id: 2, session_id: 2222)
+    u3 = User.create(id: 3, session_id: 4234)
+    u4 = User.create(id: 4, session_id: 2324)
     p1 =  Player.create(id: 1, user: u1, role: gf)
     p2 = Player.create(id: 2, user: u2, role: pr)
     p3 =  Player.create(id: 3, user: u3, role: sp)
