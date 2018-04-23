@@ -48,7 +48,6 @@ class Game extends React.PureComponent {
         return (
           <GameActivity
             useSkill={this.props.useSkill}
-            allSkillsUsed={this.props.allSkillsUsed}
             player={this.props.player}
             game={this.props.game}
           />)
@@ -105,7 +104,7 @@ Game.propTypes = {
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   useSkill: PropTypes.func.isRequired,
-  allSkillsUsed: PropTypes.func.isRequired,
+  // allSkillsUsed: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
   hidePlayerInformations: PropTypes.func.isRequired
 }
@@ -113,24 +112,24 @@ Game.propTypes = {
 export const mapDispatchToProps = (dispatch) => ({
   endExchangePhase: () => {
     GameChannel.endExchangePhase()
-    dispatch(waitForOpponentAction())
+    // dispatch(waitForOpponentAction())
   },
   endInfoPhase: () => {
     GameChannel.endInfoPhase()
-    dispatch(waitForOpponentAction())
+    // dispatch(waitForOpponentAction())
   },
   startGame: () => {
     GameChannel.startGame()
-    dispatch(waitForOpponentAction())
+    // dispatch(waitForOpponentAction())
   },
   useSkill: (targetId) => {
     GameChannel.useSkill(targetId)
     dispatch(waitForOpponentAction())
   },
-  allSkillsUsed: () => {
+  /* allSkillsUsed: () => {
     GameChannel.allSkillsUsed()
     dispatch(waitForOpponentAction())
-  },
+  }, */
   resetGame: () => dispatch(resetGameAction()),
   hidePlayerInformations: () => dispatch(hidePlayerInformationsAction())
 })
