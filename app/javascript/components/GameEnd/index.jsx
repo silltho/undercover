@@ -7,7 +7,7 @@ import {
   BorderContainerTitel,
   Action
 } from 'styles/components'
-
+import { Winner } from './Styles'
 
 class GameEnd extends React.PureComponent {
   render() {
@@ -23,7 +23,7 @@ class GameEnd extends React.PureComponent {
             Game Ended
           </BorderContainerTitel>
           <Content>
-            {winner}
+            <Winner>{winner}</Winner>
           </Content>
           <BorderContainerFooter>
             <Action onClick={resetGame}>back to the dashboard</Action>
