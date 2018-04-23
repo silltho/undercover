@@ -3,12 +3,14 @@ before_script:
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - ssh-add -l
-  # - git remote add dokku ssh://dokku@46.38.235.104/undercover.gg
+  - git remote add dokku ssh://dokku@46.38.235.104/undercover.gg
 
 stages:
   - deploy
 
 deploy_to_dokku:
+  only:
+    - production
   stage: deploy
   script:
     - git push dokku master -f
