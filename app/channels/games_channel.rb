@@ -4,6 +4,13 @@ class GamesChannel < ApplicationCable::Channel
     stream_for @game
   end
 
+  def unsubscribed
+    if @game.aasm_state == 'waiting'
+      @game.players.delete(current_player)
+      @game.broadcast_game_updated
+    end
+  end
+
   def initialize_game
     @game.reload
     @game.initializing!
@@ -56,7 +63,7 @@ class GamesChannel < ApplicationCable::Channel
   private
 
   def find_game
-    @game = Game.where(code: params[:gamecode], aasm_state: 'waiting').first
+    @game = Game.where(code: params[:gamecode]).first
   end
 
   def current_player

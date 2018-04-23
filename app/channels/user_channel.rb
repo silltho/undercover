@@ -7,30 +7,41 @@ class UserChannel < ApplicationCable::Channel
 
   def create_game
     new_game = Game.create
-    new_game.add_player(create_new_player(new_game))
+    p = create_new_player(new_game)
+    #new_game.players << p
     UserChannel.broadcast_to(current_user, type: 'create_game_success', data: new_game.get_game_object)
   end
 
   def leave_game(params)
     game = Game.find(params['id'])
-    player = Player.where(game: game, user: current_user).first.destroy
+    player = Player.where(game: game, user: current_user).destroy_all
     game.players.delete(player)
     UserChannel.broadcast_to(current_user, type: 'leave_game_success', data: game.get_game_object)
     game.broadcast_game_updated
   end
 
   def join_game(params)
-    game = Game.where(code: params['gamecode'], aasm_state: 'waiting').first
-    player = create_new_player(game)
-    game.add_player(player) unless game.players.include? player
+    game = Game.where(code: params['gamecode']).first
+
+    if is_game_running?(game)
+      p = Player.where(game: game, user: current_user).first
+      return false if p.nil?
+      p.broadcast_player_updated
+    else
+      p = Player.create!(game: game, user: current_user)
+    end
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
     game.broadcast_game_updated
   end
 
   protected
 
+  def is_game_running?(game)
+    !game.waiting?
+  end
+
   def create_new_player(game)
-    Player.create(user: current_user, game: game)
+    Player.create!(user: current_user, game_id: game.id)
   end
 
   def get_player(game)

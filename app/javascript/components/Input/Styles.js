@@ -16,12 +16,6 @@ export const Label = styled.label`
   opacity: 0.5;
 `
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-`
-
 export const Line = styled.div`
   position: absolute;
   bottom: 0;
@@ -40,10 +34,6 @@ export const Input = styled.input`
     background-color: transparent;
     color: rgba(255,255,255,0.5);
     
-    &::placeholder {
-      opacity: 0;
-    }
-    
     &:invalid {
       box-shadow: none;
     }
@@ -51,11 +41,6 @@ export const Input = styled.input`
     &:focus, &:valid {
       outline: none;
       
-      &::placeholder {
-        opacity: 0.5;
-        color: ${WHITE};
-        transition: opacity ${animationTime} ease-in;
-      }
       & + ${Label} {
         opacity: 1;
         transform-origin: top left;
@@ -63,4 +48,20 @@ export const Input = styled.input`
         color: ${PINK};
       }
     }
+`
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
+  ${Input} {
+    opacity: 0;
+  }
+  
+  ${Input}:focus, ${Input}:valid {
+    opacity: 1;
+    color: ${WHITE};
+    transition: opacity ${animationTime} ease-in;
+  }
 `

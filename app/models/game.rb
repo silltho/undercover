@@ -1,11 +1,8 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  has_many :players
+  has_many :players, dependent: :destroy
   has_many :articles, dependent: :destroy
-  attribute :full
-  attribute :aasm_state
-  attribute :players
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
 
@@ -133,7 +130,13 @@ class Game < ApplicationRecord
   end
 
   def add_player(player)
-    players << player
+    if Player.where(user: player.user, game: self).count > 1
+      p = Player.where(user_id: player.user.id, game: self)
+      players.delete(p)
+      p.destroy
+    else
+      players << player
+    end
   end
 
   def create_game_code

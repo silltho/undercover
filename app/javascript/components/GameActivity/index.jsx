@@ -111,8 +111,7 @@ class GameActivity extends React.PureComponent {
 GameActivity.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
-  useSkill: PropTypes.func.isRequired,
-  allSkillsUsed: PropTypes.func.isRequired
+  useSkill: PropTypes.func.isRequired
 }
 
 export default GameActivity

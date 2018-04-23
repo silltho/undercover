@@ -10,7 +10,6 @@ import {
 class InputComponent extends React.PureComponent {
   render() {
     const {
-      className,
       name,
       placeholder,
       type,
@@ -38,14 +37,12 @@ class InputComponent extends React.PureComponent {
 }
 
 InputComponent.defaultProps = {
-  className: '',
   placeholder: '',
   type: 'text',
   label: ''
 }
 
 InputComponent.propTypes = {
-  className: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,

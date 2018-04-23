@@ -29,7 +29,7 @@ class RoleOverview extends React.PureComponent {
       currentTarget
     } = this.props
 
-    const roleDetails = player.get('role')
+    const roleDetails = player.get('role', Map())
     const pseudonym = player.get('codename')
     const state = player.get('state')
 
@@ -54,7 +54,7 @@ class RoleOverview extends React.PureComponent {
             <Informations>
               <div>Name: <span>{pseudonym}</span></div>
               <div>Next Target: <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span></div>
-              <div>Party Changed: <span>{player.get('changed_party').toString()}</span></div>
+              <div>Party Changed: <span>{player.get('changed_party', '').toString()}</span></div>
             </Informations>
             <BorderContainerFooter>
               <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
