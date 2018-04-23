@@ -6,11 +6,7 @@ class Game < ApplicationRecord
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
 
-
-  def full
-    players.size >= 9
-  end
-
+  #### STATE MACHINE ####
   aasm whiny_transitions: false do
     state :waiting, initial: true
     state :initialized, :inform, :exchange, :activity, :finished
@@ -46,8 +42,9 @@ class Game < ApplicationRecord
       transitions from: :activity, to: :waiting
       transitions from: :finished, to: :waiting
     end
-
   end
+
+  #### BROADCASTS ####
 
   def broadcast_game_updated
     reload
@@ -64,24 +61,7 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_ended', data: data)
   end
 
-  def get_game_object
-    reload
-    {  id: id,
-       code: code,
-       aasm_state: aasm_state,
-       round: round,
-       players: players.to_a,
-       party_distribution: get_party_members
-    }
-  end
-
-  def get_newspaper_object(round)
-    data = {}
-    round.times do |n|
-      data[n] = create_stories(n)
-    end
-    data
-  end
+  #### INITIALIZING ####
 
   def init_game
     data = {}
@@ -101,32 +81,6 @@ class Game < ApplicationRecord
       player.create_codename
       #player.get_relations
     end
-  end
-
-  def update_round
-    value = self.round + 1
-    update(round: value)
-  end
-
-  def get_party_members
-    data = {}
-    %w[Mafia Town Anarchists Prisoners Dead].each{ |k| data[k] = 0 }
-    players.each do |player|
-      data["Mafia"] += 1 if belongs_to_mafia(player) && player.state == "alive"
-      data["Town"]+= 1 if belongs_to_town(player) && player.state == "alive"
-      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
-      data["Prisoners"]+= 1  if player.state == "imprisoned"
-      data["Dead"]+= 1 if player.state =="dead"
-    end
-    data
-  end
-
-  def belongs_to_mafia(player)
-    player.role.try(:party) == "Mafia" || (player.role.try(:party) == "Town" && player.role.try(:changed_party) == true)
-  end
-
-  def belongs_to_town(player)
-    player.role.try(:party) == "Town" || (player.role.try(:party) == "Mafia" && player.role.try(:changed_party) == true)
   end
 
   def add_player(player)
@@ -155,22 +109,59 @@ class Game < ApplicationRecord
     !Game.where(code: code).where(aasm_state: 'waiting').exists?
   end
 
-  def use_skill(committer, victim)
-    create_article(committer, victim)
+  #### BUILDING OBJECTS ####
+
+  def get_game_object
+    reload
+    {  id: id,
+       code: code,
+       aasm_state: aasm_state,
+       round: round,
+       players: players.to_a,
+       party_distribution: get_party_members
+    }
   end
 
-  def create_article(committer, victim)
-    success = victim.nil? ? false : calculate_success(committer, victim)
-    Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
+  def get_newspaper_object(round)
+    data = {}
+    round.times do |n|
+      data[n] = create_stories(n)
+    end
+    data
   end
 
-  def calculate_success(c_id, v_id)
-    c = Player.find(c_id)
-    v = Player.find(v_id)
-    return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
-    return check_for_prisoners(v) if c.role.active == "free"
-    return !check_for_prisoners(v) if c.role.active == "imprison"
-    check_for_change(c, v)
+  def get_party_members
+    data = {}
+    %w[Mafia Town Anarchists Prisoners Dead].each{ |k| data[k] = 0 }
+    players.each do |player|
+      data["Mafia"] += 1 if belongs_to_mafia(player) && player.state == "alive"
+      data["Town"]+= 1 if belongs_to_town(player) && player.state == "alive"
+      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
+      data["Prisoners"]+= 1  if player.state == "imprisoned"
+      data["Dead"]+= 1 if player.state =="dead"
+    end
+    data
+  end
+
+  #### HELPERS ####
+
+  def full
+    players.size >= 9
+  end
+
+  def update_round
+    value = self.round + 1
+    update(round: value)
+  end
+
+  #### BOOLEAN CHECKS ####
+
+  def belongs_to_mafia(player)
+    player.role.try(:party) == "Mafia" || (player.role.try(:party) == "Town" && player.role.try(:changed_party) == true)
+  end
+
+  def belongs_to_town(player)
+    player.role.try(:party) == "Town" || (player.role.try(:party) == "Mafia" && player.role.try(:changed_party) == true)
   end
 
   def check_for_prisoners(victim)
@@ -181,13 +172,13 @@ class Game < ApplicationRecord
     # president can't convert godfather and vice versa
     if committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
       false
-    # reconverting is possible
+      # reconverting is possible
     elsif not_same_party_anymore(committer, victim)
       true
-    # members of the same party do not change party
+      # members of the same party do not change party
     elsif same_party(committer, victim)
       false
-    # if not case applies, converting is possible
+      # if not case applies, converting is possible
     else
       true
     end
@@ -201,6 +192,43 @@ class Game < ApplicationRecord
     committer.role.party == victim.role.party && committer.changed_party != victim.changed_party
   end
 
+  def all_users_clicked?(round)
+    players.alive.count == Article.where(game: self).where(round: round).group(:committer).maximum(:id).count
+  end
+
+  def is_game_over?
+    statistic = get_party_members
+    if both_heads_dead? || statistic["Mafia"].zero? || statistic["Town"].zero?
+      get_winner
+      true
+    else
+      false
+    end
+  end
+
+  def both_heads_dead?
+    gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
+    pr = Player.where(game: self).where(role: Role.where(name: "President")).first
+    ju = Player.where(game: self).where(role: Role.where(name: "Junior")).first
+    true if gf.state != "alive" && pr.state != "alive" && jr.state == "alive"
+    false
+  end
+
+  #### ACTIVITY STACK ####
+
+  def use_skill(committer, victim)
+    create_article(committer, victim)
+  end
+
+  def calculate_success(c_id, v_id)
+    c = Player.find(c_id)
+    v = Player.find(v_id)
+    return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
+    return check_for_prisoners(v) if c.role.active == "free"
+    return !check_for_prisoners(v) if c.role.active == "imprison"
+    check_for_change(c, v)
+  end
+
   # actions are applied to successful happenings
   def apply_action(committer, victim)
     action = committer.role.active
@@ -209,16 +237,19 @@ class Game < ApplicationRecord
     release = 'free'
     reveal = %w[blackmail spy]
     change = %w[corrupt convert]
-    victim.die! if die.include?(action)
+    committer.broadcast_spy_action(victim) if reveal.include?(action)
     victim.imprison! if imprison.include?(action)
     victim.release! if release.include?(action)
-    committer.broadcast_spy_action(victim) if reveal.include?(action)
+    victim.die! if die.include?(action)
     victim.change_party! if change.include?(action)
     victim.broadcast_player_updated
   end
 
-  def all_users_clicked?(round)
-    players.alive.count == Article.where(game: self).where(round: round).group(:committer).maximum(:id).count
+  #### NEWSPAPER AND STUFF ####
+
+  def create_article(committer, victim)
+    success = victim.nil? ? false : calculate_success(committer, victim)
+    Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
   end
 
   def create_stories(round)
@@ -261,29 +292,13 @@ class Game < ApplicationRecord
     role.try(:text_fail)
   end
 
-  def is_game_over?
-    statistic = get_party_members
-    if both_heads_dead? || statistic["Mafia"].zero? || statistic["Town"].zero?
-      get_winner
-      true
-    else
-      false
-    end
-  end
+  #### END GAME ####
 
   def get_winner
     statistic = get_party_members
     broadcast_game_ended(-"Junior won.") if both_heads_dead?
     broadcast_game_ended(-"Town won.") if statistic["Mafia"].zero?
     broadcast_game_ended(-"Mafia won.") if statistic["Town"].zero?
-  end
-
-  def both_heads_dead?
-    gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
-    pr = Player.where(game: self).where(role: Role.where(name: "President")).first
-    ju = Player.where(game: self).where(role: Role.where(name: "Junior")).first
-    true if gf.state != "alive" && pr.state != "alive" && jr.state == "alive"
-    false
   end
 end
 
