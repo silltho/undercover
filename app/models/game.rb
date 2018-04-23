@@ -133,7 +133,7 @@ class Game < ApplicationRecord
   end
 
   def add_player(player)
-    players << player
+    players.include?(player) ? nil : players << player
   end
 
   def create_game_code
