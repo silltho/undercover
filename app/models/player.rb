@@ -75,7 +75,7 @@ class Player < ApplicationRecord
   end
 
   def change_party!
-    toggle(:changed_party)
+    toggle!(:changed_party)
   end
 
   def reveal_identity(committer)
