@@ -22,14 +22,23 @@ class UserChannel < ApplicationCable::Channel
 
   def join_game(params)
     game = Game.where(code: params['gamecode']).first
-    p = Player.where(game: game, user: current_user).first_or_create
-    p.save!
+
+    if is_game_running?(game)
+      p = Player.where(game: game, user: current_user).first
+      return false if p.nil?
+      p.broadcast_player_updated
+    else
+      p = Player.create!(game: game, user: current_user)
+    end
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
     game.broadcast_game_updated
-    p.broadcast_player_updated if game.aasm_state != 'waiting'
   end
 
   protected
+
+  def is_game_running?(game)
+    !game.waiting?
+  end
 
   def create_new_player(game)
     Player.create!(user: current_user, game_id: game.id)
