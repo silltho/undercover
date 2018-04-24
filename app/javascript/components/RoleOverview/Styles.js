@@ -36,10 +36,8 @@ const DeadStyle = `
 
 export const CardHead = styled.div`
   text-align: center;
-  padding: 0.3rem;
-  border-left: 1px solid ${PINK};
-  border-right: 1px solid ${PINK};
-  border-top: 1px solid ${PINK};
+  margin-top: -0.45rem;
+  margin-bottom: 0.33rem;
   position: relative;
 `
 
