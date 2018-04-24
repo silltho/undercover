@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 export const InfoList = styled.ul`
   flex: 1;
   list-style-type: none;
-  text-align: center;
+  text-align: left;
   
   > li {
     margin-top: 1rem;
@@ -50,3 +50,9 @@ export const DayButtonContainer = styled.div`
   border-radius: 3px;
 `
 
+export const BottomDawnContainer = styled.div`
+  display: flex;
+  justify-content: stretch;
+  position: absolute;
+  bottom: 0;
+`
