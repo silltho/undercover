@@ -7,8 +7,6 @@ export const CardBack = styled.div`
     border-radius: 8px;
     border: solid 1px ${PINK};
     justify-content: center;
-    position: relative;
-    margin-bottom: -1rem;
     
     &:after {
       z-index: -1;
