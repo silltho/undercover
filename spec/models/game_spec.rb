@@ -40,20 +40,18 @@ RSpec.describe Game, type: :model do
     expect(game).to have_state(:initialized)
   end
 
-  it 'changes from initialized to inform' do
+  it 'changes from initialized to activity' do
     game = Game.create(id: 3)
     game.initializing!
     expect(game).to have_state(:initialized)
     expect(game).to allow_event :started
     expect(game).not_to have_state(:inform)
-    expect(game).to transition_from(:initialized).to(:inform).on_event(:started)
-    expect(game).to have_state(:inform)
+    expect(game).to transition_from(:initialized).to(:activity).on_event(:started)
+    expect(game).to have_state(:activity)
   end
 
   it 'changes from inform to exchanged' do
-    game = Game.create(id: 4)
-    game.initializing!
-    game.started!
+    game = Game.create(id: 4, aasm_state: "inform")
     expect(game).to have_state(:inform)
     expect(game).to allow_event :informed
     expect(game).not_to have_state(:exchange)
@@ -62,10 +60,7 @@ RSpec.describe Game, type: :model do
   end
 
   it 'changes from exchanged to activity' do
-    game = Game.create(id: 5)
-    game.initializing!
-    game.started!
-    game.informed!
+    game = Game.create(id: 5, aasm_state: "exchange")
     expect(game).to have_state(:exchange)
     expect(game).to allow_event :exchanged
     expect(game).not_to have_state(:activity)
@@ -106,8 +101,8 @@ RSpec.describe Game, type: :model do
   end
 
   it 'adds players to the game' do
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
     p1 = Player.create(user: u1)
     p2 = Player.create(user: u2)
     game = Game.create(id: 10)
@@ -130,8 +125,8 @@ RSpec.describe Game, type: :model do
     Role.create(id: 3, name: "Junior", power: 4)
     game = Game.create(id: 12)
     expect(game.players.count).to eql(0)
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
     p1 = Player.create(id: 4, user: u1)
     p2 = Player.create(id: 5, user: u2)
     game.add_player(p1)
@@ -158,8 +153,8 @@ RSpec.describe Game, type: :model do
     Role.create(id: 3, name: "Junior", power: 4, active: "poison")
     game = Game.create(id: 14)
     expect(game.players.count).to eql(0)
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
     p1 =  Player.create(id: 3, user: u1)
     p2 = Player.create(id: 4, user: u2)
     game.players << p1
@@ -171,8 +166,8 @@ RSpec.describe Game, type: :model do
 
   # common
   it 'can use a skill on another player' do
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
     p1 = Player.create(id: 3, user: u1)
     p2 = Player.create(id: 4, user: u2)
     g = Game.create(id: 13)
@@ -191,10 +186,10 @@ RSpec.describe Game, type: :model do
     bg = Role.create(name: "Bodyguard", id: 2)
     jr = Role.create(name: "Junior", id: 3, active: "poison")
     ag = Role.create(name: "Agent", id: 4)
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
-    u3 = User.create(id: 3)
-    u4 = User.create(id: 4)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    u4 = User.create(id: 4, session_id: 5421)
     p1 = Player.create(id: 5, role: gf, user: u1)
     p2 = Player.create(id: 6, role: jr, user: u2)
     p3 = Player.create(id: 7, role: bg, user: u3)
@@ -213,8 +208,8 @@ RSpec.describe Game, type: :model do
   it "can't convert or corrupt the head of the other party" do
     gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
     pr = Role.create(name: "President", id: 2, active: "corrupt", passive: "immunity")
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
     p1 = Player.create(id: 5, role: gf, user: u1, changed_party: false)
     p2 = Player.create(id: 6, role: pr, user: u2, changed_party: false)
     g = Game.create(id: 15)
@@ -232,10 +227,10 @@ RSpec.describe Game, type: :model do
     pr = Role.create(name: "President", id: 2, party: "Town", active: "convert", passive: "immunity")
     ag = Role.create(name: "Agent", id: 3, party: "Town", active: "spy")
     bb = Role.create(name: "Beagle Boy", id: 4, party: "Mafia", active: "free")
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
-    u3 = User.create(id: 3)
-    u4 = User.create(id: 4)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    u4 = User.create(id: 4, session_id: 5421)
     p1 = Player.create(id: 5, role: gf, changed_party: false, user: u1)
     p2 = Player.create(id: 6, role: pr, changed_party: false, user: u2)
     p3 = Player.create(id: 7, role: ag, changed_party: false, user: u3)
@@ -259,15 +254,16 @@ RSpec.describe Game, type: :model do
     expect(p4.changed_party).to be true
   end
 
+  # Chief and Officer
   it 'can imprison other players as Chief or Officer' do
     ch = Role.create(name: "Chief", id: 1, party: "Town", active: "imprison")
     of = Role.create(name: "Officer", id: 2, party: "Town", active: "imprison")
     ag = Role.create(name: "Agent", id: 3, party: "Town", active: "spy")
     gf = Role.create(name: "Godfather", id: 4, party: "Mafia", active: "corrupt", passive: "immunity")
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
-    u3 = User.create(id: 3)
-    u4 = User.create(id: 4)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    u4 = User.create(id: 4, session_id: 5421)
     p1 = Player.create(id: 1, role: ch, changed_party: false, user: u1)
     p2 = Player.create(id: 2, role: of, changed_party: false, user: u2)
     p3 = Player.create(id: 3, role: ag, changed_party: false, user: u3)
@@ -285,13 +281,14 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p2.id, p4.id)).to be true
   end
 
+  # Beagle Boy
   it 'can only free people who are acutally in prison' do
     bb = Role.create(name: "Beagle Boy", id: 3, party: "Mafia", active: "free")
     gf = Role.create(name: "Godfather", id: 4, party: "Mafia", active: "corrupt", passive: "immunity")
     of = Role.create(name: "Officer", id: 2, party: "Town", active: "imprison")
-    u1 = User.create(id: 1)
-    u2 = User.create(id: 2)
-    u3 = User.create(id: 3)
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
     p1 = Player.create(id: 1, role: bb, changed_party: false, user: u1,  state: "alive")
     p2 = Player.create(id: 2, role: of, changed_party: false, user: u2,  state: "alive")
     p3 = Player.create(id: 3, role: gf, changed_party: false, user: u3,  state: "imprisoned")
@@ -303,4 +300,84 @@ RSpec.describe Game, type: :model do
     expect(g.calculate_success(p1.id, p3.id)).to be true
   end
 
+  # Agent and Bodyguard
+  it 'can spy or blackmail others' do
+    gf = Role.create(name: "Godfather", id: 1, passive: "immunity")
+    bg = Role.create(name: "Bodyguard", id: 2, active: "blackmail")
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    ag = Role.create(name: "Agent", id: 4, active: "spy")
+    of = Role.create(name: "Officer", id: 5, party: "Town", active: "imprison")
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    u4 = User.create(id: 4, session_id: 1236)
+    u5 = User.create(id: 5, session_id: 12356)
+    p1 = Player.create(id: 1, role: bg, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: gf, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: jr, changed_party: false, user: u3,  state: "alive")
+    p4 = Player.create(id: 4, role: ag, changed_party: false, user: u4,  state: "alive")
+    p5 = Player.create(id: 5, role: of, changed_party: false, user: u5,  state: "alive")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    g.add_player(p4)
+    g.add_player(p5)
+    expect(g.calculate_success(p1.id, p2.id)).to be true
+    expect(g.calculate_success(p1.id, p3.id)).to be true
+    expect(g.calculate_success(p1.id, p4.id)).to be true
+    expect(g.calculate_success(p1.id, p5.id)).to be true
+    expect(g.calculate_success(p4.id, p1.id)).to be true
+    expect(g.calculate_success(p4.id, p2.id)).to be true
+    expect(g.calculate_success(p4.id, p3.id)).to be true
+    expect(g.calculate_success(p4.id, p5.id)).to be true
+
+    expect(g).to receive(:create_article)
+    expect(g.use_skill(p1.id, p2.id))
+  end
+
+  it 'can kill people as Enforcer' do
+    gf = Role.create(name: "Godfather", id: 1, passive: "immunity")
+    en = Role.create(name: "Enforcer", id: 2, active: "shoot")
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    ag = Role.create(name: "Agent", id: 4, active: "spy")
+    of = Role.create(name: "Officer", id: 5, party: "Town", active: "imprison")
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    u4 = User.create(id: 4, session_id: 1236)
+    u5 = User.create(id: 5, session_id: 12356)
+    p1 = Player.create(id: 1, role: en, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: gf, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: jr, changed_party: false, user: u3,  state: "alive")
+    p4 = Player.create(id: 4, role: ag, changed_party: false, user: u4,  state: "alive")
+    p5 = Player.create(id: 5, role: of, changed_party: false, user: u5,  state: "alive")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    g.add_player(p4)
+    g.add_player(p5)
+    expect(g.players.alive.count).to eql 5
+    expect(g.calculate_success(p1.id, p2.id)).to be true
+    expect(p2).to have_state(:alive)
+    g.apply_action(p1, p2)
+    expect(p2).to have_state(:dead)
+    expect(g.players.alive.count).to eql 4
+    expect(p3).to have_state(:alive)
+    expect(g.calculate_success(p1.id, p3.id)).to be true
+    g.apply_action(p1, p3)
+    expect(p3).to have_state(:dead)
+    expect(g.players.alive.count).to eql 3
+    expect(p4).to have_state(:alive)
+    expect(g.calculate_success(p1.id, p4.id)).to be true
+    g.apply_action(p1, p4)
+    expect(p4).to have_state(:dead)
+    expect(g.players.alive.count).to eql 2
+    expect(p5).to have_state(:alive)
+    expect(g.calculate_success(p1.id, p5.id)).to be true
+    g.apply_action(p1, p5)
+    expect(p5).to have_state(:dead)
+    expect(g.players.alive.count).to eql 1
+  end
 end
