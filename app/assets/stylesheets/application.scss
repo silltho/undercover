@@ -11,6 +11,10 @@ html, body, body > div {
   background-color: $g_DarkBlue;
 }
 
+p {
+  margin: 0;
+}
+
 * {
   box-sizing: border-box;
 }

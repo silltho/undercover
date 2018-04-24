@@ -14,7 +14,11 @@ import {
 import Heading from 'components/Heading'
 
 import {
-  PartyDistribution
+  AnarchistsDistribution,
+  TownMafiaDistribution,
+  PartyDistribution,
+  DistributionCount,
+  DistributionHeading
 } from './Styles'
 
 import {
@@ -35,18 +39,21 @@ class GameStart extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel>Welcome</BorderContainerTitel>
             <PartyDistribution>
-              <div>
-                <u>Party Distribution:</u>
-              </div>
-              <div>
-                Mafia: {game.getIn(['party_distribution', 'Mafia']) || 0}
-              </div>
-              <div>
-                Town: {game.getIn(['party_distribution', 'Town']) || 0}
-              </div>
-              <div>
-                Anarchists: {game.getIn(['party_distribution', 'Anarchists']) || 0}
-              </div>
+              <TownMafiaDistribution>
+                <div>
+                  <DistributionHeading>Mafia</DistributionHeading>
+                  <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
+                </div>
+                <div>
+                  <DistributionHeading>Town</DistributionHeading>
+                  <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
+                </div>
+              </TownMafiaDistribution>
+
+              <AnarchistsDistribution>
+                <DistributionHeading>Anarchists</DistributionHeading>
+                <DistributionCount>{game.getIn(['party_distribution', 'Anarchists']) || 0}</DistributionCount>
+              </AnarchistsDistribution>
             </PartyDistribution>
             <Section>
               <Heading title="citizen" />

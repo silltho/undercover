@@ -13,6 +13,7 @@ export const PlayerList = styled.div`
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-top: 0.5rem;
 `
 
 export const PlayerItem = styled.div`
