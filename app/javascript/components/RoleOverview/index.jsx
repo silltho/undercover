@@ -6,7 +6,7 @@ import { getVideoByRole, getImageByRole } from 'config/roleImages'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerFooter,
+  BottomRight,
   Content,
   Action
 } from 'styles/components'
@@ -56,7 +56,7 @@ class RoleOverview extends React.PureComponent {
               <div>Next Target: <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span></div>
               <div>Party Changed: <span>{player.get('changed_party', '').toString()}</span></div>
             </Informations>
-            <BorderContainerFooter>
+            <BottomRight>
               <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
               <Action onClick={showRoleCovert}>
                 hide
@@ -67,7 +67,7 @@ class RoleOverview extends React.PureComponent {
                   <ActionIcon icon={ICONS.arrow_right} onClick={skipPhase} />
                 </React.Fragment>
               }
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </React.Fragment>

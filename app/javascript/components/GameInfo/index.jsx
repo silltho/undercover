@@ -6,7 +6,7 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerFooter,
+  BottomRight,
   BorderContainerTitel,
   Action,
   Scrollable
@@ -89,11 +89,11 @@ class GameInfo extends React.PureComponent {
                 </DayButtonContainer>
               ) : null
             }
-            <BorderContainerFooter>
+            <BottomRight>
               <Action onClick={readInfos}>
                 <IconFont icon={ICONS.arrow_right} />
               </Action>
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </Wrapper>

@@ -6,7 +6,7 @@ import IconFont, {ICONS} from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerFooter,
+  BottomRight,
   BorderContainerTitel,
   Action
 } from 'styles/components'
@@ -27,7 +27,7 @@ class GameStart extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel>Welcome!</BorderContainerTitel>
+            <BorderContainerTitel>Welcome</BorderContainerTitel>
             <PartyDistribution>
               <div>
                 <u>Party Distribution:</u>
@@ -43,11 +43,11 @@ class GameStart extends React.PureComponent {
               </div>
             </PartyDistribution>
             <PlayersList players={game.get('players')} />
-            <BorderContainerFooter>
+            <BottomRight>
               <Action onClick={startGame}>
                 <IconFont icon={ICONS.arrow_right} />
               </Action>
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </React.Fragment>

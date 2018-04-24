@@ -4,7 +4,7 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerFooter,
+  BottomRight,
   BorderContainerTitel,
   Action
 } from 'styles/components'
@@ -29,11 +29,11 @@ class GameExchange extends React.PureComponent {
             <ClockContainer>
               <Clock />
             </ClockContainer>
-            <BorderContainerFooter>
+            <BottomRight>
               <Action onClick={endExchange}>
                 <IconFont icon={ICONS.arrow_right} />
               </Action>
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </React.Fragment>

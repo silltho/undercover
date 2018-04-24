@@ -7,7 +7,7 @@ import { ACTIVE_ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerFooter,
+  BottomRight,
   Content,
   Action
 } from 'styles/components'
@@ -47,11 +47,11 @@ class RoleInformation extends React.PureComponent {
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
               </Section>
             </SectionWrapper>
-            <BorderContainerFooter>
+            <BottomRight>
               <Action onClick={onRequestHide}>
                 back
               </Action>
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </React.Fragment>

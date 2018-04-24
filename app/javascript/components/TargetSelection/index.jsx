@@ -5,7 +5,7 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BorderContainerFooter,
+  BottomRight,
   Scrollable,
   Content,
   Action
@@ -41,11 +41,11 @@ class TargetSelection extends React.PureComponent {
             <Scrollable>
               {renderedVictims}
             </Scrollable>
-            <BorderContainerFooter>
+            <BottomRight>
               <Action onClick={onRequestHide}>
                 back
               </Action>
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </React.Fragment>
