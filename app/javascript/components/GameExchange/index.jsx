@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import IconFont, { ICONS } from 'components/IconFont'
+import TownVideo from 'assets/videos/Town.mp4'
+import TownPoster from 'assets/images/town.jpg'
 import {
   BorderContainer,
   Content,
@@ -10,8 +12,7 @@ import {
 } from 'styles/components'
 
 import {
-  Clock,
-  ClockContainer
+  TownContainer
 } from './Styles'
 
 
@@ -25,10 +26,13 @@ class GameExchange extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel>Exchange</BorderContainerTitel>
-            <ClockContainer>
-              <Clock />
-            </ClockContainer>
+            <BorderContainerTitel>Day</BorderContainerTitel>
+            <TownContainer>
+              <video autoPlay muted loop="loop" poster={TownPoster} controlsList="nodownload nofullscreen">
+                <source src={TownVideo} type="video/mp4" />
+                <span>Your browser does not support the video tag.</span>
+              </video>
+            </TownContainer>
             <BottomRight>
               <Action onClick={endExchange}>
                 <IconFont icon={ICONS.arrow_right} />

@@ -16,7 +16,7 @@ export const Scrollable = styled.div`
 
 export const BorderContainer = styled.div`
   border: 2px solid ${PINK};
-  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+  padding: 1.5rem;
   position: relative;
   margin: 1.5rem;
   display: flex;
