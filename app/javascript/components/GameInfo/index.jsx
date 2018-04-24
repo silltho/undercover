@@ -91,12 +91,13 @@ class GameInfo extends React.PureComponent {
                   </DayButtonContainer>
                 ) : null
               }
-              <BottomRight>
-                <Action onClick={readInfos}>
-                  <IconFont icon={ICONS.arrow_right} />
-                </Action>
-              </BottomRight>
             </BottomDawnContainer>
+
+            <BottomRight>
+              <Action onClick={readInfos}>
+                <IconFont icon={ICONS.arrow_right} />
+              </Action>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </Wrapper>
