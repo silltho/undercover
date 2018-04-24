@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'aasm/rspec'
 
 RSpec.describe Player, type: :model do
   let!(:player) { Player.new }
@@ -88,14 +89,19 @@ RSpec.describe Player, type: :model do
     g = Game.new
     expect(g.calculate_success(p4.id, p2.id)).to be true
   end
-=begin
+
   it 'gets its relations as Godfather' do
     gf = Role.create(name: "Godfather", id: 1)
     bg = Role.create(name: "Bodyguard", id: 2)
-    p1 = Player.create(role: gf, id: 8, codename: "player1")
-    p2 = Player.create(role: bg, id: 9, codename: "player2")
+    u1 = User.create(id: 1, session_id: 1111)
+    u2 = User.create(id: 2, session_id: 2222)
+    p1 = Player.create(role: gf, user: u1, id: 8, codename: "player1")
+    p2 = Player.create(role: bg, user: u2, id: 9, codename: "player2")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
     expect(p1.relations).to be_empty
-    p1.get_relations
+    p1.get_relations(g)
     expect(p1.relations).not_to be_empty
     expect(p1.relations.count).to eql(1)
     expect(p1.relations.first.first).to eql(9)
@@ -105,11 +111,18 @@ RSpec.describe Player, type: :model do
     ch = Role.create(name: "Chief")
     of = Role.create(name: "Officer")
     pr = Role.create(name: "President")
-    p1 = Player.create(role: ch, id: 10, codename: "player1")
-    p2 = Player.create(role: of, id: 11, codename: "player2")
-    p3 = Player.create(role: pr, id: 12, codename: "player3")
+    u1 = User.create(id: 1, session_id: 1111)
+    u2 = User.create(id: 2, session_id: 2222)
+    u3 = User.create(id: 3, session_id: 4234)
+    p1 = Player.create(role: ch, user: u1, id: 10, codename: "player1")
+    p2 = Player.create(role: of, user: u2, id: 11, codename: "player2")
+    p3 = Player.create(role: pr, user: u3, id: 12, codename: "player3")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
     expect(p1.relations).to be_empty
-    p1.get_relations
+    p1.get_relations(g)
     expect(p1.relations).not_to be_empty
     expect(p1.relations.count).to eql(2)
   end
@@ -117,11 +130,34 @@ RSpec.describe Player, type: :model do
   it 'gets its relations as Junior' do
     jr = Role.create(name: 'Junior')
     p = Player.create(role: jr, id: 13, codename: 'Giftmischer')
+    u1 = User.create(id: 1, session_id: 1111)
+    g = Game.create(id: 1)
+    g.add_player(p)
     expect(p.relations).to be_empty
-    p.get_relations
+    p.get_relations(g)
     expect(p.relations).to be_empty
   end
-=end
 
-
+  it 'test query relation information' do
+    ch = Role.create(name: "Chief", id: 1)
+    of = Role.create(name: "Officer", id: 2)
+    pr = Role.create(name: "President", id: 3)
+    u1 = User.create(id: 1, session_id: 1111)
+    u2 = User.create(id: 2, session_id: 2222)
+    u3 = User.create(id: 3, session_id: 4234)
+    p1 = Player.create(role: ch, user: u1, id: 10, codename: "player1", relations: [])
+    p2 = Player.create(role: of, user: u2, id: 11, codename: "player2", relations: [])
+    p3 = Player.create(role: pr, user: u3, id: 12, codename: "player3", relations: [])
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    #puts(p1.query_relation_information("Chief", g))
+    #puts(p1.query_relation_information("President", g))
+    #puts(p1.query_relation_information("Officer", g))
+    expect(p1.relations).to be_empty
+    p1.get_relations(g)
+    puts p1.relations
+    expect(p1.relations).not_to be_empty
+  end
 end

@@ -86,35 +86,38 @@ class Player < ApplicationRecord
     update(role_id: role, changed_party: false, relations: [])
   end
 
-  def get_relations
+  def get_relations(game)
     name = role.try(:name)
     rel = []
     case name
       when "Godfather"
-        rel.push(query_relation_information("Bodyguard"))
+        rel.push(query_relation_information("Bodyguard", game))
       when "Bodyguard"
-        rel.push(query_relation_information("Godfather"))
+        rel.push(query_relation_information("Godfather", game))
       when "President"
-        rel.push(query_relation_information("Chief"))
+        rel.push(query_relation_information("Chief", game))
       when "Chief"
-        rel.push(query_relation_information("President"))
-        rel.push(query_relation_information("Officer"))
+        rel.push(query_relation_information("President", game))
+        rel.push(query_relation_information("Officer", game))
       when "Officer"
-        rel.push(query_relation_information("Chief"))
+        rel.push(query_relation_information("Chief", game))
       when "Agent"
-        rel.push(query_relation_information("Chief"))
-        rel.push(query_relation_information("President"))
-        rel.push(query_relation_information("Officer"))
+        rel.push(query_relation_information("Chief", game))
+        rel.push(query_relation_information("President", game))
+        rel.push(query_relation_information("Officer", game))
+      when "Beagle Boy"
+        rel.push(query_relation_information("Godfather", game))
+        rel.push(query_relation_information("Bodyguard", game))
+        rel.push(query_relation_information("Enforcer", game))
       else
         rel = []
     end
     update(relations: rel)
   end
 
-  def query_relation_information(role)
+  def query_relation_information(role, game)
     role = Role.where(name: role).first
-    known = Player.where(game: game).where(role_id: role).pluck(:id, :codename).first
-    return [known.first, known.second, role.try(:name)] if known.present?
-    nil
+    codename = Player.where(game: game).where(role_id: role).pluck(:codename).first
+    return "[#{codename}, #{role.try(:name)}]" unless codename.nil?
   end
 end
