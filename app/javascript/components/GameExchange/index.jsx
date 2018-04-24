@@ -6,9 +6,8 @@ import TownPoster from 'assets/images/town.jpg'
 import {
   BorderContainer,
   Content,
-  BottomRight,
-  BorderContainerTitel,
-  Action
+  CornerButton,
+  BorderContainerTitel
 } from 'styles/components'
 
 import {
@@ -33,12 +32,10 @@ class GameExchange extends React.PureComponent {
                 <span>Your browser does not support the video tag.</span>
               </video>
             </TownContainer>
-            <BottomRight>
-              <Action onClick={endExchange}>
-                <IconFont icon={ICONS.arrow_right} />
-              </Action>
-            </BottomRight>
           </BorderContainer>
+          <CornerButton right bottom onClick={endExchange}>
+            <IconFont icon={ICONS.arrow_right} />
+          </CornerButton>
         </Content>
       </React.Fragment>
     )

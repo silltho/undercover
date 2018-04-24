@@ -113,3 +113,25 @@ export const Action = styled.button`
     }
   }
 `
+
+export const CornerButton = styled.div`
+  position: absolute;
+  border-top-left-radius: 90%;
+  background-color: ${DARK_BLUE};
+  border-top: 1px solid ${PINK};
+  border-left: 1px solid ${PINK};
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${(props) => props.right && 'right: 0;'}
+  ${(props) => props.left && 'left: 0;'}
+  ${(props) => props.top && 'top: 0;'}
+  ${(props) => props.bottom && 'bottom: 0;'}
+  
+  > * {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+  }
+`

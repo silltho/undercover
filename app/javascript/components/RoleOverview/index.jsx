@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import { ICONS, ACTIVE_ICONS } from 'components/IconFont'
+import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import { getVideoByRole, getImageByRole } from 'config/roleImages'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BottomRight,
+  CornerButton,
   Content
 } from 'styles/components'
 import PlayerStates from 'config/playerStates'
@@ -65,12 +65,12 @@ class RoleOverview extends React.PureComponent {
               <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span>
               <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
             </CardBottom>
-            { state === PlayerStates.ALIVE &&
-              <BottomRight>
-                <ActionIcon icon={ICONS.arrow_right} onClick={skipPhase} />
-              </BottomRight>
-            }
           </BorderContainer>
+          { state === PlayerStates.ALIVE &&
+          <CornerButton right bottom onClick={skipPhase}>
+            <IconFont icon={ICONS.arrow_right} />
+          </CornerButton>
+          }
         </Content>
       </React.Fragment>
     )
