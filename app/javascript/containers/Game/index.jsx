@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
 import {
+  RoomCode
+} from 'styles/components'
+import {
   resetGameAction,
   hidePlayerInformationsAction,
   waitForOpponentAction
@@ -21,6 +24,8 @@ import {
   Wrapper,
   WaitingForOpponentsOverlay
 } from './Styles'
+
+
 
 class Game extends React.PureComponent {
   renderCurrentPhase = () => {
@@ -70,6 +75,7 @@ class Game extends React.PureComponent {
     const showPlayerInformationModal = app.get('showPlayerInformation')
     const showWaitForOpponents = app.get('showWaitForOpponents')
     const gamePhaseKey = this.props.game.get('aasm_state')
+    const gameCode = this.props.game.get('code')
 
     return (
       <FadeIn>
@@ -77,6 +83,7 @@ class Game extends React.PureComponent {
           <Wrapper key={`phase-${gamePhaseKey}`}>
             {this.renderCurrentPhase()}
           </Wrapper>
+          <RoomCode>CODE {gameCode}</RoomCode>
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal

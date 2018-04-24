@@ -141,3 +141,11 @@ export const CornerButton = styled.a`
     opacity: 0;
   }
 `
+
+export const RoomCode = styled.div `
+  position: absolute;
+  bottom: 0.3rem;
+  left: 1.7rem;
+  font-style: italic;
+  font-size: 0.65rem;
+`
