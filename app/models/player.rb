@@ -4,6 +4,7 @@ class Player < ApplicationRecord
   belongs_to :role, optional: true
   belongs_to :user
   has_many :articles
+  has_many :relations
 
 
   aasm column: 'state', whiny_transitions: false do
@@ -36,6 +37,7 @@ class Player < ApplicationRecord
       codename: codename,
       state: state,
       changed_party: changed_party,
+      relations: build_relations,
       role: { id: role.try(:id),
               name: self.try(:role).try(:name),
               image: self.try(:role).try(:image),
@@ -56,7 +58,6 @@ class Player < ApplicationRecord
       name: victim.codename,
       state: victim.state,
       role: victim.role.name,
-      #party: victim.try(:role).try(:party),
       changed_party: victim.changed_party
     }
   end
@@ -66,12 +67,18 @@ class Player < ApplicationRecord
   end
 
   def broadcast_spy_action(victim)
+    v = Relation.where(player1: self, player2: victim, role: victim.role).first_or_create
+    v.update(loyal: victim.is_loyal?)
     UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
   end
 
   def create_codename
     name = Faker::Name.name
     update(codename: name)
+  end
+
+  def is_loyal?
+    !changed_party
   end
 
   def change_party!
@@ -83,41 +90,28 @@ class Player < ApplicationRecord
   end
 
   def assign_character(role)
-    update(role_id: role, changed_party: false, relations: [])
+    update(role_id: role, changed_party: false)
   end
 
-  def get_relations(game)
-    name = role.try(:name)
-    rel = []
-    case name
-      when "Godfather"
-        rel.push(query_relation_information("Bodyguard", game))
-      when "Bodyguard"
-        rel.push(query_relation_information("Godfather", game))
-      when "President"
-        rel.push(query_relation_information("Chief", game))
-      when "Chief"
-        rel.push(query_relation_information("President", game))
-        rel.push(query_relation_information("Officer", game))
-      when "Officer"
-        rel.push(query_relation_information("Chief", game))
-      when "Agent"
-        rel.push(query_relation_information("Chief", game))
-        rel.push(query_relation_information("President", game))
-        rel.push(query_relation_information("Officer", game))
-      when "Beagle Boy"
-        rel.push(query_relation_information("Godfather", game))
-        rel.push(query_relation_information("Bodyguard", game))
-        rel.push(query_relation_information("Enforcer", game))
-      else
-        rel = []
+  def build_relations
+    rel = Relation.where(player1: self)
+    data = []
+    rel.each do |entry|
+      data.push([entry.player2.id, entry.role.name, entry.loyal ])
     end
-    update(relations: rel)
+    data
   end
 
-  def query_relation_information(role, game)
+  def get_relations
+    role.known_roles.split(' ').each do |other_role|
+      set_relation_information(other_role)
+    end
+  end
+
+  def set_relation_information(role)
     role = Role.where(name: role).first
-    codename = Player.where(game: game).where(role_id: role).pluck(:codename).first
-    return "[#{codename}, #{role.try(:name)}]" unless codename.nil?
+    player2 = Player.where(game: game).where(role: role).first
+    puts("#{self.codename} knowns #{player2.codename} and he is #{player2.role.name}") unless player2.nil?
+    Relation.create(player1: self, player2: player2, role: role, loyal: player2.is_loyal?) unless player2.nil?
   end
 end

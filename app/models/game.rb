@@ -79,7 +79,9 @@ class Game < ApplicationRecord
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
       player.create_codename
-      player.get_relations(self)
+    end
+    players.each do |player|
+      player.get_relations
     end
   end
 
