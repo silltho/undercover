@@ -6,6 +6,8 @@ import {
   PINK
 } from './variables'
 
+const cardBorderRadius = '8px'
+
 export const Scrollable = styled.div`
   flex:1;
   width: 100%;
@@ -16,12 +18,12 @@ export const BorderContainer = styled.div`
   border: 2px solid ${PINK};
   padding: 1.5rem 1.5rem 2.5rem 1.5rem;
   position: relative;
-  margin: 1.5rem 1.5rem 2.5rem 1.5rem;
+  margin: 1.5rem;
   display: flex;
   flex: 1;
   flex-direction: column;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
-  border-radius: 8px;
+  border-radius: ${cardBorderRadius};
 `
 
 export const BorderContainerTitel = styled.span`
@@ -42,8 +44,8 @@ export const BottomRight = styled.div`
   color: ${PINK};
   border-left: 1px solid ${PINK};
   border-top: 1px solid ${PINK};
-  background-color: transparent;
-  border-bottom-right-radius: 3px;
+  background-color: ${DARK_BLUE};
+  border-bottom-right-radius: ${cardBorderRadius};
   position: absolute;
   bottom: 0;
   right: 0;

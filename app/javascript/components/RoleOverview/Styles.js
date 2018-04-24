@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
-import { PINK } from 'styles/variables'
+import {
+  PINK,
+  DARK_BLUE
+} from 'styles/variables'
 
 const ImprisonedStyle = `
   &:after {
@@ -14,7 +17,6 @@ const ImprisonedStyle = `
     background-image: repeating-linear-gradient(90deg, transparent, transparent 30px, black 3px, #dbdbdb 40px);
   }
 `
-
 
 const DeadStyle = `
   &:after {
@@ -30,6 +32,15 @@ const DeadStyle = `
   > video {
     filter: grayscale(1);
   }
+`
+
+export const CardHead = styled.div`
+  text-align: center;
+  padding: 0.3rem;
+  border-left: 1px solid ${PINK};
+  border-right: 1px solid ${PINK};
+  border-top: 1px solid ${PINK};
+  position: relative;
 `
 
 export const RoleImage = styled.div`
@@ -69,12 +80,32 @@ export const ActionIcon = styled(IconFont)`
   }
 `
 
-export const Informations = styled.div`
+export const FlipIcon = styled(IconFont)`
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%) translateY(-50%);
+  padding: 0.5rem;
+  border-radius: 100%;
+  border: 1px solid;
+  font-size: 1.5rem;
+  background-color: ${DARK_BLUE};
+`
+
+export const InformationIcon = styled(IconFont)`
+  position: absolute;
+  transform: translateY(-50%);
+  right: 0.3rem;
+  top: 50%;
+`
+
+export const CardBottom = styled.div`
+  position:relative;
   display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
-  
-  > div > span {
-    float: right;
-  }
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-left: 1px solid ${PINK};
+  border-right: 1px solid ${PINK};
+  border-bottom: 1px solid ${PINK};
 `

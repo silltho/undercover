@@ -7,15 +7,17 @@ import {
   BorderContainer,
   BorderContainerTitel,
   BottomRight,
-  Content,
-  Action
+  Content
 } from 'styles/components'
 import PlayerStates from 'config/playerStates'
 
 import {
   RoleVideoContainer,
   ActionIcon,
-  Informations
+  CardBottom,
+  CardHead,
+  InformationIcon,
+  FlipIcon
 } from './Styles'
 
 class RoleOverview extends React.PureComponent {
@@ -42,6 +44,10 @@ class RoleOverview extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
+            <CardHead>
+              <span>{pseudonym}</span>
+              <InformationIcon icon={ICONS.help2} onClick={showRoleInformation} />
+            </CardHead>
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
               imprisoned={state === PlayerStates.IMPRISONED}
@@ -51,23 +57,19 @@ class RoleOverview extends React.PureComponent {
                 <span>Your browser does not support the video tag.</span>
               </video>
             </RoleVideoContainer>
-            <Informations>
-              <div>Name: <span>{pseudonym}</span></div>
-              <div>Next Target: <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span></div>
-              <div>Party Changed: <span>{player.get('changed_party', '').toString()}</span></div>
-            </Informations>
-            <BottomRight>
-              <ActionIcon icon={ICONS.help2} onClick={showRoleInformation} />
-              <Action onClick={showRoleCovert}>
-                hide
-              </Action>
+            <CardBottom>
+              <FlipIcon icon={ICONS.arrow_left} onClick={showRoleCovert} />
               { state === PlayerStates.ALIVE &&
-                <React.Fragment>
-                  <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
-                  <ActionIcon icon={ICONS.arrow_right} onClick={skipPhase} />
-                </React.Fragment>
+                <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               }
-            </BottomRight>
+              <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span>
+              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+            </CardBottom>
+            { state === PlayerStates.ALIVE &&
+              <BottomRight>
+                <ActionIcon icon={ICONS.arrow_right} onClick={skipPhase} />
+              </BottomRight>
+            }
           </BorderContainer>
         </Content>
       </React.Fragment>
