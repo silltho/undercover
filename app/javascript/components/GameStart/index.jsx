@@ -11,9 +11,15 @@ import {
   Action
 } from 'styles/components'
 
+import Heading from 'components/Heading'
+
 import {
   PartyDistribution
 } from './Styles'
+
+import {
+  Section
+} from '../RoleInformation/Styles'
 
 class GameStart extends React.PureComponent {
 
@@ -42,6 +48,9 @@ class GameStart extends React.PureComponent {
                 Anarchists: {game.getIn(['party_distribution', 'Anarchists']) || 0}
               </div>
             </PartyDistribution>
+            <Section>
+              <Heading title="citizen" />
+            </Section>
             <PlayersList players={game.get('players')} />
             <BottomRight>
               <Action onClick={startGame}>

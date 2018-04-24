@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 export const PlayerList = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: center;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
