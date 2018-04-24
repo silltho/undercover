@@ -6,6 +6,7 @@ import {
 } from 'styles/variables'
 
 export const AppContainer = styled.div`
+  user-select:none;
   background-color: ${DARK_BLUE};
   color: ${WHITE};
   font-family: ${MAIN_FONT};
