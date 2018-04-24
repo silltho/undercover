@@ -46,7 +46,7 @@ class RoleOverview extends React.PureComponent {
               dead={state === PlayerStates.DEAD}
               imprisoned={state === PlayerStates.IMPRISONED}
             >
-              <video autoPlay muted loop="loop" poster={roleImage}>
+              <video autoPlay muted loop="loop" poster={roleImage} controlsList="nodownload nofullscreen">
                 <source src={roleVideo} type="video/mp4" />
                 <span>Your browser does not support the video tag.</span>
               </video>

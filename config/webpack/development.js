@@ -5,7 +5,8 @@ const Visualizer = require('webpack-visualizer-plugin')
 const customConfig = {
   plugins: [
     new ServiceWorkerWebpackPlugin({
-      entry: './app/javascript/packs/registerServiceWorker.js'
+      entry: './app/javascript/packs/registerServiceWorker.js',
+      excludes: ['**/.*', '**/*.map', '*.html', '*.js']
     }),
     new Visualizer()
   ],
