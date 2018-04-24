@@ -55,6 +55,7 @@
     "html-loader": "^0.5.5",
     "immutable": "^3.8.2",
     "node-sass": "^4.7.2",
+    "nosleep.js": "^0.7.0",
     "postcss-smart-import": "^0.7.6",
     "prop-types": "^15.6.0",
     "react": "16.2.0",
