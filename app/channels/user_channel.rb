@@ -22,14 +22,18 @@ class UserChannel < ApplicationCable::Channel
 
   def join_game(params)
     game = Game.where(code: params['gamecode']).first
-
+    puts "Game: #{game.code}"
     if is_game_running?(game)
       p = Player.where(game: game, user: current_user).first
+      puts "Player rejoined game: #{p.id}"
       return false if p.nil?
       p.broadcast_player_updated
     else
       p = Player.create!(game: game, user: current_user)
+      puts "Player joined: #{p.id}"
     end
+    puts "User session: #{current_user.session_id}"
+
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
     game.broadcast_game_updated
   end

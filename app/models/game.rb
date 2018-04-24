@@ -237,6 +237,7 @@ class Game < ApplicationRecord
     release = 'free'
     reveal = %w[blackmail spy]
     change = %w[corrupt convert]
+    puts "#{committer} used spy or blackmail action to #{victim}" if reveal.include?(action)
     committer.broadcast_spy_action(victim) if reveal.include?(action)
     victim.imprison! if imprison.include?(action)
     victim.release! if release.include?(action)
@@ -272,8 +273,8 @@ class Game < ApplicationRecord
     'Nothing happened that night.' if newspaper.empty?
   end
 
-  def write_success_story(role, committer, victim, rou)
-    apply_action(committer, victim) if self.round == rou
+  def write_success_story(role, committer, victim, round_nr)
+    apply_action(committer, victim) if self.round - 1 == round_nr
     generate_success_text(role, victim)
   end
 

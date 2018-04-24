@@ -15,6 +15,7 @@
 5. ``rails db:seed``
 6. ``yarn instal``  
 
+
 ## Start
 1. ``rails`` 
 2. ``ruby ./bin/webpack-dev-server`` (dev server)
