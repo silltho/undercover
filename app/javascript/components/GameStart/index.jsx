@@ -6,7 +6,7 @@ import IconFont, {ICONS} from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BottomRight,
+  CornerButton,
   BorderContainerTitel,
   Action
 } from 'styles/components'
@@ -59,12 +59,10 @@ class GameStart extends React.PureComponent {
               <Heading title="citizen" />
             </Section>
             <PlayersList players={game.get('players')} />
-            <BottomRight>
-              <Action onClick={startGame}>
-                <IconFont icon={ICONS.arrow_right} />
-              </Action>
-            </BottomRight>
           </BorderContainer>
+          <CornerButton onClick={startGame}>
+            <IconFont icon={ICONS.arrow_right} />
+          </CornerButton>
         </Content>
       </React.Fragment>
     )

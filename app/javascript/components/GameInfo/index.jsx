@@ -6,9 +6,8 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BottomRight,
+  CornerButton,
   BorderContainerTitel,
-  Action,
   Scrollable
 } from 'styles/components'
 import DayButton from './DayButton'
@@ -92,13 +91,10 @@ class GameInfo extends React.PureComponent {
                 ) : null
               }
             </BottomDawnContainer>
-
-            <BottomRight>
-              <Action onClick={readInfos}>
-                <IconFont icon={ICONS.arrow_right} />
-              </Action>
-            </BottomRight>
           </BorderContainer>
+          <CornerButton onClick={readInfos}>
+            <IconFont icon={ICONS.arrow_right} />
+          </CornerButton>
         </Content>
       </Wrapper>
     )
