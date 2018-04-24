@@ -257,7 +257,7 @@ class Game < ApplicationRecord
     newspaper = []
     get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
-      newspaper << write_success_story(role, article.committer, article.victim) if article.success
+      newspaper << write_success_story(role, article.committer, article.victim, round) if article.success
       newspaper << write_fail_story(role) if !article.victim.nil? && !article.success
     end
     newspaper << avoid_empty_newspaper(newspaper)
@@ -273,8 +273,8 @@ class Game < ApplicationRecord
     'Nothing happened that night.' if newspaper.empty?
   end
 
-  def write_success_story(role, committer, victim)
-    apply_action(committer, victim)
+  def write_success_story(role, committer, victim, round_nr)
+    apply_action(committer, victim) if self.round - 1 == round_nr
     generate_success_text(role, victim)
   end
 
