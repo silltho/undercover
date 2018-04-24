@@ -209,7 +209,7 @@ class Game < ApplicationRecord
   def both_heads_dead?
     gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
     pr = Player.where(game: self).where(role: Role.where(name: "President")).first
-    ju = Player.where(game: self).where(role: Role.where(name: "Junior")).first
+    jr = Player.where(game: self).where(role: Role.where(name: "Anarchist")).first
     true if gf.state != "alive" && pr.state != "alive" && jr.state == "alive"
     false
   end
@@ -256,7 +256,7 @@ class Game < ApplicationRecord
     newspaper = []
     get_latest_news(round).each do |article|
       role = Player.find(article.committer_id).role
-      newspaper << write_success_story(role, article.committer, article.victim) if article.success
+      newspaper << write_success_story(role, article.committer, article.victim, round) if article.success
       newspaper << write_fail_story(role) if !article.victim.nil? && !article.success
     end
     newspaper << avoid_empty_newspaper(newspaper)
@@ -272,8 +272,8 @@ class Game < ApplicationRecord
     'Nothing happened that night.' if newspaper.empty?
   end
 
-  def write_success_story(role, committer, victim)
-    apply_action(committer, victim)
+  def write_success_story(role, committer, victim, rou)
+    apply_action(committer, victim) if self.round == rou
     generate_success_text(role, victim)
   end
 
