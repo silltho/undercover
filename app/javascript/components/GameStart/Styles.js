@@ -25,3 +25,19 @@ export const DistributionCount = styled.div`
 export const DistributionHeading = styled.p`
  font-weight: bold;    
 `
+
+export const MafiaDistributionContainer = styled.p`
+ text-align: center;   
+`
+
+export const TownDistributionContainer = styled.p`
+ text-align: center;   
+`
+
+export const FractionLogo = styled.div `
+  text-align: center;
+  
+  > img {
+    width: 5rem;
+  }
+`

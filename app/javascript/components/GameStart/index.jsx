@@ -4,6 +4,10 @@ import { Map } from 'immutable'
 import PlayersList from 'components/PlayersList'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
+import TownLogo from 'assets/images/fractions/town.svg'
+import MafiaLogo from 'assets/images/fractions/mafia.svg'
+import AnarchistsLogo from 'assets/images/fractions/Anarchy.svg'
+
 import {
   BorderContainer,
   Content,
@@ -17,7 +21,10 @@ import {
   TownMafiaDistribution,
   PartyDistribution,
   DistributionCount,
-  DistributionHeading
+  DistributionHeading,
+  FractionLogo,
+  TownDistributionContainer,
+  MafiaDistributionContainer
 } from './Styles'
 
 import {
@@ -38,24 +45,26 @@ class GameStart extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel>Welcome</BorderContainerTitel>
             <PartyDistribution>
-              <TownMafiaDistribution>
-                <div>
-                  <DistributionHeading>Mafia</DistributionHeading>
-                  <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
-                </div>
-                <div>
-                  <DistributionHeading>Town</DistributionHeading>
-                  <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
-                </div>
-              </TownMafiaDistribution>
-
               <AnarchistsDistribution>
+                <FractionLogo><img src={AnarchistsLogo} alt="logo" /></FractionLogo>
                 <DistributionHeading>Anarchists</DistributionHeading>
                 <DistributionCount>{game.getIn(['party_distribution', 'Anarchists']) || 0}</DistributionCount>
               </AnarchistsDistribution>
+              <TownMafiaDistribution>
+                <MafiaDistributionContainer>
+                  <FractionLogo><img src={MafiaLogo} alt="logo" /></FractionLogo>
+                  <DistributionHeading>Mafia</DistributionHeading>
+                  <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
+                </MafiaDistributionContainer>
+                <TownDistributionContainer>
+                  <FractionLogo><img src={TownLogo} alt="logo" /></FractionLogo>
+                  <DistributionHeading>Town</DistributionHeading>
+                  <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
+                </TownDistributionContainer>
+              </TownMafiaDistribution>
             </PartyDistribution>
             <Section>
-              <Heading title="citizen" />
+              <Heading title="citizens" />
             </Section>
             <PlayersList players={game.get('players')} />
           </BorderContainer>
