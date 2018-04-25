@@ -36,6 +36,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   transition: opacity 0.2s;
+  font-size: 1.5rem;
   ${(props) => props.right && right}
   ${(props) => props.left && left}
   ${(props) => props.top && top}

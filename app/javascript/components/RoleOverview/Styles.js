@@ -91,10 +91,16 @@ export const FlipIcon = styled(IconFont)`
 `
 
 export const InformationIcon = styled(IconFont)`
-  position: absolute;
-  transform: translateY(-50%);
-  right: 0.3rem;
-  top: 50%;
+    top: 0;
+    right: 0;
+    background-color: #06242d;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    border-bottom-left-radius: 0.7rem;
+    font-size: 1.4rem;
 `
 
 export const CardBottom = styled.div`

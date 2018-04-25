@@ -46,7 +46,6 @@ class RoleOverview extends React.PureComponent {
             <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
             <CardHead>
               <span>{pseudonym}</span>
-              <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
             </CardHead>
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
@@ -56,6 +55,7 @@ class RoleOverview extends React.PureComponent {
                 <source src={roleVideo} type="video/mp4" />
                 <span>Your browser does not support the video tag.</span>
               </video>
+              <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
             </RoleVideoContainer>
             <CardBottom>
               <FlipIcon icon={ICONS.arrow_left} onClick={showRoleCovert} />
