@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   BorderContainer,
   Content,
-  BorderContainerFooter,
+  BottomRight,
   BorderContainerTitel,
   Action
 } from 'styles/components'
@@ -25,9 +25,9 @@ class GameEnd extends React.PureComponent {
           <Content>
             <Winner>{winner}</Winner>
           </Content>
-          <BorderContainerFooter>
+          <BottomRight>
             <Action onClick={resetGame}>back to the dashboard</Action>
-          </BorderContainerFooter>
+          </BottomRight>
         </BorderContainer>
       </Content>
     )

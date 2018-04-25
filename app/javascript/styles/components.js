@@ -36,17 +36,17 @@ export const BorderContainerTitel = styled.span`
   white-space:nowrap; //prevent line break
 `
 
-export const BorderContainerFooter = styled.div`
+export const BottomRight = styled.div`
   display: flex;
   text-transform: uppercase;
   color: ${PINK};
-  border: 2px solid ${PINK};
-  background-color: ${DARK_BLUE};
+  border-left: 1px solid ${PINK};
+  border-top: 1px solid ${PINK};
+  background-color: transparent;
+  border-bottom-right-radius: 3px;
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(50%);
-  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+  right: 0;
   
   > * + * {
     border-left: solid 1px ${PINK};
@@ -87,7 +87,7 @@ export const Footer = styled.div`
 
 export const Action = styled.button`
   color: ${PINK};
-  background-color: ${DARK_BLUE};
+  background-color: transparent;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
   text-shadow: 2px 2px #000;

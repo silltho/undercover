@@ -6,7 +6,7 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerFooter,
+  BottomRight,
   BorderContainerTitel,
   Action,
   Scrollable
@@ -16,7 +16,8 @@ import {
   DayButtonContainer,
   Wrapper,
   NoInfosMessage,
-  InfoList
+  InfoList,
+  BottomDawnContainer
 } from './Styles'
 
 class GameInfo extends React.PureComponent {
@@ -72,7 +73,7 @@ class GameInfo extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel>
-              Tag {day}
+              Dawn {day}
             </BorderContainerTitel>
             {renderedInfos.size > 0 ? (
               <Scrollable>
@@ -82,18 +83,20 @@ class GameInfo extends React.PureComponent {
               </Scrollable>
             ) : (<NoInfosMessage>-- no infos for this day --</NoInfosMessage>)
             }
-            {renderedDayButtons.size > 0 ?
-              (
-                <DayButtonContainer innerRef={this.setButtonContainerRef}>
-                  {renderedDayButtons}
-                </DayButtonContainer>
-              ) : null
-            }
-            <BorderContainerFooter>
-              <Action onClick={readInfos}>
-                <IconFont icon={ICONS.arrow_right} />
-              </Action>
-            </BorderContainerFooter>
+            <BottomDawnContainer>
+              {renderedDayButtons.size > 0 ?
+                (
+                  <DayButtonContainer innerRef={this.setButtonContainerRef}>
+                    {renderedDayButtons}
+                  </DayButtonContainer>
+                ) : null
+              }
+              <BottomRight>
+                <Action onClick={readInfos}>
+                  <IconFont icon={ICONS.arrow_right} />
+                </Action>
+              </BottomRight>
+            </BottomDawnContainer>
           </BorderContainer>
         </Content>
       </Wrapper>

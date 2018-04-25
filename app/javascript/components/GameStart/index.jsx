@@ -6,14 +6,24 @@ import IconFont, {ICONS} from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerFooter,
+  BottomRight,
   BorderContainerTitel,
   Action
 } from 'styles/components'
 
+import Heading from 'components/Heading'
+
 import {
-  PartyDistribution
+  AnarchistsDistribution,
+  TownMafiaDistribution,
+  PartyDistribution,
+  DistributionCount,
+  DistributionHeading
 } from './Styles'
+
+import {
+  Section
+} from '../RoleInformation/Styles'
 
 class GameStart extends React.PureComponent {
 
@@ -27,27 +37,33 @@ class GameStart extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel>Welcome!</BorderContainerTitel>
+            <BorderContainerTitel>Welcome</BorderContainerTitel>
             <PartyDistribution>
-              <div>
-                <u>Party Distribution:</u>
-              </div>
-              <div>
-                Mafia: {game.getIn(['party_distribution', 'Mafia']) || 0}
-              </div>
-              <div>
-                Town: {game.getIn(['party_distribution', 'Town']) || 0}
-              </div>
-              <div>
-                Anarchists: {game.getIn(['party_distribution', 'Anarchists']) || 0}
-              </div>
+              <TownMafiaDistribution>
+                <div>
+                  <DistributionHeading>Mafia</DistributionHeading>
+                  <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
+                </div>
+                <div>
+                  <DistributionHeading>Town</DistributionHeading>
+                  <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
+                </div>
+              </TownMafiaDistribution>
+
+              <AnarchistsDistribution>
+                <DistributionHeading>Anarchists</DistributionHeading>
+                <DistributionCount>{game.getIn(['party_distribution', 'Anarchists']) || 0}</DistributionCount>
+              </AnarchistsDistribution>
             </PartyDistribution>
+            <Section>
+              <Heading title="citizen" />
+            </Section>
             <PlayersList players={game.get('players')} />
-            <BorderContainerFooter>
+            <BottomRight>
               <Action onClick={startGame}>
                 <IconFont icon={ICONS.arrow_right} />
               </Action>
-            </BorderContainerFooter>
+            </BottomRight>
           </BorderContainer>
         </Content>
       </React.Fragment>

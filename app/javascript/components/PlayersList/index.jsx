@@ -21,9 +21,6 @@ class PlayersList extends React.PureComponent {
 
     return (
       <Wrapper>
-        <div>
-          <u>Town Population:</u>
-        </div>
         <PlayerList>
           {renderedPlayers}
         </PlayerList>
