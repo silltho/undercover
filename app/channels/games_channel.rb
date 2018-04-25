@@ -19,21 +19,30 @@ class GamesChannel < ApplicationCable::Channel
 
   def start_game
     @game.reload
-    @game.started!
-    @game.broadcast_game_updated
+    finish_phase("start_game")
+    if phase_finished?("start_game")
+      @game.started!
+      @game.broadcast_game_updated
+    end
   end
 
   def end_info_phase
     @game.reload
-    finish_game if @game.is_game_over?
-    @game.informed!
-    @game.broadcast_game_updated
+    finish_phase("end_info_phase")
+    if phase_finished?("end_info_phase")
+      finish_game if @game.is_game_over?
+      @game.informed!
+      @game.broadcast_game_updated
+    end
   end
 
   def end_exchange_phase
     @game.reload
-    @game.exchanged!
-    @game.broadcast_game_updated
+    finish_phase("end_exchange_phase")
+    if phase_finished?("end_exchange_phase")
+      @game.exchanged!
+      @game.broadcast_game_updated
+    end
   end
 
   def use_skill(params)
@@ -42,14 +51,14 @@ class GamesChannel < ApplicationCable::Channel
     all_skills_used if @game.all_users_clicked?(@game.round)
   end
 
-  def finish_phase(params)
-    phase = params['phase']
-    ActionLog.create(player: params['player'],  game: @game, round: @game.round, action: phase)
-    send(phase.to_sym) if phase_finished?(phase)
+  def finish_phase(phase)
+    # phase = @game.aasm_state
+    ActionLog.create(player: current_player,  game: @game, round: @game.round, action: phase)
+    # send(phase.to_sym) if phase_finished?(phase)
   end
 
-  def phase_finished?(action_name)
-    ActionLog.where(game: @game).where(round: @game.round).where(action: action_name).group(:player).maximum(:id).count == @game.players.alive.count
+  def phase_finished?(phase)
+    ActionLog.where(game: @game).where(round: @game.round).where(action: phase).group(:player).maximum(:id).count == @game.players.alive.count
   end
 
   def all_skills_used
