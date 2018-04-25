@@ -33,8 +33,8 @@ class GameExchange extends React.PureComponent {
               </video>
             </TownContainer>
           </BorderContainer>
-          <CornerButton right bottom onClick={endExchange}>
-            <IconFont icon={ICONS.ready} />
+          <CornerButton right bottom onClickAction={endExchange}>
+            <IconFont icon={ICONS.checkmark} />
           </CornerButton>
         </Content>
       </React.Fragment>

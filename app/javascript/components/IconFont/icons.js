@@ -13,9 +13,11 @@ export default {
   handcuffs: 'e909',
   beat: 'e90b',
   convert: 'e90c',
-  ready: 'f00c',
-  share: 'f1e0',
   rescue: 'e90a',
   arrow_left: 'ea40',
-  arrow_right: 'ea3c'
+  arrow_right: 'ea3c',
+  forward: 'e969',
+  reply: 'e96a',
+  checkmark: 'ea10',
+  share: 'ea82'
 }

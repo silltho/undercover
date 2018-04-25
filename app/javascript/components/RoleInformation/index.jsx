@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Heading from 'components/Heading'
-import { ACTIVE_ICONS, PASSIVE_ICONS } from 'components/IconFont'
-
+import IconFont, { ICONS, ACTIVE_ICONS, PASSIVE_ICONS } from 'components/IconFont'
+import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BottomRight,
-  Content,
-  Action
+  Content
 } from 'styles/components'
 
 import {
@@ -55,12 +53,10 @@ class RoleInformation extends React.PureComponent {
                 </Section>
               }
             </SectionWrapper>
-            <BottomRight>
-              <Action onClick={onRequestHide}>
-                back
-              </Action>
-            </BottomRight>
           </BorderContainer>
+          <CornerButton bottom right onClickAction={onRequestHide}>
+            <IconFont icon={ICONS.reply} />
+          </CornerButton>
         </Content>
       </React.Fragment>
     )

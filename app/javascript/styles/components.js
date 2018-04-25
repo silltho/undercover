@@ -38,27 +38,6 @@ export const BorderContainerTitel = styled.span`
   white-space:nowrap; //prevent line break
 `
 
-export const BottomRight = styled.div`
-  display: flex;
-  text-transform: uppercase;
-  color: ${PINK};
-  border-left: 1px solid ${PINK};
-  border-top: 1px solid ${PINK};
-  background-color: ${DARK_BLUE};
-  border-bottom-right-radius: ${cardBorderRadius};
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  
-  > * + * {
-    border-left: solid 1px ${PINK};
-  }
-  
-  > * {
-    cursor: pointer;
-  }
-`
-
 export const Content = styled.div`
   display: flex;
   flex: 1;
@@ -88,6 +67,28 @@ export const Footer = styled.div`
   flex-direction: row;
 `
 
+/*
+export const BottomRight = styled.div`
+  display: flex;
+  text-transform: uppercase;
+  color: ${PINK};
+  border-left: 1px solid ${PINK};
+  border-top: 1px solid ${PINK};
+  background-color: ${DARK_BLUE};
+  border-bottom-right-radius: ${cardBorderRadius};
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  > * + * {
+    border-left: solid 1px ${PINK};
+  }
+
+  > * {
+    cursor: pointer;
+  }
+`
+
 export const Action = styled.button`
   color: ${PINK};
   background-color: transparent;
@@ -113,35 +114,7 @@ export const Action = styled.button`
       text-shadow: none;
     }
   }
-`
-
-export const CornerButton = styled.a`
-  position: absolute;
-  border-top-left-radius: 90%;
-  background-color: ${DARK_BLUE};
-  border-top: 1px solid ${PINK};
-  border-left: 1px solid ${PINK};
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-  transition: opacity 0.2s;
-  ${(props) => props.right && 'right: 0;'}
-  ${(props) => props.left && 'left: 0;'}
-  ${(props) => props.top && 'top: 0;'}
-  ${(props) => props.bottom && 'bottom: 0;'}
-  
-  > * {
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-  }
-  
-  &:active {
-    opacity: 0;
-  }
-`
+`*/
 
 export const RoomCode = styled.div `
   position: absolute;
