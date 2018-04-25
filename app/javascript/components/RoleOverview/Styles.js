@@ -40,7 +40,7 @@ export const CardHead = styled.div`
   margin-bottom: 0.33rem;
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `
 
@@ -60,6 +60,20 @@ export const RoleVideoContainer = styled.div`
     width: 100%;
   }
   
+  > ${FractionImage} {
+    position: absolute;s
+  }
+  
+  > ${FractionImage}:first-child {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  
+  > ${FractionImage}:last-child {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+  
   ${(props) => props.dead && DeadStyle}
   ${(props) => props.imprisoned && ImprisonedStyle}
 `
@@ -71,8 +85,11 @@ export const PassiveIcon = styled(IconFont)`
 
 export const ActionIcon = styled(IconFont)`
   font-size: 2rem;
-  padding: 0.5rem 1rem;
-  text-shadow: 2px 2px #000;
+  padding: 0.5rem;
+  text-shadow: 2px 2px 2px #000;
+  box-shadow: 2px 2px 2px #000;
+  border: 1px solid white;
+  border-radius: 100%;
   
   &:active{
     text-shadow: none;

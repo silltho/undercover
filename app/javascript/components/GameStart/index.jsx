@@ -69,7 +69,7 @@ class GameStart extends React.PureComponent {
             <PlayersList players={game.get('players')} />
           </BorderContainer>
           <CornerButton right bottom onClickAction={startGame}>
-            <IconFont icon={ICONS.ready} />
+            <IconFont icon={ICONS.checkmark} />
           </CornerButton>
         </Content>
       </React.Fragment>

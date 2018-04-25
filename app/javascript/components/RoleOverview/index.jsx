@@ -50,30 +50,30 @@ class RoleOverview extends React.PureComponent {
               <span>{roleDetails.get('name')}</span>
             </BorderContainerTitel>
             <CardHead>
-              <FractionImage src={fractionImage} />
               <span>{pseudonym}</span>
-              {passiveIcon && <PassiveIcon icon={passiveIcon} />}
             </CardHead>
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
               imprisoned={state === PlayerStates.IMPRISONED}
             >
+              <FractionImage src={fractionImage} />
               <video autoPlay muted loop="loop" poster={roleImage} controlsList="nodownload nofullscreen">
                 <source src={roleVideo} type="video/mp4" />
                 <span>Your browser does not support the video tag.</span>
               </video>
               <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
+              <FractionImage src={fractionImage} />
             </RoleVideoContainer>
             <CardBottom>
               { state === PlayerStates.ALIVE &&
                 <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               }
-              <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span>
+              <span>{currentTarget.has('codename') ? currentTarget.get('codename') : 'no target selected'}</span>
             </CardBottom>
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
           <CornerButton right bottom onClickAction={skipPhase}>
-            <IconFont icon={ICONS.ready} />
+            <IconFont icon={ICONS.checkmark} />
           </CornerButton>
           }
         </Content>

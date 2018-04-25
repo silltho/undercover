@@ -93,7 +93,7 @@ class GameInfo extends React.PureComponent {
             </BottomDawnContainer>
           </BorderContainer>
           <CornerButton right bottom onClickAction={readInfos}>
-            <IconFont icon={ICONS.arrow_right} />
+            <IconFont icon={ICONS.checkmark} />
           </CornerButton>
         </Content>
       </Wrapper>
