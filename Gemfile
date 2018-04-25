@@ -8,8 +8,6 @@ end
 
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
-gem 'bootstrap-modal-rails'
-gem 'overcommit'
 gem 'redis', '~> 3.3'
 gem 'normalize-rails'
 gem 'aasm'
