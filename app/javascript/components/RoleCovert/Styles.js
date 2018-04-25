@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PINK } from 'styles/variables'
+import {PINK} from 'styles/variables'
 
 export const CardBack = styled.div`
     display: flex;
@@ -7,6 +7,7 @@ export const CardBack = styled.div`
     border-radius: 8px;
     border: solid 1px ${PINK};
     justify-content: center;
+    position: relative;
     
     &:after {
       z-index: -1;
@@ -22,13 +23,15 @@ export const CardBack = styled.div`
     }
     
     > img {
-      max-width: 80%;
+      max-width: 70%;
       object-fit: contain;
     }
 `
 
 export const CardBackText = styled.div`
   position: absolute;
-  bottom: 3.5rem;
+  bottom: 2.5rem;
+  font-size: 2.5rem;
+  text-decoration: overline;
   color: ${PINK};
 `
