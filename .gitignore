@@ -8,6 +8,9 @@
 /.bundle
 *.key
 dump.rdb
+.rspec
+test
+spec
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -15,7 +18,6 @@ dump.rdb
 !/log/.keep
 !/tmp/.keep
 
-*.key
 secrets.*
 
 /node_modules
