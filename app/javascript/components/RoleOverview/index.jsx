@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import IconFont, { ICONS, ACTIVE_ICONS, PASSIVE_ICONS } from 'components/IconFont'
 import { getVideoByRole, getImageByRole } from 'config/roleImages'
+import { getImageByFraction } from 'config/fractionImages'
 import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
@@ -14,10 +15,11 @@ import PlayerStates from 'config/playerStates'
 import {
   RoleVideoContainer,
   ActionIcon,
+  PassiveIcon,
   CardBottom,
   CardHead,
   InformationIcon,
-  FlipIcon
+  FractionImage
 } from './Styles'
 
 class RoleOverview extends React.PureComponent {
@@ -27,7 +29,6 @@ class RoleOverview extends React.PureComponent {
       showTargetSelection,
       showRoleInformation,
       skipPhase,
-      showRoleCovert,
       currentTarget
     } = this.props
 
@@ -39,14 +40,19 @@ class RoleOverview extends React.PureComponent {
     const passiveIcon = PASSIVE_ICONS[roleDetails.get('passive')]
     const roleVideo = getVideoByRole(roleDetails.get('name'))
     const roleImage = getImageByRole(roleDetails.get('name'))
+    const fractionImage = getImageByFraction(roleDetails.get('party'))
 
     return (
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
+            <BorderContainerTitel>
+              <span>{roleDetails.get('name')}</span>
+            </BorderContainerTitel>
             <CardHead>
+              <FractionImage src={fractionImage} />
               <span>{pseudonym}</span>
+              {passiveIcon && <PassiveIcon icon={passiveIcon} />}
             </CardHead>
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
@@ -63,7 +69,6 @@ class RoleOverview extends React.PureComponent {
                 <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               }
               <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span>
-              {passiveIcon && <ActionIcon icon={passiveIcon} />}
             </CardBottom>
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
@@ -85,7 +90,6 @@ RoleOverview.propTypes = {
   player: PropTypes.instanceOf(Map).isRequired,
   showTargetSelection: PropTypes.func.isRequired,
   showRoleInformation: PropTypes.func.isRequired,
-  showRoleCovert: PropTypes.func.isRequired,
   skipPhase: PropTypes.func.isRequired,
   currentTarget: PropTypes.instanceOf(Map)
 }

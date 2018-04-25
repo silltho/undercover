@@ -6,7 +6,7 @@ import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import TownLogo from 'assets/images/fractions/town.svg'
 import MafiaLogo from 'assets/images/fractions/mafia.svg'
-import AnarchistsLogo from 'assets/images/fractions/Anarchy.svg'
+import AnarchistsLogo from 'assets/images/fractions/anarchist.svg'
 
 import {
   BorderContainer,
