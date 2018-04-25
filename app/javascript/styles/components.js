@@ -114,7 +114,7 @@ export const Action = styled.button`
   }
 `
 
-export const CornerButton = styled.div`
+export const CornerButton = styled.a`
   position: absolute;
   border-top-left-radius: 90%;
   background-color: ${DARK_BLUE};
@@ -125,6 +125,8 @@ export const CornerButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 1;
+  transition: opacity 0.2s;
   ${(props) => props.right && 'right: 0;'}
   ${(props) => props.left && 'left: 0;'}
   ${(props) => props.top && 'top: 0;'}
@@ -133,6 +135,10 @@ export const CornerButton = styled.div`
   > * {
     margin-top: 0.5rem;
     margin-left: 0.5rem;
+  }
+  
+  &:active {
+    opacity: 0;
   }
 `
 

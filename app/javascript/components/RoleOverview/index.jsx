@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import { getVideoByRole, getImageByRole } from 'config/roleImages'
+import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   BorderContainerTitel,
-  CornerButton,
   Content
 } from 'styles/components'
 import PlayerStates from 'config/playerStates'

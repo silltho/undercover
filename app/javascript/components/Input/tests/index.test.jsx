@@ -12,7 +12,7 @@ const renderComponent = (props = defaultProps) => mount(
   <Button {...props} />
 )
 
-describe('<Button />', () => {
+describe('<CornerButton />', () => {
   it('should render an <button> tag', () => {
     const renderedComponent = renderComponent()
     expect(renderedComponent.find('button').length).toEqual(1)

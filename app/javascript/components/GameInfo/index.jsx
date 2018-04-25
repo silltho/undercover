@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Flip from 'components/Animations/Flip'
+import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  CornerButton,
   BorderContainerTitel,
   Scrollable
 } from 'styles/components'
@@ -92,7 +92,7 @@ class GameInfo extends React.PureComponent {
               }
             </BottomDawnContainer>
           </BorderContainer>
-          <CornerButton right bottom onClick={readInfos}>
+          <CornerButton right bottom onClickAction={readInfos}>
             <IconFont icon={ICONS.arrow_right} />
           </CornerButton>
         </Content>

@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import PlayersList from 'components/PlayersList'
-import IconFont, {ICONS} from 'components/IconFont'
+import CornerButton from 'components/CornerButton'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  CornerButton,
-  BorderContainerTitel,
-  Action
+  BorderContainerTitel
 } from 'styles/components'
 
 import Heading from 'components/Heading'
