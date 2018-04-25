@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
+import FractionImages from 'config/fractionImages'
 import Flip from 'components/Animations/Flip'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
@@ -16,7 +17,11 @@ import {
   Wrapper,
   NoInfosMessage,
   InfoList,
-  BottomDawnContainer
+  BottomDawnContainer,
+  Distribution,
+  DistributionSection,
+  Fraction,
+  FractionImg
 } from './Styles'
 
 class GameInfo extends React.PureComponent {
@@ -59,13 +64,15 @@ class GameInfo extends React.PureComponent {
   renderRoundInformation = () => {
     const {
       readInfos,
-      roundInformation
+      roundInformation,
+      game
     } = this.props
 
     const day = (parseInt(this.state.selectedDay, 10) + 1)
     const infos = roundInformation.get(this.state.selectedDay, [])
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
+    const distribution = game.get('party_distribution')
 
     return (
       <Wrapper key={`round-information-${day}`}>
@@ -74,6 +81,17 @@ class GameInfo extends React.PureComponent {
             <BorderContainerTitel>
               Dawn {day}
             </BorderContainerTitel>
+            <Distribution>
+              <DistributionSection>
+                <Fraction><FractionImg src={FractionImages.MAFIA} />: {distribution.get('Mafia')}</Fraction>
+                <Fraction><FractionImg src={FractionImages.TOWN} />: {distribution.get('Town')}</Fraction>
+                <Fraction><FractionImg src={FractionImages.ANARCHIST} />: {distribution.get('Anarchists')}</Fraction>
+              </DistributionSection>
+              <DistributionSection>
+                <Fraction><IconFont icon={ICONS.poison} />: {distribution.get('Dead')}</Fraction>
+                <Fraction><IconFont icon={ICONS.handcuffs} />: {distribution.get('Prisoners')}</Fraction>
+              </DistributionSection>
+            </Distribution>
             {renderedInfos.size > 0 ? (
               <Scrollable>
                 <InfoList>
@@ -114,6 +132,7 @@ GameInfo.defaultProps = {
 }
 
 GameInfo.propTypes = {
+  game: PropTypes.instanceOf(Map).isRequired,
   round: PropTypes.number,
   readInfos: PropTypes.func.isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired

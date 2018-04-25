@@ -12,3 +12,5 @@ export const getImageByFraction = (fraction = '') => {
   const key = fraction.replace(/\s+/g, '').toUpperCase()
   return FractionImages[key]
 }
+
+export default FractionImages
