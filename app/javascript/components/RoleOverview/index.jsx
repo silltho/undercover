@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
+import IconFont, { ICONS, ACTIVE_ICONS, PASSIVE_ICONS } from 'components/IconFont'
 import { getVideoByRole, getImageByRole } from 'config/roleImages'
 import CornerButton from 'components/CornerButton'
 import {
@@ -36,6 +36,7 @@ class RoleOverview extends React.PureComponent {
     const state = player.get('state')
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
+    const passiveIcon = PASSIVE_ICONS[roleDetails.get('passive')]
     const roleVideo = getVideoByRole(roleDetails.get('name'))
     const roleImage = getImageByRole(roleDetails.get('name'))
 
@@ -62,7 +63,7 @@ class RoleOverview extends React.PureComponent {
                 <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               }
               <span>{currentTarget.has('codename') ? currentTarget.get('codename') : '-none-'}</span>
-              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+              {passiveIcon && <ActionIcon icon={passiveIcon} />}
             </CardBottom>
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
