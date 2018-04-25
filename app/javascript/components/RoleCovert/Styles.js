@@ -27,3 +27,8 @@ export const CardBack = styled.div`
     }
 `
 
+export const CardBackText = styled.div`
+  position: absolute;
+  bottom: 3.5rem;
+  color: ${PINK};
+`
