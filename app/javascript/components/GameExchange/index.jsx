@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import IconFont, { ICONS } from 'components/IconFont'
 import TownVideo from 'assets/videos/Town.mp4'
 import TownPoster from 'assets/images/town.jpg'
+import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   Content,
-  CornerButton,
   BorderContainerTitel
 } from 'styles/components'
 
@@ -33,7 +33,7 @@ class GameExchange extends React.PureComponent {
               </video>
             </TownContainer>
           </BorderContainer>
-          <CornerButton right bottom onClick={endExchange}>
+          <CornerButton right bottom onClickAction={endExchange}>
             <IconFont icon={ICONS.arrow_right} />
           </CornerButton>
         </Content>

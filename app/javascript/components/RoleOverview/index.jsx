@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import IconFont, { ICONS, ACTIVE_ICONS } from 'components/IconFont'
 import { getVideoByRole, getImageByRole } from 'config/roleImages'
+import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   BorderContainerTitel,
-  CornerButton,
   Content
 } from 'styles/components'
 import PlayerStates from 'config/playerStates'
@@ -67,7 +67,7 @@ class RoleOverview extends React.PureComponent {
             </CardBottom>
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
-          <CornerButton right bottom onClick={skipPhase}>
+          <CornerButton right bottom onClickAction={skipPhase}>
             <IconFont icon={ICONS.arrow_right} />
           </CornerButton>
           }
