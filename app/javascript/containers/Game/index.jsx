@@ -78,7 +78,7 @@ class Game extends React.PureComponent {
           <GamePhaseWrapper ready={ready} phaseKey={`phase-${gamePhaseKey}`}>
             {this.renderCurrentPhase()}
           </GamePhaseWrapper>
-          <RoomCode>CODE {gameCode}</RoomCode>
+          <RoomCode>ROOMCODE: {gameCode}</RoomCode>
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal
