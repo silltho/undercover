@@ -50,6 +50,10 @@ export const DayButtonContainer = styled.div`
   overflow-x: scroll;
   border-bottom-left-radius: 8px;
   height: 3rem;
+  
+  > :last-child {
+   border-right: 1px solid ${PINK};
+  }
 `
 
 export const BottomDawnContainer = styled.div`
