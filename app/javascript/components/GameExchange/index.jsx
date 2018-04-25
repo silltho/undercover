@@ -34,7 +34,7 @@ class GameExchange extends React.PureComponent {
             </TownContainer>
           </BorderContainer>
           <CornerButton right bottom onClick={endExchange}>
-            <IconFont icon={ICONS.arrow_right} />
+            <IconFont icon={ICONS.ready} />
           </CornerButton>
         </Content>
       </React.Fragment>

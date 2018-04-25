@@ -46,7 +46,7 @@ class RoleOverview extends React.PureComponent {
             <BorderContainerTitel>{roleDetails.get('name')}</BorderContainerTitel>
             <CardHead>
               <span>{pseudonym}</span>
-              <InformationIcon icon={ICONS.help2} onClick={showRoleInformation} />
+              <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
             </CardHead>
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
@@ -68,7 +68,7 @@ class RoleOverview extends React.PureComponent {
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
           <CornerButton right bottom onClick={skipPhase}>
-            <IconFont icon={ICONS.arrow_right} />
+            <IconFont icon={ICONS.ready} />
           </CornerButton>
           }
         </Content>
