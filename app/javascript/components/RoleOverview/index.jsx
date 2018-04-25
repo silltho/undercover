@@ -58,7 +58,6 @@ class RoleOverview extends React.PureComponent {
               <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
             </RoleVideoContainer>
             <CardBottom>
-              <FlipIcon icon={ICONS.arrow_left} onClick={showRoleCovert} />
               { state === PlayerStates.ALIVE &&
                 <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
               }
