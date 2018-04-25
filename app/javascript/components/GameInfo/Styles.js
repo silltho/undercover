@@ -48,7 +48,7 @@ export const DayButtonContainer = styled.div`
   display: flex;
   flex: 1;
   overflow-x: scroll;
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 4px;
   height: 3rem;
   
   > :last-child {
