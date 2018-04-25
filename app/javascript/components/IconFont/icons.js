@@ -19,5 +19,6 @@ export default {
   forward: 'e969',
   reply: 'e96a',
   checkmark: 'ea10',
-  share: 'ea82'
+  share: 'ea82',
+  exit: 'ea14'
 }
