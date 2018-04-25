@@ -48,7 +48,7 @@ export const DayButtonContainer = styled.div`
   display: flex;
   flex: 1;
   overflow-x: scroll;
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 4px;
   height: 3rem;
   
   > :last-child {
@@ -60,7 +60,7 @@ export const BottomDawnContainer = styled.div`
   display: flex;
   position: absolute;
   bottom: 0;
-  width: calc(100% - 65px);
+  width: 100%;
   left: 0;
   border-top: 1px solid ${PINK}; 
 `

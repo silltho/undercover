@@ -48,6 +48,7 @@ export const Content = styled.div`
 
 export const Header = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;

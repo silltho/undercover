@@ -58,8 +58,9 @@ export const RoleVideoContainer = styled.div`
     object-fit: cover;
     min-height: 100%;
     width: 100%;
+    
   }
-  
+
   > ${FractionImage} {
     position: absolute;s
   }
@@ -74,6 +75,7 @@ export const RoleVideoContainer = styled.div`
     right: 0.5rem;
   }
   
+>>>>>>> c819c02b02aa5a76aee09c8e07b11c8e67f673cd
   ${(props) => props.dead && DeadStyle}
   ${(props) => props.imprisoned && ImprisonedStyle}
 `
