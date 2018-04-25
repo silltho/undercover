@@ -26,6 +26,15 @@ class Lobby extends React.PureComponent {
     this.props.leaveGame(this.props.game.get('id'))
   }
 
+  shareRoomCode = () => {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      const TEXT_WA = 'UNDERCOVER - Roomcode'
+      const ROOMCODE = this.props.game.get('code') // get roomcode
+      window.location.href = `whatsapp://send?text=${TEXT_WA}:${ROOMCODE}`
+    }
+    return false
+  }
+
   render() {
     const { game } = this.props
 
@@ -33,7 +42,7 @@ class Lobby extends React.PureComponent {
       <FadeIn>
         <Header>
           <RoomCode>Roomcode: {game.get('code')}</RoomCode>
-          <ShareButton><IconFont icon={ICONS.share} /></ShareButton>
+          <ShareButton onClick={this.shareRoomCode}><IconFont icon={ICONS.share} /></ShareButton>
         </Header>
         <Content>
           <PlayerCount>
