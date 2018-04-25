@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import {PINK} from 'styles/variables'
+import { PINK } from 'styles/variables'
 
-export const CardBack = styled.div`
+export const ImageWrapper = styled.div`
     display: flex;
     flex: 1;
     border-radius: 8px;
@@ -34,4 +34,10 @@ export const CardBackText = styled.div`
   font-size: 2.5rem;
   text-decoration: overline;
   color: ${PINK};
+`
+
+export const Wrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
 `

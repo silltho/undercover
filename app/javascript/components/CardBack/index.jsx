@@ -2,31 +2,34 @@ import React from 'react'
 import LogoImage from 'assets/images/logo_frame.png'
 import {
   BorderContainer,
-  Content
 } from 'styles/components'
 
 
 import {
-  CardBack,
-  CardBackText
+  CardBackText,
+  ImageWrapper,
+  Wrapper
 } from './Styles'
 
-class RoleCovert extends React.PureComponent {
+class CardBack extends React.PureComponent {
   render() {
     return (
-      <Content>
+      <Wrapper>
         <BorderContainer>
-          <CardBack>
+          <ImageWrapper>
             <img src={LogoImage} alt="logo" />
             <CardBackText>READY</CardBackText>
-          </CardBack>
+          </ImageWrapper>
         </BorderContainer>
-      </Content>
+      </Wrapper>
     )
   }
 }
 
-RoleCovert.defaultProps = {
+CardBack.defaultProps = {
 }
 
-export default RoleCovert
+CardBack.propTypes = {
+}
+
+export default CardBack
