@@ -5,6 +5,7 @@ class Player < ApplicationRecord
   belongs_to :user
   has_many :articles
   has_many :relations
+  has_many :action_logs
 
 
   aasm column: 'state', whiny_transitions: false do

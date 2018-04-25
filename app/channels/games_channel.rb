@@ -42,6 +42,16 @@ class GamesChannel < ApplicationCable::Channel
     all_skills_used if @game.all_users_clicked?(@game.round)
   end
 
+  def finish_phase(params)
+    phase = params['phase']
+    ActionLog.create(player: params['player'],  game: @game, round: @game.round, action: phase)
+    send(phase.to_sym) if phase_finished?(phase)
+  end
+
+  def phase_finished?(action_name)
+    ActionLog.where(game: @game).where(round: @game.round).where(action: action_name).group(:player).maximum(:id).count == @game.players.alive.count
+  end
+
   def all_skills_used
     @game.reload
     @game.skills_used!
