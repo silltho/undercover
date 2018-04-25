@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import FadeIn from 'components/Animations/FadeIn'
 import Button from 'components/Button'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   UserChannel,
   GameChannel
@@ -15,7 +16,8 @@ import {
 } from 'styles/components'
 import {
   PlayerCount,
-  RoomCode
+  RoomCode,
+  ShareButton
 } from './Styles'
 
 
@@ -31,6 +33,7 @@ class Lobby extends React.PureComponent {
       <FadeIn>
         <Header>
           <RoomCode>Roomcode: {game.get('code')}</RoomCode>
+          <ShareButton><IconFont icon={ICONS.share} /></ShareButton>
         </Header>
         <Content>
           <PlayerCount>
