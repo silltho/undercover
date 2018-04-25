@@ -11,7 +11,8 @@ import AnarchistsLogo from 'assets/images/fractions/Anarchy.svg'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel
+  BorderContainerTitel,
+  Scrollable
 } from 'styles/components'
 
 import Heading from 'components/Heading'

@@ -60,7 +60,7 @@ export const BottomDawnContainer = styled.div`
   display: flex;
   position: absolute;
   bottom: 0;
-  width: calc(100% - 65px);
+  width: 100%;
   left: 0;
   border-top: 1px solid ${PINK}; 
 `

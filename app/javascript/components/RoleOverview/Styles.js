@@ -62,8 +62,12 @@ export const RoleVideoContainer = styled.div`
     object-fit: cover;
     min-height: 100%;
     width: 100%;
+    
   }
-  
+  video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
   ${(props) => props.dead && DeadStyle}
   ${(props) => props.imprisoned && ImprisonedStyle}
 `
