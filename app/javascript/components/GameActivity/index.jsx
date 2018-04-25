@@ -4,7 +4,6 @@ import { Map } from 'immutable'
 import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
-import RoleCovert from 'components/RoleCovert'
 import Flip from 'components/Animations/Flip'
 import { Wrapper } from './Styles'
 
@@ -41,9 +40,6 @@ class GameActivity extends React.PureComponent {
   showRoleInformation = () => {
     this.setState({ currentView: VIEWS.roleInformation })
   }
-  showRoleCovert = () => {
-    this.setState({ currentView: VIEWS.roleCovert })
-  }
 
   renderCard = () => {
     const {
@@ -64,7 +60,7 @@ class GameActivity extends React.PureComponent {
             player={player}
             showTargetSelection={this.showTargetSelection}
             showRoleInformation={this.showRoleInformation}
-            showRoleCovert={this.showRoleCovert}
+            showRoleCovert={() => {}}
             skipPhase={() => useSkill(null)}
             currentTarget={currentTarget}
           />
@@ -86,13 +82,6 @@ class GameActivity extends React.PureComponent {
             onSelectTarget={this.selectTarget}
             onRequestHide={this.showRoleOverview}
             currentTarget={currentTarget}
-          />
-        </Wrapper>
-      )
-      case VIEWS.roleCovert: return (
-        <Wrapper key="role-covert">
-          <RoleCovert
-            onRequestHide={this.showRoleOverview}
           />
         </Wrapper>
       )

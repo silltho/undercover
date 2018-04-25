@@ -3,17 +3,17 @@ import { mount } from 'enzyme'
 
 import { Content } from 'styles/components'
 
-import RoleCovert from '../index'
+import CardBack from '../index'
 
 const defaultProps = {
   onRequestHide: () => {}
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <RoleCovert {...props} />
+  <CardBack {...props} />
 )
 
-describe('<RoleCovert />', () => {
+describe('<ImageWrapper />', () => {
   it('should render <Content>, <Footer>', () => {
     const renderedComponent = renderComponent()
     expect(renderedComponent.find(Content).length).toEqual(1)
