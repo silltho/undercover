@@ -73,6 +73,10 @@ class Player < ApplicationRecord
     UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
   end
 
+  def broadcast_waiting_for_players
+    UserChannel.broadcast_to(user, type: 'waiting_for_others', data: nil)
+  end
+
   def create_codename
     name = Faker::Name.name
     update(codename: name)

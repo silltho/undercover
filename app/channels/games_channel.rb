@@ -58,7 +58,9 @@ class GamesChannel < ApplicationCable::Channel
   end
 
   def phase_finished?(phase)
-    ActionLog.where(game: @game).where(round: @game.round).where(action: phase).group(:player).maximum(:id).count == @game.players.alive.count
+    finished = ActionLog.where(game: @game).where(round: @game.round).where(action: phase).group(:player).maximum(:id).count == @game.players.alive.count
+    current_player.broadcast_waiting_for_players unless finished
+    finished
   end
 
   def all_skills_used
