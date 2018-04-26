@@ -34,6 +34,7 @@ class Game extends React.PureComponent {
       case GamePhases.INFO:
         return (
           <GameInfo
+            player={this.props.player}
             game={this.props.game}
             round={this.props.game.get('round') || 0}
             roundInformation={this.props.roundInformation}
@@ -42,6 +43,7 @@ class Game extends React.PureComponent {
       case GamePhases.EXCHANGE:
         return (
           <GameExchange
+            player={this.props.player}
             endExchange={this.props.endExchangePhase}
           />)
       case GamePhases.ACTIVITY:
