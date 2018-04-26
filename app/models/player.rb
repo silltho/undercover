@@ -76,7 +76,7 @@ class Player < ApplicationRecord
 
   def broadcast_spy_action(victim)
     v = Relation.where(player1: self, player2: victim).first_or_create
-    v.update(role: victim.role, loyal: victim.is_loyal?)
+    v.update(role: victim.role, party: victim.get_party)
     UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
   end
 
@@ -105,10 +105,6 @@ class Player < ApplicationRecord
     toggle!(:changed_party)
   end
 
-  def reveal_identity(committer)
-    committer.relations << [codename, role.name]
-  end
-
   def assign_character(role)
     update(role_id: role, changed_party: false)
   end
@@ -117,9 +113,27 @@ class Player < ApplicationRecord
     rel = Relation.where(player1: self)
     data = []
     rel.each do |entry|
-      data.push([entry.player2.id, entry.player2.try(:state), entry.role.try(:name), entry.loyal ])
+      data << {id: entry.player2.id, codename: entry.player2.try(:codename), state: entry.player2.try(:state), role: entry.try(:role).try(:name), party: entry.try(:party)}
     end
     data
+  end
+
+  def get_party
+    return "Anarchists" if belongs_to_anarchists
+    return "Town" if belongs_to_town
+    "Mafia" if belongs_to_mafia
+  end
+
+  def belongs_to_mafia
+    (role.try(:party) == "Mafia" && changed_party == false) || (role.try(:party) == "Town" && changed_party == true)
+  end
+
+  def belongs_to_town
+    (role.try(:party) == "Town" && changed_party == false) || (role.try(:party) == "Mafia" && changed_party == true)
+  end
+
+  def belongs_to_anarchists
+    role.try(:party) == "Anarchists"
   end
 
   def get_relations
@@ -131,13 +145,13 @@ class Player < ApplicationRecord
 
   def set_nil_relations
     Player.where(game: game).where.not(id: id).each do |other|
-      Relation.create(player1: self, player2: other, role: nil, loyal: true)
+      Relation.where(player1: self, player2: other, role: nil, party: nil).first_or_create
     end
   end
 
   def set_relation_information(role)
     role = Role.where(name: role).first
     player2 = Player.where(game: game).where(role: role).first
-    Relation.where(player1: self, player2: player2).first_or_create.update_attributes(role: role, loyal: player2.is_loyal?) unless player2.nil?
+    Relation.where(player1: self, player2: player2).first_or_create.update_attributes(role: player2.role, party: player2.get_party) unless player2.nil?
   end
 end
