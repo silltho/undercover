@@ -25,6 +25,7 @@ class UserChannel < ApplicationCable::Channel
     puts "Game: #{game.code}"
     if is_game_running?(game)
       p = Player.where(game: game, user: current_user).first
+      p.reconnect!
       puts "Player rejoined game: #{p.id}"
       return false if p.nil?
       p.broadcast_player_updated

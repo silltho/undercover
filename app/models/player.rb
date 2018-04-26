@@ -5,12 +5,11 @@ class Player < ApplicationRecord
   belongs_to :user
   has_many :articles
   has_many :relations
-  ALL_ROLES = %w[President Chief Officer Godfather Bodyguard Enforcer].freeze
-
+  has_many :action_logs
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
-    state :dead, :imprisoned
+    state :dead, :imprisoned, :disconnected
 
     event :imprison do
       transitions from: :alive, to: :imprisoned
@@ -28,6 +27,14 @@ class Player < ApplicationRecord
     event :reset do
       transitions from: :imprisoned, to: :alive
       transitions from: :dead, to: :alive
+    end
+
+    event :disconnect do
+      transitions from: :alive, to: :disconnected
+    end
+
+    event :reconnect do
+      transitions from: :disconnected, to: :alive
     end
   end
 
@@ -79,6 +86,9 @@ class Player < ApplicationRecord
 
   def broadcast_you_lost
     UserChannel.broadcast_to(user, type: 'player_lost', data: nil)
+
+  def broadcast_waiting_for_players
+    UserChannel.broadcast_to(user, type: 'waiting_for_others', data: nil)
   end
 
   def create_codename

@@ -25,6 +25,7 @@ export const BorderContainer = styled.div`
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
   border-radius: ${cardBorderRadius};
   min-height: 0;
+  height: 100%;
 `
 
 export const BorderContainerTitel = styled.span`
@@ -45,6 +46,7 @@ export const Content = styled.div`
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
+  height: 100%;
 `
 
 export const Header = styled.div`

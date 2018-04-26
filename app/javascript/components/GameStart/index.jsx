@@ -44,23 +44,21 @@ class GameStart extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel>Welcome</BorderContainerTitel>
             <PartyDistribution>
+              <MafiaDistributionContainer>
+                <FractionLogo><img src={FractionImages.MAFIA} alt="mafia-logo" /></FractionLogo>
+                <DistributionHeading>Mafia</DistributionHeading>
+                <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
+              </MafiaDistributionContainer>
               <AnarchistsDistribution>
                 <FractionLogo><img src={FractionImages.ANARCHISTS} alt="anarchists-logo" /></FractionLogo>
                 <DistributionHeading>Anarchists</DistributionHeading>
                 <DistributionCount>{game.getIn(['party_distribution', 'Anarchists']) || 0}</DistributionCount>
               </AnarchistsDistribution>
-              <TownMafiaDistribution>
-                <MafiaDistributionContainer>
-                  <FractionLogo><img src={FractionImages.MAFIA} alt="mafia-logo" /></FractionLogo>
-                  <DistributionHeading>Mafia</DistributionHeading>
-                  <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
-                </MafiaDistributionContainer>
-                <TownDistributionContainer>
-                  <FractionLogo><img src={FractionImages.TOWN} alt="town-logo" /></FractionLogo>
-                  <DistributionHeading>Town</DistributionHeading>
-                  <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
-                </TownDistributionContainer>
-              </TownMafiaDistribution>
+              <TownDistributionContainer>
+                <FractionLogo><img src={FractionImages.TOWN} alt="town-logo" /></FractionLogo>
+                <DistributionHeading>Town</DistributionHeading>
+                <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
+              </TownDistributionContainer>
             </PartyDistribution>
             <Section>
               <Heading title="citizens" />

@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   require 'faker'
   has_many :players, dependent: :destroy
   has_many :articles, dependent: :destroy
+  has_many :action_logs, dependent: :destroy
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
 

@@ -2,6 +2,7 @@ import React from 'react'
 import LogoImage from 'assets/images/logo_frame.png'
 import {
   BorderContainer,
+  Content
 } from 'styles/components'
 
 
@@ -15,21 +16,21 @@ class CardBack extends React.PureComponent {
   render() {
     return (
       <Wrapper>
-        <BorderContainer>
-          <ImageWrapper>
-            <img src={LogoImage} alt="logo" />
-            <CardBackText>READY</CardBackText>
-          </ImageWrapper>
-        </BorderContainer>
+        <Content>
+          <BorderContainer>
+            <ImageWrapper>
+              <img src={LogoImage} alt="logo"/>
+              <CardBackText>READY</CardBackText>
+            </ImageWrapper>
+          </BorderContainer>
+        </Content>
       </Wrapper>
     )
   }
 }
 
-CardBack.defaultProps = {
-}
+CardBack.defaultProps = {}
 
-CardBack.propTypes = {
-}
+CardBack.propTypes = {}
 
 export default CardBack

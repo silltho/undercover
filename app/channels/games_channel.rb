@@ -8,6 +8,8 @@ class GamesChannel < ApplicationCable::Channel
     if @game.aasm_state == 'waiting'
       @game.players.delete(current_player)
       @game.broadcast_game_updated
+    else
+      current_player.disconnect!
     end
   end
 
@@ -19,27 +21,49 @@ class GamesChannel < ApplicationCable::Channel
 
   def start_game
     @game.reload
-    @game.started!
-    @game.broadcast_game_updated
+    finish_phase("start_game")
+    if phase_finished?("start_game")
+      @game.started!
+      @game.broadcast_game_updated
+    end
   end
 
   def end_info_phase
     @game.reload
-    finish_game if @game.is_game_over?
-    @game.informed!
-    @game.broadcast_game_updated
+    finish_phase("end_info_phase")
+    if phase_finished?("end_info_phase")
+      finish_game if @game.is_game_over?
+      @game.informed!
+      @game.broadcast_game_updated
+    end
   end
 
   def end_exchange_phase
     @game.reload
-    @game.exchanged!
-    @game.broadcast_game_updated
+    finish_phase("end_exchange_phase")
+    if phase_finished?("end_exchange_phase")
+      @game.exchanged!
+      @game.broadcast_game_updated
+    end
   end
 
   def use_skill(params)
     @game.reload
     @game.use_skill(current_player.id, params['victim'])
-    all_skills_used if @game.all_users_clicked?(@game.round)
+    finish_phase("use_skill")
+    all_skills_used if phase_finished?("use_skill")
+  end
+
+  def finish_phase(phase)
+    # phase = @game.aasm_state
+    ActionLog.create(player: current_player,  game: @game, round: @game.round, action: phase)
+    # send(phase.to_sym) if phase_finished?(phase)
+  end
+
+  def phase_finished?(phase)
+    finished = ActionLog.where(game: @game).where(round: @game.round).where(action: phase).group(:player).maximum(:id).count == @game.players.alive.count
+    current_player.broadcast_waiting_for_players unless finished
+    finished
   end
 
   def all_skills_used
