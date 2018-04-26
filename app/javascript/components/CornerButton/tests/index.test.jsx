@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Button from '../index'
+import CornerButton from '../index'
 
 const defaultProps = {
   text: 'test123',
@@ -9,7 +9,7 @@ const defaultProps = {
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <Button {...props} />
+  <CornerButton {...props} />
 )
 
 describe('<CornerButton />', () => {

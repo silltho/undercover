@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
-import { PINK } from 'styles/variables'
+import {
+  PINK,
+  DARK_BLUE
+} from 'styles/variables'
 
 const ImprisonedStyle = `
   &:after {
@@ -14,7 +17,6 @@ const ImprisonedStyle = `
     background-image: repeating-linear-gradient(90deg, transparent, transparent 30px, black 3px, #dbdbdb 40px);
   }
 `
-
 
 const DeadStyle = `
   &:after {
@@ -32,15 +34,18 @@ const DeadStyle = `
   }
 `
 
-export const RoleImage = styled.div`
-  flex: 1;
-  background: url(${(props) => props.background});
-  background-size: cover;
-  background-position: center;
-  justify-content: flex-end;
+export const CardHead = styled.div`
+  text-align: center;
+  margin-top: -0.45rem;
+  margin-bottom: 0.33rem;
+  position: relative;
   display: flex;
-  flex-direction: column;
-  border: 1px solid ${PINK};
+  justify-content: center;
+  align-items: center;
+`
+
+export const FractionImage = styled.img`
+  height: 2.5rem;
 `
 
 export const RoleVideoContainer = styled.div`
@@ -53,28 +58,66 @@ export const RoleVideoContainer = styled.div`
     object-fit: cover;
     min-height: 100%;
     width: 100%;
+    
+  }
+
+  > ${FractionImage} {
+    position: absolute;
+    z-index: 1;
+  }
+  
+  > ${FractionImage}:first-child {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  
+  > ${FractionImage}:last-child {
+    bottom: 0.5rem;
+    right: 0.5rem;
   }
   
   ${(props) => props.dead && DeadStyle}
   ${(props) => props.imprisoned && ImprisonedStyle}
 `
 
+export const PassiveIcon = styled(IconFont)`
+  font-size: 2.1rem;
+  padding: 0.2rem;
+`
+
 export const ActionIcon = styled(IconFont)`
   font-size: 2rem;
-  padding: 0.5rem 1rem;
-  text-shadow: 2px 2px #000;
+  padding: 0.5rem;
+  text-shadow: 2px 2px 2px #000;
+  box-shadow: 2px 2px 2px #000;
+  border: 1px solid white;
+  border-radius: 100%;
   
   &:active{
     text-shadow: none;
   }
 `
 
-export const Informations = styled.div`
+export const InformationIcon = styled(IconFont)`
+    top: 0;
+    right: 0;
+    background-color: #06242d;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    border-bottom-left-radius: 0.7rem;
+    font-size: 1.4rem;
+`
+
+export const CardBottom = styled.div`
+  position:relative;
   display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
-  
-  > div > span {
-    float: right;
-  }
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-left: 1px solid ${PINK};
+  border-right: 1px solid ${PINK};
+  border-bottom: 1px solid ${PINK};
 `

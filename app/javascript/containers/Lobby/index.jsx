@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import FadeIn from 'components/Animations/FadeIn'
 import Button from 'components/Button'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   UserChannel,
   GameChannel
@@ -15,13 +16,23 @@ import {
 } from 'styles/components'
 import {
   PlayerCount,
-  RoomCode
+  RoomCode,
+  ShareButton
 } from './Styles'
 
 
 class Lobby extends React.PureComponent {
   leaveGame = () => {
     this.props.leaveGame(this.props.game.get('id'))
+  }
+
+  shareRoomCode = () => {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      const TEXT_WA = 'UNDERCOVER - Roomcode'
+      const ROOMCODE = this.props.game.get('code') // get roomcode
+      window.location.href = `whatsapp://send?text=${TEXT_WA}:${ROOMCODE}`
+    }
+    return false
   }
 
   render() {
@@ -31,6 +42,7 @@ class Lobby extends React.PureComponent {
       <FadeIn>
         <Header>
           <RoomCode>Roomcode: {game.get('code')}</RoomCode>
+          <ShareButton onClick={this.shareRoomCode}><IconFont icon={ICONS.share} /></ShareButton>
         </Header>
         <Content>
           <PlayerCount>

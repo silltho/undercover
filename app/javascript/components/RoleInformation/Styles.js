@@ -1,23 +1,16 @@
 import styled from 'styled-components'
-import {
-  DARK_BLUE,
-  LOGO_FONT
-} from 'styles/variables'
 import IconFont from 'components/IconFont'
+
+export const SectionText = styled.div`
+  text-align: center;
+  padding: 1rem 0.5rem;
+`
 
 export const ActiveIcon = styled(IconFont)`
   font-size: 3rem;
   width: 100%;
   text-align: center;
   margin: 1rem 0;
-`
-
-export const Logo = styled.img`
-  height: 2.5rem;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(56%);
 `
 
 export const Section = styled.div`
@@ -31,14 +24,8 @@ export const Section = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-`
-
-export const SectionText = styled.div`
-  text-align: center;
-  padding: 1rem 0.5rem;
-`
-
-export const SectionWrapper = styled.div`
-  width: 100%;
-  overflow-y: scroll;
+  
+  ${ActiveIcon} + ${SectionText} {
+    padding-top: 0;
+  }
 `

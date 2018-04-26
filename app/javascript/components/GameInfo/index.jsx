@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Flip from 'components/Animations/Flip'
+import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
+import DistributionInfo from 'components/DistributionInfo'
 import {
   BorderContainer,
   Content,
-  BottomRight,
   BorderContainerTitel,
-  Action,
   Scrollable
 } from 'styles/components'
 import DayButton from './DayButton'
@@ -60,13 +60,15 @@ class GameInfo extends React.PureComponent {
   renderRoundInformation = () => {
     const {
       readInfos,
-      roundInformation
+      roundInformation,
+      game
     } = this.props
 
     const day = (parseInt(this.state.selectedDay, 10) + 1)
     const infos = roundInformation.get(this.state.selectedDay, [])
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
+    const distribution = game.get('party_distribution')
 
     return (
       <Wrapper key={`round-information-${day}`}>
@@ -75,6 +77,7 @@ class GameInfo extends React.PureComponent {
             <BorderContainerTitel>
               Dawn {day}
             </BorderContainerTitel>
+            <DistributionInfo distribution={distribution} />
             {renderedInfos.size > 0 ? (
               <Scrollable>
                 <InfoList>
@@ -91,13 +94,11 @@ class GameInfo extends React.PureComponent {
                   </DayButtonContainer>
                 ) : null
               }
-              <BottomRight>
-                <Action onClick={readInfos}>
-                  <IconFont icon={ICONS.arrow_right} />
-                </Action>
-              </BottomRight>
             </BottomDawnContainer>
           </BorderContainer>
+          <CornerButton right bottom onClickAction={readInfos}>
+            <IconFont icon={ICONS.checkmark} />
+          </CornerButton>
         </Content>
       </Wrapper>
     )
@@ -117,6 +118,7 @@ GameInfo.defaultProps = {
 }
 
 GameInfo.propTypes = {
+  game: PropTypes.instanceOf(Map).isRequired,
   round: PropTypes.number,
   readInfos: PropTypes.func.isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired

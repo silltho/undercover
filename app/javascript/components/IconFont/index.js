@@ -52,7 +52,11 @@ export const ACTIVE_ICONS = {
   convert: ICONS.convert,
   imprison: ICONS.handcuffs,
   spy: ICONS.goggles,
-  poison: ICONS.beat // missing
+  poison: ICONS.poison
+}
+
+export const PASSIVE_ICONS = {
+  immunity: ICONS.immunity
 }
 
 export { ICONS }

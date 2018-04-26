@@ -31,9 +31,11 @@ export const NoInfosMessage = styled.div`
 `
 
 export const DayButtonWrapper = styled.div`
-  text-align: center;
   padding: 0.5rem;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${(props) => props.active ? PINK : DARK_BLUE};
   color: ${(props) => props.active ? DARK_BLUE : PINK};
   
@@ -44,15 +46,21 @@ export const DayButtonWrapper = styled.div`
 
 export const DayButtonContainer = styled.div`
   display: flex;
+  flex: 1;
   overflow-x: scroll;
-  margin: 1rem 0;
-  border: 1px solid ${PINK};
-  border-radius: 3px;
+  border-bottom-left-radius: 4px;
+  height: 3rem;
+  
+  > :last-child {
+   border-right: 1px solid ${PINK};
+  }
 `
 
 export const BottomDawnContainer = styled.div`
   display: flex;
-  justify-content: stretch;
   position: absolute;
   bottom: 0;
+  width: 100%;
+  left: 0;
+  border-top: 1px solid ${PINK}; 
 `

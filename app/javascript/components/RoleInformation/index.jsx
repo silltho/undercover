@@ -2,20 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Heading from 'components/Heading'
-import { ACTIVE_ICONS } from 'components/IconFont'
-
+import IconFont, { ICONS, ACTIVE_ICONS, PASSIVE_ICONS } from 'components/IconFont'
+import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BottomRight,
   Content,
-  Action
+  Scrollable,
+  ScrollableWrapper
 } from 'styles/components'
 
 import {
   Section,
   SectionText,
-  SectionWrapper,
   ActiveIcon
 } from './Styles'
 
@@ -27,13 +26,14 @@ class RoleInformation extends React.PureComponent {
     } = this.props
 
     const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
+    const passiveIcon = PASSIVE_ICONS[roleDetails.get('passive')]
 
     return (
       <React.Fragment>
         <Content>
           <BorderContainer>
             <BorderContainerTitel align="center">{roleDetails.get('name')}</BorderContainerTitel>
-            <SectionWrapper>
+            <Scrollable>
               <Section>
                 <SectionText>{roleDetails.get('punchline')}</SectionText>
               </Section>
@@ -46,13 +46,18 @@ class RoleInformation extends React.PureComponent {
                 <ActiveIcon icon={activeIcon} />
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
               </Section>
-            </SectionWrapper>
-            <BottomRight>
-              <Action onClick={onRequestHide}>
-                back
-              </Action>
-            </BottomRight>
+              {passiveIcon &&
+                <Section>
+                  <Heading title="Passive" />
+                  <ActiveIcon icon={passiveIcon} />
+                  <SectionText>{roleDetails.get('passive_text')}</SectionText>
+                </Section>
+              }
+            </Scrollable>
           </BorderContainer>
+          <CornerButton bottom right onClickAction={onRequestHide}>
+            <IconFont icon={ICONS.reply} />
+          </CornerButton>
         </Content>
       </React.Fragment>
     )

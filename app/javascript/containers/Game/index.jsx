@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { Map } from 'immutable'
 import { GameChannel } from 'services/channels'
 import {
+  RoomCode
+} from 'styles/components'
+import {
   resetGameAction,
   hidePlayerInformationsAction,
   waitForOpponentAction
@@ -17,10 +20,7 @@ import GameExchange from 'components/GameExchange'
 import GameActivity from 'components/GameActivity'
 import GameEnd from 'components/GameEnd'
 import PlayerInformationModal from 'components/PlayerInformationModal'
-import {
-  Wrapper,
-  WaitingForOpponentsOverlay
-} from './Styles'
+import GamePhaseWrapper from 'components/GamePhaseWrapper'
 
 class Game extends React.PureComponent {
   renderCurrentPhase = () => {
@@ -35,6 +35,7 @@ class Game extends React.PureComponent {
       case GamePhases.INFO:
         return (
           <GameInfo
+            game={this.props.game}
             round={this.props.game.get('round') || 0}
             roundInformation={this.props.roundInformation}
             readInfos={this.props.endInfoPhase}
@@ -68,26 +69,23 @@ class Game extends React.PureComponent {
       hidePlayerInformations
     } = this.props
     const showPlayerInformationModal = app.get('showPlayerInformation')
-    const showWaitForOpponents = app.get('showWaitForOpponents')
+    const ready = app.get('showWaitForOpponents')
     const gamePhaseKey = this.props.game.get('aasm_state')
+    const gameCode = this.props.game.get('code')
 
     return (
       <FadeIn>
         <SlideInOut>
-          <Wrapper key={`phase-${gamePhaseKey}`}>
+          <GamePhaseWrapper ready={ready} phaseKey={`phase-${gamePhaseKey}`}>
             {this.renderCurrentPhase()}
-          </Wrapper>
+          </GamePhaseWrapper>
+          <RoomCode>ROOMCODE: {gameCode}</RoomCode>
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal
             playerInformation={this.props.playerInformation}
             onRequestHide={hidePlayerInformations}
           />
-        }
-        {showWaitForOpponents &&
-          <WaitingForOpponentsOverlay>
-            <span>waiting for opponents ...</span>
-          </WaitingForOpponentsOverlay>
         }
       </FadeIn>
     )
@@ -104,7 +102,6 @@ Game.propTypes = {
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   useSkill: PropTypes.func.isRequired,
-  // allSkillsUsed: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
   hidePlayerInformations: PropTypes.func.isRequired
 }
@@ -112,24 +109,20 @@ Game.propTypes = {
 export const mapDispatchToProps = (dispatch) => ({
   endExchangePhase: () => {
     GameChannel.endExchangePhase()
-    // dispatch(waitForOpponentAction())
+    dispatch(waitForOpponentAction())
   },
   endInfoPhase: () => {
     GameChannel.endInfoPhase()
-    // dispatch(waitForOpponentAction())
+    dispatch(waitForOpponentAction())
   },
   startGame: () => {
     GameChannel.startGame()
-    // dispatch(waitForOpponentAction())
+    dispatch(waitForOpponentAction())
   },
   useSkill: (targetId) => {
     GameChannel.useSkill(targetId)
     dispatch(waitForOpponentAction())
   },
-  /* allSkillsUsed: () => {
-    GameChannel.allSkillsUsed()
-    dispatch(waitForOpponentAction())
-  }, */
   resetGame: () => dispatch(resetGameAction()),
   hidePlayerInformations: () => dispatch(hidePlayerInformationsAction())
 })

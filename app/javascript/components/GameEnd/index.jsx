@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import CornerButton from 'components/CornerButton'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BottomRight,
-  BorderContainerTitel,
-  Action
+  BorderContainerTitel
 } from 'styles/components'
 import { Winner } from './Styles'
 
@@ -25,10 +25,10 @@ class GameEnd extends React.PureComponent {
           <Content>
             <Winner>{winner}</Winner>
           </Content>
-          <BottomRight>
-            <Action onClick={resetGame}>back to the dashboard</Action>
-          </BottomRight>
         </BorderContainer>
+        <CornerButton bottom right onClickAction={resetGame}>
+          <IconFont icon={ICONS.exit} />
+        </CornerButton>
       </Content>
     )
   }

@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import IconFont, { ICONS } from 'components/IconFont'
+import TownVideo from 'assets/videos/Town.mp4'
+import TownPoster from 'assets/images/town.jpg'
+import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   Content,
-  BottomRight,
-  BorderContainerTitel,
-  Action
+  BorderContainerTitel
 } from 'styles/components'
 
 import {
-  Clock,
-  ClockContainer
+  TownContainer
 } from './Styles'
 
 
@@ -25,16 +25,17 @@ class GameExchange extends React.PureComponent {
       <React.Fragment>
         <Content>
           <BorderContainer>
-            <BorderContainerTitel>Exchange</BorderContainerTitel>
-            <ClockContainer>
-              <Clock />
-            </ClockContainer>
-            <BottomRight>
-              <Action onClick={endExchange}>
-                <IconFont icon={ICONS.arrow_right} />
-              </Action>
-            </BottomRight>
+            <BorderContainerTitel>Day</BorderContainerTitel>
+            <TownContainer>
+              <video autoPlay muted loop="loop" poster={TownPoster} controlsList="nodownload nofullscreen">
+                <source src={TownVideo} type="video/mp4" />
+                <span>Your browser does not support the video tag.</span>
+              </video>
+            </TownContainer>
           </BorderContainer>
+          <CornerButton right bottom onClickAction={endExchange}>
+            <IconFont icon={ICONS.checkmark} />
+          </CornerButton>
         </Content>
       </React.Fragment>
     )

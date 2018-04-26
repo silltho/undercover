@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
+import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   BorderContainerTitel,
-  BottomRight,
   Scrollable,
-  Content,
-  Action
+  Content
 } from 'styles/components'
 import VictimsItem from './VictimItem'
 
@@ -41,12 +40,10 @@ class TargetSelection extends React.PureComponent {
             <Scrollable>
               {renderedVictims}
             </Scrollable>
-            <BottomRight>
-              <Action onClick={onRequestHide}>
-                back
-              </Action>
-            </BottomRight>
           </BorderContainer>
+          <CornerButton bottom right onClickAction={onRequestHide}>
+            <IconFont icon={ICONS.reply} />
+          </CornerButton>
         </Content>
       </React.Fragment>
     )

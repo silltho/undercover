@@ -6,6 +6,8 @@ import {
   PINK
 } from './variables'
 
+const cardBorderRadius = '8px'
+
 export const Scrollable = styled.div`
   flex:1;
   width: 100%;
@@ -14,14 +16,15 @@ export const Scrollable = styled.div`
 
 export const BorderContainer = styled.div`
   border: 2px solid ${PINK};
-  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+  padding: 1.5rem;
   position: relative;
-  margin: 1.5rem 1.5rem 2.5rem 1.5rem;
+  margin: 1.5rem;
   display: flex;
   flex: 1;
   flex-direction: column;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
-  border-radius: 8px;
+  border-radius: ${cardBorderRadius};
+  min-height: 0;
 `
 
 export const BorderContainerTitel = styled.span`
@@ -36,27 +39,6 @@ export const BorderContainerTitel = styled.span`
   white-space:nowrap; //prevent line break
 `
 
-export const BottomRight = styled.div`
-  display: flex;
-  text-transform: uppercase;
-  color: ${PINK};
-  border-left: 1px solid ${PINK};
-  border-top: 1px solid ${PINK};
-  background-color: transparent;
-  border-bottom-right-radius: 3px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  
-  > * + * {
-    border-left: solid 1px ${PINK};
-  }
-  
-  > * {
-    cursor: pointer;
-  }
-`
-
 export const Content = styled.div`
   display: flex;
   flex: 1;
@@ -67,6 +49,7 @@ export const Content = styled.div`
 
 export const Header = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -83,6 +66,28 @@ export const Footer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: row;
+`
+
+/*
+export const BottomRight = styled.div`
+  display: flex;
+  text-transform: uppercase;
+  color: ${PINK};
+  border-left: 1px solid ${PINK};
+  border-top: 1px solid ${PINK};
+  background-color: ${DARK_BLUE};
+  border-bottom-right-radius: ${cardBorderRadius};
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  > * + * {
+    border-left: solid 1px ${PINK};
+  }
+
+  > * {
+    cursor: pointer;
+  }
 `
 
 export const Action = styled.button`
@@ -110,4 +115,12 @@ export const Action = styled.button`
       text-shadow: none;
     }
   }
+`*/
+
+export const RoomCode = styled.div `
+  position: absolute;
+  bottom: 0.3rem;
+  left: 1.7rem;
+  font-style: italic;
+  font-size: 0.65rem;
 `
