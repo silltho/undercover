@@ -62,7 +62,8 @@ export const RoleVideoContainer = styled.div`
   }
 
   > ${FractionImage} {
-    position: absolute;s
+    position: absolute;
+    z-index: 1;
   }
   
   > ${FractionImage}:first-child {
@@ -75,7 +76,6 @@ export const RoleVideoContainer = styled.div`
     right: 0.5rem;
   }
   
->>>>>>> c819c02b02aa5a76aee09c8e07b11c8e67f673cd
   ${(props) => props.dead && DeadStyle}
   ${(props) => props.imprisoned && ImprisonedStyle}
 `
