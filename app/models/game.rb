@@ -154,11 +154,11 @@ class Game < ApplicationRecord
 
   def get_endscreen_object(fraction)
     data = Hash.new{|hsh,key| hsh[key] = [] }
-    data['winner'] = [[fraction]]
+    data['winner'] = [{party: fraction}]
     players.each do |player|
-      data['Mafia'] << [player.id, player.codename, player.role.name] if belongs_to_mafia(player)
-      data['Town'] << [player.id, player.codename, player.role.name] if belongs_to_town(player)
-      data['Anarchists'] << [player.id, player.codename, player.role.name] if player.role.try(:party) == "Anarchists"
+      data['Mafia'] << {id: player.id, codename: player.codename, role: player.role.name} if belongs_to_mafia(player)
+      data['Town'] << {id: player.id, codename: player.codename, role: player.role.name} if belongs_to_town(player)
+      data['Anarchists'] << {id: player.id, codename: player.codename, role: player.role.name} if player.role.try(:party) == "Anarchists"
     end
     data
   end
