@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import IconFont, { ICONS, ACTIVE_ICONS, PASSIVE_ICONS } from 'components/IconFont'
+import IconFont, { ICONS } from 'components/IconFont'
 import { getVideoByRole, getImageByRole } from 'config/roleImages'
 import { getImageByFraction } from 'config/fractionImages'
 import CornerButton from 'components/CornerButton'
@@ -14,21 +14,21 @@ import PlayerStates from 'config/playerStates'
 
 import {
   RoleVideoContainer,
-  ActionIcon,
-  PassiveIcon,
-  CardBottom,
   CardHead,
   InformationIcon,
   FractionImage
 } from './Styles'
 
+
+import CardBottom from './CardBottom'
+
 class RoleOverview extends React.PureComponent {
   render() {
     const {
       player,
-      showTargetSelection,
       showRoleInformation,
       skipPhase,
+      showTargetSelection,
       currentTarget
     } = this.props
 
@@ -36,8 +36,6 @@ class RoleOverview extends React.PureComponent {
     const pseudonym = player.get('codename')
     const state = player.get('state')
 
-    const activeIcon = ACTIVE_ICONS[roleDetails.get('active')]
-    const passiveIcon = PASSIVE_ICONS[roleDetails.get('passive')]
     const roleVideo = getVideoByRole(roleDetails.get('name'))
     const roleImage = getImageByRole(roleDetails.get('name'))
     const fractionImage = getImageByFraction(roleDetails.get('party'))
@@ -64,12 +62,7 @@ class RoleOverview extends React.PureComponent {
               <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
               <FractionImage src={fractionImage} />
             </RoleVideoContainer>
-            <CardBottom>
-              { state === PlayerStates.ALIVE &&
-                <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
-              }
-              <span>{currentTarget.has('codename') ? currentTarget.get('codename') : 'no target selected'}</span>
-            </CardBottom>
+            <CardBottom player={player} showTargetSelection={showTargetSelection} currentTarget={currentTarget} />
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
           <CornerButton right bottom onClickAction={skipPhase}>

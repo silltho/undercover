@@ -111,7 +111,7 @@ export const InformationIcon = styled(IconFont)`
     font-size: 1.4rem;
 `
 
-export const CardBottom = styled.div`
+export const CardBottomWrapper = styled.div`
   position:relative;
   display: flex;
   justify-content: space-between;
