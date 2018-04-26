@@ -8,8 +8,7 @@ import {
 } from 'styles/components'
 import {
   resetGameAction,
-  hidePlayerInformationsAction,
-  waitForOpponentAction
+  hidePlayerInformationsAction
 } from 'services/actions'
 import GamePhases from 'config/gamePhases'
 import FadeIn from 'components/Animations/FadeIn'
@@ -107,22 +106,10 @@ Game.propTypes = {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  endExchangePhase: () => {
-    GameChannel.endExchangePhase()
-    dispatch(waitForOpponentAction())
-  },
-  endInfoPhase: () => {
-    GameChannel.endInfoPhase()
-    dispatch(waitForOpponentAction())
-  },
-  startGame: () => {
-    GameChannel.startGame()
-    dispatch(waitForOpponentAction())
-  },
-  useSkill: (targetId) => {
-    GameChannel.useSkill(targetId)
-    dispatch(waitForOpponentAction())
-  },
+  endExchangePhase: GameChannel.endExchangePhase,
+  endInfoPhase: GameChannel.endInfoPhase,
+  startGame: GameChannel.startGame,
+  useSkill: GameChannel.useSkill,
   resetGame: () => dispatch(resetGameAction()),
   hidePlayerInformations: () => dispatch(hidePlayerInformationsAction())
 })
