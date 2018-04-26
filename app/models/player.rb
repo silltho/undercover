@@ -7,7 +7,6 @@ class Player < ApplicationRecord
   has_many :relations
   has_many :action_logs
 
-
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
     state :dead, :imprisoned, :disconnected
@@ -46,7 +45,7 @@ class Player < ApplicationRecord
       codename: codename,
       state: state,
       changed_party: changed_party,
-      relations: build_relations,
+      other_players: build_relations,
       role: { id: role.try(:id),
               name: self.try(:role).try(:name),
               image: self.try(:role).try(:image),
@@ -76,9 +75,17 @@ class Player < ApplicationRecord
   end
 
   def broadcast_spy_action(victim)
-    v = Relation.where(player1: self, player2: victim, role: victim.role).first_or_create
-    v.update(loyal: victim.is_loyal?)
+    v = Relation.where(player1: self, player2: victim).first_or_create
+    v.update(role: victim.role, loyal: victim.is_loyal?)
     UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
+  end
+
+  def broadcast_you_won
+    UserChannel.broadcast_to(user, type: 'player_won', data: nil)
+  end
+
+  def broadcast_you_lost
+    UserChannel.broadcast_to(user, type: 'player_lost', data: nil)
   end
 
   def broadcast_waiting_for_players
@@ -110,21 +117,27 @@ class Player < ApplicationRecord
     rel = Relation.where(player1: self)
     data = []
     rel.each do |entry|
-      data.push([entry.player2.id, entry.role.name, entry.loyal ])
+      data.push([entry.player2.id, entry.player2.try(:state), entry.role.try(:name), entry.loyal ])
     end
     data
   end
 
   def get_relations
+    set_nil_relations
     role.known_roles.split(' ').each do |other_role|
       set_relation_information(other_role)
+    end
+  end
+
+  def set_nil_relations
+    Player.where(game: game).where.not(id: id).each do |other|
+      Relation.create(player1: self, player2: other, role: nil, loyal: true)
     end
   end
 
   def set_relation_information(role)
     role = Role.where(name: role).first
     player2 = Player.where(game: game).where(role: role).first
-    puts("#{self.codename} knowns #{player2.codename} and he is #{player2.role.name}") unless player2.nil?
-    Relation.create(player1: self, player2: player2, role: role, loyal: player2.is_loyal?) unless player2.nil?
+    Relation.where(player1: self, player2: player2).first_or_create.update_attributes(role: role, loyal: player2.is_loyal?) unless player2.nil?
   end
 end

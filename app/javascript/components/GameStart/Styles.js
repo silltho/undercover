@@ -2,9 +2,10 @@ import styled from 'styled-components'
 
 export const PartyDistribution = styled.div`
   display: flex;
-  flex-direction: column;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  justify-content: space-around;
+  align-items: center;
 `
 
 export const TownMafiaDistribution = styled.div`
