@@ -20,6 +20,8 @@ export const ImageWrapper = styled.div`
       background-color: #a61921;
       background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)), linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
       background-size: 70px 120px;
+      left: 50%;
+      transform: translateX(-50%);
     }
     
     > img {
@@ -34,6 +36,8 @@ export const CardBackText = styled.div`
   font-size: 2.5rem;
   text-decoration: overline;
   color: ${PINK};
+  left: 50%;
+  transform: translateX(-50%);
 `
 
 export const Wrapper = styled.div`
