@@ -119,7 +119,7 @@ class Game < ApplicationRecord
        code: code,
        aasm_state: aasm_state,
        round: round,
-       players: players.to_a,
+       players: players.pluck(:id, :codename, :state).to_a,
        party_distribution: get_party_members
     }
   end
@@ -141,6 +141,17 @@ class Game < ApplicationRecord
       data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
       data["Prisoners"]+= 1  if player.state == "imprisoned"
       data["Dead"]+= 1 if player.state =="dead"
+    end
+    data
+  end
+
+  def get_endscreen_object(fraction)
+    data = Hash.new{|hsh,key| hsh[key] = [] }
+    data['winner'] = [[fraction]]
+    players.each do |player|
+      data['Mafia'] << [player.id, player.codename, player.role.name] if belongs_to_mafia(player)
+      data['Town'] << [player.id, player.codename, player.role.name] if belongs_to_town(player)
+      data['Anarchists'] << [player.id, player.codename, player.role.name] if player.role.try(:party) == "Anarchists"
     end
     data
   end
@@ -299,9 +310,25 @@ class Game < ApplicationRecord
 
   def get_winner
     statistic = get_party_members
-    broadcast_game_ended(-"Junior won.") if both_heads_dead?
-    broadcast_game_ended(-"Town won.") if statistic["Mafia"].zero?
-    broadcast_game_ended(-"Mafia won.") if statistic["Town"].zero?
+    winner = "Anarchists" if both_heads_dead?
+    winner = "Town" if statistic["Mafia"].zero?
+    winner = "Mafia" if statistic["Town"].zero?
+    data = get_endscreen_object(winner)
+    broadcast_game_ended(data)
+    send_info_to_player(winner)
   end
+
+  def send_info_to_player(winner)
+    players.each do |player|
+      if winner == "Mafia" && belongs_to_mafia(player)
+        player.broadcast_you_won
+      elsif winner == "Town" && belongs_to_town(player)
+        player.broadcast_you_lost
+      else
+
+      end
+    end
+  end
+
 end
 
