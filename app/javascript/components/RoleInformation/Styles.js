@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
 
+export const SectionText = styled.div`
+  text-align: center;
+  padding: 1rem 0.5rem;
+`
+
 export const ActiveIcon = styled(IconFont)`
   font-size: 3rem;
   width: 100%;
@@ -19,9 +24,8 @@ export const Section = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-`
-
-export const SectionText = styled.div`
-  text-align: center;
-  padding: 1rem 0.5rem;
+  
+  ${ActiveIcon} + ${SectionText} {
+    padding-top: 0;
+  }
 `
