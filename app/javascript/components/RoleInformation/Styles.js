@@ -25,8 +25,3 @@ export const SectionText = styled.div`
   text-align: center;
   padding: 1rem 0.5rem;
 `
-
-export const SectionWrapper = styled.div`
-  width: 100%;
-  overflow-y: scroll;
-`

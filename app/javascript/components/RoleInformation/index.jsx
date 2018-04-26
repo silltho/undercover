@@ -7,13 +7,13 @@ import CornerButton from 'components/CornerButton'
 import {
   BorderContainer,
   BorderContainerTitel,
-  Content
+  Content,
+  Scrollable
 } from 'styles/components'
 
 import {
   Section,
   SectionText,
-  SectionWrapper,
   ActiveIcon
 } from './Styles'
 
@@ -32,7 +32,7 @@ class RoleInformation extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel align="center">{roleDetails.get('name')}</BorderContainerTitel>
-            <SectionWrapper>
+            <Scrollable>
               <Section>
                 <SectionText>{roleDetails.get('punchline')}</SectionText>
               </Section>
@@ -52,7 +52,7 @@ class RoleInformation extends React.PureComponent {
                   <SectionText>{roleDetails.get('passive_text')}</SectionText>
                 </Section>
               }
-            </SectionWrapper>
+            </Scrollable>
           </BorderContainer>
           <CornerButton bottom right onClickAction={onRequestHide}>
             <IconFont icon={ICONS.reply} />
