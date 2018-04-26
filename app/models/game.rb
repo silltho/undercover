@@ -62,6 +62,12 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_ended', data: data)
   end
 
+  def broadcast_all_players
+    players.each do |players|
+      players.broadcast_player_updated
+    end
+  end
+
   #### INITIALIZING ####
 
   def init_game
@@ -176,6 +182,10 @@ class Game < ApplicationRecord
 
   def belongs_to_town(player)
     player.role.try(:party) == "Town" || (player.role.try(:party) == "Mafia" && player.role.try(:changed_party) == true)
+  end
+
+  def belongs_to_anarchists(player)
+    player.role.try(:party) == "Anarchists"
   end
 
   def check_for_prisoners(victim)
@@ -321,15 +331,12 @@ class Game < ApplicationRecord
 
   def send_info_to_player(winner)
     players.each do |player|
-      if winner == "Mafia" && belongs_to_mafia(player)
+      if (winner == "Mafia" && belongs_to_mafia(player)) || (winner == "Town" && belongs_to_town(player)) || winner == "Anarchists" && belongs_to_anarchists(player)
         player.broadcast_you_won
-      elsif winner == "Town" && belongs_to_town(player)
-        player.broadcast_you_lost
       else
-
+        player.broadcast_you_lost
       end
     end
   end
-
 end
 
