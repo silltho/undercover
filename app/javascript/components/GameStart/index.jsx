@@ -9,15 +9,13 @@ import FractionImages from 'config/fractionImages'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel,
-  Scrollable
+  BorderContainerTitel
 } from 'styles/components'
 
 import Heading from 'components/Heading'
 
 import {
   AnarchistsDistribution,
-  TownMafiaDistribution,
   PartyDistribution,
   DistributionCount,
   DistributionHeading,
