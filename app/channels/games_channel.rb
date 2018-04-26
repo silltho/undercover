@@ -71,6 +71,7 @@ class GamesChannel < ApplicationCable::Channel
     @game.skills_used!
     @game.broadcast_information_updated(@game.round)
     @game.broadcast_game_updated
+    @game.broadcast_all_players
   end
 
   def finish_game

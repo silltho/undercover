@@ -62,6 +62,12 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_ended', data: data)
   end
 
+  def broadcast_all_players
+    players.each do |players|
+      players.broadcast_player_updated
+    end
+  end
+
   #### INITIALIZING ####
 
   def init_game
@@ -120,7 +126,7 @@ class Game < ApplicationRecord
        code: code,
        aasm_state: aasm_state,
        round: round,
-       players: players.to_a,
+       players: players.pluck(:id, :codename, :state).to_a,
        party_distribution: get_party_members
     }
   end
@@ -146,6 +152,17 @@ class Game < ApplicationRecord
     data
   end
 
+  def get_endscreen_object(fraction)
+    data = Hash.new{|hsh,key| hsh[key] = [] }
+    data['winner'] = [[fraction]]
+    players.each do |player|
+      data['Mafia'] << [player.id, player.codename, player.role.name] if belongs_to_mafia(player)
+      data['Town'] << [player.id, player.codename, player.role.name] if belongs_to_town(player)
+      data['Anarchists'] << [player.id, player.codename, player.role.name] if player.role.try(:party) == "Anarchists"
+    end
+    data
+  end
+
   #### HELPERS ####
 
   def full
@@ -165,6 +182,10 @@ class Game < ApplicationRecord
 
   def belongs_to_town(player)
     player.role.try(:party) == "Town" || (player.role.try(:party) == "Mafia" && player.role.try(:changed_party) == true)
+  end
+
+  def belongs_to_anarchists(player)
+    player.role.try(:party) == "Anarchists"
   end
 
   def check_for_prisoners(victim)
@@ -300,9 +321,22 @@ class Game < ApplicationRecord
 
   def get_winner
     statistic = get_party_members
-    broadcast_game_ended(-"Junior won.") if both_heads_dead?
-    broadcast_game_ended(-"Town won.") if statistic["Mafia"].zero?
-    broadcast_game_ended(-"Mafia won.") if statistic["Town"].zero?
+    winner = "Anarchists" if both_heads_dead?
+    winner = "Town" if statistic["Mafia"].zero?
+    winner = "Mafia" if statistic["Town"].zero?
+    data = get_endscreen_object(winner)
+    broadcast_game_ended(data)
+    send_info_to_player(winner)
+  end
+
+  def send_info_to_player(winner)
+    players.each do |player|
+      if (winner == "Mafia" && belongs_to_mafia(player)) || (winner == "Town" && belongs_to_town(player)) || winner == "Anarchists" && belongs_to_anarchists(player)
+        player.broadcast_you_won
+      else
+        player.broadcast_you_lost
+      end
+    end
   end
 end
 
