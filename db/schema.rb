@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423144430) do
+ActiveRecord::Schema.define(version: 20180424132619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,12 +48,23 @@ ActiveRecord::Schema.define(version: 20180423144430) do
     t.string "codename"
     t.bigint "role_id"
     t.string "state"
-    t.integer "relations", default: [], array: true
     t.boolean "changed_party", default: false
     t.bigint "user_id"
     t.index ["game_id"], name: "index_players_on_game_id"
     t.index ["role_id"], name: "index_players_on_role_id"
     t.index ["user_id"], name: "index_players_on_user_id"
+  end
+
+  create_table "relations", force: :cascade do |t|
+    t.bigint "player1_id"
+    t.bigint "player2_id"
+    t.bigint "role_id"
+    t.boolean "loyal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player1_id"], name: "index_relations_on_player1_id"
+    t.index ["player2_id"], name: "index_relations_on_player2_id"
+    t.index ["role_id"], name: "index_relations_on_role_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -73,6 +84,7 @@ ActiveRecord::Schema.define(version: 20180423144430) do
     t.text "passive_text"
     t.text "text_success"
     t.text "text_fail"
+    t.text "known_roles"
   end
 
   create_table "users", force: :cascade do |t|
@@ -85,4 +97,7 @@ ActiveRecord::Schema.define(version: 20180423144430) do
   add_foreign_key "articles", "players", column: "committer_id"
   add_foreign_key "articles", "players", column: "victim_id"
   add_foreign_key "players", "games"
+  add_foreign_key "relations", "players", column: "player1_id"
+  add_foreign_key "relations", "players", column: "player2_id"
+  add_foreign_key "relations", "roles"
 end

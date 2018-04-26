@@ -79,7 +79,9 @@ class Game < ApplicationRecord
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
       player.create_codename
-      #player.get_relations
+    end
+    players.each do |player|
+      player.get_relations
     end
   end
 
@@ -286,7 +288,7 @@ class Game < ApplicationRecord
     return "Corruption! Money changed somebody’s mind." if role.name == 'Godfather'
     return "Caught by the police, somebody has been jailed" if role.name == 'Chief' || role.name == "Officer"
     return "Espionage has been carried out." if role.name == 'Agent'
-    "Rats! #{victim.codename} (#{victim.role.name}) has been deadly poisoned by the anarchist. " if role.name == 'Anarchist'
+    "Rats! #{victim.codename} (#{victim.role.name}) has been deadly poisoned by the anarchist. " if role.name == 'Junior'
   end
 
   def write_fail_story(role)
