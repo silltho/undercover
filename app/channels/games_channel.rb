@@ -8,6 +8,8 @@ class GamesChannel < ApplicationCable::Channel
     if @game.aasm_state == 'waiting'
       @game.players.delete(current_player)
       @game.broadcast_game_updated
+    else
+      current_player.disconnect!
     end
   end
 

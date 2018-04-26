@@ -10,7 +10,7 @@ class Player < ApplicationRecord
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
-    state :dead, :imprisoned
+    state :dead, :imprisoned, :disconnected
 
     event :imprison do
       transitions from: :alive, to: :imprisoned
@@ -28,6 +28,14 @@ class Player < ApplicationRecord
     event :reset do
       transitions from: :imprisoned, to: :alive
       transitions from: :dead, to: :alive
+    end
+
+    event :disconnect do
+      transitions from: :alive, to: :disconnected
+    end
+
+    event :reconnect do
+      transitions from: :disconnected, to: :alive
     end
   end
 
