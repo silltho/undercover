@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   require 'faker'
   has_many :players, dependent: :destroy
   has_many :articles, dependent: :destroy
+  has_many :action_logs, dependent: :destroy
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
 
@@ -79,7 +80,9 @@ class Game < ApplicationRecord
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
       player.create_codename
-      #player.get_relations
+    end
+    players.each do |player|
+      player.get_relations
     end
   end
 

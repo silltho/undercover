@@ -19,7 +19,8 @@ Role.create(name: 'Godfather',
             active_text: 'Money will change a player’s mind. Your target will join the mafia.',
             passive_text: 'This character cannot be converted by the president.',
             text_success: 'Corruption! Money changed somebody’s mind.',
-            text_fail: 'A citizen declined a whole bunch of money.')
+            text_fail: 'A citizen declined a whole bunch of money.',
+            known_roles: 'Bodyguard')
 Role.create(name: 'Bodyguard',
             party: 'Mafia',
             active: 'blackmail',
@@ -33,7 +34,8 @@ Role.create(name: 'Bodyguard',
             active_text: 'Threaten somebody to get information about a player’s real face.',
             passive_text: 'This character protects its leader with his life. If the godfather would die, you will die instead.',
             text_success: 'Threatened by a criminal, a player revealed its role.',
-            text_fail: 'Blackmailing failed')
+            text_fail: 'Blackmailing failed',
+            known_roles: 'Godfather')
 Role.create(name: 'Enforcer',
             party: 'Mafia',
             active: 'shoot',
@@ -47,7 +49,8 @@ Role.create(name: 'Enforcer',
             active_text: 'Strike down somebody to take them out of the game.',
             passive_text: '',
             text_success: 'R.I.P. Someone lies dead on the street.',
-            text_fail: 'Shooting failed.')
+            text_fail: 'Shooting failed.',
+            known_roles: 'Bodyguard')
 Role.create(name: 'Beagle Boy',
             party: 'Mafia',
             active: 'free',
@@ -61,7 +64,8 @@ Role.create(name: 'Beagle Boy',
             active_text: 'Rescue a player from prison. Freedom!',
             passive_text: '',
             text_success: 'Sneaky, sneaky. A prisoner is freed.',
-            text_fail: 'A criminal tried to release a free citizen. Whoops!')
+            text_fail: 'A criminal tried to release a free citizen. Whoops!',
+            known_roles: 'Godfather Bodyguard Enforcer')
 Role.create(name: 'President',
             party: 'Town',
             active: 'convert',
@@ -75,7 +79,8 @@ Role.create(name: 'President',
             active_text: 'Your rhetorical skills will change your target’s mind. Your target will join your forces',
             passive_text: 'This character cannot be corrupted by the godfather.',
             text_success: 'A criminal has been persuaded to join the townsmen.',
-            text_fail: 'Presidential persuasion was not successful.')
+            text_fail: 'Presidential persuasion was not successful.',
+            known_roles: 'Chief')
 Role.create(name: 'Chief',
             party: 'Town',
             active: 'imprison',
@@ -89,7 +94,8 @@ Role.create(name: 'Chief',
             active_text: 'Imprison your target. They will not be able to use their ability at night.',
             passive_text: 'This character protects its leader with his life. If the president would die, you will die instead.',
             text_success: "Caught by the police, somebody has been jailed.",
-            text_fail: 'A citizen tried to jail a prison. Choose wisely.')
+            text_fail: 'A citizen tried to jail a prison. Choose wisely.',
+            known_roles: 'President Officer')
 Role.create(name: 'Officer',
             party: 'Town',
             active: 'imprison',
@@ -103,7 +109,8 @@ Role.create(name: 'Officer',
             active_text: 'Imprison your target. They will not be able to use their ability at night.',
             passive_text: '',
             text_success: "Caught by the police, somebody has been jailed.",
-            text_fail: 'A citizen tried to jail a prison. Choose wisely.')
+            text_fail: 'A citizen tried to jail a prison. Choose wisely.',
+            known_roles: 'Chief')
 Role.create(name: 'Agent',
             party: 'Town',
             active: 'spy',
@@ -117,7 +124,8 @@ Role.create(name: 'Agent',
             active_text: 'Snoop on somebody to get information about a player’s character role',
             passive_text: '',
             text_success: 'Espionage has been carried out.',
-            text_fail: 'Spying failed')
+            text_fail: 'Spying failed',
+            known_roles: 'Officer Chief President')
 Role.create(name: 'Junior',
             party: 'Anarchists',
             active: 'poison',
@@ -131,4 +139,5 @@ Role.create(name: 'Junior',
             active_text: 'Put poison in your foes’ drink. This has been their last sunset.',
             passive_text: 'This character cannot be corrupted nor converted',
             text_success: "Rats! Someone has been deadly poisoned by the anarchist.",
-            text_fail: 'Poisoning failed.')
+            text_fail: 'Poisoning failed.',
+            known_roles: '')
