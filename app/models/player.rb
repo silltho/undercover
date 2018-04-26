@@ -117,7 +117,7 @@ class Player < ApplicationRecord
     rel = Relation.where(player1: self)
     data = []
     rel.each do |entry|
-      data.push([entry.player2.id, entry.role.try(:name), entry.loyal ])
+      data.push([entry.player2.id, entry.player2.try(:state), entry.role.try(:name), entry.loyal ])
     end
     data
   end
