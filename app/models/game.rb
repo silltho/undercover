@@ -177,11 +177,11 @@ class Game < ApplicationRecord
   #### BOOLEAN CHECKS ####
 
   def belongs_to_mafia(player)
-    player.role.try(:party) == "Mafia" || (player.role.try(:party) == "Town" && player.role.try(:changed_party) == true)
+    (player.role.try(:party) == "Mafia" && player.try(:changed_party) == false) || (player.role.try(:party) == "Town" && player.try(:changed_party) == true)
   end
 
   def belongs_to_town(player)
-    player.role.try(:party) == "Town" || (player.role.try(:party) == "Mafia" && player.role.try(:changed_party) == true)
+    (player.role.try(:party) == "Town" && player.try(:changed_party) == false) || (player.role.try(:party) == "Mafia" && player.try(:changed_party) == true)
   end
 
   def belongs_to_anarchists(player)
