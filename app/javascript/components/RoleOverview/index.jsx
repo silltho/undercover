@@ -62,7 +62,11 @@ class RoleOverview extends React.PureComponent {
               <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
               <FractionImage src={fractionImage} />
             </RoleVideoContainer>
-            <CardBottom player={player} showTargetSelection={showTargetSelection} currentTarget={currentTarget} />
+            <CardBottom
+              player={player}
+              showTargetSelection={showTargetSelection}
+              currentTarget={currentTarget}
+            />
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
           <CornerButton right bottom onClickAction={skipPhase}>
