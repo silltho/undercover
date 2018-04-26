@@ -9,7 +9,7 @@ import {
   RESET_GAME,
   PLAYER_INFORMED,
   HIDE_PLAYER_INFORMATIONS,
-  WAIT_FOR_OPPONENTS,
+  WAITING_FOR_OTHERS,
   GAME_ENDED
 } from 'services/constants'
 
@@ -37,7 +37,7 @@ function appReducer(state = initialState, action) {
       const data = fromJS(action.data)
       return state.setIn(['Game', 'winner'], data)
     }
-    case WAIT_FOR_OPPONENTS: {
+    case WAITING_FOR_OTHERS: {
       return state.setIn(['App', 'showWaitForOpponents'], true)
     }
     case HIDE_PLAYER_INFORMATIONS: {

@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424132619) do
+ActiveRecord::Schema.define(version: 20180424153359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_logs", force: :cascade do |t|
+    t.bigint "player_id"
+    t.bigint "game_id"
+    t.integer "round"
+    t.string "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_action_logs_on_game_id"
+    t.index ["player_id"], name: "index_action_logs_on_player_id"
+  end
 
   create_table "articles", force: :cascade do |t|
     t.bigint "game_id"
@@ -93,6 +104,8 @@ ActiveRecord::Schema.define(version: 20180424132619) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "action_logs", "games"
+  add_foreign_key "action_logs", "players"
   add_foreign_key "articles", "games"
   add_foreign_key "articles", "players", column: "committer_id"
   add_foreign_key "articles", "players", column: "victim_id"

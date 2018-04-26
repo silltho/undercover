@@ -17,7 +17,6 @@ export const PLAYER_INFORMED = 'player_informed'
 export const GAME_ENDED = 'game_ended'
 
 export const HIDE_PLAYER_INFORMATIONS = 'hide_player_informations'
-export const WAIT_FOR_OPPONENTS = 'wait_for_opponent'
 
 export const INFORMATION_UPDATED = 'information_updated'
 
@@ -26,4 +25,6 @@ export const END_INFO_PHASE = 'end_info_phase'
 export const END_EXCHANGE_PHASE = 'end_exchange_phase'
 export const USE_SKILL = 'use_skill'
 export const ALL_SKILLS_USED = 'all_skills_used'
+
+export const WAITING_FOR_OTHERS = 'waiting_for_others'
 

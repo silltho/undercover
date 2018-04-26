@@ -5,11 +5,12 @@ class Player < ApplicationRecord
   belongs_to :user
   has_many :articles
   has_many :relations
+  has_many :action_logs
 
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
-    state :dead, :imprisoned
+    state :dead, :imprisoned, :disconnected
 
     event :imprison do
       transitions from: :alive, to: :imprisoned
@@ -27,6 +28,14 @@ class Player < ApplicationRecord
     event :reset do
       transitions from: :imprisoned, to: :alive
       transitions from: :dead, to: :alive
+    end
+
+    event :disconnect do
+      transitions from: :alive, to: :disconnected
+    end
+
+    event :reconnect do
+      transitions from: :disconnected, to: :alive
     end
   end
 
@@ -70,6 +79,10 @@ class Player < ApplicationRecord
     v = Relation.where(player1: self, player2: victim, role: victim.role).first_or_create
     v.update(loyal: victim.is_loyal?)
     UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
+  end
+
+  def broadcast_waiting_for_players
+    UserChannel.broadcast_to(user, type: 'waiting_for_others', data: nil)
   end
 
   def create_codename
