@@ -1,10 +1,13 @@
 <% session[:foo] = "bar" if session.id.nil? %>
 
 <div class='town-container'>
-  <div class='play-game-button-container'}>
-        <%= link_to "PLAY", '/app', class: 'play-game-button' %>
-  </div>
 
-  <%= video_tag('town.mp4',  poster: "town.jpg", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+  <%# image_tag('logo/logo_frame.png', class: "undercover-logo", alt: 'undercover-background-town') %>
+  <%= link_to '/app', class: 'play-game-button' do %>
+      <div class='play-game-button-container'>PLAY</div>
+  <% end %>
+  <%= image_tag('town.jpg', class: "town-image", alt: 'undercover-background-town') %>
+
+  <%# video_tag('town.mp4', poster: "town.jpg", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
 </div>
 

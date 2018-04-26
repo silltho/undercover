@@ -10,9 +10,27 @@
   //background-size: cover;
   //height: 844px;
   //-webkit-animation: town-anim 55s linear infinite;
+  height: 100%;
 }
 
-.town-video {
+.undercover-beta-header {
+  width: 100%;
+  border-radius: 0;
+  top: 0;
+  border: none;
+  border-bottom: 2px solid #EE9297;
+  transform: none;
+  left: 0;
+  padding: 1rem 0;
+  color: $g_Pink;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2rem;
+  background-color: $g_DarkBlue;
+}
+
+.town-video, .town-image {
   width: 100%;
   object-fit: cover;
   height: 100%;
@@ -27,20 +45,96 @@
   }
 }*/
 
+.welcome {
+  box-shadow: 15px 15px 113px 0px #06232D;
+}
+
+.town-logo {
+  width: 6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
 .play-game-button-container {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  padding: 30px;
-  background-color: $g_DarkBlue;
-  border-radius: 30px;
-  border: 3px solid $g_Pink;
-  box-shadow: 15px 15px 113px 0px $g_DarkBlue;
-  color: $g_Pink !important;
+  background-color: #06232D;
+  border-radius: 100%;
+  width: 8rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 8rem;
+  border: 6px solid #EE9297;
+  box-shadow: 15px 15px 113px 0px #06232D;
+  color: #EE9297 !important;
   text-align: center;
   z-index: 999999;
+  font-size: 2rem;
+
+  &::after {
+    position: absolute;
+    content: '';
+    border-radius: 100%;
+    border: 1px solid $g_DarkBlue;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    height: 8.8rem;
+    width: 8.8rem;
+    animation-direction: alternate;
+    animation: pulse 3.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    border-radius: 100%;
+    border: 1px solid #EE9297;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    height: 8.3rem;
+    width: 8.3rem;
+    animation-name: button-before-twist;
+    animation-direction: alternate;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
 }
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(238, 146, 151, 0.47);
+  }
+  50% {
+    box-shadow: 0 0 0 25px rgba(238, 146, 151, 0.47);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(238, 146, 151, 0.47);
+  }
+}
+
+/*@-webkit-keyframes button-before-twist {
+  from {
+    height: 8rem;
+  }
+  to {
+    height: 0rem;
+  }
+}
+
+@-webkit-keyframes button-after-twist {
+  from {
+    width: 17rem;
+  }
+  to {
+    width: 0rem;
+  }
+}*/
 
 .modal-overlay {
   display: none;
