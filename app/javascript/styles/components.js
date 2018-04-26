@@ -24,6 +24,7 @@ export const BorderContainer = styled.div`
   flex-direction: column;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
   border-radius: ${cardBorderRadius};
+  min-height: 0;
 `
 
 export const BorderContainerTitel = styled.span`

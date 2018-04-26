@@ -8,7 +8,8 @@ import {
   BorderContainer,
   BorderContainerTitel,
   Content,
-  Scrollable
+  Scrollable,
+  ScrollableWrapper
 } from 'styles/components'
 
 import {
