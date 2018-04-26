@@ -5,7 +5,7 @@ import AnarchistImage from 'assets/images/fractions/anarchist.svg'
 const FractionImages = {
   MAFIA: MafiaImage,
   TOWN: TownImage,
-  ANARCHIST: AnarchistImage
+  ANARCHISTS: AnarchistImage
 }
 
 export const getImageByFraction = (fraction = '') => {

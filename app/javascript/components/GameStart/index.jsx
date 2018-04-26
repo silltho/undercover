@@ -4,9 +4,7 @@ import { Map } from 'immutable'
 import PlayersList from 'components/PlayersList'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
-import TownLogo from 'assets/images/fractions/town.svg'
-import MafiaLogo from 'assets/images/fractions/mafia.svg'
-import AnarchistsLogo from 'assets/images/fractions/anarchist.svg'
+import FractionImages from 'config/fractionImages'
 
 import {
   BorderContainer,
@@ -47,18 +45,18 @@ class GameStart extends React.PureComponent {
             <BorderContainerTitel>Welcome</BorderContainerTitel>
             <PartyDistribution>
               <AnarchistsDistribution>
-                <FractionLogo><img src={AnarchistsLogo} alt="logo" /></FractionLogo>
+                <FractionLogo><img src={FractionImages.ANARCHISTS} alt="anarchists-logo" /></FractionLogo>
                 <DistributionHeading>Anarchists</DistributionHeading>
                 <DistributionCount>{game.getIn(['party_distribution', 'Anarchists']) || 0}</DistributionCount>
               </AnarchistsDistribution>
               <TownMafiaDistribution>
                 <MafiaDistributionContainer>
-                  <FractionLogo><img src={MafiaLogo} alt="logo" /></FractionLogo>
+                  <FractionLogo><img src={FractionImages.MAFIA} alt="mafia-logo" /></FractionLogo>
                   <DistributionHeading>Mafia</DistributionHeading>
                   <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
                 </MafiaDistributionContainer>
                 <TownDistributionContainer>
-                  <FractionLogo><img src={TownLogo} alt="logo" /></FractionLogo>
+                  <FractionLogo><img src={FractionImages.TOWN} alt="town-logo" /></FractionLogo>
                   <DistributionHeading>Town</DistributionHeading>
                   <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
                 </TownDistributionContainer>

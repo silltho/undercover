@@ -21,7 +21,7 @@ class DistributionInfo extends React.PureComponent {
         <DistributionSection>
           <Fraction><FractionImg src={FractionImages.MAFIA} />: {distribution.get('Mafia')}</Fraction>
           <Fraction><FractionImg src={FractionImages.TOWN} />: {distribution.get('Town')}</Fraction>
-          <Fraction><FractionImg src={FractionImages.ANARCHIST} />: {distribution.get('Anarchists')}</Fraction>
+          <Fraction><FractionImg src={FractionImages.ANARCHISTS} />: {distribution.get('Anarchists')}</Fraction>
         </DistributionSection>
         <DistributionSection>
           <Fraction><IconFont icon={ICONS.poison} />: {distribution.get('Dead')}</Fraction>
