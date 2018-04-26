@@ -48,7 +48,8 @@ class GamesChannel < ApplicationCable::Channel
   def use_skill(params)
     @game.reload
     @game.use_skill(current_player.id, params['victim'])
-    all_skills_used if @game.all_users_clicked?(@game.round)
+    finish_phase("use_skill")
+    all_skills_used if phase_finished?("use_skill")
   end
 
   def finish_phase(phase)
