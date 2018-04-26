@@ -18,6 +18,7 @@ export const VictimItemWrapper = styled.div`
   text-align: center;
   cursor: pointer;
   margin-top: 0.5rem;
+  height: 3.5rem;
   ${(props) => props.isTarget && targetStyle}
   ${(props) => props.isDead && 'opacity: 0.5;'}
   
@@ -34,6 +35,7 @@ export const VictimInfo = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  justify-content: center;
 `
 
 export const VictimRole = styled.span`
@@ -48,4 +50,9 @@ export const VictimStateIcon = styled(IconFont)`
 export const VictimIcon = styled.div`
   display: flex;
   align-items: center;
+  min-width: 3rem;
+  
+  &:last-child {
+    justify-content: flex-end;
+  }
 `

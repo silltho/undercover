@@ -35,7 +35,8 @@ class GameStart extends React.PureComponent {
   render() {
     const {
       game,
-      startGame
+      startGame,
+      player
     } = this.props
 
     return (
@@ -63,7 +64,7 @@ class GameStart extends React.PureComponent {
             <Section>
               <Heading title="citizens" />
             </Section>
-            <PlayersList players={game.get('players')} />
+            <PlayersList players={player.get('other_players')} />
           </BorderContainer>
           <CornerButton right bottom onClickAction={startGame}>
             <IconFont icon={ICONS.checkmark} />

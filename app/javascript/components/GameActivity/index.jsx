@@ -48,7 +48,7 @@ class GameActivity extends React.PureComponent {
       useSkill
     } = this.props
 
-    const victims = game.get('players')
+    const victims = player.get('other_players')
     const currentTargetIndex = victims.findIndex((victim) => victim.get('id') === this.state.selectedTarget)
     const currentTarget = currentTargetIndex >= 0 ? victims.get(currentTargetIndex) : Map()
 
