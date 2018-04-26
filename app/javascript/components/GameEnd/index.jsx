@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map } from 'immutable'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
@@ -13,8 +14,10 @@ class GameEnd extends React.PureComponent {
   render() {
     const {
       resetGame,
-      winner
+      endInformation
     } = this.props
+
+    console.log('endInformation', endInformation)
 
     return (
       <Content>
@@ -23,7 +26,7 @@ class GameEnd extends React.PureComponent {
             Game Ended
           </BorderContainerTitel>
           <Content>
-            <Winner>{winner}</Winner>
+            <Winner>test</Winner>
           </Content>
         </BorderContainer>
         <CornerButton bottom right onClickAction={resetGame}>
@@ -38,7 +41,7 @@ GameEnd.defaultProps = {
 }
 
 GameEnd.propTypes = {
-  winner: PropTypes.string,
+  endInformation: PropTypes.instanceOf(Map).isRequired,
   resetGame: PropTypes.func.isRequired
 }
 

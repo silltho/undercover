@@ -56,7 +56,7 @@ class Game extends React.PureComponent {
       case GamePhases.FINISHED:
         return (
           <GameEnd
-            winner={this.props.game.get('winner')}
+            endInformation={this.props.endInformation}
             resetGame={this.props.resetGame}
           />)
       default:
@@ -99,6 +99,7 @@ Game.propTypes = {
   player: PropTypes.instanceOf(Map).isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired,
   playerInformation: PropTypes.instanceOf(Map).isRequired,
+  endInformation: PropTypes.instanceOf(Map).isRequired,
   endExchangePhase: PropTypes.func.isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
@@ -121,7 +122,8 @@ const mapStateToProps = (state) => ({
   game: state.get('Game'),
   player: state.get('Player'),
   roundInformation: state.get('RoundInformation'),
-  playerInformation: state.get('PlayerInformation')
+  playerInformation: state.get('PlayerInformation'),
+  endInformation: state.get('EndInformation')
 })
 
 export default connect(

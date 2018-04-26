@@ -10,7 +10,8 @@ import {
   PLAYER_INFORMED,
   HIDE_PLAYER_INFORMATIONS,
   WAITING_FOR_OTHERS,
-  GAME_ENDED
+  GAME_ENDED,
+  WINNING_INFORMATION
 } from 'services/constants'
 
 const initialState = fromJS({
@@ -28,14 +29,19 @@ const initialState = fromJS({
       state: 'alive',
       changed_party: false
     }]
-  }
+  },
+  EndInformation: {}
 })
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case WINNING_INFORMATION: {
+      const data = fromJS(action.data)
+      return state.setIn(['EndInformation', 'end_text'], data)
+    }
     case GAME_ENDED : {
       const data = fromJS(action.data)
-      return state.setIn(['Game', 'winner'], data)
+      return state.setIn(['EndInformation'], data)
     }
     case WAITING_FOR_OTHERS: {
       return state.setIn(['App', 'showWaitForOpponents'], true)
