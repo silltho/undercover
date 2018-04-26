@@ -5,7 +5,8 @@ import PlayerStates from 'config/playerStates'
 import { Map } from 'immutable'
 import {
   ActionIcon,
-  CardBottomWrapper
+  CardBottomWrapper,
+  CardBottomText
 } from './Styles'
 
 class CardBottom extends React.PureComponent {
@@ -31,12 +32,12 @@ class CardBottom extends React.PureComponent {
         )
       case PlayerStates.DEAD: return (
         <CardBottomWrapper>
-          <span>R.I.P. You are dead. GG WP</span>
+          <CardBottomText>R.I.P. You are dead. GG WP</CardBottomText>
         </CardBottomWrapper>
       )
       case PlayerStates.IMPRISONED: return (
         <CardBottomWrapper>
-          <span>You are imprisoned. Find the BeagleBoy to help you.</span>
+          <CardBottomText>You are imprisoned. Find the BeagleBoy to help you.</CardBottomText>
         </CardBottomWrapper>
       )
       default: return null

@@ -121,3 +121,8 @@ export const CardBottomWrapper = styled.div`
   border-right: 1px solid ${PINK};
   border-bottom: 1px solid ${PINK};
 `
+
+export const CardBottomText = styled.span`
+  text-align: center;
+  flex: 1;
+`
