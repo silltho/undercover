@@ -50,17 +50,16 @@ class RoleOverview extends React.PureComponent {
             <CardHead>
               <span>{pseudonym}</span>
             </CardHead>
+            <FractionImage src={fractionImage} />
             <RoleVideoContainer
               dead={state === PlayerStates.DEAD}
               imprisoned={state === PlayerStates.IMPRISONED}
             >
-              <FractionImage src={fractionImage} />
               <video autoPlay muted loop="loop" poster={roleImage} controlsList="nodownload nofullscreen">
                 <source src={roleVideo} type="video/mp4" />
                 <span>Your browser does not support the video tag.</span>
               </video>
               <InformationIcon icon={ICONS.help1} onClick={showRoleInformation} />
-              <FractionImage src={fractionImage} />
             </RoleVideoContainer>
             <CardBottom
               player={player}

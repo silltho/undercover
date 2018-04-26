@@ -45,7 +45,12 @@ export const CardHead = styled.div`
 `
 
 export const FractionImage = styled.img`
-  height: 2.5rem;
+  top: 1rem;
+  left: 0.1rem;
+  z-index: 1333333;
+  position: absolute;
+  height: 4rem;
+  transform: rotate(-15deg);
 `
 
 export const RoleVideoContainer = styled.div`
@@ -60,29 +65,9 @@ export const RoleVideoContainer = styled.div`
     width: 100%;
     
   }
-
-  > ${FractionImage} {
-    position: absolute;
-    z-index: 1;
-  }
-  
-  > ${FractionImage}:first-child {
-    top: 0.5rem;
-    left: 0.5rem;
-  }
-  
-  > ${FractionImage}:last-child {
-    bottom: 0.5rem;
-    right: 0.5rem;
-  }
   
   ${(props) => props.dead && DeadStyle}
   ${(props) => props.imprisoned && ImprisonedStyle}
-`
-
-export const PassiveIcon = styled(IconFont)`
-  font-size: 2.1rem;
-  padding: 0.2rem;
 `
 
 export const ActionIcon = styled(IconFont)`
@@ -99,7 +84,7 @@ export const ActionIcon = styled(IconFont)`
 `
 
 export const InformationIcon = styled(IconFont)`
-    top: 0;
+    bottom: 0;
     right: 0;
     background-color: #06242d;
     padding: 0.5rem;
@@ -107,8 +92,9 @@ export const InformationIcon = styled(IconFont)`
     justify-content: center;
     position: absolute;
     align-items: center;
-    border-bottom-left-radius: 0.7rem;
+    border-top-left-radius: 0.7rem;
     font-size: 1.4rem;
+    opacity: 0.8;
 `
 
 export const CardBottomWrapper = styled.div`
