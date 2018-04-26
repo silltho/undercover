@@ -145,7 +145,7 @@ class Player < ApplicationRecord
 
   def set_nil_relations
     Player.where(game: game).where.not(id: id).each do |other|
-      Relation.create(player1: self, player2: other, role: nil, party: nil)
+      Relation.where(player1: self, player2: other, role: nil, party: nil).first_or_create
     end
   end
 
