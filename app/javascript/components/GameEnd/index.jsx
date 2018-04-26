@@ -21,7 +21,7 @@ import {
 
 class GameEnd extends React.PureComponent {
   renderPlayer = (player) => (
-    <Player key={``}>
+    <Player key={`player-${player.get('codename')}`}>
       <CodeName>{player.get('codename')}</CodeName>
       <Role>{player.get('role')}</Role>
     </Player>
@@ -35,9 +35,9 @@ class GameEnd extends React.PureComponent {
 
     const result = endInformation.get('end_text').toString()
     const winnerFraction = endInformation.getIn(['winner', '0', 'party'])
-    const renderedMafia = this.props.endInformation.get('Mafia', Map()).map((players) => this.renderPlayer(players))
-    const renderedTown = this.props.endInformation.get('Town', Map()).map((players) => this.renderPlayer(players))
-    const renderedAnarchists = this.props.endInformation.get('Anarchists', Map()).map((players) => this.renderPlayer(players))
+    const renderedMafia = this.props.endInformation.get('Mafia', Map()).map((players) => this.renderPlayer(players)).valueSeq()
+    const renderedTown = this.props.endInformation.get('Town', Map()).map((players) => this.renderPlayer(players)).valueSeq()
+    const renderedAnarchists = this.props.endInformation.get('Anarchists', Map()).map((players) => this.renderPlayer(players)).valueSeq()
     const winnerFractionImage = getImageByFraction(winnerFraction)
 
     return (
