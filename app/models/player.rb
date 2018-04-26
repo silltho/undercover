@@ -86,6 +86,7 @@ class Player < ApplicationRecord
 
   def broadcast_you_lost
     UserChannel.broadcast_to(user, type: 'player_lost', data: nil)
+  end
 
   def broadcast_waiting_for_players
     UserChannel.broadcast_to(user, type: 'waiting_for_others', data: nil)
