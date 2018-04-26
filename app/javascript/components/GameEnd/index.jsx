@@ -8,7 +8,8 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel
+  BorderContainerTitel,
+  Section
 } from 'styles/components'
 import {
   Player,
@@ -17,7 +18,6 @@ import {
   FractionLogo,
   ImageWrapper
 } from './Styles'
-import { Section } from '../RoleInformation/Styles'
 
 class GameEnd extends React.PureComponent {
   renderPlayer = (player) => (
