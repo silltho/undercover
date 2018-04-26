@@ -4,6 +4,7 @@ import IconFont, { ICONS } from 'components/IconFont'
 import TownVideo from 'assets/videos/Town.mp4'
 import TownPoster from 'assets/images/town.jpg'
 import CornerButton from 'components/CornerButton'
+import PlayerStates from 'config/playerStates'
 import {
   BorderContainer,
   Content,
@@ -18,8 +19,11 @@ import {
 class GameExchange extends React.PureComponent {
   render() {
     const {
+      player,
       endExchange
     } = this.props
+
+    const state = player.get('state')
 
     return (
       <React.Fragment>
@@ -33,9 +37,11 @@ class GameExchange extends React.PureComponent {
               </video>
             </TownContainer>
           </BorderContainer>
-          <CornerButton right bottom onClickAction={endExchange}>
-            <IconFont icon={ICONS.checkmark} />
-          </CornerButton>
+          {state === PlayerStates.ALIVE &&
+            <CornerButton right bottom onClickAction={endExchange}>
+              <IconFont icon={ICONS.checkmark} />
+            </CornerButton>
+          }
         </Content>
       </React.Fragment>
     )
@@ -43,6 +49,7 @@ class GameExchange extends React.PureComponent {
 }
 
 GameExchange.propTypes = {
+  player: PropTypes.instanceOf(Map).isRequired,
   endExchange: PropTypes.func.isRequired
 }
 

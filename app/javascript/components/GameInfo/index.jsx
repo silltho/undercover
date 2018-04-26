@@ -5,6 +5,7 @@ import Flip from 'components/Animations/Flip'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import DistributionInfo from 'components/DistributionInfo'
+import PlayerStates from 'config/playerStates'
 import {
   BorderContainer,
   Content,
@@ -61,7 +62,8 @@ class GameInfo extends React.PureComponent {
     const {
       readInfos,
       roundInformation,
-      game
+      game,
+      player
     } = this.props
 
     const day = (parseInt(this.state.selectedDay, 10) + 1)
@@ -69,6 +71,7 @@ class GameInfo extends React.PureComponent {
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
     const distribution = game.get('party_distribution')
+    const state = player.get('state')
 
     return (
       <Wrapper key={`round-information-${day}`}>
@@ -96,9 +99,11 @@ class GameInfo extends React.PureComponent {
               }
             </BottomDawnContainer>
           </BorderContainer>
-          <CornerButton right bottom onClickAction={readInfos}>
-            <IconFont icon={ICONS.checkmark} />
-          </CornerButton>
+          {state === PlayerStates.ALIVE &&
+            <CornerButton right bottom onClickAction={readInfos}>
+              <IconFont icon={ICONS.checkmark} />
+            </CornerButton>
+          }
         </Content>
       </Wrapper>
     )
@@ -119,6 +124,7 @@ GameInfo.defaultProps = {
 
 GameInfo.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired,
   round: PropTypes.number,
   readInfos: PropTypes.func.isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired

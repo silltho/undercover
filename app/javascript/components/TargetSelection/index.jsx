@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
+import VictimsItem from 'components/VictimItem'
 import {
   BorderContainer,
   BorderContainerTitel,
   Scrollable,
   Content
 } from 'styles/components'
-import VictimsItem from './VictimItem'
 
 class TargetSelection extends React.PureComponent {
   render() {
