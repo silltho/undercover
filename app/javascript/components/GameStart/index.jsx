@@ -9,7 +9,8 @@ import FractionImages from 'config/fractionImages'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel
+  BorderContainerTitel,
+  Section
 } from 'styles/components'
 
 import Heading from 'components/Heading'
@@ -23,10 +24,6 @@ import {
   TownDistributionContainer,
   MafiaDistributionContainer
 } from './Styles'
-
-import {
-  Section
-} from '../RoleInformation/Styles'
 
 class GameStart extends React.PureComponent {
 

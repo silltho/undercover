@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import { ACTIVE_ICONS } from 'components/IconFont'
-import FractionImages, { getImageByFraction } from 'config/fractionImages'
+import { getImageByFraction } from 'config/fractionImages'
 import PlayerStates from 'config/playerStates'
 import {
   VictimItemWrapper,
@@ -23,7 +23,9 @@ const getStateIcon = (state) => {
 
 class VictimItem extends React.PureComponent {
   useSkill = () => {
-    this.props.useSkill(this.props.victim.get('id'))
+    if (this.props.victim.get('state') !== PlayerStates.DEAD) {
+      this.props.useSkill(this.props.victim.get('id'))
+    }
   }
 
   render() {
@@ -43,7 +45,7 @@ class VictimItem extends React.PureComponent {
         role="button"
         onClick={this.useSkill}
         isTarget={isTarget}
-        isDead={victim.get('state') === 'dead'}
+        isDead={victim.get('state') === PlayerStates.DEAD}
       >
         <VictimIcon>
           {fractionImage && <FractionImage src={fractionImage} />}
