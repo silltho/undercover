@@ -156,9 +156,9 @@ class Game < ApplicationRecord
     data = Hash.new{|hsh,key| hsh[key] = [] }
     data['winner'] = [{party: fraction}]
     players.each do |player|
-      data['Mafia'] << {id: player.id, codename: player.codename, role: player.role.name} if belongs_to_mafia(player)
-      data['Town'] << {id: player.id, codename: player.codename, role: player.role.name} if belongs_to_town(player)
-      data['Anarchists'] << {id: player.id, codename: player.codename, role: player.role.name} if player.role.try(:party) == "Anarchists"
+      data['Mafia'] << {id: player.id, codename: player.codename, role: player.role.name, state: player.state} if belongs_to_mafia(player)
+      data['Town'] << {id: player.id, codename: player.codename, role: player.role.name, state: player.state} if belongs_to_town(player)
+      data['Anarchists'] << {id: player.id, codename: player.codename, role: player.role.name, state: player.state} if player.role.try(:party) == "Anarchists"
     end
     data
   end
