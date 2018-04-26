@@ -142,6 +142,7 @@ class Game < ApplicationRecord
     round.times do |n|
       data[n] = create_stories(n)
     end
+    data.delete(0)
     data
   end
 
