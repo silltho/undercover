@@ -12,7 +12,7 @@ import {
 } from 'styles/components'
 
 import {
-  Section,
+  InfoSection,
   SectionText,
   ActiveIcon
 } from './Styles'
@@ -33,24 +33,24 @@ class RoleInformation extends React.PureComponent {
           <BorderContainer>
             <BorderContainerTitel align="center">{roleDetails.get('name')}</BorderContainerTitel>
             <Scrollable>
-              <Section>
+              <InfoSection>
                 <SectionText>{roleDetails.get('punchline')}</SectionText>
-              </Section>
-              <Section>
+              </InfoSection>
+              <InfoSection>
                 <Heading title="Goal" />
                 <SectionText>{roleDetails.get('goal')}</SectionText>
-              </Section>
-              <Section>
+              </InfoSection>
+              <InfoSection>
                 <Heading title="Active" />
                 <ActiveIcon icon={activeIcon} />
                 <SectionText>{roleDetails.get('active_text')}</SectionText>
-              </Section>
+              </InfoSection>
               {passiveIcon &&
-                <Section>
+                <InfoSection>
                   <Heading title="Passive" />
                   <ActiveIcon icon={passiveIcon} />
                   <SectionText>{roleDetails.get('passive_text')}</SectionText>
-                </Section>
+                </InfoSection>
               }
             </Scrollable>
           </BorderContainer>

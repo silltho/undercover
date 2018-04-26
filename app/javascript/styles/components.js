@@ -49,6 +49,19 @@ export const Content = styled.div`
   height: 100%;
 `
 
+export const Section = styled.div`
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+`
+
 export const Header = styled.div`
   display: flex;
   position: relative;
@@ -69,55 +82,6 @@ export const Footer = styled.div`
   justify-content: space-around;
   flex-direction: row;
 `
-
-/*
-export const BottomRight = styled.div`
-  display: flex;
-  text-transform: uppercase;
-  color: ${PINK};
-  border-left: 1px solid ${PINK};
-  border-top: 1px solid ${PINK};
-  background-color: ${DARK_BLUE};
-  border-bottom-right-radius: ${cardBorderRadius};
-  position: absolute;
-  bottom: 0;
-  right: 0;
-
-  > * + * {
-    border-left: solid 1px ${PINK};
-  }
-
-  > * {
-    cursor: pointer;
-  }
-`
-
-export const Action = styled.button`
-  color: ${PINK};
-  background-color: transparent;
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
-  text-shadow: 2px 2px #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  
-  &:active, &:focus {
-    outline: none;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  ${IconFont} {
-    font-size: 2rem;
-    &:active{
-      text-shadow: none;
-    }
-  }
-`*/
 
 export const RoomCode = styled.div `
   position: absolute;
