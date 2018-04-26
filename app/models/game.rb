@@ -36,6 +36,12 @@ class Game < ApplicationRecord
       transitions from: :inform, to: :finished
     end
 
+    event :change_state do
+      transitions from: :inform, to: :exchange
+      transitions from: :exchange, to: :activity
+      transitions from: :activity, to: :inform
+    end
+
     event :reset do
       transitions from: :initialized, to: :waiting
       transitions from: :inform, to: :waiting
