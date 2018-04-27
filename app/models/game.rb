@@ -316,7 +316,7 @@ class Game < ApplicationRecord
     return "R.I.P. #{victim.codename} (#{victim.role.name}) lies dead on the street." if role.name == 'Enforcer'
     return "Sneaky, sneaky. A prisoner is freed." if role.name == 'Beagle Boy'
     return "Corruption! Money changed somebody’s mind." if role.name == 'Godfather'
-    return "Caught by the police, somebody has been jailed" if role.name == 'Chief' || role.name == "Officer"
+    return "Caught by the police, #{victim.codename} has been jailed" if role.name == 'Chief' || role.name == "Officer"
     return "Espionage has been carried out." if role.name == 'Agent'
     "Rats! #{victim.codename} (#{victim.role.name}) has been deadly poisoned by the anarchist. " if role.name == 'Junior'
   end
