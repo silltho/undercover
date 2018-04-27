@@ -6,6 +6,9 @@ class Game < ApplicationRecord
   has_many :action_logs, dependent: :destroy
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
+  TOWN = 'Town'
+  MAFIA = 'Mafia'
+  ANARCHISTS = 'Anarchists'
 
   #### STATE MACHINE ####
   aasm whiny_transitions: false do
@@ -93,9 +96,7 @@ class Game < ApplicationRecord
       player.assign_character(roles_array.delete(roles_array.sample))
       player.create_codename
     end
-    players.each do |player|
-      player.get_relations
-    end
+    players.each(&:get_relations)
   end
 
   def add_player(player)
@@ -150,9 +151,9 @@ class Game < ApplicationRecord
     data = {}
     %w[Mafia Town Anarchists Prisoners Dead].each{ |k| data[k] = 0 }
     players.each do |player|
-      data["Mafia"] += 1 if belongs_to_mafia(player) && player.state == "alive"
-      data["Town"]+= 1 if belongs_to_town(player) && player.state == "alive"
-      data["Anarchists"]+= 1 if player.role.try(:party) == "Anarchists" && player.state == "alive"
+      data[MAFIA] += 1 if belongs_to_mafia(player) && player.state == "alive"
+      data[TOWN]+= 1 if belongs_to_town(player) && player.state == "alive"
+      data[ANARCHISTS]+= 1 if belongs_to_anarchists(player) && player.state == "alive"
       data["Prisoners"]+= 1  if player.state == "imprisoned"
       data["Dead"]+= 1 if player.state =="dead"
     end
@@ -164,9 +165,9 @@ class Game < ApplicationRecord
     data['winner'] = [{party: party}]
     players.each do |player|
       player_object = {id: player.id, codename: player.codename, role: player.role.name, state: player.state}
-      data['Mafia'] <<  player_object if belongs_to_mafia(player)
-      data['Town'] << player_object if belongs_to_town(player)
-      data['Anarchists'] << player_object if belongs_to_anarchists(player)
+      data[MAFIA] <<  player_object if belongs_to_mafia(player)
+      data[TOWN] << player_object if belongs_to_town(player)
+      data[ANARCHISTS] << player_object if belongs_to_anarchists(player)
     end
     data
   end
@@ -185,15 +186,15 @@ class Game < ApplicationRecord
   #### BOOLEAN CHECKS ####
 
   def belongs_to_mafia(player)
-    (player.role.try(:party) == "Mafia" && player.try(:changed_party) == false) || (player.role.try(:party) == "Town" && player.try(:changed_party) == true)
+    (player.role.try(:party) == MAFIA && player.try(:changed_party) == false) || (player.role.try(:party) == TOWN && player.try(:changed_party) == true)
   end
 
   def belongs_to_town(player)
-    (player.role.try(:party) == "Town" && player.try(:changed_party) == false) || (player.role.try(:party) == "Mafia" && player.try(:changed_party) == true)
+    (player.role.try(:party) == TOWN && player.try(:changed_party) == false) || (player.role.try(:party) == MAFIA && player.try(:changed_party) == true)
   end
 
   def belongs_to_anarchists(player)
-    player.role.try(:party) == "Anarchists"
+    player.role.try(:party) == ANARCHISTS
   end
 
   def check_for_prisoners(victim)
@@ -230,7 +231,7 @@ class Game < ApplicationRecord
 
   def is_game_over?
     statistic = get_party_members
-    if both_heads_dead? || statistic["Mafia"].zero? || statistic["Town"].zero?
+    if both_heads_dead? || statistic[MAFIA].zero? || statistic[TOWN].zero?
       get_winner
       true
     else
@@ -242,7 +243,7 @@ class Game < ApplicationRecord
     gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).pluck(:state).first
     pr = Player.where(game: self).where(role: Role.where(name: "President")).pluck(:state).first
     jr = Player.where(game: self).where(role: Role.where(name: "Junior")).pluck(:state).first
-    true if gf != "alive" && pr != "alive" && jr == "alive"
+    return true if gf != "alive" && pr != "alive" && jr == "alive"
     false
   end
 
@@ -329,17 +330,22 @@ class Game < ApplicationRecord
 
   def get_winner
     statistic = get_party_members
-    winner = "Anarchists" if both_heads_dead?
-    winner = "Town" if statistic["Mafia"].zero?
-    winner = "Mafia" if statistic["Town"].zero?
+    winner = if both_heads_dead?
+               ANARCHISTS
+             elsif statistic[MAFIA].zero?
+               TOWN
+             elsif statistic[TOWN].zero?
+               MAFIA
+             end
     data = get_endscreen_object(winner)
     broadcast_game_ended(data)
     send_info_to_player(winner)
+    winner
   end
 
   def send_info_to_player(winner)
     players.each do |player|
-      if (winner == "Mafia" && belongs_to_mafia(player)) || (winner == "Town" && belongs_to_town(player)) || winner == "Anarchists" && belongs_to_anarchists(player)
+      if (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
         player.broadcast_you_won
       else
         player.broadcast_you_lost

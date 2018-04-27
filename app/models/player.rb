@@ -138,6 +138,7 @@ class Player < ApplicationRecord
 
   def get_relations
     set_nil_relations
+    return if role.known_roles.nil?
     role.known_roles.split(' ').each do |other_role|
       set_relation_information(other_role)
     end

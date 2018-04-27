@@ -7,5 +7,6 @@ export const TownContainer = styled.div`
   > video {
     object-fit: cover;
     height: 100%;
+    pointer-events: none;
   }
 `

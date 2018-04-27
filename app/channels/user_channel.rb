@@ -29,8 +29,10 @@ class UserChannel < ApplicationCable::Channel
       p.reconnect!
       return false if p.nil?
       p.broadcast_player_updated
+    elsif game.full
+      return false
     else
-      p = Player.create!(game: game, user: current_user)
+      Player.create!(game: game, user: current_user)
     end
 
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)
