@@ -9,7 +9,8 @@ import {
   BorderContainer,
   Content,
   BorderContainerTitel,
-  Section
+  Section,
+  Scrollable
 } from 'styles/components'
 import {
   Player,
@@ -50,18 +51,20 @@ class GameEnd extends React.PureComponent {
               <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
               WON
             </ImageWrapper>
-            <Section>
-              <Heading title="mafia" />
-              {renderedMafia}
-            </Section>
-            <Section>
-              <Heading title="town" />
-              {renderedTown}
-            </Section>
-            <Section>
-              <Heading title="anarchists" />
-              {renderedAnarchists}
-            </Section>
+            <Scrollable>
+              <Section>
+                <Heading title="mafia" />
+                {renderedMafia}
+              </Section>
+              <Section>
+                <Heading title="town" />
+                {renderedTown}
+              </Section>
+              <Section>
+                <Heading title="anarchists" />
+                {renderedAnarchists}
+              </Section>
+            </Scrollable>
           </Content>
         </BorderContainer>
         <CornerButton bottom right onClickAction={resetGame}>
