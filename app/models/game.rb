@@ -159,13 +159,14 @@ class Game < ApplicationRecord
     data
   end
 
-  def get_endscreen_object(fraction)
+  def get_endscreen_object(party)
     data = Hash.new{|hsh,key| hsh[key] = [] }
-    data['winner'] = [{party: fraction}]
+    data['winner'] = [{party: party}]
     players.each do |player|
-      data['Mafia'] << {id: player.id, codename: player.codename, role: player.role.name, state: player.state} if belongs_to_mafia(player)
-      data['Town'] << {id: player.id, codename: player.codename, role: player.role.name, state: player.state} if belongs_to_town(player)
-      data['Anarchists'] << {id: player.id, codename: player.codename, role: player.role.name, state: player.state} if player.role.try(:party) == "Anarchists"
+      player_object = {id: player.id, codename: player.codename, role: player.role.name, state: player.state}
+      data['Mafia'] <<  player_object if belongs_to_mafia(player)
+      data['Town'] << player_object if belongs_to_town(player)
+      data['Anarchists'] << player_object if belongs_to_anarchists(player)
     end
     data
   end
@@ -238,10 +239,10 @@ class Game < ApplicationRecord
   end
 
   def both_heads_dead?
-    gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).first
-    pr = Player.where(game: self).where(role: Role.where(name: "President")).first
-    jr = Player.where(game: self).where(role: Role.where(name: "Junior")).first
-    true if gf.state != "alive" && pr.state != "alive" && jr.state == "alive"
+    gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).pluck(:state).first
+    pr = Player.where(game: self).where(role: Role.where(name: "President")).pluck(:state).first
+    jr = Player.where(game: self).where(role: Role.where(name: "Junior")).pluck(:state).first
+    true if gf != "alive" && pr != "alive" && jr == "alive"
     false
   end
 
