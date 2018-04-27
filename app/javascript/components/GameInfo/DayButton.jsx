@@ -13,7 +13,7 @@ class DayButton extends React.PureComponent {
       day
     } = this.props
 
-    const text = (parseInt(day, 10) + 1).toString()
+    const text = (parseInt(day, 10)).toString()
 
     return (
       <DayButtonWrapper active={active} onClick={this.switchToDay}>
