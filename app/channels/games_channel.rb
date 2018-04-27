@@ -78,6 +78,9 @@ class GamesChannel < ApplicationCable::Channel
     @game.reload
     @game.finish!
     @game.broadcast_game_updated
+    Relation.where(game: @game).destroy_all
+    Player.where(game: @game).destroy_all
+    @game.destroy
   end
 
   def reset_game
