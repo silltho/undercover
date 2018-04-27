@@ -66,7 +66,7 @@ class Player < ApplicationRecord
       name: victim.codename,
       state: victim.state,
       role: victim.role.name,
-      changed_party: victim.changed_party
+      party: victim.get_party
     }
   end
 
