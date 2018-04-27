@@ -31,4 +31,5 @@ export const FractionLogo = styled.div`
 
 export const ImageWrapper = styled.div`
   text-align: center;
+  margin-bottom: 1rem;
 `

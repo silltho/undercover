@@ -29,16 +29,6 @@ class GameInfo extends React.PureComponent {
     }
   }
 
-  componentDidMount() {
-    if (this.buttonContainer) {
-      this.buttonContainer.scrollLeft = this.buttonContainer.scrollWidth
-    }
-  }
-
-  setButtonContainerRef = (container) => {
-    this.buttonContainer = container
-  }
-
   switchToDay = (day) => {
     this.setState({ selectedDay: day })
   }
@@ -90,19 +80,15 @@ class GameInfo extends React.PureComponent {
             ) : (<NoInfosMessage>-- no infos for this day --</NoInfosMessage>)
             }
             <BottomDawnContainer>
-              {renderedDayButtons.size > 0 ?
-                (
-                  <DayButtonContainer innerRef={this.setButtonContainerRef}>
-                    {renderedDayButtons}
-                  </DayButtonContainer>
-                ) : null
-              }
+              <DayButtonContainer>
+                {renderedDayButtons}
+              </DayButtonContainer>
             </BottomDawnContainer>
           </BorderContainer>
           {state === PlayerStates.ALIVE &&
-            <CornerButton right bottom onClickAction={readInfos}>
-              <IconFont icon={ICONS.checkmark} />
-            </CornerButton>
+          <CornerButton right bottom onClickAction={readInfos}>
+            <IconFont icon={ICONS.checkmark} />
+          </CornerButton>
           }
         </Content>
       </Wrapper>
@@ -119,13 +105,11 @@ class GameInfo extends React.PureComponent {
 }
 
 GameInfo.defaultProps = {
-  round: 0
 }
 
 GameInfo.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
-  round: PropTypes.number,
   readInfos: PropTypes.func.isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired
 }

@@ -36,7 +36,6 @@ class Game extends React.PureComponent {
           <GameInfo
             player={this.props.player}
             game={this.props.game}
-            round={this.props.game.get('round') || 0}
             roundInformation={this.props.roundInformation}
             readInfos={this.props.endInfoPhase}
           />)
