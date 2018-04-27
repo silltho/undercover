@@ -44,7 +44,7 @@ class Player < ApplicationRecord
       id: id,
       codename: codename,
       state: state,
-      changed_party: changed_party,
+      party: get_party,
       other_players: build_relations,
       role: { id: role.try(:id),
               name: self.try(:role).try(:name),
