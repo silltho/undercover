@@ -50,6 +50,8 @@ export const Content = styled.div`
 `
 
 export const Section = styled.div`
+  display:flex;
+  flex-direction: column;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
   

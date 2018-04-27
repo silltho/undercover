@@ -22,7 +22,8 @@ import {
   DistributionHeading,
   FractionLogo,
   TownDistributionContainer,
-  MafiaDistributionContainer
+  MafiaDistributionContainer,
+  PlayerCodename
 } from './Styles'
 
 class GameStart extends React.PureComponent {
@@ -57,9 +58,13 @@ class GameStart extends React.PureComponent {
               </TownDistributionContainer>
             </PartyDistribution>
             <Section>
-              <Heading title="citizens" />
+              <Heading title="You are" />
+              <PlayerCodename>{player.get('codename')}</PlayerCodename>
             </Section>
-            <PlayersList players={player.get('other_players')} />
+            <Section>
+              <Heading title="citizens" />
+              <PlayersList players={player.get('other_players')} />
+            </Section>
           </BorderContainer>
           <CornerButton right bottom onClickAction={startGame}>
             <IconFont icon={ICONS.checkmark} />

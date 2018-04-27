@@ -17,12 +17,10 @@ class TargetSelection extends React.PureComponent {
       onRequestHide,
       onSelectTarget,
       victims,
-      player,
       currentTarget
     } = this.props
 
     const renderedVictims = victims
-      .filter((victim) => victim.get('id') !== player.get('id'))
       .map((victim) => (
         <VictimsItem
           key={`victim-${victim.get('id')}`}
