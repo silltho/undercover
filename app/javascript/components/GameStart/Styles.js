@@ -42,3 +42,8 @@ export const FractionLogo = styled.div `
     width: 5rem;
   }
 `
+
+export const PlayerCodename = styled.div`
+  padding-top: 0.5rem;
+  text-align: center;
+`

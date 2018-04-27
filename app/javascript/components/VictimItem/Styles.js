@@ -21,10 +21,6 @@ export const VictimItemWrapper = styled.div`
   height: 3.5rem;
   ${(props) => props.isTarget && targetStyle}
   ${(props) => props.isDead && 'opacity: 0.5;'}
-  
-  &:active {
-    ${targetStyle};
-  }
 `
 
 export const FractionImage = styled.img`

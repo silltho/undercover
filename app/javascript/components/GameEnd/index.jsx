@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Heading from 'components/Heading'
-import FractionImages from 'config/fractionImages'
+import { getImageByFraction } from 'config/fractionImages'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel
+  BorderContainerTitel,
+  Section
 } from 'styles/components'
 import {
   Player,
@@ -17,33 +18,14 @@ import {
   FractionLogo,
   ImageWrapper
 } from './Styles'
-import { Section } from '../RoleInformation/Styles'
 
 class GameEnd extends React.PureComponent {
-  renderWinnerImage = (winnerFraction) => {
-    switch (winnerFraction) {
-      case 'Mafia': return (
-        <FractionLogo><img src={FractionImages.MAFIA} alt="mafia-logo" /></FractionLogo>
-      )
-      case 'Town': return (
-        <FractionLogo><img src={FractionImages.TOWN} alt="mafia-logo" /></FractionLogo>
-      )
-      case 'Anarchists': return (
-        <FractionLogo><img src={FractionImages.ANARCHISTS} alt="mafia-logo" /></FractionLogo>
-      )
-      default: return null
-    }
-  }
-  renderMember = (player) => (
-    <Player>
+  renderPlayer = (player) => (
+    <Player key={`player-${player.get('codename')}`}>
       <CodeName>{player.get('codename')}</CodeName>
       <Role>{player.get('role')}</Role>
     </Player>
   )
-  renderMembers = (endInformation, member_name) => {
-    const members = endInformation.get(member_name)
-    return members.map((players) => this.renderMember(players))
-  }
 
   render() {
     const {
@@ -51,33 +33,35 @@ class GameEnd extends React.PureComponent {
       endInformation
     } = this.props
 
-    const END_TEXT = endInformation.get('end_text').toString()
-    const WINNERFRACTION = endInformation.get('winner').get('0').get('party')
+    const result = endInformation.get('end_text').toString()
+    const winnerFraction = endInformation.getIn(['winner', '0', 'party'])
+    const renderedMafia = this.props.endInformation.get('Mafia', Map()).map((players) => this.renderPlayer(players)).valueSeq()
+    const renderedTown = this.props.endInformation.get('Town', Map()).map((players) => this.renderPlayer(players)).valueSeq()
+    const renderedAnarchists = this.props.endInformation.get('Anarchists', Map()).map((players) => this.renderPlayer(players)).valueSeq()
+    const winnerFractionImage = getImageByFraction(winnerFraction)
 
     return (
       <Content>
         <BorderContainer>
-          <BorderContainerTitel>
-            {END_TEXT}
-          </BorderContainerTitel>
+          <BorderContainerTitel>{result}</BorderContainerTitel>
           <Content>
             <ImageWrapper>
-              {WINNERFRACTION}
-              {this.renderWinnerImage(WINNERFRACTION)}
+              {winnerFraction}
+              <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
               WON
             </ImageWrapper>
             <Section>
               <Heading title="mafia" />
+              {renderedMafia}
             </Section>
-            {this.renderMembers(this.props.endInformation, 'Mafia')}
             <Section>
               <Heading title="town" />
+              {renderedTown}
             </Section>
-            {this.renderMembers(this.props.endInformation, 'Town')}
             <Section>
               <Heading title="anarchists" />
+              {renderedAnarchists}
             </Section>
-            {this.renderMembers(this.props.endInformation, 'Anarchists')}
           </Content>
         </BorderContainer>
         <CornerButton bottom right onClickAction={resetGame}>

@@ -11,7 +11,8 @@ export const Players = styled.div`
 
 export const Player = styled.div`
   display: flex;
-  justify-content: space-between;    
+  justify-content: space-between;  
+  padding: 0.5rem 1rem;  
 `
 
 export const Role = styled.div`
