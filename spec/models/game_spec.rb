@@ -437,4 +437,50 @@ RSpec.describe Game, type: :model do
     expect(g.players.alive.count).to eql 1
     expect(g.both_heads_dead?).to eql true
   end
+
+  it 'shows that Town wins if Mafia is dead' do
+    gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
+    pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    p1 = Player.create(id: 1, role: gf, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: pr, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: jr, changed_party: false, user: u3,  state: "alive")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    expect(g.players.alive.count).to eql 3
+    p1.die!
+    expect(g.get_winner).to eql "Town"
+    p3.die!
+    expect(g.players.alive.count).to eql 1
+    expect(g.both_heads_dead?).to eql false
+    expect(g.get_winner).to eql "Town"
+  end
+
+  it 'shows that Mafia wins if Town is dead' do
+    gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
+    pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    p1 = Player.create(id: 1, role: gf, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: pr, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: jr, changed_party: false, user: u3,  state: "alive")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    expect(g.players.alive.count).to eql 3
+    p2.die!
+    expect(g.get_winner).to eql "Mafia"
+    p3.die!
+    expect(g.players.alive.count).to eql 1
+    expect(g.both_heads_dead?).to eql false
+    expect(g.get_winner).to eql "Mafia"
+  end
 end

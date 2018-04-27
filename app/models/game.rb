@@ -340,11 +340,12 @@ class Game < ApplicationRecord
     data = get_endscreen_object(winner)
     broadcast_game_ended(data)
     send_info_to_player(winner)
+    winner
   end
 
   def send_info_to_player(winner)
     players.each do |player|
-      if (winner == "Mafia" && belongs_to_mafia(player)) || (winner == "Town" && belongs_to_town(player)) || winner == "Anarchists" && belongs_to_anarchists(player)
+      if (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
         player.broadcast_you_won
       else
         player.broadcast_you_lost
