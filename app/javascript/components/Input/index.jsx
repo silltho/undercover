@@ -14,6 +14,7 @@ class InputComponent extends React.PureComponent {
       placeholder,
       type,
       label,
+      error,
       onKeyDown,
       onChange
     } = this.props
@@ -27,10 +28,10 @@ class InputComponent extends React.PureComponent {
           onChange={onChange}
           onKeyDown={onKeyDown}
         />
-        <Label htmlFor={`input_${name}`}>
-          {label}
+        <Label htmlFor={`input_${name}`} error={error}>
+          {error || label}
         </Label>
-        <Line />
+        <Line error={error} />
       </Wrapper>
     )
   }
@@ -39,7 +40,8 @@ class InputComponent extends React.PureComponent {
 InputComponent.defaultProps = {
   placeholder: '',
   type: 'text',
-  label: ''
+  label: '',
+  error: ''
 }
 
 InputComponent.propTypes = {
@@ -48,7 +50,8 @@ InputComponent.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.string,
+  error: PropTypes.string
 }
 
 export default InputComponent
