@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Map } from 'immutable'
 import IconFont, { ICONS } from 'components/IconFont'
 import TownVideo from 'assets/videos/Town.mp4'
 import TownPoster from 'assets/images/town.jpg'

@@ -26,7 +26,7 @@ class CardBottom extends React.PureComponent {
           <CardBottomWrapper>
             <React.Fragment>
               <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
-              <span>{currentTarget.has('codename') ? currentTarget.get('codename') : 'no target selected'}</span>
+              <span>Choose your victim</span>
             </React.Fragment>
           </CardBottomWrapper>
         )

@@ -34,7 +34,7 @@ class GameEnd extends React.PureComponent {
       endInformation
     } = this.props
 
-    const result = endInformation.get('end_text').toString()
+    const result = endInformation.get('end_text', 'fallback')
     const winnerFraction = endInformation.getIn(['winner', '0', 'party'])
     const renderedMafia = this.props.endInformation.get('Mafia', Map()).map((players) => this.renderPlayer(players)).valueSeq()
     const renderedTown = this.props.endInformation.get('Town', Map()).map((players) => this.renderPlayer(players)).valueSeq()
