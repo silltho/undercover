@@ -38,7 +38,7 @@ class RoleOverview extends React.PureComponent {
 
     const roleVideo = getVideoByRole(roleDetails.get('name'))
     const roleImage = getImageByRole(roleDetails.get('name'))
-    const fractionImage = getImageByFraction(roleDetails.get('party'))
+    const fractionImage = getImageByFraction(player.get('party'))
 
     return (
       <React.Fragment>
