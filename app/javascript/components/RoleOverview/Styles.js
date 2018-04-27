@@ -63,7 +63,7 @@ export const RoleVideoContainer = styled.div`
     object-fit: cover;
     min-height: 100%;
     width: 100%;
-    
+    pointer-events: none;
   }
   
   ${(props) => props.dead && DeadStyle}
