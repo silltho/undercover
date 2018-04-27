@@ -25,7 +25,7 @@ class GameInfo extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      selectedDay: (this.props.roundInformation.size - 1).toString()
+      selectedDay: (this.props.roundInformation.size).toString()
     }
   }
 
@@ -66,7 +66,7 @@ class GameInfo extends React.PureComponent {
       player
     } = this.props
 
-    const day = (parseInt(this.state.selectedDay, 10) + 1)
+    const day = (parseInt(this.state.selectedDay, 10))
     const infos = roundInformation.get(this.state.selectedDay, [])
     const renderedInfos = infos.map(this.renderInfo)
     const renderedDayButtons = roundInformation.keySeq().map(this.renderDayButton)
