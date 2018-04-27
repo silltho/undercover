@@ -29,3 +29,5 @@ export const ALL_SKILLS_USED = 'all_skills_used'
 
 export const WAITING_FOR_OTHERS = 'waiting_for_others'
 
+export const WRONG_GAMECODE = 'wrong_gamecode'
+

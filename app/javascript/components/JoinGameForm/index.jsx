@@ -29,12 +29,14 @@ class JoinGameForm extends React.PureComponent {
   }
 
   render() {
+    const error = this.props.wrongGameCode ? 'invalid Gamecode' : ''
     return (
       <Wrapper>
         <Input
           name="game-code"
           placeholder="Enter Room Code"
           label="Room Code"
+          error={error}
           type="number"
           onChange={this.onInputChange}
           onKeyDown={this.onInputKeyDown}
@@ -46,7 +48,8 @@ class JoinGameForm extends React.PureComponent {
 }
 
 JoinGameForm.propTypes = {
-  joinGame: PropTypes.func.isRequired
+  joinGame: PropTypes.func.isRequired,
+  wrongGameCode: PropTypes.bool.isRequired
 }
 
 export default JoinGameForm

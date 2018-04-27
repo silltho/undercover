@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import {
   PINK,
-  WHITE
+  WHITE,
+  RED,
+  BLACK
 } from 'styles/variables'
 
 const animationTime = '0.5s'
@@ -13,7 +15,8 @@ export const Label = styled.label`
   transform: none;
   transform-origin: top left;
   transition: all ${animationTime} ease-in-out;
-  opacity: 0.5;
+  opacity: ${(props) => props.error ? '1' : '0.5'};
+  ${(props) => props.error && `color: ${RED} !important;`}
 `
 
 export const Line = styled.div`
@@ -21,8 +24,8 @@ export const Line = styled.div`
   bottom: 0;
   width: 100%;
   height: 3px;
-  box-shadow: 3px 3px 0 0 #000000;
-  background-color: rgba(255,255,255,0.5);
+  box-shadow: 3px 3px 0 0 ${BLACK};
+  background-color: ${(props) => props.error ? RED : 'rgba(255, 255, 255 ,0.5)'};
 `
 
 export const Input = styled.input`
