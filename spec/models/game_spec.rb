@@ -120,9 +120,9 @@ RSpec.describe Game, type: :model do
   end
 
   it 'assigns roles and code-names to players' do
-    Role.create(id: 1, name: "Godfather", power: 4)
-    Role.create(id: 2, name: "President", power: 4)
-    Role.create(id: 3, name: "Junior", power: 4)
+    Role.create(id: 1, name: "Godfather", power: 4, known_roles: "Bodyguard")
+    Role.create(id: 2, name: "President", power: 4, known_roles: "Chief")
+    Role.create(id: 3, name: "Junior", power: 4, known_roles: nil)
     game = Game.create(id: 12)
     expect(game.players.count).to eql(0)
     u1 = User.create(id: 1, session_id: 123)
@@ -143,8 +143,6 @@ RSpec.describe Game, type: :model do
     expect(p2.role).not_to be_nil
     expect(p1.codename).not_to be_nil
     expect(p2.codename).not_to be_nil
-    expect(p1.relations).not_to be_nil
-    expect(p2.relations).not_to be_nil
   end
 
   it 'returns an array with articles' do
@@ -166,10 +164,12 @@ RSpec.describe Game, type: :model do
 
   # common
   it 'can use a skill on another player' do
+    gf = Role.create(id: 1, name: "Godfather", power: 4, known_roles: "Bodyguard")
+    pr = Role.create(id: 2, name: "President", power: 4, known_roles: "Chief")
     u1 = User.create(id: 1, session_id: 123)
     u2 = User.create(id: 2, session_id: 1235)
-    p1 = Player.create(id: 3, user: u1)
-    p2 = Player.create(id: 4, user: u2)
+    p1 = Player.create(id: 3, user: u1, role: gf)
+    p2 = Player.create(id: 4, user: u2, role: pr)
     g = Game.create(id: 13)
     g.players << p1
     g.players << p2
@@ -379,5 +379,62 @@ RSpec.describe Game, type: :model do
     g.apply_action(p1, p5)
     expect(p5).to have_state(:dead)
     expect(g.players.alive.count).to eql 1
+  end
+
+  it 'Junior wins if both heads dead' do
+    gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
+    en = Role.create(name: "Enforcer", id: 2, active: "shoot")
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
+    of = Role.create(name: "Officer", id: 5, party: "Town", active: "imprison")
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    u4 = User.create(id: 4, session_id: 1236)
+    u5 = User.create(id: 5, session_id: 12356)
+    p1 = Player.create(id: 1, role: en, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: gf, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: jr, changed_party: false, user: u3,  state: "alive")
+    p4 = Player.create(id: 4, role: pr, changed_party: false, user: u4,  state: "alive")
+    p5 = Player.create(id: 5, role: of, changed_party: false, user: u5,  state: "alive")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    g.add_player(p4)
+    g.add_player(p5)
+    expect(g.players.alive.count).to eql 5
+    expect(g.calculate_success(p3.id, p2.id)).to be true
+    g.apply_action(p3, p2)
+    expect(p2).to have_state(:dead)
+    expect(g.calculate_success(p3.id, p4.id)).to be true
+    g.apply_action(p3, p4)
+    expect(p4).to have_state(:dead)
+    expect(p3).to have_state(:alive)
+    expect(p1).to have_state(:alive)
+    expect(p5).to have_state(:alive)
+    expect(g.players.alive.count).to eql 3
+    expect(g.both_heads_dead?).to eql true
+  end
+
+  it 'shows that both heads are dead' do
+    gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
+    pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
+    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    u1 = User.create(id: 1, session_id: 123)
+    u2 = User.create(id: 2, session_id: 1235)
+    u3 = User.create(id: 3, session_id: 1234)
+    p1 = Player.create(id: 1, role: gf, changed_party: false, user: u1,  state: "alive")
+    p2 = Player.create(id: 2, role: pr, changed_party: false, user: u2,  state: "alive")
+    p3 = Player.create(id: 3, role: jr, changed_party: false, user: u3,  state: "alive")
+    g = Game.create(id: 1)
+    g.add_player(p1)
+    g.add_player(p2)
+    g.add_player(p3)
+    expect(g.players.alive.count).to eql 3
+    p1.die!
+    p2.die!
+    expect(g.players.alive.count).to eql 1
+    expect(g.both_heads_dead?).to eql true
   end
 end
