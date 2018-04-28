@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import JoinGameForm from '../index'
+import GameForm from '../index'
 import {
   Wrapper,
   RoomCodeInput
@@ -12,10 +12,10 @@ const defaultProps = {
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <JoinGameForm {...props} />
+  <GameForm {...props} />
 )
 
-describe('<JoinGameForm />', () => {
+describe('<GameForm />', () => {
   it('should render the <Wrapper>', () => {
     const renderedComponent = renderComponent()
     expect(renderedComponent.find(Wrapper).length).toEqual(1)
