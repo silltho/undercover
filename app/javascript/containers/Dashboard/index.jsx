@@ -6,7 +6,7 @@ import LogoImg from 'assets/images/palm_tree.png'
 import { GameChannel, UserChannel } from 'services/channels'
 import Button from 'components/Button'
 import FadeIn from 'components/Animations/FadeIn'
-import JoinGameForm from 'components/JoinGameForm'
+import GameForm from 'components/GameForm'
 import {
   Header
 } from 'styles/components'
@@ -32,8 +32,11 @@ class Dashboard extends React.PureComponent {
             </Title>
           </Header>
           <ButtonContainer>
-            <JoinGameForm joinGame={this.props.joinGame} wrongGameCode={this.props.app.get('showWrongGamecode')} />
-            <Button text="create new game" onClick={this.props.createGame} />
+            <GameForm
+              joinGame={this.props.joinGame}
+              createGame={this.props.createGame}
+              wrongGameCode={this.props.app.get('showWrongGamecode')}
+            />
           </ButtonContainer>
         </FadeIn>
       </Wrapper>
@@ -52,9 +55,9 @@ Dashboard.propTypes = {
 
 export const mapDispatchToProps = () => ({
   createGame: UserChannel.createGame,
-  joinGame: (gameCode) => {
+  joinGame: (gameCode, nickname) => {
     GameChannel.joinGameChannel(gameCode)
-    UserChannel.joinGame(gameCode)
+    UserChannel.joinGame(gameCode, nickname)
   }
 })
 
