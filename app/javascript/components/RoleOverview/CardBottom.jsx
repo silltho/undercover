@@ -6,7 +6,8 @@ import { Map } from 'immutable'
 import {
   ActionIcon,
   CardBottomWrapper,
-  CardBottomText
+  CardBottomText,
+  ActionText
 } from './Styles'
 
 class CardBottom extends React.PureComponent {
@@ -23,11 +24,9 @@ class CardBottom extends React.PureComponent {
     switch (state) {
       case PlayerStates.ALIVE:
         return (
-          <CardBottomWrapper>
-            <React.Fragment>
-              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
-              <span>Choose your victim</span>
-            </React.Fragment>
+          <CardBottomWrapper onClick={showTargetSelection}>
+            <ActionIcon icon={activeIcon} />
+            <ActionText>Choose your victim</ActionText>
           </CardBottomWrapper>
         )
       case PlayerStates.DEAD: return (

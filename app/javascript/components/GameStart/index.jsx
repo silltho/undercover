@@ -58,12 +58,8 @@ class GameStart extends React.PureComponent {
               </TownDistributionContainer>
             </PartyDistribution>
             <Section>
-              <Heading title="You are" />
-              <PlayerCodename>{player.get('codename')}</PlayerCodename>
-            </Section>
-            <Section>
               <Heading title="citizens" />
-              <PlayersList players={player.get('other_players')} />
+              <PlayersList players={game.get('players')} />
             </Section>
           </BorderContainer>
           <CornerButton right bottom onClickAction={startGame}>

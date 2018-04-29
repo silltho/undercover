@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import IconFont from 'components/IconFont'
 import {
   PINK,
-  DARK_BLUE
+  DARK_BLUE,
+  BLACK
 } from 'styles/variables'
 
 const ImprisonedStyle = `
@@ -71,12 +72,14 @@ export const RoleVideoContainer = styled.div`
 `
 
 export const ActionIcon = styled(IconFont)`
-  font-size: 2rem;
+  font-size: 3rem;
   padding: 0.5rem;
-  text-shadow: 2px 2px 2px #000;
-  box-shadow: 2px 2px 2px #000;
-  border: 1px solid white;
+  box-shadow: 0 0 5px ${BLACK};
+  border: 1px solid ${PINK};
+  position: absolute;
+  background: ${DARK_BLUE};
   border-radius: 100%;
+  left: 1rem;
   
   &:active{
     text-shadow: none;
@@ -103,12 +106,15 @@ export const CardBottomWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  border-left: 1px solid ${PINK};
-  border-right: 1px solid ${PINK};
-  border-bottom: 1px solid ${PINK};
+  background-color: ${PINK};
 `
 
 export const CardBottomText = styled.span`
   text-align: center;
   flex: 1;
+  color: ${DARK_BLUE};
+`
+
+export const ActionText = styled(CardBottomText)`
+  margin-left: 4rem;
 `
