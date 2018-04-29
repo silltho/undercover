@@ -37,7 +37,8 @@ class GamesChannel < ApplicationCable::Channel
       @game.broadcast_game_updated
     end
   end
-
+  
+=begin
   def end_exchange_phase
     @game.reload
     finish_phase("end_exchange_phase")
@@ -46,6 +47,7 @@ class GamesChannel < ApplicationCable::Channel
       @game.broadcast_game_updated
     end
   end
+=end
 
   def use_skill(params)
     @game.reload

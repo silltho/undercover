@@ -13,7 +13,7 @@ class Game < ApplicationRecord
   #### STATE MACHINE ####
   aasm whiny_transitions: false do
     state :waiting, initial: true
-    state :initialized, :inform, :exchange, :activity, :finished
+    state :initialized, :inform, :activity, :finished
 
     event :initializing do
       transitions from: :waiting, to: :initialized, after: :init_game
@@ -24,12 +24,12 @@ class Game < ApplicationRecord
     end
 
     event :informed do
-      transitions from: :inform, to: :exchange
+      transitions from: :inform, to: :activity
     end
 
-    event :exchanged do
-      transitions from: :exchange, to: :activity
-    end
+    # event :exchanged do
+    #   transitions from: :exchange, to: :activity
+    # end
 
     event :skills_used, after: :update_round do
       transitions from: :activity, to: :inform
@@ -39,16 +39,9 @@ class Game < ApplicationRecord
       transitions from: :inform, to: :finished
     end
 
-    event :change_state do
-      transitions from: :inform, to: :exchange
-      transitions from: :exchange, to: :activity
-      transitions from: :activity, to: :inform
-    end
-
     event :reset do
       transitions from: :initialized, to: :waiting
       transitions from: :inform, to: :waiting
-      transitions from: :exchange, to: :waiting
       transitions from: :activity, to: :waiting
       transitions from: :finished, to: :waiting
     end
