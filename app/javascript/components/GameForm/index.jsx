@@ -21,6 +21,13 @@ class GameForm extends React.PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.wrongGameCode && nextProps.wrongGameCode) {
+      this.setState({
+        roomCodeErrorMessage: 'invalid Gamecode'
+      })
+    }
+  }
 
   onGamecodeChange = (e) => {
     this.setState({
@@ -38,14 +45,6 @@ class GameForm extends React.PureComponent {
 
   onInputKeyDown = (e) => {
     if (e.key === 'Enter') this.joinGame()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.wrongGameCode && nextProps.wrongGameCode) {
-      this.setState({
-        roomCodeErrorMessage: 'invalid Gamecode'
-      })
-    }
   }
 
   createGame = () => {
@@ -106,7 +105,7 @@ class GameForm extends React.PureComponent {
         </Row>
         <Row>
           <Input
-            name="game-code"
+            name="gamecode"
             placeholder="Enter Room Code"
             label="Room Code"
             error={this.state.roomCodeErrorMessage}
