@@ -92,11 +92,6 @@ class Player < ApplicationRecord
     UserChannel.broadcast_to(user, type: 'waiting_for_others', data: nil)
   end
 
-  def create_codename
-    name = Faker::Name.name
-    update(codename: name)
-  end
-
   def is_loyal?
     !changed_party
   end

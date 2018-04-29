@@ -41,12 +41,13 @@ InputComponent.defaultProps = {
   placeholder: '',
   type: 'text',
   label: '',
-  error: ''
+  error: '',
+  onKeyDown: () => {}
 }
 
 InputComponent.propTypes = {
   onChange: PropTypes.func.isRequired,
-  onKeyDown: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   type: PropTypes.string,

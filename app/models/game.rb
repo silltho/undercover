@@ -87,7 +87,6 @@ class Game < ApplicationRecord
       player.reset!
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
-      player.create_codename
     end
     players.each(&:get_relations)
   end
@@ -115,7 +114,7 @@ class Game < ApplicationRecord
   end
 
   def unique_game_code(code)
-    !Game.where(code: code).where(aasm_state: 'waiting').exists?
+    !Game.where(code: code).exists?
   end
 
   #### BUILDING OBJECTS ####

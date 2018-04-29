@@ -57,6 +57,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  flex: 1;
   
   ${Input} {
     opacity: 0;
