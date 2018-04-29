@@ -32,6 +32,7 @@ class GamesChannel < ApplicationCable::Channel
     @game.reload
     finish_phase("end_info_phase")
     if phase_finished?("end_info_phase")
+      @game.broadcast_all_players
       finish_game if @game.is_game_over?
       @game.informed!
       @game.broadcast_game_updated
@@ -58,7 +59,7 @@ class GamesChannel < ApplicationCable::Channel
 
   def finish_phase(phase)
     # phase = @game.aasm_state
-    ActionLog.create(player: current_player,  game: @game, round: @game.round, action: phase)
+    ActionLog.create(player: current_player,  game: @game, round: @game.round, action: phase) if current_player.alive?
     # send(phase.to_sym) if phase_finished?(phase)
   end
 
@@ -73,14 +74,13 @@ class GamesChannel < ApplicationCable::Channel
     @game.skills_used!
     @game.broadcast_information_updated(@game.round)
     @game.broadcast_game_updated
-    @game.broadcast_all_players
   end
 
   def finish_game
     @game.reload
     @game.finish!
     @game.broadcast_game_updated
-    Relation.where(game: @game).destroy_all
+    Relation.where(player1: @game.players).destroy_all
     Player.where(game: @game).destroy_all
     @game.destroy
   end
