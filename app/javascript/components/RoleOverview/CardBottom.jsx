@@ -14,7 +14,6 @@ class CardBottom extends React.PureComponent {
   render() {
     const {
       showTargetSelection,
-      currentTarget,
       player
     } = this.props
 
@@ -50,8 +49,7 @@ CardBottom.defaultProps = {
 
 CardBottom.propTypes = {
   player: PropTypes.instanceOf(Map).isRequired,
-  showTargetSelection: PropTypes.func.isRequired,
-  currentTarget: PropTypes.instanceOf(Map)
+  showTargetSelection: PropTypes.func.isRequired
 }
 
 export default CardBottom
