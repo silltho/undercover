@@ -6,7 +6,7 @@ import {
   Row,
   Form,
   FormTitel,
-  Nickname,
+  Codename,
   JoinButton
 } from './Styles'
 
@@ -14,9 +14,9 @@ class GameForm extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      nicknameErrorMessage: '',
+      codenameErrorMessage: '',
       roomCodeErrorMessage: this.props.wrongGameCode ? 'invalid Gamecode' : '',
-      nickname: '',
+      codename: '',
       gamecode: ''
     }
   }
@@ -29,10 +29,10 @@ class GameForm extends React.PureComponent {
     })
   }
 
-  onNicknameChange = (e) => {
+  onCodenameChange = (e) => {
     this.setState({
-      nickname: e.target.value,
-      nicknameErrorMessage: ''
+      codename: e.target.value,
+      codenameErrorMessage: ''
     })
   }
 
@@ -41,7 +41,6 @@ class GameForm extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('rrr', nextProps)
     if (!this.props.wrongGameCode && nextProps.wrongGameCode) {
       this.setState({
         roomCodeErrorMessage: 'invalid Gamecode'
@@ -51,23 +50,23 @@ class GameForm extends React.PureComponent {
 
   createGame = () => {
     this.resetErrors()
-    if (this.validateNickname()) {
-      this.props.createGame(this.state.nickname)
+    if (this.validateCodename()) {
+      this.props.createGame(this.state.codename)
     }
   }
 
   joinGame = () => {
     this.resetErrors()
-    const validateNickname = this.validateNickname()
+    const validateCodename = this.validateCodename()
     const validateGamecode = this.validateGamecode()
-    if (validateGamecode && validateNickname) {
-      this.props.joinGame(this.state.gamecode, this.state.nickname)
+    if (validateGamecode && validateCodename) {
+      this.props.joinGame(this.state.gamecode, this.state.codename)
     }
   }
 
-  validateNickname = () => {
-    if (this.state.nickname.length <= 0) {
-      this.setState({ nicknameErrorMessage: 'Nickname is required' })
+  validateCodename = () => {
+    if (this.state.codename.length <= 0) {
+      this.setState({ codenameErrorMessage: 'Codename is required' })
       return false
     }
     return true
@@ -83,7 +82,7 @@ class GameForm extends React.PureComponent {
 
   resetErrors = () => {
     this.setState({
-      nicknameErrorMessage: '',
+      codenameErrorMessage: '',
       roomCodeErrorMessage: ''
     })
   }
@@ -92,16 +91,16 @@ class GameForm extends React.PureComponent {
     return (
       <Form>
         <FormTitel>Create or join a game</FormTitel>
-        <Nickname>
+        <Codename>
           <Input
-            name="nickname"
-            placeholder="Enter Your Nickname"
-            label="Nickname"
-            error={this.state.nicknameErrorMessage}
+            name="codename"
+            placeholder="Enter Your Codename"
+            label="Codename"
+            error={this.state.codenameErrorMessage}
             type="text"
-            onChange={this.onNicknameChange}
+            onChange={this.onCodenameChange}
           />
-        </Nickname>
+        </Codename>
         <Row>
           <Button text="create new game" onClick={this.createGame} />
         </Row>

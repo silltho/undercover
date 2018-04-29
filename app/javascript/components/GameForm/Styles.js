@@ -16,7 +16,7 @@ export const Row = styled.div`
   }
 `
 
-export const Nickname = styled(Row)`
+export const Codename = styled(Row)`
   margin-bottom: 3rem;
 `
 

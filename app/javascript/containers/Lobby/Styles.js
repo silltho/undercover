@@ -6,10 +6,10 @@ import {
 export const PlayerCount = styled.div`
   font-size: 1.5rem;
   text-shadow: 3px 3px #000000;
-  flex: 1;
   align-items: center;
   display: flex;
   justify-content: center;
+  margin-bottom: 2rem;
 `
 
 export const RoomCode = styled.div`

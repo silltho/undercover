@@ -125,7 +125,7 @@ class Game < ApplicationRecord
        code: code,
        aasm_state: aasm_state,
        round: round,
-       players: players.pluck(:id, :codename, :state).to_a,
+       players: players,
        party_distribution: get_party_members
     }
   end
