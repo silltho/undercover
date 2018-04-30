@@ -48,8 +48,13 @@
   <body>
     <p class="flash-notice"><%= params[:notice] %></p>
     <div id="loader">
-      <%= image_tag "spinning-circles.svg" %>
-      <p>preparing the app...</p>
+      <%= image_tag "loading.gif", class: 'loader' %>
+      <p class='loader-text'}>
+        loading
+        <span class="loader-p1">.</span>
+        <span class="loader-p2">.</span>
+        <span class="loader-p3">.</span>
+      </p>
     </div>
     <noscript>
       <p>No JavaScript means no game for you. :(</p>
