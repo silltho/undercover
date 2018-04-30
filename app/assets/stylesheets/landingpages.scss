@@ -1,15 +1,12 @@
-// Place all the styles related to the landingpages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 @import "globals";
 
 .town-container {
   display: block;
   position: relative;
-  // background: url($g_logo_path) repeat-x;
-  // background-size: cover;
+  background: url($g_logo_path) repeat-x;
+  background-size: cover;
   // height: 844px;
-  // -webkit-animation: town-anim 55s linear infinite;
+  -webkit-animation: town-anim 105s linear infinite;
   height: 100%;
 }
 
@@ -18,6 +15,16 @@
   object-fit: cover;
   height: 100%;
 }
+
+@-webkit-keyframes town-anim {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -4900px 0;
+  }
+}
+
 
 .welcome {
   box-shadow: 15px 15px 113px 0px #06232D;
