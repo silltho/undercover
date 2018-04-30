@@ -73,7 +73,7 @@ class GameForm extends React.PureComponent {
 
   validateGamecode = () => {
     if (this.state.gamecode.length <= 0) {
-      this.setState({roomCodeErrorMessage: 'Roomcode is required'})
+      this.setState({ roomCodeErrorMessage: 'Roomcode is required' })
       return false
     }
     return true
