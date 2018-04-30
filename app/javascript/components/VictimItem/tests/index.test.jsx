@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
 
-import VictimItem from '../VictimItem'
+import VictimItem from '../index'
 import {
   VictimItemWrapper
 } from '../Styles'
