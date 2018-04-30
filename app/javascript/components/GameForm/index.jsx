@@ -5,9 +5,9 @@ import Input from 'components/Input'
 import {
   Row,
   Form,
-  FormTitel,
-  Codename,
-  JoinButton
+  CenteredText,
+  JoinButton,
+  Seperator
 } from './Styles'
 
 class GameForm extends React.PureComponent {
@@ -89,8 +89,7 @@ class GameForm extends React.PureComponent {
   render() {
     return (
       <Form>
-        <FormTitel>Create or join a game</FormTitel>
-        <Codename>
+        <Row>
           <Input
             name="codename"
             placeholder="Enter Your Codename"
@@ -99,9 +98,13 @@ class GameForm extends React.PureComponent {
             type="text"
             onChange={this.onCodenameChange}
           />
-        </Codename>
+        </Row>
+        <Seperator />
         <Row>
           <Button text="create new game" onClick={this.createGame} />
+        </Row>
+        <Row>
+          <CenteredText>or</CenteredText>
         </Row>
         <Row>
           <Input

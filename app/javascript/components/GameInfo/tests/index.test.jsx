@@ -8,9 +8,14 @@ import DayButton from '../DayButton'
 import GameInfo from '../index'
 
 const defaultProps = {
-  day: 1,
   roundInformation: fromJS({}),
-  readInfos: jest.fn()
+  readInfos: () => {},
+  game: fromJS({
+    party_distribution: {}
+  }),
+  player: fromJS({
+    state: 'alive'
+  })
 }
 
 const renderComponent = (props = defaultProps) => mount(
@@ -43,25 +48,6 @@ describe('<GameInfo />', () => {
     const renderedComponent = renderComponent()
     const renderedInfo = mount(renderedComponent.instance().renderInfo(info))
     expect(renderedInfo.text()).toEqual(info)
-  })
-
-  it('should setButtonContainerRef', () => {
-    const containerRef = 'test123'
-    const renderedComponent = renderComponent()
-    renderedComponent.instance().setButtonContainerRef(containerRef)
-    expect(renderedComponent.instance().buttonContainer).toEqual(containerRef)
-  })
-
-  it('should show infos and daybuttons', () => {
-    const props = {
-      ...defaultProps,
-      roundInformation: fromJS({
-        0: ['test123', 'blahblah']
-      })
-    }
-    const renderedComponent = renderComponent(props)
-    expect(renderedComponent.find(DayButton).length).toEqual(1)
-    expect(renderedComponent.find('li').length).toEqual(2)
   })
 
   it('should switchToDay', () => {

@@ -8,7 +8,14 @@ import {
 } from '../Styles'
 
 const defaultProps = {
-  players: fromJS([])
+  onRequestHide: () => {},
+  playerInformation: fromJS({
+    informations: [{
+      role: 'role',
+      name: 'name',
+      party_changed: true
+    }]
+  })
 }
 
 const renderComponent = (props = defaultProps) => mount(
