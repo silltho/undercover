@@ -1,14 +1,17 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
+import Input from 'components/Input'
+
 import GameForm from '../index'
 import {
-  Wrapper,
-  RoomCodeInput
+  Form
 } from '../Styles'
 
 const defaultProps = {
-  joinGame: jest.fn()
+  createGame: () => {},
+  joinGame: () => {},
+  wrongGameCode: false
 }
 
 const renderComponent = (props = defaultProps) => mount(
@@ -16,29 +19,18 @@ const renderComponent = (props = defaultProps) => mount(
 )
 
 describe('<GameForm />', () => {
-  it('should render the <Wrapper>', () => {
+  it('should render the <Form>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find(Wrapper).length).toEqual(1)
+    expect(renderedComponent.find(Form).length).toEqual(1)
   })
 
-  it('should update gamecode when the <RoomCodeInput> changes', () => {
+  it('should update gamecode when the <Input> changes', () => {
     const renderedComponent = renderComponent()
     const evt = {
       target: { value: 'test1234' }
     }
-    renderedComponent.find(RoomCodeInput).simulate('change', evt)
+    renderedComponent.find('input#input_gamecode').simulate('change', evt)
     expect(renderedComponent.state().gamecode).toEqual(evt.target.value)
-  })
-
-  it('should submit form if enter is pressed', () => {
-    const renderedComponent = renderComponent()
-    const evt = {
-      key: 'Enter'
-    }
-    const gamecode = 'testtitle123'
-    renderedComponent.setState({ gamecode })
-    renderedComponent.find(RoomCodeInput).simulate('keyDown', evt)
-    expect(defaultProps.joinGame).toHaveBeenCalledWith(gamecode)
   })
 
   it('should not submit form if any other key is pressed', () => {
@@ -47,7 +39,22 @@ describe('<GameForm />', () => {
       key: 'A'
     }
     renderedComponent.instance().createGame = jest.fn()
-    renderedComponent.find(RoomCodeInput).simulate('keyDown', evt)
+    renderedComponent.find('input#input_gamecode').simulate('keyDown', evt)
     expect(renderedComponent.instance().createGame).toHaveBeenCalledTimes(0)
   })
+
+  /* it('should submit form if enter is pressed', () => {
+    const props = {
+      joinGame: jest.fn()
+    }
+    const evt = {
+      key: 'Enter'
+    }
+    const renderedComponent = renderComponent(props)
+    const gamecode = 'testtitle123'
+    const nickname = 'testtitle123'
+    renderedComponent.setState({ gamecode, nickname })
+    renderedComponent.find('input#input_gamecode').simulate('keyDown', evt)
+    expect(props.joinGame).toHaveBeenCalledWith([gamecode, nickname])
+  }) */
 })
