@@ -45,27 +45,25 @@ class GameEnd extends React.PureComponent {
       <Content>
         <BorderContainer>
           <BorderContainerTitel>{result}</BorderContainerTitel>
-          <Content>
-            <ImageWrapper>
-              {winnerFraction}
-              <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
-              WON
-            </ImageWrapper>
-            <Scrollable>
-              <Section>
-                <Heading title="mafia" />
-                {renderedMafia}
-              </Section>
-              <Section>
-                <Heading title="town" />
-                {renderedTown}
-              </Section>
-              <Section>
-                <Heading title="anarchists" />
-                {renderedAnarchists}
-              </Section>
-            </Scrollable>
-          </Content>
+          <ImageWrapper>
+            {winnerFraction}
+            <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
+            WON
+          </ImageWrapper>
+          <Scrollable>
+            <Section>
+              <Heading title="mafia" />
+              {renderedMafia}
+            </Section>
+            <Section>
+              <Heading title="town" />
+              {renderedTown}
+            </Section>
+            <Section>
+              <Heading title="anarchists" />
+              {renderedAnarchists}
+            </Section>
+          </Scrollable>
         </BorderContainer>
         <CornerButton bottom right onClickAction={resetGame}>
           <IconFont icon={ICONS.exit} />

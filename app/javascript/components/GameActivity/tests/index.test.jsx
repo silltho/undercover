@@ -14,6 +14,7 @@ const defaultProps = {
   }),
   player: fromJS({
     codename: 'test123',
+    other_players: [],
     role: {
       active: 'skillName'
     }
