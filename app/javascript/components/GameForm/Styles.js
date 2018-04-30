@@ -5,7 +5,7 @@ import Button from 'components/Button'
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   
   &:first-child {
     margin-top: 0;
@@ -16,24 +16,25 @@ export const Row = styled.div`
   }
 `
 
-export const Codename = styled(Row)`
-  margin-bottom: 3rem;
-`
-
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  border: solid 1px ${PINK};
   position: relative;
-`
-
-export const FormTitel = styled.div`
-  position: absolute;
-  top: 0;
-  transform: translateY(-100%) translateY(-0.5rem);
 `
 
 export const JoinButton = styled(Button)`
   flex: 0;
+`
+
+export const CenteredText = styled.span`
+  flex: 1;
+  text-align: center;
+  opacity: 0.5;
+`
+
+export const Seperator = styled.hr`
+  margin: 1.5rem -2rem;
+  left: 0;
+  right: 0;
+  opacity: 0.5;
 `
