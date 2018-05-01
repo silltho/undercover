@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import IconFont from 'components/IconFont'
 import {
   DARK_BLUE,
   LOGO_FONT,
