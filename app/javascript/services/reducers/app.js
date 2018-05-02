@@ -25,12 +25,7 @@ const initialState = fromJS({
   Player: {},
   RoundInformation: {},
   PlayerInformation: {
-    informations: [{
-      name: 'subjectname',
-      role: 'Godfather',
-      state: 'alive',
-      changed_party: false
-    }]
+    informations: []
   },
   EndInformation: {}
 })
