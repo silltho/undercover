@@ -9,12 +9,8 @@ import {
 
 const defaultProps = {
   onRequestHide: () => {},
-  playerInformation: fromJS({
-    informations: [{
-      role: 'role',
-      name: 'name',
-      party_changed: true
-    }]
+  player: fromJS({
+    party: 'Mafia'
   })
 }
 
