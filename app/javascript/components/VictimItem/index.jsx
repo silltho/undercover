@@ -37,7 +37,7 @@ class VictimItem extends React.PureComponent {
     const codename = victim.get('codename')
     const role = victim.get('role', 'unknown')
     const fraction = victim.get('party')
-    const fractionImage = getImageByFraction(fraction)
+    const fractionImage = fraction ? getImageByFraction(fraction) : false
     const stateIcon = getStateIcon(victim.get('state'))
 
     return (

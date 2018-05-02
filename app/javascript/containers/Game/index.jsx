@@ -19,8 +19,29 @@ import GameActivity from 'components/GameActivity'
 import GameEnd from 'components/GameEnd'
 import PlayerInformationModal from 'components/PlayerInformationModal'
 import GamePhaseWrapper from 'components/GamePhaseWrapper'
+import PartyChangedModal from 'components/PartyChangedModal'
 
 class Game extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showPartyChanged: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const party = this.props.player.get('party')
+    const nextParty = nextProps.player.get('party')
+
+    if (party && party !== nextParty) {
+      this.setState({ showPartyChanged: true })
+    }
+  }
+
+  hidePartyChanged = () => {
+    this.setState({ showPartyChanged: false })
+  }
+
   renderCurrentPhase = () => {
     switch (this.props.game.get('aasm_state')) {
       case GamePhases.INITIALIZED:
@@ -78,6 +99,12 @@ class Game extends React.PureComponent {
           <PlayerInformationModal
             playerInformation={this.props.playerInformation}
             onRequestHide={hidePlayerInformations}
+          />
+        }
+        {this.state.showPartyChanged &&
+          <PartyChangedModal
+            player={this.props.player}
+            onRequestHide={this.hidePartyChanged}
           />
         }
       </FadeIn>

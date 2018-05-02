@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
 
-import PlayerInformationModal from '../index'
+import PartyChangedModal from '../index'
 import {
   Overlay
 } from '../Styles'
@@ -19,7 +19,7 @@ const defaultProps = {
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <PlayerInformationModal {...props} />
+  <PartyChangedModal {...props} />
 )
 
 describe('<PartyChangedModal />', () => {
