@@ -39,13 +39,6 @@ export const Tape = styled.div`
   opacity: 0.5;
 `
 
-export const ModalTitel = styled.div`
-  font-weight: bold;
-  color: ${WHITE};
-  background-color: ${DARK_BLUE};
-  padding: 0.5rem;
-`
-
 export const ModalBody = styled.div`
   flex: 1;
   padding: 0.5rem;
@@ -53,12 +46,6 @@ export const ModalBody = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 2rem;
-`
-
-export const ModalButton = styled.button`
-  color: ${WHITE};
-  background-color: ${DARK_BLUE};
-  padding: 0.5rem;
 `
 
 export const Overlay = styled.div`
@@ -72,4 +59,8 @@ export const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   padding: 2rem;
+`
+
+export const Underlined = styled.span`
+  text-decoration: underline;
 `
