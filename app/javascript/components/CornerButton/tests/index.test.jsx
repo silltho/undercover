@@ -2,10 +2,10 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import CornerButton from '../index'
+import { Wrapper } from '../Styles'
 
 const defaultProps = {
-  text: 'test123',
-  onClick: jest.fn()
+  onClickAction: () => {}
 }
 
 const renderComponent = (props = defaultProps) => mount(
@@ -13,8 +13,18 @@ const renderComponent = (props = defaultProps) => mount(
 )
 
 describe('<CornerButton />', () => {
-  it('should render an <button> tag', () => {
+  it('should render an <Wrapper>', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find('button').length).toEqual(1)
+    expect(renderedComponent.find(Wrapper).length).toEqual(1)
+  })
+
+  it('should handleOnClick', () => {
+    const props = {
+      ...defaultProps,
+      onClickAction: jest.fn()
+    }
+    const renderedComponent = renderComponent(props)
+    renderedComponent.find(Wrapper).prop('onClick')()
+    expect(props.onClickAction).toHaveBeenCalled()
   })
 })

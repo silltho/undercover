@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import FadeIn from 'components/Animations/FadeIn'
 import Button from 'components/Button'
+import PlayersList from 'components/PlayersList'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
   UserChannel,
@@ -52,6 +53,7 @@ class Lobby extends React.PureComponent {
           <PlayerCount>
             {game && game.get('players').size} Player
           </PlayerCount>
+          <PlayersList players={game.get('players')} />
         </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />

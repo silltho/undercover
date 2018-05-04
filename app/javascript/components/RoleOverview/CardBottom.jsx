@@ -6,14 +6,14 @@ import { Map } from 'immutable'
 import {
   ActionIcon,
   CardBottomWrapper,
-  CardBottomText
+  CardBottomText,
+  ActionText
 } from './Styles'
 
 class CardBottom extends React.PureComponent {
   render() {
     const {
       showTargetSelection,
-      currentTarget,
       player
     } = this.props
 
@@ -24,10 +24,8 @@ class CardBottom extends React.PureComponent {
       case PlayerStates.ALIVE:
         return (
           <CardBottomWrapper>
-            <React.Fragment>
-              <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
-              <span>Choose your victim</span>
-            </React.Fragment>
+            <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+            <ActionText>Choose your victim</ActionText>
           </CardBottomWrapper>
         )
       case PlayerStates.DEAD: return (
@@ -51,8 +49,7 @@ CardBottom.defaultProps = {
 
 CardBottom.propTypes = {
   player: PropTypes.instanceOf(Map).isRequired,
-  showTargetSelection: PropTypes.func.isRequired,
-  currentTarget: PropTypes.instanceOf(Map)
+  showTargetSelection: PropTypes.func.isRequired
 }
 
 export default CardBottom

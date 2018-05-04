@@ -6,7 +6,8 @@ import {
   Modal,
   ModalBody,
   Overlay,
-  Tape
+  Tape,
+  Underlined
 } from './Styles'
 
 class PlayerInformationModal extends React.PureComponent {
@@ -23,9 +24,13 @@ class PlayerInformationModal extends React.PureComponent {
         <Modal>
           <Tape onClick={onRequestHide}>Remove</Tape>
           <ModalBody>
-            <span>{last.get('name')}</span>
-            <span>is {last.get('role')}</span>
-            <span>and {last.get('changed_party') ? 'disloyal' : 'loyal'}</span>
+            <div>
+              <Underlined>{last.get('name')}</Underlined>
+              <span> is</span>
+            </div>
+            <Underlined>{last.get('role')}</Underlined>
+            <span>and part of the</span>
+            <Underlined>{last.get('party')}</Underlined>
           </ModalBody>
         </Modal>
       </Overlay>

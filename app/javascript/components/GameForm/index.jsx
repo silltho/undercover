@@ -5,22 +5,29 @@ import Input from 'components/Input'
 import {
   Row,
   Form,
-  FormTitel,
-  Nickname,
-  JoinButton
+  CenteredText,
+  JoinButton,
+  Seperator
 } from './Styles'
 
 class GameForm extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      nicknameErrorMessage: '',
+      codenameErrorMessage: '',
       roomCodeErrorMessage: this.props.wrongGameCode ? 'invalid Gamecode' : '',
-      nickname: '',
+      codename: '',
       gamecode: ''
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.wrongGameCode && nextProps.wrongGameCode) {
+      this.setState({
+        roomCodeErrorMessage: 'invalid Gamecode'
+      })
+    }
+  }
 
   onGamecodeChange = (e) => {
     this.setState({
@@ -29,10 +36,10 @@ class GameForm extends React.PureComponent {
     })
   }
 
-  onNicknameChange = (e) => {
+  onCodenameChange = (e) => {
     this.setState({
-      nickname: e.target.value,
-      nicknameErrorMessage: ''
+      codename: e.target.value,
+      codenameErrorMessage: ''
     })
   }
 
@@ -40,34 +47,25 @@ class GameForm extends React.PureComponent {
     if (e.key === 'Enter') this.joinGame()
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('rrr', nextProps)
-    if (!this.props.wrongGameCode && nextProps.wrongGameCode) {
-      this.setState({
-        roomCodeErrorMessage: 'invalid Gamecode'
-      })
-    }
-  }
-
   createGame = () => {
     this.resetErrors()
-    if (this.validateNickname()) {
-      this.props.createGame(this.state.nickname)
+    if (this.validateCodename()) {
+      this.props.createGame(this.state.codename)
     }
   }
 
   joinGame = () => {
     this.resetErrors()
-    const validateNickname = this.validateNickname()
+    const validateCodename = this.validateCodename()
     const validateGamecode = this.validateGamecode()
-    if (validateGamecode && validateNickname) {
-      this.props.joinGame(this.state.gamecode, this.state.nickname)
+    if (validateGamecode && validateCodename) {
+      this.props.joinGame(this.state.gamecode, this.state.codename)
     }
   }
 
-  validateNickname = () => {
-    if (this.state.nickname.length <= 0) {
-      this.setState({ nicknameErrorMessage: 'Nickname is required' })
+  validateCodename = () => {
+    if (this.state.codename.length <= 0) {
+      this.setState({ codenameErrorMessage: 'Codename is required' })
       return false
     }
     return true
@@ -75,7 +73,7 @@ class GameForm extends React.PureComponent {
 
   validateGamecode = () => {
     if (this.state.gamecode.length <= 0) {
-      this.setState({roomCodeErrorMessage: 'Roomcode is required'})
+      this.setState({ roomCodeErrorMessage: 'Roomcode is required' })
       return false
     }
     return true
@@ -83,7 +81,7 @@ class GameForm extends React.PureComponent {
 
   resetErrors = () => {
     this.setState({
-      nicknameErrorMessage: '',
+      codenameErrorMessage: '',
       roomCodeErrorMessage: ''
     })
   }
@@ -91,23 +89,26 @@ class GameForm extends React.PureComponent {
   render() {
     return (
       <Form>
-        <FormTitel>Create or join a game</FormTitel>
-        <Nickname>
+        <Row>
           <Input
-            name="nickname"
-            placeholder="Enter Your Nickname"
-            label="Nickname"
-            error={this.state.nicknameErrorMessage}
+            name="codename"
+            placeholder="Enter Your Codename"
+            label="Codename"
+            error={this.state.codenameErrorMessage}
             type="text"
-            onChange={this.onNicknameChange}
+            onChange={this.onCodenameChange}
           />
-        </Nickname>
+        </Row>
+        <Seperator />
         <Row>
           <Button text="create new game" onClick={this.createGame} />
         </Row>
         <Row>
+          <CenteredText>or</CenteredText>
+        </Row>
+        <Row>
           <Input
-            name="game-code"
+            name="gamecode"
             placeholder="Enter Room Code"
             label="Room Code"
             error={this.state.roomCodeErrorMessage}
