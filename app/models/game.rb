@@ -131,12 +131,12 @@ class Game < ApplicationRecord
   end
 
   def get_newspaper_object(round)
-    data = {}
-    round.times do |n|
-      data[n] = create_stories(n)
-    end
-    data.delete(0)
-    data
+    {
+      round => {
+                  party_distribution: get_party_members,
+                  infos: create_stories(round)
+               }
+    }
   end
 
   def get_party_members
@@ -286,7 +286,6 @@ class Game < ApplicationRecord
       newspaper << write_fail_story(role) if !article.victim.nil? && !article.success
     end
     newspaper << avoid_empty_newspaper(newspaper)
-    newspaper
   end
 
   def get_latest_news(round)
@@ -295,12 +294,12 @@ class Game < ApplicationRecord
   end
 
   def avoid_empty_newspaper(newspaper)
-    'Nothing happened that night.' if newspaper.empty?
+    {role: nil, info_text: 'Nothing happened that night.'} if newspaper.empty?
   end
 
   def write_success_story(role, committer, victim, round_nr)
     apply_action(committer, victim) if self.round - 1 == round_nr
-    generate_success_text(role, victim)
+    {role: role.name, info_text: generate_success_text(role, victim)}
   end
 
   def generate_success_text(role, victim)
@@ -315,7 +314,7 @@ class Game < ApplicationRecord
   end
 
   def write_fail_story(role)
-    role.try(:text_fail)
+    {role: role.name, info_text: role.try(:text_fail)}
   end
 
   #### END GAME ####
