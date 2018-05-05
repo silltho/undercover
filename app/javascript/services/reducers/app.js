@@ -79,7 +79,7 @@ function appReducer(state = initialState, action) {
       return state.set('Player', player)
     }
     case INFORMATION_UPDATED: {
-      return state.set('RoundInformation', fromJS(action.data))
+      return state.mergeIn(['RoundInformation'], fromJS(action.data))
     }
     default:
       return state
