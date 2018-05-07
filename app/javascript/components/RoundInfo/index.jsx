@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map, List } from 'immutable'
 import DistributionInfo from 'components/DistributionInfo'
+import { getActiveIconByRole } from 'config/roleIcons'
 import {
   BorderContainer,
   Content,
@@ -13,13 +14,22 @@ import {
   DayButtonContainer,
   Wrapper,
   InfoList,
-  BottomDawnContainer
+  BottomDawnContainer,
+  ActiveIcon,
+  Info
 } from './Styles'
 
 class GameInfo extends React.PureComponent {
-  renderInfo = (info, index) => (
-    <li key={`info_${index}`}>{info}</li>
-  )
+  renderInfo = (info, index) => {
+    const role = info.get('role')
+    const icon = role ? getActiveIconByRole(role) : null
+    return (
+      <Info key={`info_${index}`}>
+        {icon && <ActiveIcon icon={icon} />}
+        <span>{info.get('info_text')}</span>
+      </Info>
+    )
+  }
 
   renderDayButton = (day) => {
     const isActive = this.props.currentDay.toString() === day.toString()
@@ -39,7 +49,7 @@ class GameInfo extends React.PureComponent {
       days
     } = this.props
 
-    const renderedInfos = roundInformation.map(this.renderInfo).toArray()
+    const renderedInfos = roundInformation.get('infos').map(this.renderInfo).toArray()
     const renderedDayButtons = days.map(this.renderDayButton)
     const partyDistribution = roundInformation.get('party_distribution')
 

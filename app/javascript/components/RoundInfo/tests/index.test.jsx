@@ -4,8 +4,7 @@ import { fromJS } from 'immutable'
 
 import { Content } from 'styles/components'
 
-import DayButton from '../DayButton'
-import GameInfo from '../index'
+import RoundInfo from '../index'
 
 const defaultProps = {
   roundInformation: fromJS({
@@ -16,7 +15,7 @@ const defaultProps = {
       Prisoners: 0,
       Dead: 0
     },
-    roundInformation: [
+    infos: [
       {
         role: 'godfather',
         info_text: 'A citizen declined a whole bunch of money.'
@@ -33,10 +32,10 @@ const defaultProps = {
 }
 
 const renderComponent = (props = defaultProps) => mount(
-  <GameInfo {...props} />
+  <RoundInfo {...props} />
 )
 
-describe('<GameInfo />', () => {
+describe('<RoundInfo />', () => {
   it('should render <Content>', () => {
     const renderedComponent = renderComponent()
     expect(renderedComponent.find(Content).length).toEqual(1)
@@ -55,12 +54,5 @@ describe('<GameInfo />', () => {
     renderedComponent.setState({ selectedDay: day })
     const dayButton = mount(renderedComponent.instance().renderDayButton(day))
     expect(dayButton.props().active).toEqual(true)
-  })
-
-  it('should render Info', () => {
-    const info = 'test123'
-    const renderedComponent = renderComponent()
-    const renderedInfo = mount(renderedComponent.instance().renderInfo(info))
-    expect(renderedInfo.text()).toEqual(info)
   })
 })

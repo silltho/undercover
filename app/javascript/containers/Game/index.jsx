@@ -56,7 +56,7 @@ class Game extends React.PureComponent {
           <GameInfo
             player={this.props.player}
             game={this.props.game}
-            roundInformation={this.props.roundInformation}
+            roundInformations={this.props.roundInformations}
             readInfos={this.props.endInfoPhase}
           />)
       case GamePhases.ACTIVITY:
@@ -116,10 +116,9 @@ Game.propTypes = {
   app: PropTypes.instanceOf(Map).isRequired,
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
-  roundInformation: PropTypes.instanceOf(Map).isRequired,
+  roundInformations: PropTypes.instanceOf(Map).isRequired,
   playerInformation: PropTypes.instanceOf(Map).isRequired,
   endInformation: PropTypes.instanceOf(Map).isRequired,
-  endExchangePhase: PropTypes.func.isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   useSkill: PropTypes.func.isRequired,
@@ -140,7 +139,7 @@ const mapStateToProps = (state) => ({
   app: state.get('App'),
   game: state.get('Game'),
   player: state.get('Player'),
-  roundInformation: state.get('RoundInformation'),
+  roundInformations: state.get('RoundInformation'),
   playerInformation: state.get('PlayerInformation'),
   endInformation: state.get('EndInformation')
 })

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import IconFont from 'components/IconFont'
 import {
   PINK,
   DARK_BLUE
@@ -63,4 +64,13 @@ export const BottomDawnContainer = styled.div`
   width: 100%;
   left: 0;
   border-top: 1px solid ${PINK}; 
+`
+
+export const ActiveIcon = styled(IconFont)`
+  margin-right: 1.5rem;
+  font-size: 1.5rem;
+`
+
+export const Info = styled.li`
+  display: flex;
 `
