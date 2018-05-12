@@ -1,0 +1,36 @@
+
+/* Animated loader points */
+@keyframes loading-points {
+  0% {
+    opacity: .2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .2;
+  }
+}
+
+/* Pulsing play button */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(238, 146, 151, 0.47);
+  }
+  50% {
+    box-shadow: 0 0 0 25px rgba(238, 146, 151, 0.47);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(238, 146, 151, 0.47);
+  }
+}
+
+/* Town scrolling animation */
+@-webkit-keyframes town-anim {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -4900px 0;
+  }
+}

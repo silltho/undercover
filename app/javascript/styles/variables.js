@@ -1,1 +1,1 @@
-export * from '../../assets/stylesheets/_globals.scss'
+export * from '../../assets/stylesheets/config/_globals.scss'

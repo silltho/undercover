@@ -1,0 +1,28 @@
+@import "config/globals";
+
+.town-container {
+  display: block;
+  position: relative;
+  background: url($g_logo_path) repeat-x;
+  background-size: cover;
+  // height: 844px;
+  -webkit-animation: town-anim 105s linear infinite;
+  height: 100%;
+}
+
+.town-video, .town-image {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+
+.welcome {
+  box-shadow: 15px 15px 113px 0px #06232D;
+}
+
+.town-logo {
+  width: 6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
