@@ -1,0 +1,43 @@
+@import "config/globals";
+$margin: 1rem;
+
+.arrow {
+  position: absolute;
+  display: inline-block;
+  z-index: 9999999;
+  padding: 2rem;
+  background-color: transparent;
+  box-shadow: 5px -5px 0 0 $g_Pink inset;
+}
+
+.arrow--left, .arrow--right {
+  top: 50%;
+}
+
+.arrow--up, .arrow--down {
+  left: 50%;
+}
+
+.arrow--left {
+  transform: translateY(-50%) rotate(45deg);
+  left: $margin;
+}
+
+.arrow--right {
+  transform: translateY(-50%) rotate(225deg);
+  right: $margin;
+}
+
+.arrow--up {
+  transform: translateX(-50%) rotate(135deg);
+  top: $margin;
+}
+
+.arrow--down {
+  transform: translateX(-50%) rotate(-45deg);
+  bottom: $margin;
+}
+
+.fadeOut {
+  opacity: 0;
+}

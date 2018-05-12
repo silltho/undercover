@@ -1,1 +1,47 @@
-team
+<div class='container team-container'>
+  <%# image_tag('game/logo.png', class:'subpage-header-logo') %>
+
+  <%= link_to '', root_path, class: 'arrow arrow--up' %>
+
+  <div class='team-members-header'>
+    <div>
+      <h3>Credits</h3>
+      <div class='credits-text'>
+        <p>These wonderful people crafted UNDERCOVER. <br> <span>Thank you for playing!</span></p>
+        <%= image_tag('game/palm_tree.png', class: 'subpage-header-logo') %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class='team-members'>
+
+    <%= render partial: 'splitter', locals: {title: 'Programming'} %>
+
+    <%= render partial: 'member-entry', locals: {name: 'Patrick Obermüller', role: 'Project Lead'} %>
+    <%= render partial: 'member-entry', locals: {name: 'Thomas Siller', role: 'Programming'} %>
+    <%= render partial: 'member-entry', locals: {name: 'Anna Ronacher', role: 'Programming'} %>
+
+    <%= render partial: 'splitter', locals: {title: 'Artwork'} %>
+
+    <%= render partial: 'member-entry', locals: {name: 'Martin Birner', role: 'Artwork'} %>
+    <%= render partial: 'member-entry', locals: {name: 'Jakob Steininger', role: 'Artwork'} %>
+    <%= render partial: 'member-entry', locals: {name: 'Thomas Riediger', role: 'Artwork'} %>
+
+    <%= render partial: 'splitter', locals: {title: 'Audio'} %>
+
+    <%= render partial: 'member-entry', locals: {name: 'Michael Zehdnicker', role: 'Audio'} %>
+
+    <%= render partial: 'splitter', locals: {title: 'Design'} %>
+
+    <%= render partial: 'member-entry', locals: {name: 'Jana Rack', role: 'Corporate Design'} %>
+    <%= render partial: 'member-entry', locals: {name: 'Anna Reisinger', role: 'Corporate Design'} %>
+
+  </div>
+
+</div>
+
+<footer class='footer'>
+  <p>&copy; <%= copyright_notice_year_range(2018) %> <%= link_to "UNDERCOVER", root_path %>  All Rights Reserved.</p>
+</footer>
+

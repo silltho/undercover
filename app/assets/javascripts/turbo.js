@@ -1,7 +1,8 @@
 document.addEventListener('turbolinks:load', () => {
-  alert('hi')
+  console.log('Turbo Ready')
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  alert('hi')
+  console.log('DOM Ready')
 })
+

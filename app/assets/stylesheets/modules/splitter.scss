@@ -1,0 +1,50 @@
+.splitter-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  margin: 0.5rem 0rem;
+
+  .splitter-left, .splitter-right {
+    border: 1.5px solid #EE9297;
+    height: 0;
+    position: relative;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  .splitter-left::after {
+    content: ' ';
+    border-radius: 50%;
+    border: 0.3rem solid #EE9297;
+    position: absolute;
+    top: -0.25rem;
+    left: -0.3rem;
+  }
+
+  .splitter-right::after {
+    content: ' ';
+    border-radius: 50%;
+    border: 0.3rem solid #EE9297;
+    position: absolute;
+    top: -0.25rem;
+    right: -0.3rem;
+  }
+
+  .splitter-title {
+    color: #EE9297;
+    line-height: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Abril Fatface", cursive;
+    font-size: 1.2rem;
+    margin: 0 1rem;
+  }
+}

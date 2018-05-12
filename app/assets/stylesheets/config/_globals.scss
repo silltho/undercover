@@ -29,6 +29,12 @@ body, html {
   width: 100%;
   box-sizing: border-box;
   font-family: $g_nunito;
+  opacity: 1;
+}
+
+.container {
+  padding: 4rem 2.5rem 0rem 2.5rem;
+  color: white;
 }
 
 img.img {
