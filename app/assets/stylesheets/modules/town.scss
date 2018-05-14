@@ -3,15 +3,14 @@
 .town-container {
   display: block;
   position: relative;
-  background: url($g_logo_path) repeat-x;
-  background-size: cover;
+  // background: url($g_logo_path) repeat-x;
+  // background-size: cover;
   // height: 844px;
-  -webkit-animation: town-anim 105s linear infinite;
+  // -webkit-animation: town-anim 105s linear infinite;
   height: 100%;
 }
 
 .town-video, .town-image {
-  width: 100%;
   object-fit: cover;
   height: 100%;
 }
@@ -26,3 +25,14 @@
   justify-content: space-between;
 }
 
+.handbook-button {
+  position: fixed;
+  background-color: $g_DarkBlue;
+  border: 2px solid $g_Pink;
+  border-radius: 5px;
+  color: $g_Pink;
+  font-size: 1.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.2rem 1.0rem;
+}
