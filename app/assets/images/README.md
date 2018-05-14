@@ -1,0 +1,1 @@
+Please do not forget to test asset paths when reorganizing assets.
