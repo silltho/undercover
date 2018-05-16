@@ -8,7 +8,7 @@
   <% end %>
   <%# image_tag('town.jpg', class: "town-image", alt: 'undercover-background-town') %>
 
-  <%= video_tag('town.mp4', poster: "game/town.jpg", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+  <%= video_tag('town.mp4', poster: "game/town.webp", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
 </div>
 
 <div class='navigation-arrows'>
@@ -21,3 +21,5 @@
 
 
 <div class='handbook-button'><%= link_to 'i', '/team' %></div>
+
+<%= audio_tag("honk.wav", id: 'play_game', controls: false) %>

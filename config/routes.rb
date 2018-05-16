@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get '/gameplay', to: 'landingpages#gameplay'
   get '/characters', to: 'landingpages#characters'
   get '/team', to: 'landingpages#team'
-  get "/login_form", to: 'landingpages#login_form'
+  get '/handbook', to: 'landingpages#handbook'
+
 
   root to: 'landingpages#index'
   get '*path' => redirect('/')

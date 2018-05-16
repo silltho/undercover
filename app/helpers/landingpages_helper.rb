@@ -15,3 +15,4 @@ module LandingpagesHelper
     end
   end
 end
+

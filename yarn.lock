@@ -4338,6 +4338,10 @@ jest@^21.2.1:
   dependencies:
     jest-cli "^21.2.1"
 
+jquery@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.12.0.tgz#44653be4e3e4628b106bf2141dfd10fbca6021ef"
+
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
@@ -7613,6 +7617,12 @@ tunnel-agent@^0.6.0:
 tunnel-agent@~0.4.1:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/tunnel-agent/-/tunnel-agent-0.4.3.tgz#6373db76909fe570e08d73583365ed828a74eeeb"
+
+turn.js@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/turn.js/-/turn.js-1.0.5.tgz#47fa2245cac5fd44b0b64316a26aedef6ff221a4"
+  dependencies:
+    jquery "1.12.0"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"

@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'jquery-rails'
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
 gem 'redis', '~> 3.3'
@@ -14,7 +15,6 @@ gem 'aasm'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 gem 'rspec'
 gem 'rubocop'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
 # Use postgresql as the database for Active Record
