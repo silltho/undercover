@@ -1,14 +1,16 @@
 <% session[:foo] = "bar" if session.id.nil? %>
 
-<div class='town-container'>
+<div class='pattern-wrapper'>
+  <div class='town-container'>
 
-  <%= link_to '/app', class: 'play-game-button' do %>
-      <div class='play-game-button-container'>PLAY</div>
-  <% end %>
+    <%= link_to '/app', class: 'play-game-button' do %>
+        <div class='play-game-button-container'>PLAY</div>
+    <% end %>
 
-  <%= video_tag('town.mp4', poster: "game/town.webp", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+    <%= video_tag('town.mp4', poster: "game/town.webp", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+  </div>
+
+  <div class='handbook-button'><%= link_to 'i', '/team' %></div>
+
+  <%= audio_tag("honk.wav", id: 'play_game', controls: false) %>
 </div>
-
-<div class='handbook-button'><%= link_to 'i', '/team' %></div>
-
-<%= audio_tag("honk.wav", id: 'play_game', controls: false) %>
