@@ -32,9 +32,34 @@ export const CenteredText = styled.span`
   opacity: 0.5;
 `
 
-export const Seperator = styled.hr`
-  margin: 1.5rem 0;
-  left: 0;
-  right: 0;
-  opacity: 0.5;
+export const SeperatorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem 0rem;
+`
+
+export const Seperator = styled.div`
+  border: 1px solid ${PINK};
+  height: 0;
+  position: relative;
+  flex: 1;
+  
+  &:after {
+    content: ' ';
+    border-radius: 50%;
+    border: 0.3rem solid ${PINK};
+    position: absolute;
+    top: -0.25rem;
+    ${(props) => props.right ? { right: '-0.3rem' } : { left: '-0.3rem' }}
+  }
+`
+
+export const SeperatorText = styled.div`
+  color: ${PINK};
+  line-height: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 0 1rem;
 `

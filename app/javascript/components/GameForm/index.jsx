@@ -2,12 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Button from 'components/Button'
 import Input from 'components/Input'
+
 import {
   Row,
   Form,
   CenteredText,
   JoinButton,
-  Seperator
+  Seperator,
+  SeperatorWrapper,
+  SeperatorText
 } from './Styles'
 
 class GameForm extends React.PureComponent {
@@ -99,13 +102,14 @@ class GameForm extends React.PureComponent {
             onChange={this.onCodenameChange}
           />
         </Row>
-        <Seperator />
         <Row>
           <Button text="create new game" onClick={this.createGame} />
         </Row>
-        <Row>
-          <CenteredText>or</CenteredText>
-        </Row>
+        <SeperatorWrapper>
+          <Seperator />
+          <SeperatorText>or</SeperatorText>
+          <Seperator right />
+        </SeperatorWrapper>
         <Row>
           <Input
             name="gamecode"

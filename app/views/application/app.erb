@@ -46,10 +46,12 @@
     </style>
   </head>
   <body>
+
     <p class="flash-notice"><%= params[:notice] %></p>
+
     <div id="loader">
       <%= image_tag "incidentals/loader.gif", class: 'loader' %>
-      <p class='loader-text'}>
+      <p class='loader-text'>
         loading
         <span class="loader-p1">.</span>
         <span class="loader-p2">.</span>
@@ -59,6 +61,7 @@
     <noscript>
       <p>No JavaScript means no game for you. :(</p>
     </noscript>
+
     <%= javascript_pack_tag 'registerServiceWorker' %>
     <%= javascript_pack_tag 'app' %>
   </body>

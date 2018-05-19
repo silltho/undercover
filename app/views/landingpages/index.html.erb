@@ -2,23 +2,12 @@
 
 <div class='town-container'>
 
-  <%# image_tag('logo/logo_frame.png', class: "undercover-logo", alt: 'undercover-background-town') %>
   <%= link_to '/app', class: 'play-game-button' do %>
       <div class='play-game-button-container'>PLAY</div>
   <% end %>
-  <%# image_tag('town.jpg', class: "town-image", alt: 'undercover-background-town') %>
 
   <%= video_tag('town.mp4', poster: "game/town.webp", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
 </div>
-
-<div class='navigation-arrows'>
-
-  <%# link_to '', '/gameplay', class: 'arrow arrow--left' %>
-  <%# link_to '', '/team', class: 'arrow arrow--down' %>
-  <%# link_to '', '/characters', class: 'arrow arrow--right' %>
-
-</div>
-
 
 <div class='handbook-button'><%= link_to 'i', '/team' %></div>
 
