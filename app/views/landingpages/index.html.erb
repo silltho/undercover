@@ -7,7 +7,7 @@
         <div class='play-game-button-container'>PLAY</div>
     <% end %>
 
-    <%= video_tag('town.mp4', poster: "game/town.webp", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+    <%= video_tag('town_orig_720p.mp4', poster: "game/town.webp", controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
   </div>
 
   <div class='handbook-button' data-turbolinks="false">
@@ -17,5 +17,5 @@
   <%= audio_tag("honk.wav", id: 'play_game', controls: false) %>
   <%= audio_tag("soundtrack.wav", id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
 
-  <%= init_playbutton %>
+  <%# init_playbutton %>
 </div>
