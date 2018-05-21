@@ -5,4 +5,3 @@ document.addEventListener('turbolinks:load', () => {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM Ready')
 })
-
