@@ -1,8 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Input from 'components/Input'
-
 import GameForm from '../index'
 import {
   Form
@@ -11,7 +9,8 @@ import {
 const defaultProps = {
   createGame: () => {},
   joinGame: () => {},
-  wrongGameCode: false
+  wrongGameCode: false,
+  fullGame: false
 }
 
 const renderComponent = (props = defaultProps) => mount(
@@ -112,19 +111,4 @@ describe('<GameForm />', () => {
     renderedComponent.instance().componentWillReceiveProps(nextProps)
     expect(renderedComponent.state().roomCodeErrorMessage).toEqual('invalid Gamecode')
   })
-
-  /* it('should submit form if enter is pressed', () => {
-    const props = {
-      joinGame: jest.fn()
-    }
-    const evt = {
-      key: 'Enter'
-    }
-    const renderedComponent = renderComponent(props)
-    const gamecode = 'testtitle123'
-    const nickname = 'testtitle123'
-    renderedComponent.setState({ gamecode, nickname })
-    renderedComponent.find('input#input_gamecode').simulate('keyDown', evt)
-    expect(props.joinGame).toHaveBeenCalledWith([gamecode, nickname])
-  }) */
 })

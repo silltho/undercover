@@ -56,7 +56,7 @@ describe('<GameInfo />', () => {
       })
     }
     const renderedComponent = renderComponent(props)
-    renderedComponent.find(RoundInfo).prop('onSwitchToDay')('0')
-    expect(renderedComponent.state().selectedDay).toEqual('0')
+    renderedComponent.find(RoundInfo).prop('onSwitchToDay')('1')
+    expect(renderedComponent.state().selectedDay).toEqual('1')
   })
 })
