@@ -23,7 +23,8 @@ class UserChannel < ApplicationCable::Channel
     game = Game.where(code: params['gamecode']).first
     nickname = params['nickname']
     UserChannel.broadcast_to(current_user, type: 'wrong_gamecode', data: nil) if game.nil?
-    return if game.nil?
+    UserChannel.broadcast_to(current_user, type: 'game_full', data: nil) if game.full?
+    return if game.nil? || game.full?
     if is_game_running?(game)
       p = Player.where(game: game, user: current_user, codename: nickname).first
       p.reconnect!
