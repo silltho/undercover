@@ -16,6 +16,7 @@ import {
   Title,
   Logo
 } from './Styles'
+import SunTimer from "components/SunTimer"
 
 class Dashboard extends React.PureComponent {
   render() {

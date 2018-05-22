@@ -62,7 +62,7 @@ class Game < ApplicationRecord
 
   def broadcast_information_updated(last_round)
     reload
-    GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object(last_round))
+    GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object)
   end
 
   def broadcast_game_ended(data)
@@ -77,8 +77,8 @@ class Game < ApplicationRecord
   end
 
   def time_is_up
-    broadcast_information_updated(round) if aasm_state == 'activity'
     self.next_state!
+    broadcast_information_updated(round) if aasm_state == 'inform'
     broadcast_game_updated
   end
 
@@ -142,11 +142,11 @@ class Game < ApplicationRecord
     }
   end
 
-  def get_newspaper_object(last_round)
+  def get_newspaper_object
     {
-      last_round => {
+      round => {
                   party_distribution: get_party_members,
-                  infos: create_stories(last_round)
+                  infos: create_stories(round - 1)
                }
     }
   end
@@ -183,8 +183,7 @@ class Game < ApplicationRecord
   end
 
   def update_round
-    value = self.round + 1
-    update(round: value)
+    update(round: round + 1 )
   end
 
   #### BOOLEAN CHECKS ####
@@ -294,14 +293,16 @@ class Game < ApplicationRecord
     newspaper = []
     get_latest_news(last_round).each do |article|
       role = Player.find(article.committer_id).role
-      newspaper << write_success_story(role, article.committer, article.victim, round) if article.success
+      puts "######### happening: #{article.committer_id} was #{article.success}"
+      newspaper << write_success_story(role, article.committer, article.victim, last_round) if article.success
       newspaper << write_fail_story(role) if !article.victim.nil? && !article.success
     end
     newspaper << avoid_empty_newspaper(newspaper)
+    newspaper.compact
   end
 
-  def get_latest_news(round)
-    ids = Article.where(game: self).where(round: round).group(:committer).maximum(:id).values
+  def get_latest_news(last_round)
+    ids = Article.where(game: self).where(round: last_round).group(:committer).maximum(:id).values
     Article.where(id: ids)
   end
 
@@ -311,7 +312,7 @@ class Game < ApplicationRecord
 
   def write_success_story(role, committer, victim, round_nr)
     apply_action(committer, victim) if self.round - 1 == round_nr
-    {role: role.name, info_text: generate_success_text(role, victim)}
+    { role: role.name, info_text: generate_success_text(role, victim) }
   end
 
   # needs refactoring
@@ -327,7 +328,7 @@ class Game < ApplicationRecord
   end
 
   def write_fail_story(role)
-    {role: role.name, info_text: role.try(:text_fail)}
+    { role: role.name, info_text: role.try(:text_fail) }
   end
 
   #### END GAME ####

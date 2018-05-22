@@ -9,7 +9,7 @@ export const ACTIVE_ICONS = {
   CHIEF: ICONS.handcuffs,
   OFFICER: ICONS.handcuffs,
   AGENT: ICONS.goggles,
-  JUNIOR: ICONS.poison
+  ANARCHIST: ICONS.poison
 }
 
 export const getActiveIconByRole = (role = '') => {

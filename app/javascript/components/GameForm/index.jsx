@@ -2,15 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Button from 'components/Button'
 import Input from 'components/Input'
+import Heading from 'components/Heading'
 
 import {
   Row,
   Form,
-  CenteredText,
   JoinButton,
-  Seperator,
-  SeperatorWrapper,
-  SeperatorText
+  SeperatorRow
 } from './Styles'
 
 class GameForm extends React.PureComponent {
@@ -90,6 +88,8 @@ class GameForm extends React.PureComponent {
   }
 
   render() {
+    const codenameInvalid = this.state.codename.length <= 0
+
     return (
       <Form>
         <Row>
@@ -102,15 +102,13 @@ class GameForm extends React.PureComponent {
             onChange={this.onCodenameChange}
           />
         </Row>
-        <Row>
+        <Row deactivated={codenameInvalid}>
           <Button text="create new game" onClick={this.createGame} />
         </Row>
-        <SeperatorWrapper>
-          <Seperator />
-          <SeperatorText>or</SeperatorText>
-          <Seperator right />
-        </SeperatorWrapper>
-        <Row>
+        <SeperatorRow deactivated={codenameInvalid}>
+          <Heading title="or" />
+        </SeperatorRow>
+        <Row deactivated={codenameInvalid}>
           <Input
             name="gamecode"
             placeholder="Enter Room Code"

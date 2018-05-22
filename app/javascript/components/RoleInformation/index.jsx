@@ -54,7 +54,7 @@ class RoleInformation extends React.PureComponent {
               }
             </Scrollable>
           </BorderContainer>
-          <CornerButton bottom right onClickAction={onRequestHide}>
+          <CornerButton bottomRight onClickAction={onRequestHide}>
             <IconFont icon={ICONS.reply} />
           </CornerButton>
         </Content>
