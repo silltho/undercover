@@ -61,9 +61,15 @@ class SunTimer extends React.PureComponent {
   }
 
   render() {
+    const blinkDuration = this.props.timespan / this.props.rayCount
+    const blink = this.state.rayStart >= this.props.rayCount - 3
+
     return (
       <CornerButton topRight onClickAction={() => {}}>
-        <SunBody>
+        <SunBody
+          blink={blink}
+          blinkDuration={blinkDuration}
+        >
           {this.renderSunBeams()}
         </SunBody>
       </CornerButton>
@@ -73,7 +79,7 @@ class SunTimer extends React.PureComponent {
 
 SunTimer.defaultProps = {
   rayCount: 8,
-  timespan: 60000
+  timespan: 20000
 }
 
 SunTimer.propTypes = {

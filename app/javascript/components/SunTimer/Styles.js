@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { PINK } from 'styles/variables'
 
 const beamHeight = '0.4em'
@@ -6,8 +6,21 @@ const beamWidth = '0.1em'
 const beamRadius = '0.7em'
 const sunColor = 'yellow'
 const sunBodySize = '0.7em'
+
 const removeStyle = `
   opacity: 0;
+`
+
+const blink = keyframes`
+  from {
+    background-color: red;
+    border-color: transparent transparent red transparent;
+  }
+
+  to {
+    background-color: yellow;
+    border-color: transparent transparent yellow transparent;
+  }
 `
 
 export const SunBeam = styled.div `
@@ -18,7 +31,7 @@ export const SunBeam = styled.div `
   border-style: solid;
   border-width: 0 ${beamWidth} ${beamHeight} ${beamWidth};
   border-radius: 20px;
-  border-color: transparent transparent ${sunColor} transparent;
+  border-color: inherit;
   transform: rotate(${(props) => props.rotate}deg) translateY(-${beamRadius});
   transition: opacity ${(props) => props.transitionLength}ms;
   ${(props) => props.remove && removeStyle}
@@ -27,6 +40,7 @@ export const SunBeam = styled.div `
 export const SunBody = styled.div`
   position: relative;
   background-color: ${sunColor};
+  border-color: transparent transparent ${sunColor} transparent;
   border-radius: 100%;
   width: ${sunBodySize};
   height: ${sunBodySize};
@@ -35,4 +49,6 @@ export const SunBody = styled.div`
   align-items: center;
   margin-top: -0.3em;
   margin-right: -0.1em;
+  
+  ${(props) => props.blink && `animation: ${blink} ${props.blinkDuration}ms infinite;`}
 `
