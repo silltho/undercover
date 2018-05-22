@@ -21,7 +21,6 @@ import {
 
 class RoundInfo extends React.PureComponent {
   renderInfo = (info, index) => {
-    console.log('info', info.toJS())
     const role = info.get('role')
     const icon = role ? getActiveIconByRole(role) : null
     return (

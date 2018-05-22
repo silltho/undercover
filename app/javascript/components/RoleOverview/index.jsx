@@ -68,7 +68,7 @@ class RoleOverview extends React.PureComponent {
             />
           </BorderContainer>
           { state === PlayerStates.ALIVE &&
-          <CornerButton right bottom onClickAction={skipPhase}>
+          <CornerButton bottomRight onClickAction={skipPhase}>
             <IconFont icon={ICONS.checkmark} />
           </CornerButton>
           }
