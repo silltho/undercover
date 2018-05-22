@@ -179,7 +179,7 @@ class Game < ApplicationRecord
   #### HELPERS ####
 
   def full?
-    players.size == 13
+    players.size == 21
   end
 
   def can_be_started?
