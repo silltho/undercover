@@ -15,6 +15,6 @@ const renderComponent = (props = defaultProps) => mount(
 describe('<CornerButton />', () => {
   it('should render an <button> tag', () => {
     const renderedComponent = renderComponent()
-    expect(renderedComponent.find('div').length).toEqual(10)
+    expect(renderedComponent.find('div').length).toEqual(12)
   })
 })
