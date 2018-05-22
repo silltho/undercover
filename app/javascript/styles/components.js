@@ -97,5 +97,6 @@ export const SunBeam = styled.div `
   height: 0;
   border-style: solid;
   border-width: 0 10px 25px 10px;
+  border-radius: 20px;
   border-color: transparent transparent ${PINK} transparent;
 `
