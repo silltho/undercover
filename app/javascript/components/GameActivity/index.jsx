@@ -5,6 +5,8 @@ import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
 import Flip from 'components/Animations/Flip'
+import CornerButton from 'components/CornerButton'
+import SunTimer from 'components/SunTimer'
 import { Wrapper } from './Styles'
 
 export const VIEWS = {
@@ -92,6 +94,9 @@ class GameActivity extends React.PureComponent {
     return (
       <Flip>
         {this.renderCard()}
+        <CornerButton topRight onClickAction={() => {}}>
+          <SunTimer />
+        </CornerButton>
       </Flip>
     )
   }
