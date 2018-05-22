@@ -19,7 +19,7 @@ import {
   Info
 } from './Styles'
 
-class GameInfo extends React.PureComponent {
+class RoundInfo extends React.PureComponent {
   renderInfo = (info, index) => {
     const role = info.get('role')
     const icon = role ? getActiveIconByRole(role) : null
@@ -78,14 +78,14 @@ class GameInfo extends React.PureComponent {
   }
 }
 
-GameInfo.defaultProps = {
+RoundInfo.defaultProps = {
 }
 
-GameInfo.propTypes = {
+RoundInfo.propTypes = {
   days: PropTypes.instanceOf(List).isRequired,
   currentDay: PropTypes.number.isRequired,
   roundInformation: PropTypes.instanceOf(Map).isRequired,
   onSwitchToDay: PropTypes.func.isRequired
 }
 
-export default GameInfo
+export default RoundInfo
