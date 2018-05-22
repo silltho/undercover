@@ -37,6 +37,7 @@ class Dashboard extends React.PureComponent {
               joinGame={this.props.joinGame}
               createGame={this.props.createGame}
               wrongGameCode={this.props.app.get('showWrongGamecode')}
+              fullGame={this.props.app.get('showFullGame')}
             />
           </ButtonContainer>
         </FadeIn>

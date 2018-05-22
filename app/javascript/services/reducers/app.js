@@ -12,14 +12,16 @@ import {
   WAITING_FOR_OTHERS,
   GAME_ENDED,
   WINNING_INFORMATION,
-  WRONG_GAMECODE
+  WRONG_GAMECODE,
+  FULL_GAME
 } from 'services/constants'
 
 const initialState = fromJS({
   App: {
     showPlayerInformation: false,
     showWaitForOpponents: false,
-    showWrongGamecode: false
+    showWrongGamecode: false,
+    showFullGame: false
   },
   Game: {},
   Player: {},
@@ -32,6 +34,9 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case FULL_GAME: {
+      return state.setIn(['App', 'showFullGame'], true)
+    }
     case WRONG_GAMECODE: {
       return state.setIn(['App', 'showWrongGamecode'], true)
     }
@@ -63,12 +68,14 @@ function appReducer(state = initialState, action) {
       return state.setIn(['Game'], game.merge(data))
         .setIn(['App', 'showWaitForOpponents'], false)
         .setIn(['App', 'showWrongGamecode'], false)
+        .setIn(['App', 'showFullGame'], false)
     }
     case CREATE_GAME_SUCCESS: {
       const game = state.get('Game', Map())
       const data = fromJS(action.data)
       return state.setIn(['Game'], game.merge(data))
         .setIn(['App', 'showWrongGamecode'], false)
+        .setIn(['App', 'showFullGame'], false)
     }
     case LEAVE_GAME_SUCCESS:
     case GAME_DELETE: {

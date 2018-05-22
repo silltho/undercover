@@ -31,3 +31,5 @@ export const WAITING_FOR_OTHERS = 'waiting_for_others'
 
 export const WRONG_GAMECODE = 'wrong_gamecode'
 
+export const FULL_GAME = 'game_full'
+

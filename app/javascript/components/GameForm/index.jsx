@@ -16,7 +16,7 @@ class GameForm extends React.PureComponent {
     super(props)
     this.state = {
       codenameErrorMessage: '',
-      roomCodeErrorMessage: this.props.wrongGameCode ? 'invalid Gamecode' : '',
+      roomCodeErrorMessage: '',
       codename: '',
       gamecode: ''
     }
@@ -26,6 +26,12 @@ class GameForm extends React.PureComponent {
     if (!this.props.wrongGameCode && nextProps.wrongGameCode) {
       this.setState({
         roomCodeErrorMessage: 'invalid Gamecode'
+      })
+    }
+
+    if (!this.props.fullGame && nextProps.fullGame) {
+      this.setState({
+        roomCodeErrorMessage: 'Game is already full'
       })
     }
   }
@@ -128,7 +134,8 @@ class GameForm extends React.PureComponent {
 GameForm.propTypes = {
   createGame: PropTypes.func.isRequired,
   joinGame: PropTypes.func.isRequired,
-  wrongGameCode: PropTypes.bool.isRequired
+  wrongGameCode: PropTypes.bool.isRequired,
+  fullGame: PropTypes.bool.isRequired
 }
 
 export default GameForm
