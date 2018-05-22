@@ -14,18 +14,21 @@ class SunTimer extends React.PureComponent {
       rayStart: 0,
       animationStarted: false
     }
-    const interval = this.props.timespan / this.props.rayCount
-
-    this.clearCurrentInterval()
-    this.currentInterval = setInterval(this.handleInterval, interval)
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const interval = this.props.timespan / this.props.rayCount
+    this.currentInterval = setInterval(this.handleInterval, interval)
     this.animationStart = setTimeout(() => {
       this.setState({
         animationStarted: true
       })
     }, 0)
+  }
+
+  componentWillUnmount() {
+    this.clearCurrentInterval()
+    clearTimeout(this.animationStart)
   }
 
   clearCurrentInterval = () => {
