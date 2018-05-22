@@ -1,9 +1,9 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  has_many :players, dependent: :destroy
-  has_many :articles, dependent: :destroy
-  has_many :action_logs, dependent: :destroy
+  has_many :players, dependent: :delete_all
+  has_many :articles, dependent: :delete_all
+  has_many :action_logs, dependent: :delete_all
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
   TOWN = 'Town'
@@ -39,6 +39,12 @@ class Game < ApplicationRecord
       transitions from: :inform, to: :finished
     end
 
+    event :next_state do
+      transitions from: :initialized, to: :activity
+      transitions from: :inform, to: :activity
+      transitions from: :activity, to: :inform, after: :update_round
+    end
+
     event :reset do
       transitions from: :initialized, to: :waiting
       transitions from: :inform, to: :waiting
@@ -54,9 +60,9 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
-  def broadcast_information_updated(round)
+  def broadcast_information_updated(last_round)
     reload
-    GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object(round))
+    GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object(last_round))
   end
 
   def broadcast_game_ended(data)
@@ -68,6 +74,12 @@ class Game < ApplicationRecord
     players.each do |players|
       players.broadcast_player_updated
     end
+  end
+
+  def time_is_up
+    broadcast_information_updated(round) if aasm_state == 'activity'
+    self.next_state!
+    broadcast_game_updated
   end
 
   #### INITIALIZING ####
@@ -130,11 +142,11 @@ class Game < ApplicationRecord
     }
   end
 
-  def get_newspaper_object(round)
+  def get_newspaper_object(last_round)
     {
-      round => {
+      last_round => {
                   party_distribution: get_party_members,
-                  infos: create_stories(round)
+                  infos: create_stories(last_round)
                }
     }
   end
@@ -278,9 +290,9 @@ class Game < ApplicationRecord
     Article.create(game: self, round: round, committer_id: committer, victim_id: victim, success: success)
   end
 
-  def create_stories(round)
+  def create_stories(last_round)
     newspaper = []
-    get_latest_news(round).each do |article|
+    get_latest_news(last_round).each do |article|
       role = Player.find(article.committer_id).role
       newspaper << write_success_story(role, article.committer, article.victim, round) if article.success
       newspaper << write_fail_story(role) if !article.victim.nil? && !article.success
@@ -302,6 +314,7 @@ class Game < ApplicationRecord
     {role: role.name, info_text: generate_success_text(role, victim)}
   end
 
+  # needs refactoring
   def generate_success_text(role, victim)
     return "A criminal has been persuaded to join the townsmen." if role.name == 'President'
     return "Threatened by a criminal, a player revealed its role." if role.name == 'Bodyguard'
