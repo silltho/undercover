@@ -91,3 +91,11 @@ export const RoomCode = styled.div `
   font-style: italic;
   font-size: 0.65rem;
 `
+
+export const SunBeam = styled.div `
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 25px 10px;
+  border-color: transparent transparent ${PINK} transparent;
+`
