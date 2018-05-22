@@ -293,7 +293,6 @@ class Game < ApplicationRecord
     newspaper = []
     get_latest_news(last_round).each do |article|
       role = Player.find(article.committer_id).role
-      puts "######### happening: #{article.committer_id} was #{article.success}"
       newspaper << write_success_story(role, article.committer, article.victim, last_round) if article.success
       newspaper << write_fail_story(role) if !article.victim.nil? && !article.success
     end
