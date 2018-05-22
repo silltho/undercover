@@ -21,7 +21,7 @@ class SunTimer extends React.PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    this.animationStart = setTimeout(() => {
       this.setState({
         animationStarted: true
       })
@@ -79,7 +79,7 @@ class SunTimer extends React.PureComponent {
 
 SunTimer.defaultProps = {
   rayCount: 10,
-  timespan: 10000
+  timespan: 32000
 }
 
 SunTimer.propTypes = {

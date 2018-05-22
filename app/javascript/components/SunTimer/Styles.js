@@ -1,10 +1,10 @@
 import styled, { keyframes } from 'styled-components'
-import { PINK } from 'styles/variables'
+import { YELLOW } from 'styles/variables'
 
 const beamHeight = '0.4em'
 const beamWidth = '0.1em'
 const beamRadius = '0.7em'
-const sunColor = 'yellow'
+const sunColor = `${YELLOW}`
 const sunBodySize = '0.7em'
 
 const removeStyle = `
@@ -18,8 +18,8 @@ const blink = keyframes`
   }
 
   to {
-    background-color: yellow;
-    border-color: transparent transparent yellow transparent;
+    background-color: ${YELLOW};
+    border-color: transparent transparent ${YELLOW} transparent;
   }
 `
 

@@ -94,9 +94,7 @@ class GameActivity extends React.PureComponent {
     return (
       <Flip>
         {this.renderCard()}
-        <CornerButton topRight onClickAction={() => {}}>
-          <SunTimer />
-        </CornerButton>
+        <SunTimer />
       </Flip>
     )
   }

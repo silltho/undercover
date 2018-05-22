@@ -39,7 +39,6 @@ class Dashboard extends React.PureComponent {
               wrongGameCode={this.props.app.get('showWrongGamecode')}
             />
           </ButtonContainer>
-          <SunTimer />
         </FadeIn>
       </Wrapper>
     )
