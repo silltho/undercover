@@ -1,0 +1,5 @@
+:schedule:
+  game_worker:
+    every: 7s   # Runs every 5 seconds
+    class: GameWorker
+

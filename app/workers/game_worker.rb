@@ -2,12 +2,13 @@ class GameWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform(game_id)
-    game = Game.find(game_id)
-    state = game.aasm_state
-    game.s
-    game.informed! if state == phase
-    game.exchanged! if state == phase
-    game.skills_used! if state == phase
+  def perform
+    Game.all.each do |g|
+      started = g.updated_at
+      now = Time.now
+      g.time_is_up if TimeDifference.between(started, now).in_seconds >= 10 && g.aasm_state != 'finished'
+      g.finish! if g.round > 20
+    end
   end
 end
+
