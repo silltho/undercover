@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {PINK} from 'styles/variables'
+import { PINK } from 'styles/variables'
 
 const beamHeight = '0.4em'
 const beamWidth = '0.1em'
@@ -7,7 +7,6 @@ const beamRadius = '0.7em'
 const sunColor = 'yellow'
 const sunBodySize = '0.7em'
 const removeStyle = `
-  transition: opacity ${(props) => props.transitionLength};
   opacity: 0;
 `
 
@@ -20,7 +19,8 @@ export const SunBeam = styled.div `
   border-width: 0 ${beamWidth} ${beamHeight} ${beamWidth};
   border-radius: 20px;
   border-color: transparent transparent ${sunColor} transparent;
-  transform: rotate(${(props) => props.rotate}deg) translateY(${beamRadius}) rotate(180deg);
+  transform: rotate(${(props) => props.rotate}deg) translateY(-${beamRadius});
+  transition: opacity ${(props) => props.transitionLength}ms;
   ${(props) => props.remove && removeStyle}
 `
 
