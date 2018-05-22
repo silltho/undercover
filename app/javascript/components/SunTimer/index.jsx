@@ -72,8 +72,8 @@ class SunTimer extends React.PureComponent {
 }
 
 SunTimer.defaultProps = {
-  rayCount: 8,
-  timespan: 60000
+  rayCount: 10,
+  timespan: 10000
 }
 
 SunTimer.propTypes = {
