@@ -126,7 +126,7 @@ Role.create(name: 'Agent',
             text_success: 'Espionage has been carried out.',
             text_fail: 'Spying failed',
             known_roles: 'Officer Chief President')
-Role.create(name: 'Junior',
+Role.create(name: 'Anarchist',
             party: 'Anarchists',
             active: 'poison',
             passive: 'immunity',

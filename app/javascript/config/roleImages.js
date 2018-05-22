@@ -27,7 +27,7 @@ const RoleVideos = {
   CHIEF: ChiefVideo,
   OFFICER: OfficerVideo,
   AGENT: AgentVideo,
-  JUNIOR: JuniorVideo
+  ANARCHIST: JuniorVideo
 }
 
 const RoleImages = {
@@ -39,7 +39,7 @@ const RoleImages = {
   CHIEF: ChiefImage,
   OFFICER: OfficerImage,
   AGENT: AgentImage,
-  JUNIOR: JuniorImage
+  ANARCHIST: JuniorImage
 }
 
 export const getImageByRole = (role = '') => {
