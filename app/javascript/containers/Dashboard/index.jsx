@@ -16,6 +16,7 @@ import {
   Title,
   Logo
 } from './Styles'
+import SunTimer from "components/SunTimer"
 
 class Dashboard extends React.PureComponent {
   render() {
@@ -38,6 +39,7 @@ class Dashboard extends React.PureComponent {
               wrongGameCode={this.props.app.get('showWrongGamecode')}
             />
           </ButtonContainer>
+          <SunTimer />
         </FadeIn>
       </Wrapper>
     )

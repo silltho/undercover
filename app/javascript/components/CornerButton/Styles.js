@@ -6,29 +6,40 @@ import {
 
 const borderStyle = `1px solid ${PINK}`
 
-const right = `
+const topRight = `
+  top: 0;
   right: 0;
+  border-bottom: ${borderStyle};
   border-left: ${borderStyle};
+  border-radius: 0 0 0 90%;
 `
 
-const left = `
+const topLeft = `
+  top: 0;
   left: 0;
   border-right: ${borderStyle};
-`
-
-const top = `
-  top: 0;
   border-bottom: ${borderStyle};
+  border-radius: 0 0 90% 0;
 `
 
-const bottom = `
+const bottomRight = `
   bottom: 0;
+  right: 0;
   border-top: ${borderStyle};
+  border-left: ${borderStyle};
+  border-radius: 90% 0 0 0;
+`
+
+const bottomLeft = `
+  bottom: 0;
+  left: 0;
+  border-top: ${borderStyle};
+  border-right: ${borderStyle};
+  border-radius: 0 90% 0 0;
 `
 
 export const Wrapper = styled.div`
   position: absolute;
-  border-top-left-radius: 90%;
   background-color: ${DARK_BLUE};
   width: 4rem;
   height: 4rem;
@@ -37,10 +48,10 @@ export const Wrapper = styled.div`
   align-items: center;
   transition: opacity 0.2s;
   font-size: 1.5rem;
-  ${(props) => props.right && right}
-  ${(props) => props.left && left}
-  ${(props) => props.top && top}
-  ${(props) => props.bottom && bottom}
+  ${(props) => props.topRight && topRight}
+  ${(props) => props.topLeft && topLeft}
+  ${(props) => props.bottomRight && bottomRight}
+  ${(props) => props.bottomLeft && bottomLeft}
   opacity: ${(props) => props.clicked ? '0' : '1'};
   
   > * {

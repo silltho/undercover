@@ -65,7 +65,7 @@ class GameEnd extends React.PureComponent {
             </Section>
           </Scrollable>
         </BorderContainer>
-        <CornerButton bottom right onClickAction={resetGame}>
+        <CornerButton bottomRight onClickAction={resetGame}>
           <IconFont icon={ICONS.exit} />
         </CornerButton>
       </Content>
