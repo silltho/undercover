@@ -21,6 +21,7 @@ import {
 
 class GameInfo extends React.PureComponent {
   renderInfo = (info, index) => {
+    console.log('info', info.toJS())
     const role = info.get('role')
     const icon = role ? getActiveIconByRole(role) : null
     return (
@@ -58,7 +59,7 @@ class GameInfo extends React.PureComponent {
         <Content>
           <BorderContainer>
             <BorderContainerTitel>
-              Dawn {currentDay}
+              News
             </BorderContainerTitel>
             <DistributionInfo distribution={partyDistribution} />
             <Scrollable>
