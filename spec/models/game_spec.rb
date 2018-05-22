@@ -55,16 +55,7 @@ RSpec.describe Game, type: :model do
     expect(game).to have_state(:inform)
     expect(game).to allow_event :informed
     expect(game).not_to have_state(:exchange)
-    expect(game).to transition_from(:inform).to(:exchange).on_event(:informed)
-    expect(game).to have_state(:exchange)
-  end
-
-  it 'changes from exchanged to activity' do
-    game = Game.create(id: 5, aasm_state: "exchange")
-    expect(game).to have_state(:exchange)
-    expect(game).to allow_event :exchanged
-    expect(game).not_to have_state(:activity)
-    expect(game).to transition_from(:exchange).to(:activity).on_event(:exchanged)
+    expect(game).to transition_from(:inform).to(:activity).on_event(:informed)
     expect(game).to have_state(:activity)
   end
 
@@ -73,7 +64,6 @@ RSpec.describe Game, type: :model do
     game.initializing!
     game.started!
     game.informed!
-    game.exchanged!
     expect(game).to have_state(:activity)
     expect(game).to allow_event :skills_used
     expect(game).not_to have_state(:inform)
@@ -95,9 +85,9 @@ RSpec.describe Game, type: :model do
 
   it 'updates the round' do
     game = Game.create(id: 8)
-    expect(game.round).to eql(1)
+    expect(game.round).to eql(0)
     game.update_round
-    expect(game.round).to eql(2)
+    expect(game.round).to eql(1)
   end
 
   it 'adds players to the game' do
@@ -134,15 +124,11 @@ RSpec.describe Game, type: :model do
     expect(game.players.count).to eql(2)
     expect(p1.role).to be_nil
     expect(p2.role).to be_nil
-    expect(p1.codename).to be_nil
-    expect(p2.codename).to be_nil
     game.init_game
     p1.reload
     p2.reload
     expect(p1.role).not_to be_nil
     expect(p2.role).not_to be_nil
-    expect(p1.codename).not_to be_nil
-    expect(p2.codename).not_to be_nil
   end
 
   it 'returns an array with articles' do
@@ -486,7 +472,7 @@ RSpec.describe Game, type: :model do
 
   it 'sets default text if newspaper is empty' do
     g = Game.create(id: 1)
-    expect(g.avoid_empty_newspaper([])).to eql 'Nothing happened that night.'
+    expect(g.avoid_empty_newspaper([])).to eql({role: nil, info_text: "Nothing happened that night."})
   end
 
   it 'gets the latest news and they are all fails' do

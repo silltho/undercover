@@ -131,7 +131,11 @@ class Player < ApplicationRecord
     role.try(:party) == "Anarchists"
   end
 
-  def get_relations
+  def relations
+    Relation.where(player1: self)
+  end
+
+  def init_relations
     set_nil_relations
     return if role.known_roles.nil?
     role.known_roles.split(' ').each do |other_role|
