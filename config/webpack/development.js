@@ -6,7 +6,7 @@ const customConfig = {
   plugins: [
     new ServiceWorkerWebpackPlugin({
       entry: './app/javascript/packs/registerServiceWorker.js',
-      excludes: ['**/.*', '**/*.map', '*.html', '*.js']
+      excludes: ['**/.*', '**/*.map', '*.html', '*.js', '*.jsx']
     }),
     new Visualizer()
   ],
