@@ -4,7 +4,7 @@ class GameWorker
 
   def perform(game_id, round)
     g = Game.find(game_id)
-    g.time_is_up
+    g.time_is_up if g.round == round
   end
 
 end

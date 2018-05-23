@@ -79,12 +79,13 @@ class Game < ApplicationRecord
   end
 
   def start_timer
-    GameWorker.perform_in(5.seconds, id, round)
+    GameWorker.perform_in(28.seconds, id, round)
   end
 
   def time_is_up
     self.next_state!
     broadcast_information_updated(round) if aasm_state == 'inform'
+    finish! if is_game_over?
     broadcast_game_updated
   end
 
