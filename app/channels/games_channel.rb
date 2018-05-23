@@ -38,23 +38,17 @@ class GamesChannel < ApplicationCable::Channel
       @game.broadcast_game_updated
     end
   end
-  
-=begin
-  def end_exchange_phase
-    @game.reload
-    finish_phase("end_exchange_phase")
-    if phase_finished?("end_exchange_phase")
-      @game.exchanged!
-      @game.broadcast_game_updated
-    end
-  end
-=end
 
   def use_skill(params)
     @game.reload
     @game.use_skill(current_player.id, params['victim'])
     finish_phase("use_skill")
     all_skills_used if phase_finished?("use_skill")
+  end
+
+  def draw_game
+    ActionLog.create(player: current_player,  game: @game, round: @game.round, action: "draw") if current_player.alive?
+    finish_game if @game.is_game_over?
   end
 
   def finish_phase(phase)

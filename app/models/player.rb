@@ -88,6 +88,10 @@ class Player < ApplicationRecord
     UserChannel.broadcast_to(user, type: 'winning_information', data: 'Defeat')
   end
 
+  def broadcast_draw
+    UserChannel.broadcast_to(user, type: 'winning_information', data: 'Draw')
+  end
+
   def broadcast_waiting_for_players
     UserChannel.broadcast_to(user, type: 'waiting_for_others', data: nil)
   end

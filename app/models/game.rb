@@ -9,6 +9,7 @@ class Game < ApplicationRecord
   TOWN = 'Town'
   MAFIA = 'Mafia'
   ANARCHISTS = 'Anarchists'
+  DRAW = 'Draw'
 
   #### STATE MACHINE ####
   aasm whiny_transitions: false do
@@ -238,12 +239,16 @@ class Game < ApplicationRecord
 
   def is_game_over?
     statistic = get_party_members
-    if both_heads_dead? || statistic[MAFIA].zero? || statistic[TOWN].zero?
+    if both_heads_dead? || is_draw? || statistic[MAFIA].zero? || statistic[TOWN].zero?
       get_winner
       true
     else
       false
     end
+  end
+
+  def is_draw?
+    ActionLog.where(game: @game).where(round: @game.round).where(action: "draw").group(:player).maximum(:id).count == @game.players.alive.count
   end
 
   def both_heads_dead?
@@ -283,7 +288,6 @@ class Game < ApplicationRecord
     victim.release! if release.include?(action)
     victim.die! if die.include?(action)
     victim.change_party! if change.include?(action)
-    # victim.broadcast_player_updated
   end
 
   #### NEWSPAPER AND STUFF ####
@@ -344,6 +348,8 @@ class Game < ApplicationRecord
                TOWN
              elsif statistic[TOWN].zero?
                MAFIA
+             else
+               DRAW
              end
     data = get_endscreen_object(winner)
     broadcast_game_ended(data)
@@ -355,6 +361,8 @@ class Game < ApplicationRecord
     players.each do |player|
       if (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
         player.broadcast_you_won
+      elsif winner == DRAW
+        player.broadcast_draw
       else
         player.broadcast_you_lost
       end
