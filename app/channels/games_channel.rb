@@ -73,6 +73,7 @@ class GamesChannel < ApplicationCable::Channel
   def finish_game
     @game.reload
     @game.finish!
+    @game.broadcast_game_updated
   end
 
   def reset_game
