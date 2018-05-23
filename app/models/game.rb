@@ -248,7 +248,7 @@ class Game < ApplicationRecord
   end
 
   def is_draw?
-    ActionLog.where(game: @game).where(round: @game.round).where(action: "draw").group(:player).maximum(:id).count == @game.players.alive.count
+    ActionLog.where(game: self).where(round: round).where(action: "draw").group(:player).maximum(:id).count == players.alive.count
   end
 
   def both_heads_dead?
