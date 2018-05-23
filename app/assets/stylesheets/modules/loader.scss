@@ -1,39 +1,12 @@
 @import "config/globals";
 @import "config/animations";
 
-.loader {
-  border: 1px solid #f39199;
-  border-radius: 100%;
-}
-
-.loader-p1, .loader-p2, .loader-p3 {
-  color: $g_Pink;
-  animation: loading-points 1.4s infinite both;
-}
-
-.loader-p1 {
-  animation-delay: 0.2s;
-}
-
-.loader-p2 {
-  animation-delay: 0.4s;
-}
-
-.loader-p3 {
-  animation-delay: 0.6s;
-}
-
-.loader-text {
-  padding-top: 1rem;
-  text-transform: uppercase;
-}
-
 #loader {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  color: $g_White;
+  color: $g_Pink;
   background-color: $g_DarkBlue;
   display: flex;
   flex-direction: column;
@@ -41,3 +14,21 @@
   align-items: center;
 }
 
+.loader-image {
+  color: $g_Pink;
+  border: 1px solid $g_Pink;
+  border-radius: 100%;
+}
+
+.loader-text {
+  padding-top: 1rem;
+  text-transform: uppercase;
+}
+
+@for $i from 1 through 3 {
+  .loader-p#{$i} {
+    animation-delay: calc(#{$i} * 0.2s);
+    color: $g_Pink;
+    animation: loading-points 1.4s infinite both;
+  }
+}
