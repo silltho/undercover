@@ -5,7 +5,6 @@ import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
 import Flip from 'components/Animations/Flip'
-import CornerButton from 'components/CornerButton'
 import SunTimer from 'components/SunTimer'
 import { Wrapper } from './Styles'
 
@@ -21,8 +20,16 @@ class GameActivity extends React.PureComponent {
     super(props)
     this.state = {
       currentView: VIEWS.roleOverview,
-      selectedTarget: false
+      selectedTarget: false,
+      drawClicked: false
     }
+  }
+
+  handleDrawClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    this.setState({ drawClicked: true })
+    this.props.drawGame()
   }
 
   selectTarget = (targetId) => {
@@ -71,6 +78,8 @@ class GameActivity extends React.PureComponent {
       case VIEWS.roleInformation: return (
         <Wrapper key="role-information">
           <RoleInformation
+            drawGame={this.handleDrawClick}
+            drawClicked={this.state.drawClicked}
             roleDetails={player.get('role')}
             onRequestHide={this.showRoleOverview}
           />
@@ -103,7 +112,8 @@ class GameActivity extends React.PureComponent {
 GameActivity.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
-  useSkill: PropTypes.func.isRequired
+  useSkill: PropTypes.func.isRequired,
+  drawGame: PropTypes.func.isRequired
 }
 
 export default GameActivity

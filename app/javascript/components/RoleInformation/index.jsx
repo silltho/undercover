@@ -14,7 +14,8 @@ import {
 import {
   StyledSection,
   SectionText,
-  ActiveIcon
+  ActiveIcon,
+  DrawButton
 } from './Styles'
 
 class RoleInformation extends React.PureComponent {
@@ -53,6 +54,12 @@ class RoleInformation extends React.PureComponent {
                 </StyledSection>
               }
             </Scrollable>
+            <DrawButton
+              clicked={this.props.drawClicked}
+              onClick={this.props.drawGame}
+            >
+              {this.props.drawClicked ? 'Successfully voted for a draw.' : 'vote for draw'}
+            </DrawButton>
           </BorderContainer>
           <CornerButton bottomRight onClickAction={onRequestHide}>
             <IconFont icon={ICONS.reply} />
@@ -68,7 +75,9 @@ RoleInformation.defaultProps = {
 
 RoleInformation.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
-  onRequestHide: PropTypes.func.isRequired
+  onRequestHide: PropTypes.func.isRequired,
+  drawGame: PropTypes.func.isRequired,
+  drawClicked: PropTypes.bool.isRequired
 }
 
 export default RoleInformation

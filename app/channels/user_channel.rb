@@ -30,7 +30,7 @@ class UserChannel < ApplicationCable::Channel
       p.reconnect!
       return false if p.nil?
       p.broadcast_player_updated
-    elsif game.full
+    elsif game.full?
       return false
     else
       Player.create!(game: game, user: current_user, codename: nickname)

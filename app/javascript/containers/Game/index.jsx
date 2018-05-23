@@ -62,6 +62,7 @@ class Game extends React.PureComponent {
       case GamePhases.ACTIVITY:
         return (
           <GameActivity
+            drawGame={this.props.drawGame}
             useSkill={this.props.useSkill}
             player={this.props.player}
             game={this.props.game}
@@ -121,6 +122,7 @@ Game.propTypes = {
   endInformation: PropTypes.instanceOf(Map).isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
+  drawGame: PropTypes.func.isRequired,
   useSkill: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
   hidePlayerInformations: PropTypes.func.isRequired
@@ -131,6 +133,7 @@ export const mapDispatchToProps = (dispatch) => ({
   endInfoPhase: GameChannel.endInfoPhase,
   startGame: GameChannel.startGame,
   useSkill: GameChannel.useSkill,
+  drawGame: GameChannel.drawGame,
   resetGame: () => dispatch(resetGameAction()),
   hidePlayerInformations: () => dispatch(hidePlayerInformationsAction())
 })

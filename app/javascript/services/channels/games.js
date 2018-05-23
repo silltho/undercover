@@ -7,7 +7,8 @@ import {
   END_INFO_PHASE,
   END_EXCHANGE_PHASE,
   USE_SKILL,
-  ALL_SKILLS_USED
+  ALL_SKILLS_USED,
+  DRAW_GAME
 } from '../constants'
 
 let dispatch
@@ -56,6 +57,10 @@ function startGame() {
   channel.perform(START_GAME)
 }
 
+function drawGame() {
+  channel.perform(DRAW_GAME)
+}
+
 function init(store) {
   dispatch = store.dispatch
 }
@@ -68,6 +73,7 @@ export default {
   endExchangePhase,
   endInfoPhase,
   useSkill,
+  drawGame,
   startGame,
   allSkillsUsed
 }
