@@ -6,17 +6,17 @@
 
 @import "config/globals";
 
+* {
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html, body, body > div {
   font-size: 16px;
   background-color: $g_DarkBlue;
-}
-
-p {
-  margin: 0;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 html,
@@ -24,14 +24,12 @@ body {
   height: 100%;
 }
 
+p {
+  margin: 0;
+}
 
 button {
   border: none;
-}
-
-/*hide scrollbars*/
-*::-webkit-scrollbar {
-  display: none;
 }
 
 ul {
