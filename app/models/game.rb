@@ -38,6 +38,7 @@ class Game < ApplicationRecord
 
     event :finish do
       transitions from: :inform, to: :finished
+      transitions from: :activity, to: :finished
     end
 
     event :next_state do
