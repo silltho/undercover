@@ -22,8 +22,8 @@ export const TitleLine = styled.div`
     border-radius: 50%;
     border: 0.3rem solid ${PINK};
     position: absolute;
-    top: -0.25rem;
-    ${(props) => props.right ? { right: '-0.3rem' } : { left: '-0.3rem' }}
+    transform: translateY(-50%) ${(props) => props.right ? 'translateX(50%)' : 'translateX(-50%)'};
+    ${(props) => props.right ? { right: '0' } : { left: '0' }}
   }
 `
 
