@@ -1,4 +1,4 @@
-:schedule:
-  game_worker:
-    every: 1s   # Runs every 5 seconds
-    class: GameWorker
+#:schedule:
+#  game_worker:
+#    every: 1s   # Runs every 5 seconds
+#    class: GameWorker
