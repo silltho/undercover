@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { PINK } from 'styles/variables'
 import IconFont from 'components/IconFont'
 import { Section } from 'styles/components'
 
@@ -18,4 +19,9 @@ export const StyledSection = styled(Section)`
   ${ActiveIcon} + ${SectionText} {
     padding-top: 0;
   }
+`
+
+export const DrawButton = styled.button`
+  border: solid 1px ${PINK};
+  color: ${PINK};
 `

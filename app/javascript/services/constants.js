@@ -8,6 +8,8 @@ export const LEAVE_GAME_SUCCESS = 'leave_game_success'
 export const JOIN_GAME_REQUEST = 'join_game'
 export const JOIN_GAME_SUCCESS = 'join_game_success'
 
+export const DRAW_GAME = 'draw_game'
+
 export const INITIALIZE_GAME = 'initialize_game'
 export const RESET_GAME = 'reset_game'
 export const GAME_UPDATED = 'game_updated'

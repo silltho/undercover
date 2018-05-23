@@ -14,7 +14,8 @@ import {
 import {
   StyledSection,
   SectionText,
-  ActiveIcon
+  ActiveIcon,
+  DrawButton
 } from './Styles'
 
 class RoleInformation extends React.PureComponent {
@@ -53,6 +54,7 @@ class RoleInformation extends React.PureComponent {
                 </StyledSection>
               }
             </Scrollable>
+            <DrawButton onClick={this.props.drawGame}>draw</DrawButton>
           </BorderContainer>
           <CornerButton bottomRight onClickAction={onRequestHide}>
             <IconFont icon={ICONS.reply} />
@@ -68,7 +70,8 @@ RoleInformation.defaultProps = {
 
 RoleInformation.propTypes = {
   roleDetails: PropTypes.instanceOf(Map).isRequired,
-  onRequestHide: PropTypes.func.isRequired
+  onRequestHide: PropTypes.func.isRequired,
+  drawGame: PropTypes.func.isRequired
 }
 
 export default RoleInformation

@@ -71,6 +71,7 @@ class GameActivity extends React.PureComponent {
       case VIEWS.roleInformation: return (
         <Wrapper key="role-information">
           <RoleInformation
+            drawGame={this.props.drawGame}
             roleDetails={player.get('role')}
             onRequestHide={this.showRoleOverview}
           />
@@ -103,7 +104,8 @@ class GameActivity extends React.PureComponent {
 GameActivity.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
-  useSkill: PropTypes.func.isRequired
+  useSkill: PropTypes.func.isRequired,
+  drawGame: PropTypes.func.isRequired
 }
 
 export default GameActivity
