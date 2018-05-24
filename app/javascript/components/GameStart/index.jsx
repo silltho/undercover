@@ -22,8 +22,7 @@ import {
   DistributionHeading,
   FractionLogo,
   TownDistributionContainer,
-  MafiaDistributionContainer,
-  PlayerCodename
+  MafiaDistributionContainer
 } from './Styles'
 
 class GameStart extends React.PureComponent {
@@ -31,8 +30,7 @@ class GameStart extends React.PureComponent {
   render() {
     const {
       game,
-      startGame,
-      player
+      startGame
     } = this.props
 
     return (
@@ -59,7 +57,7 @@ class GameStart extends React.PureComponent {
             </PartyDistribution>
             <Section>
               <Heading title="citizens" />
-              <PlayersList players={game.get('players')} />
+              <PlayersList players={game.getIn(['start_info', 'players'])} />
             </Section>
           </BorderContainer>
           <CornerButton bottomRight onClickAction={startGame}>
@@ -72,7 +70,6 @@ class GameStart extends React.PureComponent {
 }
 
 GameStart.propTypes = {
-  player: PropTypes.instanceOf(Map).isRequired, // eslint-disable-line react/no-unused-prop-types
   game: PropTypes.instanceOf(Map).isRequired,
   startGame: PropTypes.func.isRequired
 }
