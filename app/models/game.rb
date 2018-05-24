@@ -86,10 +86,16 @@ class Game < ApplicationRecord
 
   #### INITIALIZING ####
 
-  def init_game
-    init_players
-    players.each(&:broadcast_player_updated)
+  def init_players
+    roles_array = assign_roles(players.size)
+    players.each do |player|
+      player.reset!
+      player.reload
+      player.assign_character(roles_array.delete(roles_array.sample))
+    end
+    players.each(&:get_relations)
   end
+
 
   def init_players
     roles_array = assign_roles(players.size)
