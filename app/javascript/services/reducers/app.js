@@ -24,11 +24,10 @@ const initialState = fromJS({
     showFullGame: false
   },
   Game: {},
-  Player: {},
-  RoundInformation: {},
-  PlayerInformation: {
-    informations: []
+  Player: {
+    infos: []
   },
+  RoundInformation: {},
   EndInformation: {}
 })
 
@@ -57,7 +56,7 @@ function appReducer(state = initialState, action) {
     case PLAYER_INFORMED: {
       const newInformation = fromJS(action.data)
       return state.setIn(['App', 'showPlayerInformation'], true)
-        .updateIn(['PlayerInformation', 'informations'], (informations) => informations.push(newInformation))
+        .updateIn(['Player', 'infos'], (informations) => informations.push(newInformation))
     }
     case RESET_GAME: {
       return initialState
@@ -82,8 +81,9 @@ function appReducer(state = initialState, action) {
       return state.set('Game', fromJS({}))
     }
     case PLAYER_UPDATED: {
-      const player = fromJS(action.data)
-      return state.set('Player', player)
+      const player = state.get('Player', Map())
+      const data = fromJS(action.data)
+      return state.set('Player', player.merge(data))
     }
     case INFORMATION_UPDATED: {
       return state.mergeIn(['RoundInformation'], fromJS(action.data))

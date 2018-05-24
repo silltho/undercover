@@ -17,7 +17,7 @@ class PlayerInformationModal extends React.PureComponent {
       onRequestHide
     } = this.props
 
-    const last = playerInformation.get('informations').last()
+    const last = playerInformation.last()
 
     return (
       <Overlay>

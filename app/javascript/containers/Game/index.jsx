@@ -87,6 +87,7 @@ class Game extends React.PureComponent {
     const ready = app.get('showWaitForOpponents')
     const gamePhaseKey = this.props.game.get('aasm_state')
     const gameCode = this.props.game.get('code')
+    const playerInformation = this.props.player.get('infos')
 
     return (
       <FadeIn>
@@ -98,7 +99,7 @@ class Game extends React.PureComponent {
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal
-            playerInformation={this.props.playerInformation}
+            playerInformation={playerInformation}
             onRequestHide={hidePlayerInformations}
           />
         }
@@ -118,7 +119,6 @@ Game.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
   roundInformations: PropTypes.instanceOf(Map).isRequired,
-  playerInformation: PropTypes.instanceOf(Map).isRequired,
   endInformation: PropTypes.instanceOf(Map).isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
@@ -143,7 +143,6 @@ const mapStateToProps = (state) => ({
   game: state.get('Game'),
   player: state.get('Player'),
   roundInformations: state.get('RoundInformation'),
-  playerInformation: state.get('PlayerInformation'),
   endInformation: state.get('EndInformation')
 })
 
