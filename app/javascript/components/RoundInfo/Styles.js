@@ -68,7 +68,10 @@ export const BottomDawnContainer = styled.div`
 
 export const ActiveIcon = styled(IconFont)`
   margin-right: 1.5rem;
-  font-size: 1.5rem;
+  align-items: center;
+  display: flex;
+  font-size: 2.7rem;
+  justify-content: center;
 `
 
 export const Info = styled.li`
