@@ -67,6 +67,12 @@ class Game < ApplicationRecord
     end
   end
 
+  def last_broadcasts(winner)
+    data = get_endscreen_object(winner)
+    broadcast_game_ended(data)
+    send_info_to_player(winner)
+  end
+
   def start_timer
     GameWorker.perform_in(28.seconds, id, round)
   end
@@ -81,12 +87,8 @@ class Game < ApplicationRecord
   #### INITIALIZING ####
 
   def init_game
-    data = {}
-    data['round'] = round
     init_players
-    players.each do |player|
-      player.broadcast_player_updated
-    end
+    players.each(&:broadcast_player_updated)
   end
 
   def init_players
@@ -141,8 +143,8 @@ class Game < ApplicationRecord
   def get_newspaper_object
     {
       round => {
-                  party_distribution: get_party_members,
-                  infos: create_stories(round - 1)
+                  infos: create_stories(round - 1),
+                  party_distribution: get_party_members
                }
     }
   end
@@ -239,7 +241,7 @@ class Game < ApplicationRecord
   def is_game_over?
     statistic = get_party_members
     if both_heads_dead? || is_draw? || statistic[MAFIA].zero? || statistic[TOWN].zero?
-      get_winner
+      last_broadcasts(get_winner)
       true
     else
       false
@@ -339,19 +341,15 @@ class Game < ApplicationRecord
 
   def get_winner
     statistic = get_party_members
-    winner = if both_heads_dead?
-               ANARCHISTS
-             elsif statistic[MAFIA].zero?
-               TOWN
-             elsif statistic[TOWN].zero?
-               MAFIA
-             else
-               DRAW
-             end
-    data = get_endscreen_object(winner)
-    broadcast_game_ended(data)
-    send_info_to_player(winner)
-    winner
+    if both_heads_dead?
+      ANARCHISTS
+    elsif statistic[MAFIA].zero?
+      TOWN
+    elsif statistic[TOWN].zero?
+      MAFIA
+    else
+      DRAW
+    end
   end
 
   def send_info_to_player(winner)
