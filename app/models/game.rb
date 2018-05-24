@@ -358,5 +358,9 @@ class Game < ApplicationRecord
       end
     end
   end
+
+  def belongs_to_winning_party(player, winner)
+
+  end
 end
 
