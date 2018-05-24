@@ -24,11 +24,6 @@ class Player < ApplicationRecord
       transitions from: :imprisoned, to: :dead
     end
 
-    event :reset do
-      transitions from: :imprisoned, to: :alive
-      transitions from: :dead, to: :alive
-    end
-
     event :disconnect do
       transitions from: :alive, to: :disconnected
     end
