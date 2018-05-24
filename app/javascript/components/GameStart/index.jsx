@@ -44,17 +44,17 @@ class GameStart extends React.PureComponent {
               <MafiaDistributionContainer>
                 <FractionLogo><img src={FractionImages.MAFIA} alt="mafia-logo" /></FractionLogo>
                 <DistributionHeading>Mafia</DistributionHeading>
-                <DistributionCount>{game.getIn(['party_distribution', 'Mafia']) || 0}</DistributionCount>
+                <DistributionCount>{game.getIn(['start_info', 'party_distribution', 'Mafia']) || 0}</DistributionCount>
               </MafiaDistributionContainer>
               <AnarchistsDistribution>
                 <FractionLogo><img src={FractionImages.ANARCHISTS} alt="anarchists-logo" /></FractionLogo>
                 <DistributionHeading>Anarchists</DistributionHeading>
-                <DistributionCount>{game.getIn(['party_distribution', 'Anarchists']) || 0}</DistributionCount>
+                <DistributionCount>{game.getIn(['start_info', 'party_distribution', 'Anarchists']) || 0}</DistributionCount>
               </AnarchistsDistribution>
               <TownDistributionContainer>
                 <FractionLogo><img src={FractionImages.TOWN} alt="town-logo" /></FractionLogo>
                 <DistributionHeading>Town</DistributionHeading>
-                <DistributionCount>{game.getIn(['party_distribution', 'Town']) || 0}</DistributionCount>
+                <DistributionCount>{game.getIn(['start_info', 'party_distribution', 'Town']) || 0}</DistributionCount>
               </TownDistributionContainer>
             </PartyDistribution>
             <Section>
