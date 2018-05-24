@@ -22,6 +22,10 @@ export default function (showEasterEggs) {
       case 'woidl': return Board()
       case 'tschayson': return Board()
       case 'martin': return Board()
+      case 'jakob': return Board()
+      case 'jana': return Board()
+      case 'mike': return Board()
+      case 'markus': return Board()
       default: return null
     }
   })
