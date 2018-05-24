@@ -100,8 +100,6 @@ class Game < ApplicationRecord
     Article.where(game: self).destroy_all
     Relation.where(player1: players).destroy_all
     ActionLog.where(game: self)
-    Player.where(game: self).destroy_all
-    Game.destroy
   end
 
 
