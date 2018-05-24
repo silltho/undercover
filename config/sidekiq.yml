@@ -1,4 +1,0 @@
-:schedule:
-  game_worker:
-    every: 1s
-    class: GameWorker
