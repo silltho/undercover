@@ -14,6 +14,11 @@
     <%= link_to 'i', '/team' %>
   </div>
 
+  <div class="audio-control">
+    <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
+    <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
+  </div>
+
   <%# audio_tag("honk.wav", id: 'play_game', controls: false) %>
   <%= audio_tag("soundtrack.ogg", id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
 

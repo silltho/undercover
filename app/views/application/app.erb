@@ -42,22 +42,23 @@
       body > div {
         height: 100%;
       }
-
     </style>
   </head>
+  
   <body>
 
     <p class="flash-notice"><%= params[:notice] %></p>
 
     <div id="loader">
-      <%= image_tag "incidentals/loader.gif", class: 'loader' %>
-      <p class='loader-text'>
+      <%= image_tag 'incidentals/loader.gif', class: 'loader-image' %>
+      <p class="loader-text">
         loading
         <span class="loader-p1">.</span>
         <span class="loader-p2">.</span>
         <span class="loader-p3">.</span>
       </p>
     </div>
+
     <noscript>
       <p>No JavaScript means no game for you. :(</p>
     </noscript>

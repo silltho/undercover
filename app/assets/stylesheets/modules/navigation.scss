@@ -1,0 +1,18 @@
+@import "config/globals";
+
+.arrow {
+  position: absolute;
+  display: inline-block;
+  z-index: 9999999;
+  padding: 2rem;
+  background-color: transparent;
+  box-shadow: 5px -5px 0 0 $g_Pink inset;
+}
+
+.arrow--up {
+  left: 50%;
+  top: 1em;
+  transform: translateX(-50%) rotate(135deg);
+  position: relative;
+  margin-top: 0.7rem;
+}
