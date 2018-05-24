@@ -143,8 +143,8 @@ class Game < ApplicationRecord
   def get_newspaper_object
     {
       round => {
-                  infos: create_stories(round - 1)
-                  party_distribution: get_party_members,
+                  infos: create_stories(round - 1),
+                  party_distribution: get_party_members
                }
     }
   end
