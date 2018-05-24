@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Map } from 'immutable'
+import { List } from 'immutable'
 
 import {
   Modal,
@@ -42,7 +42,7 @@ PlayerInformationModal.defaultProps = {
 }
 
 PlayerInformationModal.propTypes = {
-  playerInformation: PropTypes.instanceOf(Map).isRequired,
+  playerInformation: PropTypes.instanceOf(List).isRequired,
   onRequestHide: PropTypes.func.isRequired
 }
 

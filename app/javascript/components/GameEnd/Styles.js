@@ -1,26 +1,18 @@
 import styled from 'styled-components'
-
-export const Winner = styled.div`
-  font-size: 1.5rem;
-  text-align: center;
-`
-
-export const Players = styled.div`
-    
-`
+import IconFont from 'components/IconFont'
 
 export const Player = styled.div`
   display: flex;
-  justify-content: space-between;  
-  padding: 0.5rem 1rem;  
+  padding: 0.5rem 1rem; 
 `
 
 export const Role = styled.div`
-  
+  flex: 1;
+  text-align: right;
 `
 
 export const CodeName = styled.div`
-  
+  flex:1;
 `
 
 export const FractionLogo = styled.div`
@@ -32,4 +24,9 @@ export const FractionLogo = styled.div`
 export const ImageWrapper = styled.div`
   text-align: center;
   margin-bottom: 1rem;
+`
+
+export const StateIcon = styled(IconFont)`
+  display: flex;
+  align-items: center;
 `
