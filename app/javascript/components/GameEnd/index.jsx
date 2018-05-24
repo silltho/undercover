@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Heading from 'components/Heading'
 import { getImageByFraction } from 'config/fractionImages'
+import { getIconByPlayerState } from 'config/playerStates'
 import CornerButton from 'components/CornerButton'
 import IconFont, { ICONS } from 'components/IconFont'
 import {
@@ -17,16 +18,21 @@ import {
   CodeName,
   Role,
   FractionLogo,
-  ImageWrapper
+  ImageWrapper,
+  StateIcon
 } from './Styles'
 
 class GameEnd extends React.PureComponent {
-  renderPlayer = (player) => (
-    <Player key={`player-${player.get('codename')}`}>
-      <CodeName>{player.get('codename')}</CodeName>
-      <Role>{player.get('role')}</Role>
-    </Player>
-  )
+  renderPlayer = (player) => {
+    const stateIcon = getIconByPlayerState(player.get('state'))
+    return (
+      <Player key={`player-${player.get('codename')}`}>
+        <CodeName>{player.get('codename')}</CodeName>
+        {stateIcon && <StateIcon icon={stateIcon} />}
+        <Role>{player.get('role')}</Role>
+      </Player>
+    )
+  }
 
   render() {
     const {

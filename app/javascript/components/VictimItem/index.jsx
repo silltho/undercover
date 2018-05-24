@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import { ACTIVE_ICONS } from 'components/IconFont'
 import { getImageByFraction } from 'config/fractionImages'
-import PlayerStates from 'config/playerStates'
+import PlayerStates, { getIconByPlayerState } from 'config/playerStates'
 import {
   VictimItemWrapper,
   FractionImage,
@@ -12,14 +11,6 @@ import {
   VictimIcon,
   VictimRole
 } from './Styles'
-
-const getStateIcon = (state) => {
-  switch (state) {
-    case PlayerStates.DEAD: return ACTIVE_ICONS.poison
-    case PlayerStates.IMPRISONED: return ACTIVE_ICONS.imprison
-    default: return null
-  }
-}
 
 class VictimItem extends React.PureComponent {
   useSkill = () => {
@@ -38,7 +29,7 @@ class VictimItem extends React.PureComponent {
     const role = victim.get('role', 'unknown')
     const fraction = victim.get('party')
     const fractionImage = fraction ? getImageByFraction(fraction) : false
-    const stateIcon = getStateIcon(victim.get('state'))
+    const stateIcon = getIconByPlayerState(victim.get('state'))
 
     return (
       <VictimItemWrapper
