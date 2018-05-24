@@ -20,7 +20,7 @@ export default function () {
   window.setTimeout(() => {
     img.style.right = 'calc(100% + 375px)'
   }, 4300)
- // window.setTimeout(() => {
- //   img.parentNode.removeChild(img)
- // }, 7300)
+  window.setTimeout(() => {
+    img.parentNode.removeChild(img)
+  }, 7300)
 }
