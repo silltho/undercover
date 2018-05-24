@@ -40,15 +40,20 @@ class GameEnd extends React.PureComponent {
     const renderedTown = this.props.endInformation.get('Town', Map()).map((players) => this.renderPlayer(players)).valueSeq()
     const renderedAnarchists = this.props.endInformation.get('Anarchists', Map()).map((players) => this.renderPlayer(players)).valueSeq()
     const winnerFractionImage = getImageByFraction(winnerFraction)
+    const isDraw = result === 'Draw'
 
     return (
       <Content>
         <BorderContainer>
           <BorderContainerTitel>{result}</BorderContainerTitel>
           <ImageWrapper>
-            {winnerFraction}
-            <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
-            WON
+            {!isDraw &&
+              <React.Fragment>
+                <span>{winnerFraction}</span>
+                <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
+                <span>WON</span>
+              </React.Fragment>
+            }
           </ImageWrapper>
           <Scrollable>
             <Section>

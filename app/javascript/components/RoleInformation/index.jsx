@@ -58,7 +58,7 @@ class RoleInformation extends React.PureComponent {
               clicked={this.props.drawClicked}
               onClick={this.props.drawGame}
             >
-              {this.props.drawClicked ? 'All alive players have to choose draw' : 'vote for draw'}
+              {this.props.drawClicked ? 'Successfully voted for a draw.' : 'vote for draw'}
             </DrawButton>
           </BorderContainer>
           <CornerButton bottomRight onClickAction={onRequestHide}>
