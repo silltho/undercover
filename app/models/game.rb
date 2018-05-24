@@ -33,8 +33,8 @@ class Game < ApplicationRecord
     end
 
     event :finish do
-      transitions from: :inform, to: :finished
-      transitions from: :activity, to: :finished
+      transitions from: :inform, to: :finished, after: :cleanup
+      transitions from: :activity, to: :finished, after: :cleanup
     end
 
     event :next_state do
@@ -86,10 +86,22 @@ class Game < ApplicationRecord
 
   #### INITIALIZING ####
 
-  def init_game
-    init_players
-    players.each(&:broadcast_player_updated)
+  def init_players
+    roles_array = assign_roles(players.size)
+    players.each do |player|
+      player.reset!
+      player.reload
+      player.assign_character(roles_array.delete(roles_array.sample))
+    end
+    players.each(&:get_relations)
   end
+
+  def cleanup
+    Article.where(game: self).destroy_all
+    Relation.where(player1: players).destroy_all
+    ActionLog.where(game: self)
+  end
+
 
   def init_players
     roles_array = assign_roles(players.size)

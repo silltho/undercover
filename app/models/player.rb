@@ -31,6 +31,12 @@ class Player < ApplicationRecord
     event :reconnect do
       transitions from: :disconnected, to: :alive
     end
+
+    event :reset do
+      transitions from: :imprisoned, to: :alive
+      transitions from: :dead, to: :alive
+    end
+
   end
 
   def get_player_object
