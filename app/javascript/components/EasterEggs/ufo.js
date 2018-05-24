@@ -16,7 +16,7 @@ export default function () {
   window.setTimeout(() => {
     img.style.right = 'calc(100% + 500px)'
   }, 50)
-c
+
   window.setTimeout(() => {
     img.parentNode.removeChild(img)
   }, 10300)
