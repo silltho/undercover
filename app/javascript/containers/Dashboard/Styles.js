@@ -42,7 +42,7 @@ export const HomeWrapper = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: left;
-  width: 30%;
+  width: 7rem;
   border-bottom: 2px solid ${PINK};
 `
 

@@ -1,6 +1,5 @@
 export default function () {
   const data = 'https://i.imgur.com/9ILLXpb.gif'
-  const shock = document.createElement('div')
   const img = new Image()
   img.src = data
   img.style.width = '400px'

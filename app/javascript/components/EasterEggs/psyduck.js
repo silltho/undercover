@@ -1,6 +1,5 @@
 export default function () {
   const data = 'https://i.imgur.com/9vCNtPT.gif'
-  const shock = document.createElement('div')
   const img = new Image()
   img.src = data
   img.style.width = '500px'
@@ -22,6 +21,5 @@ export default function () {
   }, 4300)
   window.setTimeout(() => {
     img.parentNode.removeChild(img)
-    shock.parentNode.removeChild(shock)
   }, 5400)
 }

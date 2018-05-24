@@ -8,7 +8,7 @@ export default function () {
   img.style.transition = '4s all'
   img.style.position = 'fixed'
   img.style.left = '-400px'
-  img.style.bottom = 'calc(-50% + 320px)'
+  img.style.bottom = 0
   img.style.zIndex = 999999
 
   document.body.appendChild(img)
@@ -17,7 +17,7 @@ export default function () {
     img.style.left = 'calc(100% + 500px)'
   }, 50)
 
-  window.setTimeout(() => {
+  /*window.setTimeout(() => {
     img.parentNode.removeChild(img)
-  }, 4300)
+  }, 4300)*/
 }
