@@ -1,9 +1,9 @@
 @import "config/globals";
 
 .audio-control {
+  position: fixed;
   top: 0;
   right: 0;
-  position: fixed;
   border-radius: 5px;
   display: flex;
   justify-content: center;
