@@ -130,7 +130,11 @@ class Player < ApplicationRecord
     role.try(:party) == "Anarchists"
   end
 
-  def get_relations
+  def relations
+    Relation.where(player1: self)
+  end
+
+  def init_relations
     set_nil_relations
     return if role.known_roles.nil?
     role.known_roles.split(' ').each do |other_role|
@@ -146,7 +150,10 @@ class Player < ApplicationRecord
 
   def set_relation_information(role)
     role = Role.where(name: role).first
-    player2 = Player.where(game: game).where(role: role).first
-    Relation.where(player1: self, player2: player2).first_or_create.update_attributes(role: player2.role, party: player2.get_party) unless player2.nil?
+    player2s = Player.where(game: game).where(role: role)
+    return if player2s.nil?
+    player2s.each do |player2|
+      Relation.where(player1: self, player2: player2).first_or_create.update_attributes(role: player2.role, party: player2.get_party)
+    end
   end
 end

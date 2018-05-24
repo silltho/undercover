@@ -90,7 +90,7 @@ class Game < ApplicationRecord
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
     end
-    players.each(&:get_relations)
+    players.each(&:init_relations)
   end
 
   def add_player(player)
