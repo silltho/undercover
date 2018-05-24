@@ -56,7 +56,7 @@ class Game extends React.PureComponent {
           <GameInfo
             player={this.props.player}
             game={this.props.game}
-            roundInformations={this.props.roundInformations}
+            roundInformations={this.props.game.get('round_info')}
             readInfos={this.props.endInfoPhase}
           />)
       case GamePhases.ACTIVITY:
@@ -70,7 +70,7 @@ class Game extends React.PureComponent {
       case GamePhases.FINISHED:
         return (
           <GameEnd
-            endInformation={this.props.endInformation}
+            endInformation={this.props.game.get('end_info')}
             resetGame={this.props.resetGame}
           />)
       default:
@@ -87,6 +87,7 @@ class Game extends React.PureComponent {
     const ready = app.get('showWaitForOpponents')
     const gamePhaseKey = this.props.game.get('aasm_state')
     const gameCode = this.props.game.get('code')
+    const playerInformation = this.props.player.get('infos')
 
     return (
       <FadeIn>
@@ -98,7 +99,7 @@ class Game extends React.PureComponent {
         </SlideInOut>
         {showPlayerInformationModal &&
           <PlayerInformationModal
-            playerInformation={this.props.playerInformation}
+            playerInformation={playerInformation}
             onRequestHide={hidePlayerInformations}
           />
         }
@@ -117,9 +118,6 @@ Game.propTypes = {
   app: PropTypes.instanceOf(Map).isRequired,
   game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
-  roundInformations: PropTypes.instanceOf(Map).isRequired,
-  playerInformation: PropTypes.instanceOf(Map).isRequired,
-  endInformation: PropTypes.instanceOf(Map).isRequired,
   endInfoPhase: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   drawGame: PropTypes.func.isRequired,
@@ -141,10 +139,7 @@ export const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   app: state.get('App'),
   game: state.get('Game'),
-  player: state.get('Player'),
-  roundInformations: state.get('RoundInformation'),
-  playerInformation: state.get('PlayerInformation'),
-  endInformation: state.get('EndInformation')
+  player: state.get('Player')
 })
 
 export default connect(

@@ -23,13 +23,13 @@ const initialState = fromJS({
     showWrongGamecode: false,
     showFullGame: false
   },
-  Game: {},
-  Player: {},
-  RoundInformation: {},
-  PlayerInformation: {
-    informations: []
+  Game: {
+    round_info: {},
+    end_info: {}
   },
-  EndInformation: {}
+  Player: {
+    infos: []
+  }
 })
 
 function appReducer(state = initialState, action) {
@@ -42,11 +42,11 @@ function appReducer(state = initialState, action) {
     }
     case WINNING_INFORMATION: {
       const data = fromJS(action.data)
-      return state.setIn(['EndInformation', 'end_text'], data)
+      return state.setIn(['Game', 'end_info', 'end_text'], data)
     }
     case GAME_ENDED : {
       const data = fromJS(action.data)
-      return state.setIn(['EndInformation'], data)
+      return state.setIn(['Game', 'end_info'], data)
     }
     case WAITING_FOR_OTHERS: {
       return state.setIn(['App', 'showWaitForOpponents'], true)
@@ -57,7 +57,7 @@ function appReducer(state = initialState, action) {
     case PLAYER_INFORMED: {
       const newInformation = fromJS(action.data)
       return state.setIn(['App', 'showPlayerInformation'], true)
-        .updateIn(['PlayerInformation', 'informations'], (informations) => informations.push(newInformation))
+        .updateIn(['Player', 'infos'], (informations) => informations.push(newInformation))
     }
     case RESET_GAME: {
       return initialState
@@ -82,11 +82,12 @@ function appReducer(state = initialState, action) {
       return state.set('Game', fromJS({}))
     }
     case PLAYER_UPDATED: {
-      const player = fromJS(action.data)
-      return state.set('Player', player)
+      const player = state.get('Player', Map())
+      const data = fromJS(action.data)
+      return state.set('Player', player.merge(data))
     }
     case INFORMATION_UPDATED: {
-      return state.mergeIn(['RoundInformation'], fromJS(action.data))
+      return state.mergeIn(['Game', 'round_info'], fromJS(action.data))
     }
     default:
       return state
