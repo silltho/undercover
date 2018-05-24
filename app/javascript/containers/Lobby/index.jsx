@@ -42,6 +42,7 @@ class Lobby extends React.PureComponent {
 
   render() {
     const { game } = this.props
+    const players = game.getIn(['start_info', 'players'])
 
     return (
       <FadeIn>
@@ -51,9 +52,9 @@ class Lobby extends React.PureComponent {
         </Header>
         <Content>
           <PlayerCount>
-            {game && game.get('players').size} Player
+            {players.size} Player
           </PlayerCount>
-          <PlayersList players={game.get('players')} />
+          <PlayersList players={players} />
         </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />
