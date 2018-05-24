@@ -81,12 +81,8 @@ class Game < ApplicationRecord
   #### INITIALIZING ####
 
   def init_game
-    data = {}
-    data['round'] = round
     init_players
-    players.each do |player|
-      player.broadcast_player_updated
-    end
+    players.each(&:broadcast_player_updated)
   end
 
   def init_players
