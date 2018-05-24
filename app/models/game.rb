@@ -209,17 +209,17 @@ class Game < ApplicationRecord
   end
 
   def check_for_change(committer, victim)
-    # president can't convert godfather and vice versa
     if committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
+      # president can't convert godfather and vice versa
       false
-      # reconverting is possible
     elsif not_same_party_anymore(committer, victim)
+      # reconverting is possible
       true
-      # members of the same party do not change party
     elsif same_party(committer, victim)
+      # members of the same party do not change party
       false
-      # if not case applies, converting is possible
     else
+      # if not case applies, converting is possible
       true
     end
   end
