@@ -1,17 +1,20 @@
 <% session[:foo] = "bar" if session.id.nil? %>
 
 <div class='content'>
-  <div class='town-container'>
+  <div class='main-content'>
 
-    <%= link_to '/app', class: 'play-game-button' do %>
-        <div class='play-game-button-container'>PLAY</div>
-    <% end %>
+    <div class='play-game-button-container'>
+      <%= link_to '/app', class: 'play-game-button' do %>PLAY<% end %>
+    </div>
 
-    <%= video_tag('town_orig_720p.mp4', poster: 'game/town.jpg', type:'video/mp4;codecs="avc1.42E01E, mp4a.40.2"', controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+    <div class='town-video-container'>
+      <%= video_tag('town_orig_720p.mp4', poster: 'game/town.jpg', type:'video/mp4;codecs="avc1.42E01E, mp4a.40.2"', controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+    </div>
+
   </div>
 
-  <div class='handbook-button' data-turbolinks="false">
-    <%= link_to 'i', '/team' %>
+  <div data-turbolinks="false">
+    <%= link_to '/team', class: 'ruleset-navigation' do %>i<% end %>
   </div>
 
   <div class="audio-control">

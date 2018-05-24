@@ -1,15 +1,14 @@
 @import "config/globals";
 
 .audio-control {
+  top: 0;
+  right: 0;
   position: fixed;
-  right: 0.5rem;
-  top: 0.5rem;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 0.9em;
-  padding-bottom: 0.9em;
+  padding: 0.5rem 0.5rem 0.8rem 0.8rem
 }
 
 .volume-icon {

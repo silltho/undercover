@@ -1,8 +1,12 @@
 @import "config/globals";
 
-.town-container {
+.town-video-container {
   display: block;
   position: relative;
+  height: 100%;
+}
+
+.main-content {
   height: 100%;
 }
 
@@ -23,16 +27,4 @@
   width: 6rem;
   display: flex;
   justify-content: space-between;
-}
-
-.handbook-button {
-  position: fixed;
-  background-color: $g_DarkBlue;
-  border: 2px solid $g_Pink;
-  border-radius: 5px;
-  color: $g_Pink;
-  font-size: 1.5rem;
-  right: 0.5rem;
-  bottom: 0.5rem;
-  padding: 0.2rem 1.0rem;
 }
