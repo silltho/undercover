@@ -200,22 +200,26 @@ class Game < ApplicationRecord
     player.role.try(:party) == ANARCHISTS
   end
 
+  def belongs_to_winning_party(player, winner)
+    (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
+  end
+
   def check_for_prisoners(victim)
     victim.imprisoned?
   end
 
   def check_for_change(committer, victim)
-    # president can't convert godfather and vice versa
     if committer.role.passive == 'immunity' && victim.role.passive == 'immunity'
+      # president can't convert godfather and vice versa
       false
-      # reconverting is possible
     elsif not_same_party_anymore(committer, victim)
+      # reconverting is possible
       true
-      # members of the same party do not change party
     elsif same_party(committer, victim)
+      # members of the same party do not change party
       false
-      # if not case applies, converting is possible
     else
+      # if not case applies, converting is possible
       true
     end
   end
@@ -263,9 +267,12 @@ class Game < ApplicationRecord
   def calculate_success(c_id, v_id)
     c = Player.find(c_id)
     v = Player.find(v_id)
+    # some actions always pass without extra checking
     return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
+    # only free people can be imprisoned and only imprisoned people can be freed
     return check_for_prisoners(v) if c.role.active == "free"
     return !check_for_prisoners(v) if c.role.active == "imprison"
+    # converting needs extra checking due to immunity of characters and multiple party changes
     check_for_change(c, v)
   end
 
@@ -319,14 +326,9 @@ class Game < ApplicationRecord
 
   # needs refactoring
   def generate_success_text(role, victim)
-    return "A criminal has been persuaded to join the townsmen." if role.name == 'President'
-    return "Threatened by a criminal, a player revealed its role." if role.name == 'Bodyguard'
-    return "R.I.P. #{victim.codename} (#{victim.role.name}) lies dead on the street." if role.name == 'Enforcer'
-    return "Sneaky, sneaky. A prisoner is freed." if role.name == 'Beagle Boy'
-    return "Corruption! Money changed somebody’s mind." if role.name == 'Godfather'
-    return "Caught by the police, #{victim.codename} has been jailed" if role.name == 'Chief' || role.name == "Officer"
-    return "Espionage has been carried out." if role.name == 'Agent'
-    "Rats! #{victim.codename} (#{victim.role.name}) has been deadly poisoned by the anarchist. " if role.name == 'Junior'
+    regex_name = /(NAME)/
+    regex_role = /(ROLE)/
+    role.text_success.gsub(regex_role, victim.role.name).gsub(regex_name, victim.codename)
   end
 
   def write_fail_story(role)
@@ -354,7 +356,7 @@ class Game < ApplicationRecord
 
   def send_info_to_player(winner)
     players.each do |player|
-      if (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
+      if belongs_to_winning_party(player, winner)
         player.broadcast_you_won
       elsif winner == DRAW
         player.broadcast_draw
@@ -362,10 +364,6 @@ class Game < ApplicationRecord
         player.broadcast_you_lost
       end
     end
-  end
-
-  def belongs_to_winning_party(player, winner)
-
   end
 end
 

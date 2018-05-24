@@ -7,6 +7,7 @@ import { GameChannel, UserChannel } from 'services/channels'
 import Button from 'components/Button'
 import FadeIn from 'components/Animations/FadeIn'
 import GameForm from 'components/GameForm'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   Header
 } from 'styles/components'
@@ -14,11 +15,18 @@ import {
   Wrapper,
   ButtonContainer,
   Title,
-  Logo
+  Logo,
+  HomeWrapper,
+  HomeIcon,
+  HomeIconText
 } from './Styles'
-import SunTimer from "components/SunTimer"
 
 class Dashboard extends React.PureComponent {
+
+  navigateToHomeScreen = () => {
+    window.location.href = '/'
+  }
+
   render() {
     const { app } = this.props
 
@@ -40,6 +48,12 @@ class Dashboard extends React.PureComponent {
               fullGame={this.props.app.get('showFullGame')}
             />
           </ButtonContainer>
+          <HomeWrapper onClick={this.navigateToHomeScreen}>
+            <HomeIcon>
+              <IconFont icon={ICONS.office} />
+            </HomeIcon>
+            <HomeIconText>Home</HomeIconText>
+          </HomeWrapper>
         </FadeIn>
       </Wrapper>
     )

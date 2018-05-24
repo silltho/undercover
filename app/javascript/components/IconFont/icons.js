@@ -20,5 +20,8 @@ export default {
   reply: 'e96a',
   checkmark: 'ea10',
   share: 'ea82',
-  exit: 'ea14'
+  exit: 'ea14',
+  library: 'e90e',
+  office: 'e90d',
+  home: 'e90f'
 }

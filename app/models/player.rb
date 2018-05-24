@@ -3,8 +3,8 @@ class Player < ApplicationRecord
   belongs_to :game, optional: true
   belongs_to :role, optional: true
   belongs_to :user
-  has_many :articles, dependent: :destroy
-  has_many :relations, dependent: :destroy
+  has_many :articles
+  has_many :relations
   has_many :action_logs, dependent: :destroy
 
   aasm column: 'state', whiny_transitions: false do
