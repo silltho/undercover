@@ -1,0 +1,53 @@
+@import "globals";
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  font-family: $g_Nunito;
+  opacity: 1;
+  overflow-y: scroll;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html, body, body > div {
+  font-size: 16px;
+  background-color: $g_DarkBlue;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  border: none;
+}
+
+ul {
+  padding: 0;
+}
+
+a, .a, a:visited, .a:visited {
+  color: $g_Pink;
+  text-decoration: none;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+

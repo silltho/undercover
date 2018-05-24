@@ -1,6 +1,6 @@
 <% session[:foo] = "bar" if session.id.nil? %>
 
-<div class='pattern-wrapper'>
+<div class='content'>
   <div class='town-container'>
 
     <%= link_to '/app', class: 'play-game-button' do %>
@@ -18,9 +18,9 @@
     <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
     <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
   </div>
-
-  <%# audio_tag("honk.wav", id: 'play_game', controls: false) %>
-  <%= audio_tag("soundtrack.ogg", id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
-
-  <%# init_playbutton %>
 </div>
+
+<%= audio_tag('start.wav', id: 'playsound', controls: false) %>
+<%= audio_tag('soundtrack.ogg', id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
+
+<%= init_audio %>
