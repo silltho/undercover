@@ -8,7 +8,7 @@ export default function () {
   img.style.transition = '6s all linear'
   img.style.position = 'fixed'
   img.style.left = '-400px'
-  img.style.bottom = 'calc(-50% + 330px)'
+  img.style.bottom = 0
   img.style.zIndex = 999999
 
   document.body.appendChild(img)
