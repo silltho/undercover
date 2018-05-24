@@ -40,6 +40,7 @@
       "!**/app/javascript/containers/**",
       "!**/app/javascript/**/Styles.js",
       "!**/app/javascript/components/Animations/**",
+      "!**/app/javascript/components/EasterEggs/**",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
