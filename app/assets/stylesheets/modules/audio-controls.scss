@@ -1,0 +1,29 @@
+@import "config/globals";
+
+.audio-control {
+  position: fixed;
+  right: 0.5rem;
+  top: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7em;
+}
+
+.volume-icon {
+  width: 1rem;
+  height: 1em;
+}
+
+.volume-icon-off {
+
+}
+
+.volume-icon-on {
+
+}
+
+.hide {
+  display: none;
+}
