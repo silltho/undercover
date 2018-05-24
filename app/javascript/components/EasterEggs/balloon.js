@@ -7,7 +7,8 @@ export default function () {
   img.style.transition = '13s all'
   img.style.position = 'fixed'
   img.style.right = '-500px'
-  img.style.bottom = '0px'
+  img.style.bottom = '50%'
+  img.style.transform = 'translateY(50%)'
   img.style.zIndex = 999999
 
   document.body.appendChild(img)
