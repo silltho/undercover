@@ -10,6 +10,16 @@ import Kirby from './kirby'
 import Homer from './homer'
 import Dog from './dog'
 import Hangover from './hangover'
+import Pikachu from './pikachu'
+import Spongebob from './spongebob'
+import Winner from './winner'
+import Haters from './haters'
+import Rabbit from './rabbit'
+import Ballon from './balloon'
+import Mario from './mario'
+import Ufo from './ufo'
+import Psyduck from './psyduck'
+import Britney from './britney'
 
 export const easterEggs = [
   'paddy',
@@ -23,7 +33,17 @@ export const easterEggs = [
   'jakob',
   'jana',
   'mike',
-  'markus'
+  'markus',
+  'july',
+  'erfan',
+  'karli',
+  'neele',
+  'vanessa',
+  'daxi',
+  'johnny',
+  'jonah',
+  'mario',
+  'tobi'
 ]
 
 export const getEasterEggsFromCodenames = (codenames) =>
@@ -43,6 +63,16 @@ export default function (showEasterEggs) {
       case 'jakob': return Pikarun()
       case 'jana': return Catrun()
       case 'mike': return Cool()
+      case 'july': return Pikachu()
+      case 'erfan': return Haters()
+      case 'karli': return Spongebob()
+      case 'neele': return Rabbit()
+      case 'vanessa': return Ballon()
+      case 'daxi': return Winner()
+      case 'johnny': return Ufo()
+      case 'jonah': return Psyduck()
+      case 'mario': return Mario()
+      case 'tobi': return Britney()
       case 'markus': return Handsome()
       default: return null
     }
