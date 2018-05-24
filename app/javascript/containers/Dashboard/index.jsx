@@ -48,11 +48,11 @@ class Dashboard extends React.PureComponent {
               fullGame={this.props.app.get('showFullGame')}
             />
           </ButtonContainer>
-          <HomeWrapper>
-            <HomeIcon onClick={this.navigateToHomeScreen}>
+          <HomeWrapper onClick={this.navigateToHomeScreen}>
+            <HomeIcon>
               <IconFont icon={ICONS.office} />
             </HomeIcon>
-            <HomeIconText>Town</HomeIconText>
+            <HomeIconText>Home</HomeIconText>
           </HomeWrapper>
         </FadeIn>
       </Wrapper>
