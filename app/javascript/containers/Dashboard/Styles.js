@@ -38,11 +38,11 @@ export const HomeWrapper = styled.div`
   font-size: 1rem;
   left: 1rem;
   bottom: 1rem;
-  position: absolute;  
+  position: relative;  
   display: flex;
-  justify-content: left;
   align-items: baseline;
-  justify-content: center;
+  justify-content: left;
+  width: 30%;
   border-bottom: 2px solid ${PINK};
 `
 

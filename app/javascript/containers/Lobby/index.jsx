@@ -23,7 +23,9 @@ import {
 } from './Styles'
 
 function getCodenamesFrom(props) {
-  return props.game.getIn(['start_info', 'players']).map((p) => p.get('codename').toLowerCase())
+  return props.game.getIn(['start_info', 'players'])
+    .sortBy((p) => p.get('id'))
+    .map((p) => p.get('codename').toLowerCase())
 }
 
 class Lobby extends React.PureComponent {
