@@ -3,9 +3,9 @@ class Player < ApplicationRecord
   belongs_to :game, optional: true
   belongs_to :role, optional: true
   belongs_to :user
-  has_many :articles
-  has_many :relations
-  has_many :action_logs
+  has_many :articles, dependent: :destroy
+  has_many :relations, dependent: :destroy
+  has_many :action_logs, dependent: :destroy
 
   aasm column: 'state', whiny_transitions: false do
     state :alive, initial: true
@@ -42,8 +42,8 @@ class Player < ApplicationRecord
       party: get_party,
       other_players: build_relations,
       role: { id: role.try(:id),
-              name: self.try(:role).try(:name),
-              image: self.try(:role).try(:image),
+              name: role.try(:name),
+              image: role.try(:image),
               party: role.try(:party),
               goal: role.try(:goal),
               lore: role.try(:lore),
