@@ -200,6 +200,10 @@ class Game < ApplicationRecord
     player.role.try(:party) == ANARCHISTS
   end
 
+  def belongs_to_winning_party(player, winner)
+    (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
+  end
+
   def check_for_prisoners(victim)
     victim.imprisoned?
   end
@@ -263,9 +267,12 @@ class Game < ApplicationRecord
   def calculate_success(c_id, v_id)
     c = Player.find(c_id)
     v = Player.find(v_id)
+    # some actions always pass without extra checking
     return true if ALWAYS_SUCCESSFUL.include?(c.role.active)
+    # only free people can be imprisoned and only imprisoned people can be freed
     return check_for_prisoners(v) if c.role.active == "free"
     return !check_for_prisoners(v) if c.role.active == "imprison"
+    # converting needs extra checking due to immunity of characters and multiple party changes
     check_for_change(c, v)
   end
 
@@ -354,7 +361,7 @@ class Game < ApplicationRecord
 
   def send_info_to_player(winner)
     players.each do |player|
-      if (winner == MAFIA && belongs_to_mafia(player)) || (winner == TOWN && belongs_to_town(player)) || winner == ANARCHISTS && belongs_to_anarchists(player)
+      if belongs_to_winning_party(player, winner)
         player.broadcast_you_won
       elsif winner == DRAW
         player.broadcast_draw
@@ -362,10 +369,6 @@ class Game < ApplicationRecord
         player.broadcast_you_lost
       end
     end
-  end
-
-  def belongs_to_winning_party(player, winner)
-
   end
 end
 
