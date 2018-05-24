@@ -1,11 +1,22 @@
 import Unicorn from './unicorn'
 import Handsome from './handsome'
 import Board from './board'
+import Pikarun from './pikarun'
+import Cool from './cool'
 
 export const easterEggs = [
   'paddy',
   'anna',
-  'tom'
+  'tom',
+  'paul',
+  'melissa',
+  'woidl',
+  'tschayson',
+  'martin',
+  'jakob',
+  'jana',
+  'mike',
+  'markus'
 ]
 
 export const getEasterEggsFromCodenames = (codenames) =>
@@ -22,9 +33,9 @@ export default function (showEasterEggs) {
       case 'woidl': return Board()
       case 'tschayson': return Board()
       case 'martin': return Board()
-      case 'jakob': return Board()
+      case 'jakob': return Pikarun()
       case 'jana': return Board()
-      case 'mike': return Board()
+      case 'mike': return Cool()
       case 'markus': return Board()
       default: return null
     }
