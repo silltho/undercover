@@ -326,14 +326,9 @@ class Game < ApplicationRecord
 
   # needs refactoring
   def generate_success_text(role, victim)
-    return "A criminal has been persuaded to join the townsmen." if role.name == 'President'
-    return "Threatened by a criminal, a player revealed its role." if role.name == 'Bodyguard'
-    return "R.I.P. #{victim.codename} (#{victim.role.name}) lies dead on the street." if role.name == 'Enforcer'
-    return "Sneaky, sneaky. A prisoner is freed." if role.name == 'Beagle Boy'
-    return "Corruption! Money changed somebody’s mind." if role.name == 'Godfather'
-    return "Caught by the police, #{victim.codename} has been jailed" if role.name == 'Chief' || role.name == "Officer"
-    return "Espionage has been carried out." if role.name == 'Agent'
-    "Rats! #{victim.codename} (#{victim.role.name}) has been deadly poisoned by the anarchist. " if role.name == 'Junior'
+    regex_name = /(NAME)/
+    regex_role = /(ROLE)/
+    role.text_success.gsub(regex_role, victim.role.name).gsub(regex_name, victim.codename)
   end
 
   def write_fail_story(role)
