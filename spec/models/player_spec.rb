@@ -4,11 +4,6 @@ require 'aasm/rspec'
 RSpec.describe Player, type: :model do
   let!(:player) { Player.new }
 
-  it 'sets a random codename' do
-    expect(player.codename).to be_nil
-    expect(player.create_codename).not_to be_nil
-  end
-
   it 'assigns a role to the player' do
     expect(player.role).to be_nil
     expect(player.assign_character(Role.last)).not_to be_nil
@@ -58,21 +53,6 @@ RSpec.describe Player, type: :model do
     expect(player.changed_party).to be true
   end
 
-  it 'can reveal its identity' do
-    gf = Role.create(name: "Godfather")
-    bg = Role.create(name: "Bodyguard")
-    p1 =  Player.create(id: 6, role: gf)
-    p2 = Player.create(id: 7, role: bg)
-    expect(p1.role).not_to be_nil
-    expect(p2.role).not_to be_nil
-    expect(p2.relations).to be_empty
-    p1.reveal_identity(p2)
-    expect(p2.relations).not_to be_empty
-    expect(p1.relations).to be_empty
-    p2.reveal_identity(p1)
-    expect(p1.relations).not_to be_empty
-  end
-
   it 'can spy on or blackmail other players' do
     gf = Role.create(name: "Godfather", id: 1, party: "Mafia", active: "corrupt", passive: "immunity")
     pr = Role.create(name: "President", id: 2, party: "Town", active: "convert", passive: "immunity")
@@ -88,6 +68,11 @@ RSpec.describe Player, type: :model do
     p4 = Player.create(id: 4, user: u4, role: bg)
     g = Game.new
     expect(g.calculate_success(p4.id, p2.id)).to be true
+    expect(g.calculate_success(p4.id, p1.id)).to be true
+    expect(g.calculate_success(p4.id, p3.id)).to be true
+    expect(g.calculate_success(p3.id, p2.id)).to be true
+    expect(g.calculate_success(p3.id, p1.id)).to be true
+    expect(g.calculate_success(p3.id, p4.id)).to be true
   end
 
   it 'gets its relations as Godfather' do
@@ -101,10 +86,10 @@ RSpec.describe Player, type: :model do
     g.add_player(p1)
     g.add_player(p2)
     expect(p1.relations).to be_empty
-    p1.get_relations(g)
+    p1.init_relations
     expect(p1.relations).not_to be_empty
     expect(p1.relations.count).to eql(1)
-    expect(p1.relations.first.first).to eql(9)
+    expect(p1.relations.first.player2.role.name).to eql("Bodyguard")
   end
 
   it 'gets its relations as Chief' do
@@ -122,20 +107,22 @@ RSpec.describe Player, type: :model do
     g.add_player(p2)
     g.add_player(p3)
     expect(p1.relations).to be_empty
-    p1.get_relations(g)
-    expect(p1.relations).not_to be_empty
+    p1.init_relations
+    expect(p1.relations.count).not_to eql(0)
     expect(p1.relations.count).to eql(2)
+    expect(p1.relations.first.player2.role.name).to eql("Officer" || "President")
+    expect(p1.relations.second.player2.role.name).to eql("President" || "Officer")
   end
 
   it 'gets its relations as Junior' do
     jr = Role.create(name: 'Junior')
-    p = Player.create(role: jr, id: 13, codename: 'Giftmischer')
     u1 = User.create(id: 1, session_id: 1111)
+    p = Player.create(role: jr, user: u1, id: 13, codename: 'Giftmischer')
     g = Game.create(id: 1)
     g.add_player(p)
     expect(p.relations).to be_empty
-    p.get_relations(g)
-    expect(p.relations).to be_empty
+    p.init_relations
+    expect(p.relations.count).to eql(0)
   end
 
   it 'test query relation information' do
@@ -145,19 +132,18 @@ RSpec.describe Player, type: :model do
     u1 = User.create(id: 1, session_id: 1111)
     u2 = User.create(id: 2, session_id: 2222)
     u3 = User.create(id: 3, session_id: 4234)
-    p1 = Player.create(role: ch, user: u1, id: 10, codename: "player1", relations: [])
-    p2 = Player.create(role: of, user: u2, id: 11, codename: "player2", relations: [])
-    p3 = Player.create(role: pr, user: u3, id: 12, codename: "player3", relations: [])
+    p1 = Player.create(role: ch, user: u1, id: 10, codename: "player1")
+    p2 = Player.create(role: of, user: u2, id: 11, codename: "player2")
+    p3 = Player.create(role: pr, user: u3, id: 12, codename: "player3")
     g = Game.create(id: 1)
     g.add_player(p1)
     g.add_player(p2)
     g.add_player(p3)
-    #puts(p1.query_relation_information("Chief", g))
-    #puts(p1.query_relation_information("President", g))
-    #puts(p1.query_relation_information("Officer", g))
-    expect(p1.relations).to be_empty
-    p1.get_relations(g)
-    puts p1.relations
-    expect(p1.relations).not_to be_empty
+    p1.init_relations
+    p2.init_relations
+    p3.init_relations
+    expect(p1.relations.count).to eql(2)
+    expect(p2.relations.count).to eql(2)
+    expect(p3.relations.count).to eql(2)
   end
 end

@@ -1,9 +1,9 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  has_many :players, dependent: :delete_all
-  has_many :articles, dependent: :delete_all
-  has_many :action_logs, dependent: :delete_all
+  has_many :players, dependent: :destroy
+  has_many :articles, dependent: :destroy
+  has_many :action_logs, dependent: :destroy
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
   TOWN = 'Town'
@@ -28,10 +28,6 @@ class Game < ApplicationRecord
       transitions from: :inform, to: :activity
     end
 
-    # event :exchanged do
-    #   transitions from: :exchange, to: :activity
-    # end
-
     event :skills_used, after: :update_round do
       transitions from: :activity, to: :inform
     end
@@ -46,13 +42,6 @@ class Game < ApplicationRecord
       transitions from: :inform, to: :activity
       transitions from: :activity, to: :inform, after: :update_round
     end
-
-    event :reset do
-      transitions from: :initialized, to: :waiting
-      transitions from: :inform, to: :waiting
-      transitions from: :activity, to: :waiting
-      transitions from: :finished, to: :waiting
-    end
   end
 
   #### BROADCASTS ####
@@ -62,7 +51,7 @@ class Game < ApplicationRecord
     GamesChannel.broadcast_to(self, type: 'game_updated', data: get_game_object)
   end
 
-  def broadcast_information_updated(last_round)
+  def broadcast_information_updated
     reload
     GamesChannel.broadcast_to(self, type: 'information_updated', data: get_newspaper_object)
   end
@@ -80,7 +69,7 @@ class Game < ApplicationRecord
 
   def time_is_up
     self.next_state!
-    broadcast_information_updated(round) if aasm_state == 'inform'
+    broadcast_information_updated if aasm_state == 'inform'
     broadcast_game_updated
   end
 
@@ -98,11 +87,10 @@ class Game < ApplicationRecord
   def init_players
     roles_array = assign_roles(players.size)
     players.each do |player|
-      player.reset!
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
     end
-    players.each(&:get_relations)
+    players.each(&:init_relations)
   end
 
   def add_player(player)
@@ -139,8 +127,9 @@ class Game < ApplicationRecord
        code: code,
        aasm_state: aasm_state,
        round: round,
-       players: players,
-       party_distribution: get_party_members
+       start_info: { players: players,
+                     party_distribution: get_party_members
+       }
     }
   end
 
