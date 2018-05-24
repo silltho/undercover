@@ -6,6 +6,7 @@ import FadeIn from 'components/Animations/FadeIn'
 import Button from 'components/Button'
 import PlayersList from 'components/PlayersList'
 import IconFont, { ICONS } from 'components/IconFont'
+import showEasterEggs, {getEasterEggsFromCodenames} from 'components/EasterEggs'
 import {
   UserChannel,
   GameChannel
@@ -21,8 +22,26 @@ import {
   ShareButton
 } from './Styles'
 
+function getCodenamesFrom(props) {
+  return props.game.getIn(['start_info', 'players']).map((p) => p.get('codename').toLowerCase())
+}
 
 class Lobby extends React.PureComponent {
+  componentDidMount() {
+    const codeNames = getCodenamesFrom(this.props)
+    const easterEggs = getEasterEggsFromCodenames([codeNames.last()])
+    showEasterEggs(easterEggs)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const propsCodeNames = getCodenamesFrom(this.props)
+    const nextPropsCodeNames = getCodenamesFrom(nextProps)
+    const propsEasterEggs = getEasterEggsFromCodenames(propsCodeNames)
+    const nextPropsEasterEggs = getEasterEggsFromCodenames(nextPropsCodeNames)
+    const newEasterEggs = nextPropsEasterEggs.filter((e) => !propsEasterEggs.includes(e))
+    showEasterEggs(newEasterEggs)
+  }
+
   leaveGame = () => {
     this.props.leaveGame(this.props.game.get('id'))
   }
