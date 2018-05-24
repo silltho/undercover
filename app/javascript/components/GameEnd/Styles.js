@@ -4,14 +4,15 @@ import IconFont from 'components/IconFont'
 export const Player = styled.div`
   display: flex;
   padding: 0.5rem 1rem; 
-  justify-content: space-between; 
 `
 
 export const Role = styled.div`
-  
+  flex: 1;
+  text-align: right;
 `
 
 export const CodeName = styled.div`
+  flex:1;
 `
 
 export const FractionLogo = styled.div`
@@ -26,5 +27,6 @@ export const ImageWrapper = styled.div`
 `
 
 export const StateIcon = styled(IconFont)`
-  margin-right: 1rem;
+  display: flex;
+  align-items: center;
 `
