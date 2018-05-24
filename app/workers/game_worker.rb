@@ -7,7 +7,6 @@ class GameWorker
       started = g.updated_at
       now = Time.now
       g.time_is_up if TimeDifference.between(started, now).in_seconds >= 30 && g.aasm_state != 'finished'
-      g.finish! if g.round > 20
     end
   end
 end
