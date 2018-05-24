@@ -66,7 +66,7 @@ class GamesChannel < ApplicationCable::Channel
   def all_skills_used
     @game.reload
     @game.skills_used!
-    @game.broadcast_information_updated(@game.round)
+    @game.broadcast_information_updated
     @game.broadcast_game_updated
   end
 
@@ -74,11 +74,6 @@ class GamesChannel < ApplicationCable::Channel
     @game.reload
     @game.finish!
     @game.broadcast_game_updated
-  end
-
-  def reset_game
-    @game.reload
-    @game.reset!
   end
 
   private
