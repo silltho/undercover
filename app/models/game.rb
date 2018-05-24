@@ -21,15 +21,15 @@ class Game < ApplicationRecord
     end
 
     event :started do
-      transitions from: :initialized, to: :activity
+      transitions from: :initialized, to: :activity, after: :start_timer
     end
 
     event :informed do
-      transitions from: :inform, to: :activity
+      transitions from: :inform, to: :activity, after: :start_timer
     end
 
     event :skills_used, after: :update_round do
-      transitions from: :activity, to: :inform
+      transitions from: :activity, to: :inform, after: :start_timer
     end
 
     event :finish do
@@ -38,9 +38,9 @@ class Game < ApplicationRecord
     end
 
     event :next_state do
-      transitions from: :initialized, to: :activity
-      transitions from: :inform, to: :activity
-      transitions from: :activity, to: :inform, after: :update_round
+      transitions from: :initialized, to: :activity, after: :start_timer
+      transitions from: :inform, to: :activity, after: :start_timer
+      transitions from: :activity, to: :inform, after: [:update_round, :start_timer]
     end
   end
 
@@ -67,9 +67,14 @@ class Game < ApplicationRecord
     end
   end
 
+  def start_timer
+    GameWorker.perform_in(28.seconds, id, round)
+  end
+
   def time_is_up
     self.next_state!
     broadcast_information_updated if aasm_state == 'inform'
+    finish! if is_game_over?
     broadcast_game_updated
   end
 
@@ -357,6 +362,10 @@ class Game < ApplicationRecord
         player.broadcast_you_lost
       end
     end
+  end
+
+  def belongs_to_winning_party(player, winner)
+
   end
 end
 

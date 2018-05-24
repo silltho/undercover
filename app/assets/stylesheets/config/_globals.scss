@@ -19,10 +19,6 @@ $g_spectral: 'Spectral', serif; // newspaper headliner, infophase
 $g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
 $g_rocksalt: 'Rock Salt', cursive;
 
-/* ASSETS */
-$g_logo_path: asset-path('game/town.jpg');
-
-/* GENERAL */
 body, html {
   width: 100%;
   box-sizing: border-box;
@@ -32,7 +28,7 @@ body, html {
 }
 
 .container {
-  padding: 0rem 1.5rem 0rem 1.5rem;
+  padding: 0 1.5rem 0 1.5rem;
   color: white;
 }
 
@@ -44,16 +40,26 @@ footer.footer {
   color: $g_Pink;
 }
 
-a, .a ,a:visited, .a:visited{
+a, .a, a:visited, .a:visited {
   color: $g_Pink;
   text-decoration: none;
+}
+
+.yellow {
+  color: $g_Yellow;
+  font-size: 30px;
+}
+
+.pink {
+  color: $g_Pink;
+  font-size: 30px;
 }
 
 /*----- remove input number spinner -----*/
 
 /* For Firefox */
 input[type='number'] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 /* Webkit browsers like Safari and Chrome */
@@ -62,6 +68,7 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 /*-----------------------------------------*/
 
 :export {
@@ -79,16 +86,4 @@ input[type=number]::-webkit-outer-spin-button {
   NEWSPAPER_FONT: $g_spectral;
   MAIN_FONT: $g_nunito;
   NOTE_FONT: $g_rocksalt;
-
-  LOGO_PATH: $g_logo_path;
-}
-
-.yellow {
-  color: $g_Yellow;
-  font-size: 30px;
-}
-
-.pink {
-  color: $g_Pink;
-  font-size: 30px;
 }
