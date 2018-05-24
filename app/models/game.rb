@@ -33,8 +33,8 @@ class Game < ApplicationRecord
     end
 
     event :finish do
-      transitions from: :inform, to: :finished
-      transitions from: :activity, to: :finished
+      transitions from: :inform, to: :finished, after: :cleanup
+      transitions from: :activity, to: :finished, after: :cleanup
     end
 
     event :next_state do
@@ -94,6 +94,14 @@ class Game < ApplicationRecord
       player.assign_character(roles_array.delete(roles_array.sample))
     end
     players.each(&:get_relations)
+  end
+
+  def cleanup
+    Article.where(game: self).destroy_all
+    Relation.where(player1: players).destroy_all
+    ActionLog.where(game: self)
+    Player.where(game: self).destroy_all
+    Game.destroy
   end
 
 
