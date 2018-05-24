@@ -1,9 +1,9 @@
 class Game < ApplicationRecord
   include AASM
   require 'faker'
-  has_many :players, dependent: :delete_all
-  has_many :articles, dependent: :delete_all
-  has_many :action_logs, dependent: :delete_all
+  has_many :players, dependent: :destroy
+  has_many :articles, dependent: :destroy
+  has_many :action_logs, dependent: :destroy
   after_create :set_game_code
   ALWAYS_SUCCESSFUL = %w[blackmail spy shoot poison].freeze
   TOWN = 'Town'
@@ -127,8 +127,9 @@ class Game < ApplicationRecord
        code: code,
        aasm_state: aasm_state,
        round: round,
-       players: players,
-       party_distribution: get_party_members
+       start_info: { players: players,
+                     party_distribution: get_party_members
+       }
     }
   end
 
