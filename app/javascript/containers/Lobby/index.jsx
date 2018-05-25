@@ -25,7 +25,7 @@ import {
 function getCodenamesFrom(props) {
   return props.game.getIn(['start_info', 'players'])
     .sortBy((p) => p.get('id'))
-    .map((p) => p.get('codename').toLowerCase())
+    .map((p) => p.get('codename', 'undefined').toLowerCase())
 }
 
 class Lobby extends React.PureComponent {
