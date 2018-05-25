@@ -33,8 +33,8 @@ class GamesChannel < ApplicationCable::Channel
     finish_phase("end_info_phase")
     if phase_finished?("end_info_phase")
       @game.broadcast_all_players
-      finish_game if @game.is_game_over?
       @game.informed!
+      finish_game if @game.is_game_over?
       @game.broadcast_game_updated
     end
   end
