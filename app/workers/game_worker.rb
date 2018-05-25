@@ -1,10 +1,11 @@
 class GameWorker
   include Sidekiq::Worker
+  include Sidekiq::Status::Worker
   sidekiq_options retry: false
 
-  def perform(game_id, round)
+  def perform(game_id)
     g = Game.find(game_id)
-    g.time_is_up if g.round == round && TimeDifference.between(g.updated_at, Time.now).in_seconds >= 27 && g.aasm_state != 'finished'
+    g.time_is_up unless g.aasm_state == 'finished'
   end
 
 end

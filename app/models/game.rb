@@ -14,22 +14,25 @@ class Game < ApplicationRecord
   #### STATE MACHINE ####
   aasm whiny_transitions: false do
     state :waiting, initial: true
-    state :initialized, :inform, :activity, :finished
+    state :initialized
+    state :inform
+    state :activity
+    state :finished
 
     event :initializing do
       transitions from: :waiting, to: :initialized, after: :init_game
     end
 
     event :started do
-      transitions from: :initialized, to: :activity, after: :start_timer
+      transitions from: :initialized, to: :activity, after: [:cancel_old_jobs, :start_timer]
     end
 
     event :informed do
-      transitions from: :inform, to: :activity, after: :start_timer
+      transitions from: :inform, to: :activity, after: [:cancel_old_jobs, :start_timer]
     end
 
     event :skills_used, after: :update_round do
-      transitions from: :activity, to: :inform, after: :start_timer
+      transitions from: :activity, to: :inform, after: [:cancel_old_jobs, :start_timer]
     end
 
     event :finish do
@@ -38,9 +41,9 @@ class Game < ApplicationRecord
     end
 
     event :next_state do
-      transitions from: :initialized, to: :activity, after: :start_timer
-      transitions from: :inform, to: :activity, after: :start_timer
-      transitions from: :activity, to: :inform, after: [:update_round, :start_timer]
+      transitions from: :initialized, to: :activity, after:[:cancel_old_jobs, :start_timer]
+      transitions from: :inform, to: :activity, after: [:cancel_old_jobs, :start_timer]
+      transitions from: :activity, to: :inform, after: [:update_round, :cancel_old_jobs, :start_timer]
     end
   end
 
@@ -74,7 +77,13 @@ class Game < ApplicationRecord
   end
 
   def start_timer
-    GameWorker.perform_in(28.seconds, id, round)
+    self.last_job = GameWorker.perform_in(27.seconds, id)
+
+  end
+
+  def cancel_old_jobs
+    return if self.last_job.nil?
+    Sidekiq::Status.unschedule self.last_job
   end
 
   def time_is_up
@@ -93,7 +102,7 @@ class Game < ApplicationRecord
       player.reload
       player.assign_character(roles_array.delete(roles_array.sample))
     end
-    players.each(&:get_relations)
+    players.each(&:init_relations)
   end
 
   def cleanup
@@ -103,14 +112,13 @@ class Game < ApplicationRecord
   end
 
 
-  def init_players
-    roles_array = assign_roles(players.size)
+  def init_game
+    init_players
     players.each do |player|
-      player.reload
-      player.assign_character(roles_array.delete(roles_array.sample))
+      player.broadcast_player_updated
     end
-    players.each(&:init_relations)
   end
+
 
   def add_player(player)
     if Player.where(user: player.user, game: self).count > 1
