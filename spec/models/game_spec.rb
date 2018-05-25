@@ -73,14 +73,14 @@ RSpec.describe Game, type: :model do
 
   it 'is full if 9 players have joined' do
     game = Game.create(id: 7)
-    8.times do
+    20.times do
      p = Player.new
      game.players << p
     end
-    expect(game.full).to be false
+    expect(game.full?).to be false
     p = Player.new
     game.players << p
-    expect(game.full).to be true
+    expect(game.full?).to be true
   end
 
   it 'updates the round' do
@@ -404,9 +404,9 @@ RSpec.describe Game, type: :model do
   end
 
   it 'shows that both heads are dead' do
-    gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
+    gf = Role.create(name: "Godfather", id: 1, party: "Mafia", active: "corrupt", passive: "immunity")
     pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
-    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    jr = Role.create(name: "Junior", party: "Anarchists", id: 3, active: "poison")
     u1 = User.create(id: 1, session_id: 123)
     u2 = User.create(id: 2, session_id: 1235)
     u3 = User.create(id: 3, session_id: 1234)
@@ -422,6 +422,7 @@ RSpec.describe Game, type: :model do
     p2.die!
     expect(g.players.alive.count).to eql 1
     expect(g.both_heads_dead?).to eql true
+    expect(g.get_winner).to eql("Anarchists")
   end
 
   it 'shows that Town wins if Mafia is dead' do
