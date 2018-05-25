@@ -18,11 +18,11 @@ export const ImageWrapper = styled.div`
       height: 100%;
       content: '';
       opacity: 0.5;
-      background-image: url(${CardBack});
-      background-color: #1B4C5B;
+      background-color: #a61921;
+      background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)), linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+      background-size: 70px 120px;
       left: 50%;
       background-repeat: repeat;
-      left: 50%;
       transform: translateX(-50%);
     }
     

@@ -8,19 +8,22 @@
     </div>
 
     <div class='town-video-container'>
-      <%= video_tag('town_orig_720p.mp4', poster: 'game/town.jpf', type:'video/mp4;codecs="avc1.42E01E, mp4a.40.2"', controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+      <%= video_tag('town_1024p.mp4', poster: 'game/town.jpg', type:'video/mp4;codecs="avc1.42E01E, mp4a.40.2"', controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
     </div>
 
   </div>
 
-  <div class="ruleset-navigation" data-turbolinks="false">
-    <%= link_to '/team', class: 'ruleset-link' do %>i<% end %>
+  <div class='ui-content'>
+    <div class="ruleset-navigation" data-turbolinks="false">
+      <%= link_to '/team', class: 'ruleset-link' do %>i<% end %>
+    </div>
+
+    <div class="audio-control">
+      <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
+      <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
+    </div>
   </div>
 
-  <div class="audio-control">
-    <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
-    <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
-  </div>
 </div>
 
 <%= audio_tag('start.wav', id: 'playsound', controls: false) %>

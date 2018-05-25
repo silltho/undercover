@@ -1,0 +1,41 @@
+@import "config/globals";
+
+.gameplay-container {
+  padding: 1em;
+  letter-spacing: .015em;
+  color: white;
+
+  p {
+    line-height: 1.35rem;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+  }
+
+  h3 {
+    color: $g_Pink;
+    margin: 0.5rem 0;
+    font-size: 1.9rem;
+  }
+
+  h5 {
+    font-size: 1.4rem;
+    margin: 0.7rem 0 0.7rem 0rem;
+  }
+  .gameplay-fraction-heading {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 5rem;
+    }
+
+    h5 {
+
+    }
+  }
+
+  .splitter-title {
+    font-size: 1.8rem !important;
+    margin: 1rem 1.2rem !important;
+  }
+}
