@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/ballon.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/RUo4HfH.gif'
   const img = new Image()
   img.src = data
   img.style.width = '300px'
