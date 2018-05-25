@@ -36,8 +36,8 @@ class Game < ApplicationRecord
     end
 
     event :finish do
-      transitions from: :inform, to: :finished, after: :cleanup
-      transitions from: :activity, to: :finished, after: :cleanup
+      transitions from: :inform, to: :finished
+      transitions from: :activity, to: :finished
     end
 
     event :next_state do
@@ -260,7 +260,10 @@ class Game < ApplicationRecord
 
   def is_game_over?
     statistic = get_party_members
-    if both_heads_dead? || is_draw? || statistic[MAFIA].zero? || statistic[TOWN].zero?
+    if both_heads_dead? || is_draw?
+      last_broadcasts(get_winner)
+      true
+    elsif statistic[MAFIA].zero? || statistic[TOWN].zero?
       last_broadcasts(get_winner)
       true
     else
