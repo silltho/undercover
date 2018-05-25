@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/earth.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/B3zjsAs.gif'
   const img = new Image()
   img.src = data
   img.style.width = '350px'

@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/kirby.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/Ydfn7Bu.gif'
   const img = new Image()
   img.src = data
   img.style.width = '350px'
