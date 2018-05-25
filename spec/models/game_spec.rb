@@ -370,7 +370,7 @@ RSpec.describe Game, type: :model do
   it 'Junior wins if both heads dead' do
     gf = Role.create(name: "Godfather", id: 1, active: "corrupt", passive: "immunity")
     en = Role.create(name: "Enforcer", id: 2, active: "shoot")
-    jr = Role.create(name: "Junior", id: 3, active: "poison")
+    jr = Role.create(name: "Anarchist", id: 3, active: "poison")
     pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
     of = Role.create(name: "Officer", id: 5, party: "Town", active: "imprison")
     u1 = User.create(id: 36, session_id: 123)
@@ -406,7 +406,7 @@ RSpec.describe Game, type: :model do
   it 'shows that both heads are dead' do
     gf = Role.create(name: "Godfather", id: 1, party: "Mafia", active: "corrupt", passive: "immunity")
     pr = Role.create(name: "President", id: 4, party: "Town", active: "convert", passive: "immunity")
-    jr = Role.create(name: "Junior", party: "Anarchists", id: 3, active: "poison")
+    jr = Role.create(name: "Anarchist", party: "Anarchists", id: 3, active: "poison")
     ch = Role.create(name: "Chief", party: "Town", id: 44, active: "imprison")
     u1 = User.create(id: 1, session_id: 123)
     u2 = User.create(id: 2, session_id: 1235)
