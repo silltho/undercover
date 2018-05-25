@@ -15,9 +15,9 @@ class GameForm extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      codenameErrorMessage: '',
+      nicknameErrorMessage: '',
       roomCodeErrorMessage: '',
-      codename: '',
+      nickname: '',
       gamecode: ''
     }
   }
@@ -43,10 +43,10 @@ class GameForm extends React.PureComponent {
     })
   }
 
-  onCodenameChange = (e) => {
+  onNicknameChange = (e) => {
     this.setState({
-      codename: e.target.value,
-      codenameErrorMessage: ''
+      nickname: e.target.value,
+      nicknameErrorMessage: ''
     })
   }
 
@@ -56,23 +56,23 @@ class GameForm extends React.PureComponent {
 
   createGame = () => {
     this.resetErrors()
-    if (this.validateCodename()) {
-      this.props.createGame(this.state.codename)
+    if (this.validateNickname()) {
+      this.props.createGame(this.state.nickname)
     }
   }
 
   joinGame = () => {
     this.resetErrors()
-    const validateCodename = this.validateCodename()
+    const validateNickname = this.validateNickname()
     const validateGamecode = this.validateGamecode()
-    if (validateGamecode && validateCodename) {
-      this.props.joinGame(this.state.gamecode, this.state.codename)
+    if (validateGamecode && validateNickname) {
+      this.props.joinGame(this.state.gamecode, this.state.nickname)
     }
   }
 
-  validateCodename = () => {
-    if (this.state.codename.length <= 0) {
-      this.setState({ codenameErrorMessage: 'Codename is required' })
+  validateNickname = () => {
+    if (this.state.nickname.length <= 0) {
+      this.setState({ nicknameErrorMessage: 'Nickname is required' })
       return false
     }
     return true
@@ -88,33 +88,33 @@ class GameForm extends React.PureComponent {
 
   resetErrors = () => {
     this.setState({
-      codenameErrorMessage: '',
+      nicknameErrorMessage: '',
       roomCodeErrorMessage: ''
     })
   }
 
   render() {
-    const codenameInvalid = this.state.codename.length <= 0
+    const nicknameInvalid = this.state.nickname.length <= 0
 
     return (
       <Form>
         <Row>
           <Input
-            name="codename"
-            placeholder="Enter Your Codename"
-            label="Codename"
-            error={this.state.codenameErrorMessage}
+            name="nickname"
+            placeholder="Enter Your Nickname"
+            label="Nickname"
+            error={this.state.nicknameErrorMessage}
             type="text"
-            onChange={this.onCodenameChange}
+            onChange={this.onNicknameChange}
           />
         </Row>
-        <Row deactivated={codenameInvalid}>
+        <Row deactivated={nicknameInvalid}>
           <Button text="create new game" onClick={this.createGame} />
         </Row>
-        <SeperatorRow deactivated={codenameInvalid}>
+        <SeperatorRow deactivated={nicknameInvalid}>
           <Heading title="or" />
         </SeperatorRow>
-        <Row deactivated={codenameInvalid}>
+        <Row deactivated={nicknameInvalid}>
           <Input
             name="gamecode"
             placeholder="Enter Room Code"
