@@ -79,7 +79,7 @@ class Lobby extends React.PureComponent {
         </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />
-          <Button onClick={this.props.initializeGame} text="start" />
+          <Button onClick={this.props.initializeGame} text="start" primary />
         </Footer>
       </FadeIn>
     )

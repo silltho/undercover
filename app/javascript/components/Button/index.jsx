@@ -8,10 +8,11 @@ class Button extends React.PureComponent {
       text,
       onClick,
       className,
-      children
+      children,
+      primary
     } = this.props
     return (
-      <ButtonWrapper onClick={onClick} className={className}>
+      <ButtonWrapper onClick={onClick} className={className} primary={primary}>
         {text || children}
       </ButtonWrapper>
     )
@@ -19,14 +20,16 @@ class Button extends React.PureComponent {
 }
 
 Button.defaultProps = {
-  className: ''
+  className: '',
+  primary: false
 }
 
 Button.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   text: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  primary: PropTypes.bool
 }
 
 export default Button

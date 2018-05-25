@@ -6,8 +6,8 @@ import {
 
 export const ButtonWrapper = styled.button`
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.5);
-  border: 3px solid rgba(255, 255, 255, 0.5);
+  color: ${(props) => props.primary ? PINK : 'rgba(255, 255, 255, 0.5)'};
+  border: 3px solid ${(props) => props.primary ? PINK : 'rgba(255, 255, 255, 0.5)'};
   box-shadow: 3px 3px 0 0 ${BLACK};
   padding: 0.5rem 1rem;
   text-transform: uppercase;
