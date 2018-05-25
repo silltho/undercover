@@ -1,11 +1,12 @@
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+const workboxPlugin = require('workbox-webpack-plugin')
 const Visualizer = require('webpack-visualizer-plugin')
 
 const customConfig = {
   plugins: [
-    new ServiceWorkerWebpackPlugin({
-      entry: './app/javascript/packs/registerServiceWorker.js',
-      excludes: ['**/.*', '**/*.map', '*.html', '*.js']
+    new workboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true
     }),
     new Visualizer()
   ],
