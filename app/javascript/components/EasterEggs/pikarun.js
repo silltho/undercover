@@ -1,6 +1,6 @@
+import data from 'assets/images/eastereggs/pikarun.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/g99m5gz.gif'
-  const shock = document.createElement('div')
   const img = new Image()
   img.src = data
   img.style.width = '450px'
@@ -12,10 +12,6 @@ export default function () {
   img.style.zIndex = 999999
 
   document.body.appendChild(img)
-
-  // window.setTimeout(function(){
-  //   img.style.left = 'calc(50% - 200px)'
-  // },50)
 
   window.setTimeout(() => {
     img.style.left = 'calc(100% + 500px)'

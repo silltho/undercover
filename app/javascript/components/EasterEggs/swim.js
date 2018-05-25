@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/swim.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/D78gMhP.gif'
   const shock = document.createElement('div')
   const img = new Image()
   img.src = data

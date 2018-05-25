@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/spongebob.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/zQkEpJO.gif'
   const img = new Image()
   img.src = data
   img.style.width = '374px'
