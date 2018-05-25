@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/catrun.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/QfJZlrI.gif'
   const img = new Image()
   img.src = data
   img.style.width = '450px'
