@@ -11,8 +11,10 @@ class CornerButton extends React.PureComponent {
   }
 
   handleOnClick = (params) => {
-    this.setState({ clicked: true })
-    this.props.onClickAction(params)
+    if (this.props.onClickAction) {
+      this.setState({ clicked: true })
+      this.props.onClickAction(params)
+    }
   }
 
   render() {
@@ -27,10 +29,11 @@ class CornerButton extends React.PureComponent {
 }
 
 CornerButton.defaultProps = {
+  onClickAction: null
 }
 
 CornerButton.propTypes = {
-  onClickAction: PropTypes.func.isRequired
+  onClickAction: PropTypes.func
 }
 
 export default CornerButton

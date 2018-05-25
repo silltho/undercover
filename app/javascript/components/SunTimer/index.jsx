@@ -68,7 +68,7 @@ class SunTimer extends React.PureComponent {
     const blink = this.state.rayStart >= this.props.rayCount - 3
 
     return (
-      <CornerButton topRight onClickAction={() => {}}>
+      <CornerButton topRight>
         <SunBody
           blink={blink}
           blinkDuration={blinkDuration}
