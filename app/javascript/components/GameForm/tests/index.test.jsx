@@ -24,15 +24,15 @@ describe('<GameForm />', () => {
   })
 
   it('should createGame', () => {
-    const codename = 'testcodename'
+    const nickname = 'testnickname'
     const props = {
       ...defaultProps,
       createGame: jest.fn()
     }
     const renderedComponent = renderComponent(props)
-    renderedComponent.instance().setState({ codename })
+    renderedComponent.instance().setState({ nickname })
     renderedComponent.instance().createGame()
-    expect(props.createGame).toHaveBeenCalledWith(codename)
+    expect(props.createGame).toHaveBeenCalledWith(nickname)
   })
 
   it('should not createGame', () => {
@@ -46,16 +46,16 @@ describe('<GameForm />', () => {
   })
 
   it('should joinGame', () => {
-    const codename = 'test-codename'
+    const nickname = 'test-nickname'
     const gamecode = 'test-gamecode'
     const props = {
       ...defaultProps,
       joinGame: jest.fn()
     }
     const renderedComponent = renderComponent(props)
-    renderedComponent.instance().setState({ codename, gamecode })
+    renderedComponent.instance().setState({ nickname, gamecode })
     renderedComponent.instance().joinGame()
-    expect(props.joinGame).toHaveBeenCalledWith(gamecode, codename)
+    expect(props.joinGame).toHaveBeenCalledWith(gamecode, nickname)
   })
 
   it('should not joinGame', () => {
@@ -77,13 +77,13 @@ describe('<GameForm />', () => {
     expect(renderedComponent.state().gamecode).toEqual(evt.target.value)
   })
 
-  it('should update codename when the <Input> changes', () => {
+  it('should update nickname when the <Input> changes', () => {
     const renderedComponent = renderComponent()
     const evt = {
       target: { value: 'test1234' }
     }
-    renderedComponent.find('input#input_codename').simulate('change', evt)
-    expect(renderedComponent.state().codename).toEqual(evt.target.value)
+    renderedComponent.find('input#input_nickname').simulate('change', evt)
+    expect(renderedComponent.state().nickname).toEqual(evt.target.value)
   })
 
   it('should not submit form if any other key is pressed', () => {
