@@ -278,7 +278,7 @@ class Game < ApplicationRecord
   def both_heads_dead?
     gf = Player.where(game: self).where(role: Role.where(name: "Godfather")).pluck(:state).first
     pr = Player.where(game: self).where(role: Role.where(name: "President")).pluck(:state).first
-    jr = Player.where(game: self).where(role: Role.where(name: "Junior")).pluck(:state).first
+    jr = Player.where(game: self).where(role: Role.where(name: "Anarchist")).pluck(:state).first
     return true if gf != "alive" && pr != "alive" && jr == "alive"
     false
   end
