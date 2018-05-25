@@ -1,0 +1,93 @@
+<div class='gameplay-container'>
+  <div class='gameplay-introduction'>
+    <%= render partial: 'splitter', locals: {title: 'Introduction'} %>
+
+    <p>
+      Throughout a city of life and death, you are playing as one of nine charming characters such as the Chief, Beagle
+      Boy or the Godfather.
+    </p>
+
+    <p>
+      You will most likely engage with lies and deception as UNDERCOVER inhabitants are known for
+      its cunning.
+    </p>
+
+  </div>
+
+  <div class='gameplay-game'>
+    <%= render partial: 'splitter', locals: {title: 'Gameplay'} %>
+
+    <p>
+      There are three gameplay phases: Gamestart, Dawn and the Night. Every phase is limited by a timer which is
+      indicated by the sun on the top right of your screen. When all sunbeams have disappared and the sun starts
+      blinking this phase is over and the next phase starts.
+    </p>
+
+    <p>
+
+    </p>
+
+    <h5>Gamestart</h5>
+
+    <p>Each player is assigned a role at the beginning of the game. This role will determine your goal as well as your
+      friends and foes.
+
+    </p>
+
+    <h5>Night</h5>
+
+    <p>
+      This is the most intense phase as players decide who their next victim will be. At night, every player gets to
+      choose a target by pressing its ability icon on the left side of the screen. Choose wisely!
+    </p>
+
+    <h5>Dawn</h5>
+
+    <p>
+      As the night
+    </p>
+
+  </div>
+
+  <div class='gameplay-goal'>
+
+    <%= render partial: 'splitter', locals: {title: 'Fractions'} %>
+
+    <div class='gameplay-mafia'>
+      <div class='gameplay-fraction-heading'>
+        <%= image_tag('icons/mafia.svg', class: 'mafia-icon') %>
+        <div>
+          <h5>Mafia</h5>
+          <p>To claim victory all townspeople of the Town fraction have to be killed or locked down by corrupted
+            policemen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class='gameplay-town'>
+      <div class='gameplay-fraction-heading'>
+        <div>
+          <h5>Town</h5>
+          <p>Keep your town safe by jailing or killing all henchmen of the Mafia.</p>
+        </div>
+        <%= image_tag('icons/town.svg', class: 'town-icon') %>
+      </div>
+    </div>
+
+    <div class='gameplay-anarchist'>
+      <div class='gameplay-fraction-heading'>
+        <%= image_tag('icons/anarchist.svg', class: 'town-icon') %>
+        <div>
+          <h5>Anarchist</h5>
+          <p>Your goal is to poison the head of each other fraction. If the president and godfather are dead, you win! </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='gameplay-character'>
+    <%= render partial: 'splitter', locals: {title: 'Characters'} %>
+
+  </div>
+
+</div>

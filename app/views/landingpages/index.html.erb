@@ -13,14 +13,17 @@
 
   </div>
 
-  <div class="ruleset-navigation" data-turbolinks="false">
-    <%= link_to '/team', class: 'ruleset-link' do %>i<% end %>
+  <div class='ui-content'>
+    <div class="ruleset-navigation" data-turbolinks="false">
+      <%= link_to '/team', class: 'ruleset-link' do %>i<% end %>
+    </div>
+
+    <div class="audio-control">
+      <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
+      <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
+    </div>
   </div>
 
-  <div class="audio-control">
-    <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
-    <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
-  </div>
 </div>
 
 <%= audio_tag('start.wav', id: 'playsound', controls: false) %>
