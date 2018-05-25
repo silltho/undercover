@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/pikachu.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/hALdLiE.gif'
   const shock = document.createElement('div')
   const img = new Image()
   img.src = data

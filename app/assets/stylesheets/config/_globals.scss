@@ -1,8 +1,5 @@
-/*
-    Global Styleguide variables
- */
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Rock+Salt|Nunito:200,300,400,600|Spectral:200,300,400,500&subset=latin-ext');
-/* COLORS */
+
 $g_Black: #000000;
 $g_White: #FFFFFF;
 $g_Yellow: #FED549;
@@ -13,63 +10,10 @@ $g_Brown: #473C1E;
 $g_DarkBlue: #06232D;
 $g_Red: #F44336;
 
-/* FONTS */
-$g_lancelot: 'Abril Fatface', cursive; // logo only
-$g_spectral: 'Spectral', serif; // newspaper headliner, infophase
-$g_nunito: 'Nunito', sans-serif; // paragraphs, buttons, other stuff
-$g_rocksalt: 'Rock Salt', cursive;
-
-body, html {
-  width: 100%;
-  box-sizing: border-box;
-  font-family: $g_nunito;
-  opacity: 1;
-  overflow-y: scroll;
-}
-
-.container {
-  padding: 0 1.5rem 0 1.5rem;
-  color: white;
-}
-
-img.img {
-  width: 100%;
-}
-
-footer.footer {
-  color: $g_Pink;
-}
-
-a, .a, a:visited, .a:visited {
-  color: $g_Pink;
-  text-decoration: none;
-}
-
-.yellow {
-  color: $g_Yellow;
-  font-size: 30px;
-}
-
-.pink {
-  color: $g_Pink;
-  font-size: 30px;
-}
-
-/*----- remove input number spinner -----*/
-
-/* For Firefox */
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-/* Webkit browsers like Safari and Chrome */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/*-----------------------------------------*/
+$g_Lancelot: 'Abril Fatface', cursive; // logo only
+$g_Spectral: 'Spectral', serif; // newspaper headliner, infophase
+$g_Nunito: 'Nunito', sans-serif; // paragraphs, buttons
+$g_RockSalt: 'Rock Salt', cursive;
 
 :export {
   BLACK: $g_Black;
@@ -82,8 +26,8 @@ input[type=number]::-webkit-outer-spin-button {
   DARK_BLUE: $g_DarkBlue;
   RED: $g_Red;
 
-  LOGO_FONT: $g_lancelot;
-  NEWSPAPER_FONT: $g_spectral;
-  MAIN_FONT: $g_nunito;
-  NOTE_FONT: $g_rocksalt;
+  LOGO_FONT: $g_Lancelot;
+  NEWSPAPER_FONT: $g_Spectral;
+  MAIN_FONT: $g_Nunito;
+  NOTE_FONT: $g_RockSalt;
 }

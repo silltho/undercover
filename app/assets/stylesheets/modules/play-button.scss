@@ -1,6 +1,6 @@
 @import "config/globals";
 
-.play-game-button-container {
+.play-game-button {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -8,10 +8,10 @@
   background-color: #06232D;
   border-radius: 100%;
   width: 8rem;
+  height: 8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 8rem;
   border: 4px solid #EE9297;
   box-shadow: 15px 15px 113px 0 #06232D;
   color: #EE9297 !important;

@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/wink.gif'
+
 export default function () {
-  const data = 'https://weichiachang.github.io/easter-eggs-mobile/images/wink.gif'
   const shock = document.createElement('div')
 
   const img = new Image()

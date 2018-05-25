@@ -1,6 +1,6 @@
-export default function () {
-  const data = 'https://i.imgur.com/e4QEwuV.gif'
+import data from 'assets/images/eastereggs/ufo.gif'
 
+export default function () {
   const img = new Image()
   img.src = data
   img.style.width = '374px'

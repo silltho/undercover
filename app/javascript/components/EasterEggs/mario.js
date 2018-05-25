@@ -1,6 +1,6 @@
-export default function () {
-  const data = 'https://i.imgur.com/QbN03gd.gif'
+import data from 'assets/images/eastereggs/mario.gif'
 
+export default function () {
   const img = new Image()
   img.src = data
   img.style.width = '350px'

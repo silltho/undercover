@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/hangover.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/Np8rIoY.gif'
   const img = new Image()
 
   img.src = data

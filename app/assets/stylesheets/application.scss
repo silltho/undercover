@@ -5,34 +5,3 @@
 */
 
 @import "config/globals";
-
-* {
-  box-sizing: border-box;
-}
-
-*::-webkit-scrollbar {
-  display: none;
-}
-
-html, body, body > div {
-  font-size: 16px;
-  background-color: $g_DarkBlue;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-p {
-  margin: 0;
-}
-
-button {
-  border: none;
-}
-
-ul {
-  padding: 0;
-}
-

@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/psyduck.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/9vCNtPT.gif'
   const img = new Image()
   img.src = data
   img.style.width = '500px'

@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/dog.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/rJRRZw7.gif'
   const img = new Image()
 
   img.src = data

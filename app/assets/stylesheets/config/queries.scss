@@ -1,18 +1,16 @@
 @import "globals";
 
-@media (min-width: 1250px) {
-  .town-container {
-    padding: 0px 5px;
+@media (min-width: 1240px) {
+  .main-content {
+    padding: 0 5px;
     border-left: 3px solid $g_Pink;
     border-right: 3px solid $g_Pink;
     overflow: hidden;
     height: 100%;
   }
 
-  .pattern-wrapper {
-    /* http://lea.verou.me/css3patterns/#argyle */
-    background-color: #06242e;
-    background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)), linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+  .content {
+    background: #06242e repeating-linear-gradient(120deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1)), linear-gradient(120deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1));
     background-size: 70px 120px;
     display: flex;
     justify-content: center;

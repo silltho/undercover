@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/winner.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/5JNiPcT.gif'
   const shock = document.createElement('div')
   const img = new Image()
   img.src = data
@@ -20,6 +21,7 @@ export default function () {
   window.setTimeout(() => {
     img.style.bottom = '-600px'
   }, 4300)
+
   window.setTimeout(() => {
     img.parentNode.removeChild(img)
     shock.parentNode.removeChild(shock)

@@ -1,6 +1,6 @@
-export default function () {
-  const data = 'https://i.imgur.com/rXh1XTM.gif'
+import data from 'assets/images/eastereggs/rabbit.gif'
 
+export default function () {
   const img = new Image()
   img.src = data
   img.style.width = '374px'

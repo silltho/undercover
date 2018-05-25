@@ -1,5 +1,6 @@
+import data from 'assets/images/eastereggs/britney.gif'
+
 export default function () {
-  const data = 'https://i.imgur.com/EuhEYw8.gif'
   const img = new Image()
   img.src = data
   img.style.width = '250px'
