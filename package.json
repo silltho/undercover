@@ -60,6 +60,7 @@
     "immutable": "^3.8.2",
     "node-sass": "^4.9.0",
     "nosleep.js": "^0.7.0",
+    "null-loader": "^0.1.1",
     "postcss-smart-import": "^0.7.6",
     "prop-types": "^15.6.0",
     "react": "16.2.0",
