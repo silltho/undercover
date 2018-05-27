@@ -1,6 +1,6 @@
 <% session[:foo] = "bar" if session.id.nil? %>
 
-<div class='content'>
+<main role='main' class='content'>
   <div class='main-content'>
 
     <div class='play-game-button-container'>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-</div>
+</main>
 
 <%= audio_tag('start.wav', id: 'playsound', controls: false) %>
 <%= audio_tag('soundtrack.ogg', id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
