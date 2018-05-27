@@ -2,10 +2,13 @@
 <html lang='en'>
   <head>
     <title>Undercover</title>
+    <meta name="Description" content="A rolebased community webgame.">
+
     <%= csrf_meta_tags %>
 
     <link rel="manifest" href="/site.webmanifest">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <!-- Apple -->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/favicon/apple-touch-icon-57x57.png" />
@@ -43,8 +46,7 @@
 
   <body>
 
-    <%# render "landingpages/header" %>
       <%= yield %>
-    <%# render "landingpages/footer" %>
+
   </body>
 </html>
