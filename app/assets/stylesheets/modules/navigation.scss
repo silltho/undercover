@@ -18,8 +18,10 @@
 }
 
 .ruleset-navigation {
-  position: relative;
-  bottom: 5.6rem;
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
 
   .ruleset-link {
     display: flex;
