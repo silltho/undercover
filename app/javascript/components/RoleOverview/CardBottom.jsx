@@ -23,8 +23,8 @@ class CardBottom extends React.PureComponent {
     switch (state) {
       case PlayerStates.ALIVE:
         return (
-          <CardBottomWrapper>
-            <ActionIcon icon={activeIcon} onClick={showTargetSelection} />
+          <CardBottomWrapper onClick={showTargetSelection}>
+            <ActionIcon icon={activeIcon} />
             <ActionText>Choose your victim</ActionText>
           </CardBottomWrapper>
         )
