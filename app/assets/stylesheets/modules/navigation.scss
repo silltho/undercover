@@ -18,16 +18,14 @@
 }
 
 .ruleset-navigation {
-  position: fixed;
-  right: 0.5em;
-  bottom: 0.5em;
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
 
   .ruleset-link {
-    background-color: $g_DarkBlue;
-    border: 2px solid $g_Pink;
-    border-radius: 5px;
-    color: $g_Pink;
-    font-size: 1.5rem;
-    padding: 0.2rem 1.0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

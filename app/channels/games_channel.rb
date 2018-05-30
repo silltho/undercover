@@ -15,8 +15,11 @@ class GamesChannel < ApplicationCable::Channel
 
   def initialize_game
     @game.reload
-    @game.initializing!
-    @game.broadcast_game_updated
+    ActionLog.create(player: current_player,  game: @game, round: @game.round, action: "init_game")
+    if ActionLog.where(game: @game, round: @game.round, action: "init_game").count == 1
+      @game.initializing!
+      @game.broadcast_game_updated
+    end
   end
 
   def start_game

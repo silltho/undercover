@@ -1,30 +1,31 @@
 <% session[:foo] = "bar" if session.id.nil? %>
 
-<div class='content'>
+<main role='main' class='content'>
   <div class='main-content'>
 
     <div class='play-game-button-container'>
-      <%= link_to '/app', class: 'play-game-button' do %>PLAY<% end %>
+      <%= link_to '/app', class: 'play-game-button' do %>PLAY
+      <% end %>
     </div>
 
     <div class='town-video-container'>
-      <%= video_tag('town_1024p.mp4', poster: 'game/town.jpg', type:'video/mp4;codecs="avc1.42E01E, mp4a.40.2"', controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
+      <%= video_tag('town_1024p.mp4', poster: 'game/town.jpg', type: 'video/mp4;codecs="avc1.42E01E, mp4a.40.2"', controls: false, autobuffer: true, autoplay: true, loop: true, muted: true, class: 'town-video') %>
     </div>
 
   </div>
 
-  <div class='ui-content'>
-    <div class="ruleset-navigation" data-turbolinks="false">
-      <%= link_to '/team', class: 'ruleset-link' do %>i<% end %>
-    </div>
-
-    <div class="audio-control">
-      <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
-      <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
-    </div>
+  <div class="ruleset-navigation" data-turbolinks="false">
+    <%= link_to '/gameplay', class: 'ruleset-link' do %>
+        <%= image_tag('icons/infobook.svg', class: 'infobook') %>
+    <% end %>
   </div>
 
-</div>
+  <div class="audio-control">
+    <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
+    <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
+  </div>
+
+</main>
 
 <%= audio_tag('start.wav', id: 'playsound', controls: false) %>
 <%= audio_tag('soundtrack.ogg', id: 'soundtrack', controls: false, autoplay: true, loop: true) %>

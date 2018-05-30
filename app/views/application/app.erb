@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
     <title>Undercover</title>
+    <meta name="Description" content="A rolebased community webgame.">
+
     <%= csrf_meta_tags %>
 
     <link rel="manifest" href="/site.webmanifest">
@@ -36,19 +38,76 @@
     <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
     <style>
       body > div {
         height: 100%;
+        width: 100%;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      @keyframes loading-points {
+        0% {
+          opacity: .2;
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          opacity: .2;
+        }
+      }
+
+      #loader {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        color: #EE9297;
+        background-color: #06232D;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader-image {
+        color: #EE9297;
+        border: 1px solid #EE9297;
+        border-radius: 100%;
+      }
+
+      .loader-text {
+        padding-top: 1rem;
+        text-transform: uppercase;
+      }
+
+      .loader-p1 {
+        animation-delay: 0.2s;
+        color: #EE9297;
+        animation: loading-points 1.4s infinite both;
+      }
+
+      .loader-p1 {
+        animation-delay: 0.2s;
+        color: #EE9297;
+        animation: loading-points 1.4s infinite both;
+      }
+
+      .loader-p1 {
+        animation-delay: 0.2s;
+        color: #EE9297;
+        animation: loading-points 1.4s infinite both;
       }
     </style>
   </head>
-  
+
   <body>
-
-    <p class="flash-notice"><%= params[:notice] %></p>
-
     <div id="loader">
       <%= image_tag 'incidentals/loader.gif', class: 'loader-image' %>
       <p class="loader-text">
@@ -64,5 +123,7 @@
     </noscript>
 
     <%= javascript_pack_tag 'app' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </body>
 </html>

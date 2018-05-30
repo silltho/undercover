@@ -1,7 +1,6 @@
 import data from 'assets/images/eastereggs/winner.gif'
 
 export default function () {
-  const shock = document.createElement('div')
   const img = new Image()
   img.src = data
   img.style.width = '450px'
@@ -24,6 +23,5 @@ export default function () {
 
   window.setTimeout(() => {
     img.parentNode.removeChild(img)
-    shock.parentNode.removeChild(shock)
   }, 5400)
 }
