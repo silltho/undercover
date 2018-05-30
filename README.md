@@ -1,7 +1,7 @@
 # README2s
 
 #### Requirements
-- ruby 2.5
+- ruby 2.5.0
 - rails 5.1
 - yarn (brew install yarn)
 - postgres
@@ -13,14 +13,14 @@
 3. ``rails db:create``
 4. ``rails db:migrate``
 5. ``rails db:seed``
-6. ``yarn instal``  
+6. ``yarn install``  
 
 
 ## Start
-1. ``rails`` 
-2. ``ruby ./bin/webpack-dev-server`` (dev server)
-3. ``redis-server`` (if needed manually)  
-4. Don't forget to start Postgres  
+1. ``rails s`` 
+3. ``redis-server`` (start server)  
+3. ``bundle exec sidekiq`` (start sidekiq server)  
+4. Don't forget to run Postgres  
 
 
 ## Linting

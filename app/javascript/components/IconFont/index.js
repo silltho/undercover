@@ -1,4 +1,4 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 import FontEOT from './fonts/icomoon.eot'
 import FontSVG from './fonts/icomoon.svg'
 import FontTTF from './fonts/icomoon.ttf'
