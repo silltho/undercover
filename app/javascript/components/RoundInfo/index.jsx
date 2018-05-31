@@ -6,8 +6,7 @@ import { getActiveIconByRole } from 'config/roleIcons'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel,
-  Scrollable
+  BorderContainerTitel
 } from 'styles/components'
 import DayButton from './DayButton'
 import {
@@ -16,7 +15,8 @@ import {
   InfoList,
   BottomDawnContainer,
   ActiveIcon,
-  Info
+  Info,
+  InfoListWrapper
 } from './Styles'
 
 class RoundInfo extends React.PureComponent {
@@ -61,11 +61,11 @@ class RoundInfo extends React.PureComponent {
               News
             </BorderContainerTitel>
             <DistributionInfo distribution={partyDistribution} />
-            <Scrollable>
+            <InfoListWrapper>
               <InfoList>
                 {renderedInfos}
               </InfoList>
-            </Scrollable>
+            </InfoListWrapper>
             <BottomDawnContainer>
               <DayButtonContainer>
                 {renderedDayButtons}

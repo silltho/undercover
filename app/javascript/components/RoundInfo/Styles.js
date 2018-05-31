@@ -14,6 +14,11 @@ export const Wrapper = styled.div`
   flex: 1;
 `
 
+export const InfoListWrapper = styled.div`
+  margin-bottom: 1.5rem;
+  overflow-y: scroll;
+`
+
 export const InfoList = styled.ul`
   flex: 1;
   list-style-type: none;
