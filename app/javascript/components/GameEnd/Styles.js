@@ -1,9 +1,24 @@
 import styled from 'styled-components'
 import IconFont from 'components/IconFont'
+import {
+  WHITE,
+  DARK_BLUE
+} from 'styles/variables'
 
 export const Player = styled.div`
   display: flex;
-  padding: 0.5rem 1rem; 
+  margin: 0.5rem;
+  padding: 0 0.5rem;
+  border-radius: 2px;
+  ${(props) => props.isCurrentPlayer && (`
+    background-color: ${WHITE};
+    color: ${DARK_BLUE};
+  `)}
+`
+
+export const ResultText = styled.div`
+  font-size: 2rem;
+  marign: 1rem 0;
 `
 
 export const Role = styled.div`
