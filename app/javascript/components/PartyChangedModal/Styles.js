@@ -7,6 +7,10 @@ import {
   MAIN_FONT
 } from 'styles/variables'
 
+export const FractionImage = styled.img`
+ width: 3rem;
+`
+
 export const Modal = styled.div`
   position: relative;
   max-width: 30rem;
@@ -59,6 +63,10 @@ export const ModalButton = styled.button`
   color: ${WHITE};
   background-color: ${DARK_BLUE};
   padding: 0.5rem;
+`
+
+export const CenteredText = styled.span`
+  text-align: center;
 `
 
 export const Overlay = styled.div`
