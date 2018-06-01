@@ -82,11 +82,11 @@ class Player < ApplicationRecord
   end
 
   def broadcast_you_won
-    UserChannel.broadcast_to(user, type: 'winning_information', data: 'Victory')
+    UserChannel.broadcast_to(user, type: 'winning_information', data: 'victorious')
   end
 
   def broadcast_you_lost
-    UserChannel.broadcast_to(user, type: 'winning_information', data: 'Defeat')
+    UserChannel.broadcast_to(user, type: 'winning_information', data: 'defeated')
   end
 
   def broadcast_draw

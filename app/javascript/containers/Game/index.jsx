@@ -70,6 +70,7 @@ class Game extends React.PureComponent {
       case GamePhases.FINISHED:
         return (
           <GameEnd
+            player={this.props.player}
             endInformation={this.props.game.get('end_info')}
             resetGame={this.props.resetGame}
           />)

@@ -59,9 +59,6 @@ function appReducer(state = initialState, action) {
       return state.setIn(['App', 'showPlayerInformation'], true)
         .updateIn(['Player', 'infos'], (informations) => informations.push(newInformation))
     }
-    case RESET_GAME: {
-      return initialState
-    }
     case GAME_UPDATED: {
       const game = state.get('Game', Map())
       const data = fromJS(action.data)
@@ -78,8 +75,9 @@ function appReducer(state = initialState, action) {
         .setIn(['App', 'showFullGame'], false)
     }
     case LEAVE_GAME_SUCCESS:
+    case RESET_GAME:
     case GAME_DELETE: {
-      return state.set('Game', fromJS({}))
+      return initialState
     }
     case PLAYER_UPDATED: {
       const player = state.get('Player', Map())

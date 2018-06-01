@@ -6,7 +6,7 @@ import FadeIn from 'components/Animations/FadeIn'
 import Button from 'components/Button'
 import PlayersList from 'components/PlayersList'
 import IconFont, { ICONS } from 'components/IconFont'
-import showEasterEggs, {getEasterEggsFromCodenames} from 'components/EasterEggs'
+import showEasterEggs, { getEasterEggsFromCodenames } from 'components/EasterEggs'
 import {
   UserChannel,
   GameChannel
@@ -62,8 +62,12 @@ class Lobby extends React.PureComponent {
   }
 
   render() {
-    const { game } = this.props
+    const {
+      game,
+      player
+    } = this.props
     const players = game.getIn(['start_info', 'players'])
+    const isHost = players.first().get('id') === player.get('id')
 
     return (
       <FadeIn>
@@ -75,11 +79,11 @@ class Lobby extends React.PureComponent {
           <PlayerCount>
             {players.size} Player
           </PlayerCount>
-          <PlayersList players={players} />
+          <PlayersList players={players} currentPlayer={player} showHost />
         </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />
-          <Button onClick={this.props.initializeGame} text="start" primary />
+          {isHost && <Button onClick={this.props.initializeGame} text="start" primary />}
         </Footer>
       </FadeIn>
     )
@@ -88,6 +92,7 @@ class Lobby extends React.PureComponent {
 
 Lobby.propTypes = {
   game: PropTypes.instanceOf(Map).isRequired,
+  player: PropTypes.instanceOf(Map).isRequired,
   leaveGame: PropTypes.func.isRequired,
   initializeGame: PropTypes.func.isRequired
 }
@@ -101,7 +106,8 @@ export const mapDispatchToProps = () => ({
 })
 
 const mapStateToProps = (state) => ({
-  game: state.get('Game')
+  game: state.get('Game'),
+  player: state.get('Player')
 })
 
 export default connect(

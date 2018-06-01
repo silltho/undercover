@@ -5,8 +5,9 @@ class UserChannel < ApplicationCable::Channel
 
   def create_game(params)
     new_game = Game.create
-    create_new_player(new_game, params['nickname'])
+    p = create_new_player(new_game, params['nickname'])
     UserChannel.broadcast_to(current_user, type: 'create_game_success', data: new_game.get_game_object)
+    p.broadcast_player_updated
   end
 
   def leave_game(params)
@@ -31,7 +32,8 @@ class UserChannel < ApplicationCable::Channel
     elsif game.full?
       return false
     else
-      Player.create!(game: game, user: current_user, codename: nickname)
+      p = Player.create!(game: game, user: current_user, codename: nickname)
+      p.broadcast_player_updated
     end
 
     UserChannel.broadcast_to(current_user, type: 'join_game_success', data: game.get_game_object)

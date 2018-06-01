@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import IconFont from 'components/IconFont'
 import {
   PINK,
@@ -71,6 +71,22 @@ export const RoleVideoContainer = styled.div`
   ${(props) => props.imprisoned && ImprisonedStyle}
 `
 
+const pulseKeyframes = keyframes`    
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 5px ${BLACK};
+      }
+    50% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 10px ${BLACK};
+      }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 5px ${BLACK};
+      }
+`
+
+
 export const ActionIcon = styled(IconFont)`
   font-size: 3rem;
   padding: 0.5rem;
@@ -80,6 +96,7 @@ export const ActionIcon = styled(IconFont)`
   background: ${DARK_BLUE};
   border-radius: 100%;
   left: 1rem;
+  animation: ${pulseKeyframes} 1s infinite;
   
   &:active{
     text-shadow: none;

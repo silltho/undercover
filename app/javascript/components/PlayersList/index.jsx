@@ -1,6 +1,7 @@
 import React from 'react'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 import PropTypes from 'prop-types'
+import IconFont, { ICONS } from 'components/IconFont'
 import {
   Wrapper,
   PlayerItem,
@@ -8,13 +9,19 @@ import {
 } from './Styles'
 
 class PlayersList extends React.PureComponent {
-  renderPlayer = (player) => (
-    <PlayerItem
-      key={`player_${player.get('id')}`}
-    >
-      {player.get('codename')}
-    </PlayerItem>
-  )
+  renderPlayer = (player) => {
+    const isCurrentPlayer = player.get('id') === this.props.currentPlayer.get('id', false)
+    const isHost = player.get('id') === this.props.players.first().get('id')
+    return (
+      <PlayerItem
+        key={`player_${player.get('id')}`}
+        isCurrentPlayer={isCurrentPlayer}
+      >
+        {this.props.showHost && isHost && <IconFont icon={ICONS.handcuffs} />}
+        {player.get('codename')}
+      </PlayerItem>
+    )
+  }
 
   render() {
     const renderedPlayers = this.props.players.map((player) => this.renderPlayer(player))
@@ -30,10 +37,14 @@ class PlayersList extends React.PureComponent {
 }
 
 PlayersList.defaultProps = {
+  showHost: false,
+  currentPlayer: Map(),
   players: List()
 }
 
 PlayersList.propTypes = {
+  showHost: PropTypes.bool,
+  currentPlayer: PropTypes.instanceOf(Map),
   players: PropTypes.instanceOf(List)
 }
 

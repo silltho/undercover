@@ -9,7 +9,6 @@ import IconFont, { ICONS } from 'components/IconFont'
 import {
   BorderContainer,
   Content,
-  BorderContainerTitel,
   Section,
   Scrollable
 } from 'styles/components'
@@ -19,14 +18,18 @@ import {
   Role,
   FractionLogo,
   ImageWrapper,
-  StateIcon
+  StateIcon,
+  ResultText
 } from './Styles'
 
 class GameEnd extends React.PureComponent {
   renderPlayer = (player) => {
     const stateIcon = getIconByPlayerState(player.get('state'))
+    const isCurrentPlayer = this.props.player.get('id') === player.get('id')
     return (
-      <Player key={`player-${player.get('codename')}`}>
+      <Player
+        isCurrentPlayer={isCurrentPlayer}
+        key={`player-${player.get('codename')}`}>
         <CodeName>{player.get('codename')}</CodeName>
         {stateIcon && <StateIcon icon={stateIcon} />}
         <Role>{player.get('role')}</Role>
@@ -51,13 +54,14 @@ class GameEnd extends React.PureComponent {
     return (
       <Content>
         <BorderContainer>
-          <BorderContainerTitel>{result}</BorderContainerTitel>
           <ImageWrapper>
-            {!isDraw &&
+            {isDraw ?
+              <div>Draw</div>
+              :
               <React.Fragment>
-                <span>{winnerFraction}</span>
+                <ResultText>You are {result}</ResultText>
                 <FractionLogo><img src={winnerFractionImage} alt={`logo-${winnerFraction}`} /></FractionLogo>
-                <span>WON</span>
+                <span>Winner: {winnerFraction}</span>
               </React.Fragment>
             }
           </ImageWrapper>
@@ -88,6 +92,7 @@ GameEnd.defaultProps = {
 }
 
 GameEnd.propTypes = {
+  player: PropTypes.instanceOf(Map).isRequired,
   endInformation: PropTypes.instanceOf(Map).isRequired,
   resetGame: PropTypes.func.isRequired
 }

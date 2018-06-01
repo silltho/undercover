@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
+import { getImageByFraction } from 'config/fractionImages'
 
 import {
   Modal,
   ModalBody,
   Overlay,
-  Tape
+  Tape,
+  FractionImage,
+  CenteredText
 } from './Styles'
 
 class PartyChangedModal extends React.PureComponent {
@@ -16,12 +19,16 @@ class PartyChangedModal extends React.PureComponent {
       onRequestHide
     } = this.props
 
+    const fractionImage = getImageByFraction(player.get('party'))
+
     return (
       <Overlay>
         <Modal>
           <Tape onClick={onRequestHide}>Remove</Tape>
           <ModalBody>
-            You are now part of the {player.get('party')}
+            <CenteredText>You are now part of the</CenteredText>
+            <FractionImage src={fractionImage} />
+            <CenteredText>{player.get('party')}</CenteredText>
           </ModalBody>
         </Modal>
       </Overlay>
