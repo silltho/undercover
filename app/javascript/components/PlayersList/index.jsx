@@ -17,7 +17,7 @@ class PlayersList extends React.PureComponent {
         key={`player_${player.get('id')}`}
         isCurrentPlayer={isCurrentPlayer}
       >
-        {this.props.showHost && isHost && <IconFont icon={ICONS.handcuffs} />}
+        {this.props.showHost && isHost && <IconFont icon={ICONS.certificate} />}
         {player.get('codename')}
       </PlayerItem>
     )

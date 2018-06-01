@@ -49,7 +49,7 @@ class Lobby extends React.PureComponent {
   }
 
   shareRoomCode = () => {
-    const TEXT_WA = 'UNDERCOVER - Roomcode'
+    const TEXT_WA = 'UNDERCOVER.GG - Roomcode'
     const ROOMCODE = this.props.game.get('code') // get roomcode
     window.location.href = `whatsapp://send?text=${TEXT_WA}:${ROOMCODE}`
   }

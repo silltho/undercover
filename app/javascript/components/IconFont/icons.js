@@ -23,5 +23,6 @@ export default {
   exit: 'ea14',
   library: 'e90e',
   office: 'e90d',
-  home: 'e90f'
+  home: 'e90f',
+  certificate: 'f0a3'
 }
