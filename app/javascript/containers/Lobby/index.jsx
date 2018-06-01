@@ -67,7 +67,7 @@ class Lobby extends React.PureComponent {
       player
     } = this.props
     const players = game.getIn(['start_info', 'players'])
-    const isHost = players.sortBy((p) => p.get('id')).first().get('id') === player.get('id')
+    const isHost = players.first().get('id') === player.get('id')
 
     return (
       <FadeIn>
@@ -79,7 +79,7 @@ class Lobby extends React.PureComponent {
           <PlayerCount>
             {players.size} Player
           </PlayerCount>
-          <PlayersList players={players} />
+          <PlayersList players={players} currentPlayer={player} showHost />
         </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />

@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { PINK, YELLOW } from 'styles/variables'
+import IconFont from 'components/IconFont'
 
 export const Wrapper = styled.div`
   flex: 1;
@@ -17,4 +19,16 @@ export const PlayerList = styled.div`
 `
 
 export const PlayerItem = styled.div`
+  position: relative;
+  border: 1px solid ${(props) => props.isCurrentPlayer ? PINK : 'transparent'};
+  margin: 0 1rem;
+  border-radius: 2px;
+  
+  ${IconFont} {
+    color: YELLOW;
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+  }
 `
