@@ -24,7 +24,7 @@ class Game < ApplicationRecord
     end
 
     event :started do
-      transitions from: :initialized, to: :activity, after: [:cancel_old_jobs, :start_timer]
+      transitions from: :initialized, to: :activity, after: [:cancel_old_jobs, :start_long_timer]
     end
 
     event :informed do
@@ -78,7 +78,10 @@ class Game < ApplicationRecord
 
   def start_timer
     self.last_job = GameWorker.perform_in(27.seconds, id)
+  end
 
+  def start_long_timer
+    self.last_job = GameWorker.perform_in(40.seconds, id)
   end
 
   def cancel_old_jobs
