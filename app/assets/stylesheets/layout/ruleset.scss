@@ -24,9 +24,19 @@
   .gameplay-fraction-heading {
     display: flex;
     align-items: center;
+    padding: 1px;
 
     img {
-      height: 5rem;
+      height: 8rem;
+      padding: 0;
+
+      &:nth-child(odd) {
+        margin-right: 1rem;
+      }
+
+      &:nth-child(even) {
+        margin-left: 1rem;
+      }
     }
 
     h5 {
