@@ -143,7 +143,7 @@ class Player < ApplicationRecord
   def init_relations
     set_nil_relations
     return if role.known_roles.nil?
-    role.known_roles.delete(' ').split(',').each do |other_role|
+    role.known_roles.split(',').each do |other_role|
       set_relation_information(other_role)
     end
   end
