@@ -35,7 +35,7 @@ Role.create(name: 'Bodyguard',
             passive_text: 'This character protects its leader with his life. If the godfather would die, you will die instead.',
             text_success: 'Threatened by a criminal, a player revealed its role.',
             text_fail: 'Blackmailing failed',
-            known_roles: 'Godfather, Enforcer, Beagle Boy')
+            known_roles: 'Godfather,Enforcer,Beagle Boy')
 Role.create(name: 'Enforcer',
             party: 'Mafia',
             active: 'shoot',
@@ -50,7 +50,7 @@ Role.create(name: 'Enforcer',
             passive_text: '',
             text_success: 'R.I.P. NAME (ROLE) lies dead on the street.',
             text_fail: 'Shooting failed.',
-            known_roles: 'Godfather')
+            known_roles: 'Godfather,Beagle Boy')
 Role.create(name: 'Beagle Boy',
             party: 'Mafia',
             active: 'free',
@@ -95,7 +95,7 @@ Role.create(name: 'Chief',
             passive_text: 'This character protects its leader with his life. If the president would die, you will die instead.',
             text_success: "Caught by the police, NAME has been jailed.",
             text_fail: 'A citizen tried to jail a prison. Choose wisely.',
-            known_roles: 'President, Officer')
+            known_roles: 'President,Officer')
 Role.create(name: 'Officer',
             party: 'Town',
             active: 'imprison',
@@ -125,7 +125,7 @@ Role.create(name: 'Agent',
             passive_text: '',
             text_success: 'Espionage has been carried out.',
             text_fail: 'Spying failed',
-            known_roles: 'Officer, Chief, President')
+            known_roles: 'Officer,Chief,President')
 Role.create(name: 'Anarchist',
             party: 'Anarchists',
             active: 'poison',
