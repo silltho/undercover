@@ -1,0 +1,25 @@
+<div class='character'>
+  <div class='character-video-wrapper'>
+    <%= video_tag(video, poster: poster, autoplay: 'true', loop: 'true') %>
+    <%= image_tag(icon, class: 'character-fraction-icon') %>
+  </div>
+
+  <div class='character-description'>
+    <h5 class='character-name'><%= name %></h5>
+
+    <div class='character-ability'>
+      <div class='character-ability-name'><strong>Ability:</strong> <%= ability %></div>
+      <p class='character-ability-description'><%= abilityDescription%></p>
+
+    </div>
+    <div class='character-relation'>
+      <div class='character-ability-name'><strong>Relations</strong></div>
+      <p class="character-relation-start">Knows <%= relations %></p>
+    </div>
+
+    <div class='character-relation'>
+      <div class='character-ability-name'><strong>Passive</strong></div>
+      <p class="character-relation-start"><%= passive %></p>
+    </div>
+  </div>
+</div>

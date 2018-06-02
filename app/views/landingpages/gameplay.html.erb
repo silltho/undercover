@@ -1,7 +1,9 @@
 <main role='main'>
   <div class='gameplay-container'>
+
+    <%= render partial: 'splitter', locals: {title: 'Introduction'} %>
+
     <div class='gameplay-introduction'>
-      <%= render partial: 'splitter', locals: {title: 'Introduction'} %>
 
       <p>
         Throughout a city of life and death, you are playing as one of nine charming characters such as the Chief,
@@ -9,20 +11,28 @@
         Boy or the Godfather.
       </p>
 
-      <p>
-        You will most likely engage with lies and deception as UNDERCOVER inhabitants are known for
-        its cunning.
-      </p>
+      <%= image_tag('incidentals/palm_tree.png', class: 'gameplay-palmtrees') %>
 
     </div>
+
+    <p>
+      You will most likely engage with lies and deception as UNDERCOVER inhabitants are known for
+      its cunning.
+    </p>
 
     <div class='gameplay-game'>
       <%= render partial: 'splitter', locals: {title: 'Gameplay'} %>
 
-      <p>
-        There are three gameplay phases: Gamestart, Dawn and the Night. Every phase is limited by a timer which is
-        indicated by the sun on the top right of your screen.
-      </p>
+      <div class='gameplay-phases-introduction'>
+        <p>
+          There are three gameplay phases: <strong>Gamestart</strong>, <strong>Dawn</strong> and the
+          <strong>Night</strong>. Every phase is limited by a timer which is
+          indicated by the sun on the top right of your screen.
+
+        </p>
+        <%= image_tag('game/player.svg', class: 'game-player-image') %>
+
+      </div>
 
       <p>
 
@@ -32,22 +42,33 @@
 
       <p>Each player is assigned a role at the beginning of the game. This role will determine your goal as well as your
         friends and foes.
-
       </p>
 
       <h5>Night</h5>
 
-      <p>
-        This is the most intense phase as players decide who their next victim will be. At night, every player gets to
-        choose a target by pressing its ability icon on the left side of the screen. Choose wisely!
-      </p>
+      <div class='gameplay-phase-night'>
+
+        <div>
+          <p>At night, every player gets to
+            choose a target by pressing its ability icon on the left side of the screen. </p>
+          <p>Choose wisely!</p>
+        </div>
+
+        <%= image_tag('incidentals/blood_01.svg', class: 'game-blood-01') %>
+
+      </div>
 
       <h5>Dawn</h5>
 
-      <p>
-        As the night
-      </p>
+      <div class='gameplay-phase-dawn'>
 
+        <div>
+          <p>
+            As the night fades away the sun rises. In this phase every player's destiny is revealed in the local
+            newspaper.</p>
+        </div>
+
+      </div>
     </div>
 
     <div class='gameplay-goal'>
@@ -90,7 +111,108 @@
     <div class='gameplay-character'>
       <%= render partial: 'splitter', locals: {title: 'Characters'} %>
 
+      <%= render partial: 'character', locals: {name: 'President',
+                                                ability: 'Convert',
+                                                abilityDescription: 'Your target will join your forces',
+                                                relations: 'Chief',
+                                                passive: 'This character cannot be corrupted by the godfather.',
+                                                video: 'characters/President.mp4',
+                                                poster: image_path('roles/president_town.jpg'),
+                                                icon: 'icons/town.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Godfather',
+                                                ability: 'Corrupt',
+                                                abilityDescription: 'Your target will join the mafia',
+                                                relations: 'Bodyguard',
+                                                passive: 'This character cannot be converted by the president.',
+                                                video: 'characters/Godfather.mp4',
+                                                poster: image_path('roles/godfather_mafia.jpg'),
+                                                icon: 'icons/mafia.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Anarchist',
+                                                ability: 'Poison',
+                                                abilityDescription: 'Puts poision in your foes\' drink. Your target will die painly.',
+                                                relations: 'Nobody',
+                                                passive: 'This character cannot be converted by the president or corrupted by the godfather.',
+                                                video: 'characters/Junior.mp4',
+                                                poster: image_path('roles/junior_anarchists.jpg'),
+                                                icon: 'icons/anarchist.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Chief',
+                                                ability: 'Imprison',
+                                                abilityDescription: 'Imprison your target. They will not be able to use their ability at night.',
+                                                relations: 'President and Officer',
+                                                passive: 'None',
+                                                video: 'characters/Chief.mp4',
+                                                poster: image_path('roles/chief_town.jpg'),
+                                                icon: 'icons/town.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Bodyguard',
+                                                ability: 'Threaten',
+                                                abilityDescription: 'Threaten somebody to get information about a player\' role',
+                                                relations: 'Godfather',
+                                                passive: 'None',
+                                                video: 'characters/Bodyguard.mp4',
+                                                poster: image_path('roles/bodyguard_mafia.jpg'),
+                                                icon: 'icons/mafia.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Officer',
+                                                ability: 'Imprison',
+                                                abilityDescription: 'Imprison your target. They will not be able to use their ability at night.',
+                                                relations: 'Chief',
+                                                passive: 'None',
+                                                video: 'characters/Officer.mp4',
+                                                poster: image_path('roles/officer_town.jpg'),
+                                                icon: 'icons/town.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Enforcer',
+                                                ability: 'Strike',
+                                                abilityDescription: 'Kills a player',
+                                                relations: 'Bodyguard',
+                                                passive: 'None',
+                                                video: 'characters/Enforcer.mp4',
+                                                poster: image_path('roles/enforcer_mafia.jpg'),
+                                                icon: 'icons/mafia.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Agent',
+                                                ability: 'Spy',
+                                                abilityDescription: 'Spy on a player to get information about a player\s role',
+                                                relations: 'The President, Chief and Officer',
+                                                passive: 'None',
+                                                video: 'characters/Agent.mp4',
+                                                poster: image_path('roles/agent_town.jpg'),
+                                                icon: 'icons/town.svg'
+
+      } %>
+
+      <%= render partial: 'character', locals: {name: 'Beagleboy',
+                                                ability: 'Rescue',
+                                                abilityDescription: 'Rescue a player from prison. Freedom!',
+                                                relations: 'The Godfather, Bodyguard and Enforcer',
+                                                passive: 'None',
+                                                video: 'characters/BeagleBoy.mp4',
+                                                poster: image_path('roles/beagleboy_mafia.jpg'),
+                                                icon: 'icons/mafia.svg'
+
+      } %>
+
     </div>
 
   </div>
+
+  <%= render(partial: 'landingpages/footer') %>
 </main>

@@ -1,9 +1,43 @@
 @import "config/globals";
 
 .gameplay-container {
+  max-width: 600px;
+
   padding: 1em;
   letter-spacing: .015em;
   color: white;
+
+  .gameplay-phase-night, .gameplay-phase-dawn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+
+    .game-blood-01, .game-blood-02 {
+      width: 8rem;
+    }
+  }
+
+  .gameplay-phases-introduction {
+    display: flex;
+    justify-content: center;;
+    align-items: center;
+
+    .game-player-image {
+      width: 8rem;
+    }
+  }
+
+  .gameplay-introduction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gameplay-palmtrees {
+    width: 6rem;
+    margin: 0px 1rem;
+  }
 
   p {
     line-height: 1.35rem;
