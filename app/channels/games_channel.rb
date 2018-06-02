@@ -55,14 +55,12 @@ class GamesChannel < ApplicationCable::Channel
   end
 
   def finish_phase(phase)
-    # phase = @game.aasm_state
     ActionLog.create(player: current_player,  game: @game, round: @game.round, action: phase) if current_player.alive?
-    # send(phase.to_sym) if phase_finished?(phase)
   end
 
   def phase_finished?(phase)
     finished = ActionLog.where(game: @game).where(round: @game.round).where(action: phase).group(:player).maximum(:id).count == @game.players.alive.count
-    current_player.broadcast_waiting_for_players unless finished
+    current_player.broadcast_waiting_for_players if !finished && TimeDifference.between(@game.reload.updated_at, Time.now).in_seconds < 29
     finished
   end
 
