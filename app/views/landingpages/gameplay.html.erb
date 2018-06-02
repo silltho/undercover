@@ -1,4 +1,10 @@
 <main role='main'>
+
+  <%= link_to 'landingpages#index', class: 'home-button' do %>
+      <%= image_tag('icons/office.svg') %>
+      <span>Back to Homescreen</span>
+  <% end %>
+
   <div class='gameplay-container'>
 
     <%= render partial: 'splitter', locals: {title: 'Introduction'} %>

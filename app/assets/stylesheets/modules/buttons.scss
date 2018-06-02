@@ -1,0 +1,24 @@
+@import "config/globals";
+
+.home-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $g_Pink;
+  color: white;
+  width: 50%;
+  text-align: center;
+  padding: 0.2rem;
+  margin: 1.2rem auto auto;
+  box-shadow: 5px 5px 0 0 #000000;
+  background-color: $g_DarkBlue;
+
+  img {
+    width: 2rem;
+  }
+
+  span {
+    padding-left: 0.5rem;
+    color: $g_Pink;
+  }
+}
