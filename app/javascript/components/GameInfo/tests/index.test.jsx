@@ -32,6 +32,9 @@ const defaultProps = {
   readInfos: () => {},
   player: fromJS({
     state: 'alive'
+  }),
+  game: fromJS({
+    round: 0
   })
 }
 
