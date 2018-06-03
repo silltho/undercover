@@ -53,7 +53,6 @@ class GameActivity extends React.PureComponent {
   renderCard = () => {
     const {
       player,
-      game,
       useSkill
     } = this.props
 
@@ -100,10 +99,12 @@ class GameActivity extends React.PureComponent {
   }
 
   render() {
+    const roundTimer = this.props.game.get('round') === 0 ? 42000 : undefined
+
     return (
       <Flip>
         {this.renderCard()}
-        <SunTimer />
+        <SunTimer timespan={roundTimer} />
       </Flip>
     )
   }
