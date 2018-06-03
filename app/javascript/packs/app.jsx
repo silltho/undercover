@@ -7,14 +7,21 @@ import reducer from 'services/reducers'
 import initChannels from 'services/channels'
 import App from '../containers/App'
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then((registration) => {
-      console.log('SW registered: ', registration)
-    }).catch((registrationError) => {
-      console.log('SW registration failed: ', registrationError)
+const isDevelopment = process.env.NODE_ENV === 'development'
+
+if (isDevelopment) {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then((registration) => {
+        console.log('SW registered: ', registration)
+      }).catch((registrationError) => {
+        console.log('SW registration failed: ', registrationError)
+      })
     })
-  })
+  }
+} else {
+// eslint-disable-next-line no-underscore-dangle
+  window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}
 }
 
 const NO_SLEEP = new NoSleep()
@@ -25,11 +32,14 @@ function enableNoSleep() {
 
 document.addEventListener('click', enableNoSleep, false)
 
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && // eslint-disable-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line no-underscore-dangle
-)
+
+const store = isDevelopment ?
+  createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && // eslint-disable-line no-underscore-dangle
+    window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line no-underscore-dangle
+  ) :
+  createStore(reducer)
 
 initChannels(store)
 
