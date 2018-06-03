@@ -42,11 +42,12 @@ class GameInfo extends React.PureComponent {
 
   render() {
     const state = this.props.player.get('state')
+    const roundTimer = this.props.game.get('round') === 0 ? 42000 : undefined
 
     return (
       <Flip>
         {this.renderRoundInformation()}
-        <SunTimer />
+        <SunTimer timespan={roundTimer} />
         {state === PlayerStates.ALIVE &&
           <CornerButton bottomRight onClickAction={this.props.readInfos}>
             <IconFont icon={ICONS.checkmark} />
@@ -61,6 +62,7 @@ GameInfo.defaultProps = {
 }
 
 GameInfo.propTypes = {
+  game: PropTypes.instanceOf(Map).isRequired,
   player: PropTypes.instanceOf(Map).isRequired,
   readInfos: PropTypes.func.isRequired,
   roundInformations: PropTypes.instanceOf(Map).isRequired
