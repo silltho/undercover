@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import {
   DARK_BLUE,
   WHITE,
-  MAIN_FONT
+  MAIN_FONT,
+  PINK
 } from 'styles/variables'
 
 export const AppContainer = styled.div`
@@ -13,6 +14,9 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-width: 100%;
-  min-height: 30rem;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  max-width: 480px;
+  box-shadow: 0 0 0 1px ${PINK};
 `
