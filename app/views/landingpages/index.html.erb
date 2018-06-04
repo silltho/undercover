@@ -27,7 +27,7 @@
 
 </main>
 
-<%= audio_tag('start.ogg', id: 'playsound', controls: false) %>
 <%= audio_tag('soundtrack.ogg', id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
+<%= audio_tag('start.ogg', id: 'playsound', controls: false, autoplay: false) %>
 
 <%= init_audio %>
