@@ -3,12 +3,12 @@ const Visualizer = require('webpack-visualizer-plugin')
 
 const customConfig = {
   plugins: [
+    new Visualizer(),
     new workboxPlugin.GenerateSW({
       swDest: 'sw.js',
       clientsClaim: true,
       skipWaiting: true
-    }),
-    new Visualizer()
+    })
   ],
   module: {
     rules: [

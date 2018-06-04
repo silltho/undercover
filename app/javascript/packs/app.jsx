@@ -12,17 +12,13 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 if (isDevelopment) {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').then((registration) => {
+      navigator.serviceWorker.register('/packs/sw.js').then((registration) => {
         console.log('SW registered: ', registration)
       }).catch((registrationError) => {
         console.log('SW registration failed: ', registrationError)
       })
     })
   }
-  // eslint-disable-next-line no-underscore-dangle
-} else if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject) {
-  // eslint-disable-next-line no-underscore-dangle
-  window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}
 }
 
 const NO_SLEEP = new NoSleep()
