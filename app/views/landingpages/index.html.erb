@@ -20,14 +20,14 @@
     <% end %>
   </div>
 
-  <div class="audio-control">
-    <%= image_tag('icons/volume-up.svg', class: 'volume-icon volume-icon-up') %>
-    <%= image_tag('icons/volume-off.svg', class: 'volume-icon volume-icon-off hide') %>
+  <div id="audio-control">
+    <%= image_tag('icons/volume-up.svg', id: 'volume-icon-up', class: 'hide volume-icon') %>
+    <%= image_tag('icons/volume-off.svg', id: 'volume-icon-off', class: 'volume-icon') %>
   </div>
 
 </main>
 
-<%= audio_tag('soundtrack.ogg', id: 'soundtrack', controls: false, autoplay: true, loop: true) %>
-<%= audio_tag('start.ogg', id: 'playsound', controls: false, autoplay: false) %>
+<%= audio_tag('soundtrack.ogg', id: 'soundtrack', controls: false, loop: true) %>
+<%= audio_tag('start.ogg', id: 'playsound', controls: false) %>
 
 <%= init_audio %>
