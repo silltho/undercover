@@ -25,9 +25,6 @@ const customConfig = {
       {
         test: /\.html$/,
         use: 'html-loader?attrs[]=video:src'
-      },
-      { test: /\.ttf$/i,
-        loader: 'null-loader'
       }
     ]
   }
