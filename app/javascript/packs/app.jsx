@@ -19,10 +19,6 @@ if (isDevelopment) {
       })
     })
   }
-  // eslint-disable-next-line no-underscore-dangle
-} else if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject) {
-  // eslint-disable-next-line no-underscore-dangle
-  window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}
 }
 
 const NO_SLEEP = new NoSleep()
