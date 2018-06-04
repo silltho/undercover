@@ -9,16 +9,14 @@ import App from '../containers/App'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-if (isDevelopment) {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/packs/sw.js').then((registration) => {
-        console.log('SW registered: ', registration)
-      }).catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError)
-      })
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/packs/sw.js').then((registration) => {
+      console.log('SW registered: ', registration)
+    }).catch((registrationError) => {
+      console.log('SW registration failed: ', registrationError)
     })
-  }
+  })
 }
 
 const NO_SLEEP = new NoSleep()
