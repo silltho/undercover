@@ -16,33 +16,44 @@ module LandingpagesHelper
 
   def init_audio()
     javascript_tag "
-      const PLAY_BUTTON = document.getElementsByClassName('play-game-button')[0]
-      const TRACK_TAG = document.getElementById('soundtrack')
-      const AUDIO_CONTROL = document.getElementsByClassName('audio-control')[0]
-      const VOLUME_ICON_UP = document.getElementsByClassName('volume-icon-up')[0]
-      const VOLUME_ICON_OFF = document.getElementsByClassName('volume-icon-off')[0]
+      document.addEventListener('DOMContentLoaded', function() {
+        const PLAY_BUTTON = document.getElementsByClassName('play-game-button')[0]
+        const SOUNDTRACK_BUTTON = document.getElementById('soundtrack')
+        PLAY_BUTTON.addEventListener('click', playStartSound)
 
-      AUDIO_CONTROL.addEventListener('click', () => {
-        if (!TRACK_TAG.muted) {
-          TRACK_TAG.muted = true
-          VOLUME_ICON_UP.classList.add('hide')
-          VOLUME_ICON_OFF.classList.remove('hide')
-        } else {
-          TRACK_TAG.muted = false
-          VOLUME_ICON_UP.classList.remove('hide')
-          VOLUME_ICON_OFF.classList.add('hide')
+        function playStartSound(e) {
+          e.preventDefault()
+          SOUNDTRACK_BUTTON.pause()
+          SOUNDTRACK_BUTTON.currentTime = 0
+          const AUDIO = document.getElementById('playsound')
+          console.log(AUDIO.duration);
+          AUDIO.play()
+          AUDIO.volume = 0.7
+          setTimeout(function() { window.location.href = '/app' }, (AUDIO.duration * 1000) - 200)
+
         }
-      })
 
-      function play() {
-        TRACK_TAG.muted = true;
-        const AUDIO = document.getElementById('playsound')
+        const AUDIO_CONTROL = document.getElementById('audio-control')
+        const VOLUME_ICON_UP = document.getElementById('volume-icon-up')
+        const VOLUME_ICON_OFF = document.getElementById('volume-icon-off')
 
-        setTimeout(function() { AUDIO.play() }, 500)
-      }
+        function toggleAudioControl() {
+          if (SOUNDTRACK_BUTTON.paused === false) {
+            SOUNDTRACK_BUTTON.pause()
+            VOLUME_ICON_UP.classList.add('hide')
+            VOLUME_ICON_OFF.classList.remove('hide')
+          } else {
+            SOUNDTRACK_BUTTON.play()
+            VOLUME_ICON_UP.classList.remove('hide')
+            VOLUME_ICON_OFF.classList.add('hide')
+          }
+        }
 
-      PLAY_BUTTON.addEventListener('click', play)
-    "
+        AUDIO_CONTROL.addEventListener('click', () => {
+          toggleAudioControl()
+        })
+      });
+   "
   end
 end
 

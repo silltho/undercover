@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/team', to: 'landingpages#team'
   get '/handbook', to: 'landingpages#handbook'
 
-
   root to: 'landingpages#index'
   get '*path' => redirect('/')
 end

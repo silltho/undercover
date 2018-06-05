@@ -1,6 +1,6 @@
 <main role='main'>
 
-  <%= link_to 'landingpages#index', class: 'home-button' do %>
+  <%= link_to '/', class: 'home-button' do %>
       <%= image_tag('icons/office.svg') %>
       <span>Back to Homescreen</span>
   <% end %>
@@ -12,9 +12,10 @@
     <div class='gameplay-introduction'>
 
       <p>
-        Throughout a city of life and death, you are playing as one of nine charming characters such as the Chief,
-        Beagle
-        Boy or the Godfather.
+        To setup your game gather 5-21 friends around and you are ready to go. Undercover is local multiplayer based on
+        the concept of Werewolf. Throughout a city of life and death, you are playing as one of nine charming
+        characters, gathering informations and strike down, imprison or corrupt other players.
+
       </p>
 
       <%= image_tag('incidentals/palm_tree.png', class: 'gameplay-palmtrees') %>
@@ -131,7 +132,7 @@
       <%= render partial: 'character', locals: {name: 'Godfather',
                                                 ability: 'Corrupt',
                                                 abilityDescription: 'Your target will join the mafia',
-                                                relations: 'Bodyguard',
+                                                relations: 'Godfather, Enforcer and Beagleboy',
                                                 passive: 'This character cannot be converted by the president.',
                                                 video: 'characters/Godfather.mp4',
                                                 poster: image_path('roles/godfather_mafia.jpg'),
@@ -161,13 +162,13 @@
 
       } %>
 
-      <%= render partial: 'character', locals: {name: 'Bodyguard',
-                                                ability: 'Threaten',
-                                                abilityDescription: 'Threaten somebody to get information about a player\' role',
-                                                relations: 'Godfather',
+      <%= render partial: 'character', locals: {name: 'Enforcer',
+                                                ability: 'Strike',
+                                                abilityDescription: 'Kills a player',
+                                                relations: 'Godfather and Beagleboy',
                                                 passive: 'None',
-                                                video: 'characters/Bodyguard.mp4',
-                                                poster: image_path('roles/bodyguard_mafia.jpg'),
+                                                video: 'characters/Enforcer.mp4',
+                                                poster: image_path('roles/enforcer_mafia.jpg'),
                                                 icon: 'icons/mafia.svg'
 
       } %>
@@ -183,13 +184,13 @@
 
       } %>
 
-      <%= render partial: 'character', locals: {name: 'Enforcer',
-                                                ability: 'Strike',
-                                                abilityDescription: 'Kills a player',
-                                                relations: 'Bodyguard',
+      <%= render partial: 'character', locals: {name: 'Beagleboy',
+                                                ability: 'Rescue',
+                                                abilityDescription: 'Rescue a player from prison. Freedom!',
+                                                relations: 'Enforcer',
                                                 passive: 'None',
-                                                video: 'characters/Enforcer.mp4',
-                                                poster: image_path('roles/enforcer_mafia.jpg'),
+                                                video: 'characters/BeagleBoy.mp4',
+                                                poster: image_path('roles/beagleboy_mafia.jpg'),
                                                 icon: 'icons/mafia.svg'
 
       } %>
@@ -205,13 +206,13 @@
 
       } %>
 
-      <%= render partial: 'character', locals: {name: 'Beagleboy',
-                                                ability: 'Rescue',
-                                                abilityDescription: 'Rescue a player from prison. Freedom!',
-                                                relations: 'The Godfather, Bodyguard and Enforcer',
+      <%= render partial: 'character', locals: {name: 'Bodyguard',
+                                                ability: 'Threaten',
+                                                abilityDescription: 'Threaten somebody to get information about a player\' role',
+                                                relations: 'Godfather, Enforcer and Beagleboy',
                                                 passive: 'None',
-                                                video: 'characters/BeagleBoy.mp4',
-                                                poster: image_path('roles/beagleboy_mafia.jpg'),
+                                                video: 'characters/Bodyguard.mp4',
+                                                poster: image_path('roles/bodyguard_mafia.jpg'),
                                                 icon: 'icons/mafia.svg'
 
       } %>
