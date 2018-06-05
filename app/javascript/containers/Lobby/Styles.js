@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import {
-  PINK
+  PINK,
+  RED
 } from 'styles/variables'
 
 export const PlayerCount = styled.div`
@@ -10,6 +11,12 @@ export const PlayerCount = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+`
+
+export const PlayerCountInfo = styled.div`
+  text-align: center;
+  font-size: 0.8rem;
+  color: ${RED};
 `
 
 export const RoomCode = styled.div`
