@@ -65,8 +65,9 @@ class Game < ApplicationRecord
   end
 
   def broadcast_all_players
-    players.each do |players|
-      players.broadcast_player_updated
+    players.each do |player|
+      player.reload
+      player.broadcast_player_updated
     end
   end
 
