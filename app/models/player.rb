@@ -76,8 +76,7 @@ class Player < ApplicationRecord
   end
 
   def broadcast_spy_action(victim)
-    v = Relation.where(player1: self, player2: victim).first_or_create
-    v.update(role: victim.role, party: victim.get_party)
+    Relation.where(player1: self, player2: victim).first_or_create.update(role: victim.role, party: victim.get_party)
     UserChannel.broadcast_to(user, type: 'player_informed', data: get_victim_object(victim))
   end
 
@@ -159,7 +158,7 @@ class Player < ApplicationRecord
     player2s = Player.where(game: game).where(role: role)
     return if player2s.nil?
     player2s.each do |player2|
-      Relation.where(player1: self, player2: player2).first_or_create.update_attributes(role: player2.role, party: player2.get_party)
+      Relation.where(player1: self, player2: player2).update_attributes(role: player2.role, party: player2.get_party)
     end
   end
 end
