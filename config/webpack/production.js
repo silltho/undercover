@@ -3,8 +3,8 @@ const workboxPlugin = require('workbox-webpack-plugin')
 const customConfig = {
   plugins: [
     new workboxPlugin.InjectManifest({
-      swSrc: path.resolve(__dirname, '../../app/javascript/sw.js'),
-      swDest: path.resolve(__dirname, '../../public/sw.js')
+      swSrc: '../../app/javascript/sw.js',
+      swDest: '../../public/sw.js'
     })
   ],
   module: {
