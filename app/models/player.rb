@@ -158,7 +158,7 @@ class Player < ApplicationRecord
     player2s = Player.where(game: game).where(role: role)
     return if player2s.nil?
     player2s.each do |player2|
-      Relation.where(player1: self, player2: player2).update_attributes(role: player2.role, party: player2.get_party)
+      Relation.where(player1: self, player2: player2).update(role: player2.role, party: player2.get_party)
     end
   end
 end
