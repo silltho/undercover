@@ -34,6 +34,7 @@
     },
     "collectCoverageFrom": [
       "app/javascript/**/*.{js,jsx}",
+      "!**/app/javascript/sw.js",
       "!**/app/javascript/packs/**",
       "!**/app/javascript/config/**",
       "!**/app/javascript/services/**",
