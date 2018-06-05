@@ -43,7 +43,7 @@ class UserChannel < ApplicationCable::Channel
   protected
 
   def is_game_running?(game)
-    !game.waiting?
+    !game.waiting? && !game.finished?
   end
 
   def create_new_player(game, nickname)

@@ -315,7 +315,6 @@ class Game < ApplicationRecord
     victim.release! if release.include?(action)
     victim.die! if die.include?(action)
     victim.change_party! if change.include?(action)
-    victim.broadcast_player_updated
   end
 
   #### NEWSPAPER AND STUFF ####
