@@ -36,8 +36,8 @@ class Game < ApplicationRecord
     end
 
     event :finish do
-      transitions from: :inform, to: :finished
-      transitions from: :activity, to: :finished
+      transitions from: :inform, to: :finished, after: :cancel_old_jobs
+      transitions from: :activity, to: :finished, after: :cancel_old_jobs
     end
 
     event :next_state do
