@@ -28,6 +28,7 @@ secrets.*
 /public/packs
 /public/assets
 /public/packs-test
+/public/sw.js
 /node_modules
 
 /config/database.yml

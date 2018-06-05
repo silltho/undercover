@@ -1,13 +1,10 @@
 const workboxPlugin = require('workbox-webpack-plugin')
-const Visualizer = require('webpack-visualizer-plugin')
 
 const customConfig = {
   plugins: [
-    new Visualizer(),
-    new workboxPlugin.GenerateSW({
-      swDest: 'sw.js',
-      clientsClaim: true,
-      skipWaiting: true
+    new workboxPlugin.InjectManifest({
+      swSrc: path.resolve(__dirname, '../../app/javascript/sw.js'),
+      swDest: path.resolve(__dirname, '../../public/sw.js')
     })
   ],
   module: {
