@@ -92,7 +92,7 @@ class Game < ApplicationRecord
   def time_is_up
     self.next_state!
     broadcast_information_updated if aasm_state == 'inform'
-    finish! if is_game_over?
+    finish! if is_game_over? && aasm_state != 'finished'
     broadcast_game_updated
   end
 
@@ -309,7 +309,6 @@ class Game < ApplicationRecord
     release = 'free'
     reveal = %w[blackmail spy]
     change = %w[corrupt convert]
-    puts "#{committer} used spy or blackmail action to #{victim}" if reveal.include?(action)
     committer.broadcast_spy_action(victim) if reveal.include?(action)
     victim.imprison! if imprison.include?(action)
     victim.release! if release.include?(action)
