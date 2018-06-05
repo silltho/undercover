@@ -157,7 +157,7 @@ class Game < ApplicationRecord
        code: code,
        aasm_state: aasm_state,
        round: round,
-       start_info: { players: players,
+       start_info: { players: players.order(:id),
                      party_distribution: get_party_members
        }
     }
