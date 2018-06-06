@@ -18,5 +18,6 @@ export const AppContainer = styled.div`
   transform: translateX(-50%);
   left: 50%;
   max-width: 480px;
+  min-height: 480px;
   box-shadow: 0 0 0 1px ${PINK};
 `
