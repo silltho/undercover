@@ -23,6 +23,8 @@ import {
   PlayerCountInfo
 } from './Styles'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 function getCodenamesFrom(props) {
   return props.game.getIn(['start_info', 'players'])
     .sortBy((p) => p.get('id'))
@@ -69,7 +71,8 @@ class Lobby extends React.PureComponent {
     } = this.props
     const players = game.getIn(['start_info', 'players'])
     const isHost = players.first().get('id') === player.get('id')
-    const enoughPlayers = players.size < 5
+    const minPlayerCount = isDevelopment ? 1 : 5
+    const enoughPlayers = players.size < minPlayerCount
 
     return (
       <FadeIn>
