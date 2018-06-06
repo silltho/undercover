@@ -18,7 +18,7 @@ class PlayersList extends React.PureComponent {
         isCurrentPlayer={isCurrentPlayer}
       >
         {this.props.showHost && isHost && <IconFont icon={ICONS.certificate} />}
-        {player.get('codename')}
+        <span>{player.get('codename')}</span>
       </PlayerItem>
     )
   }
