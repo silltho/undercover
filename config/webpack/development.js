@@ -1,13 +1,14 @@
 const Visualizer = require('webpack-visualizer-plugin')
 const workboxPlugin = require('workbox-webpack-plugin')
+const path = require('path')
 
 
 const customConfig = {
   plugins: [
     new Visualizer(),
     new workboxPlugin.InjectManifest({
-      swSrc: '../../app/javascript/sw.js',
-      swDest: '../../public/sw.js'
+      swSrc: path.resolve(__dirname, '../../app/javascript/sw.js'),
+      swDest: path.resolve(__dirname, '../../public/sw.js')
     })
   ],
   module: {

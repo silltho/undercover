@@ -19,8 +19,11 @@ import {
 import {
   PlayerCount,
   RoomCode,
-  ShareButton
+  ShareButton,
+  PlayerCountInfo
 } from './Styles'
+
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 function getCodenamesFrom(props) {
   return props.game.getIn(['start_info', 'players'])
@@ -68,6 +71,8 @@ class Lobby extends React.PureComponent {
     } = this.props
     const players = game.getIn(['start_info', 'players'])
     const isHost = players.first().get('id') === player.get('id')
+    const minPlayerCount = isDevelopment ? 1 : 5
+    const enoughPlayers = players.size < minPlayerCount
 
     return (
       <FadeIn>
@@ -76,6 +81,9 @@ class Lobby extends React.PureComponent {
           {this.renderShareButton(this.shareRoomCode)}
         </Header>
         <Content>
+          {enoughPlayers &&
+            <PlayerCountInfo>min 5 players are needed to start a game</PlayerCountInfo>
+          }
           <PlayerCount>
             {players.size} Player
           </PlayerCount>
@@ -83,7 +91,10 @@ class Lobby extends React.PureComponent {
         </Content>
         <Footer>
           <Button onClick={this.leaveGame} text="leave" />
-          {isHost && <Button onClick={this.props.initializeGame} text="start" primary />}
+          {isHost && (enoughPlayers ?
+            <Button onClick={() => {}} primary text="min 5 player" /> :
+            <Button onClick={this.props.initializeGame} text="start" primary />
+          )}
         </Footer>
       </FadeIn>
     )

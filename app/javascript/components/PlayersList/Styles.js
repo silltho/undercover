@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PINK, YELLOW } from 'styles/variables'
+import { PINK, WHITE, YELLOW } from 'styles/variables'
 import IconFont from 'components/IconFont'
 
 export const Wrapper = styled.div`
@@ -19,16 +19,18 @@ export const PlayerList = styled.div`
 `
 
 export const PlayerItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  border: 1px solid ${(props) => props.isCurrentPlayer ? PINK : 'transparent'};
   margin: 0 1rem;
   border-radius: 2px;
+  color: ${(props) => props.isCurrentPlayer ? PINK : WHITE};
+  font-weight: ${(props) => props.isCurrentPlayer ? 800 : 500};
   
   ${IconFont} {
-    color: YELLOW;
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
+    color: ${YELLOW};
+    width: 2rem;
+    margin-left: -2rem;
   }
 `
