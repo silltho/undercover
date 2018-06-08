@@ -17,7 +17,7 @@ class GamePhaseWrapper extends React.PureComponent {
     return (
       <Flip>
         {ready ? <CardBack key={'roleCovert'} onRequestHide={() => {}} /> : <Wrapper key={phaseKey}>{children}</Wrapper>}
-        {this.props.showTimer && <SunTimer timespan={timerDuration} />}
+        {this.props.showTimer && <SunTimer timespan={timerDuration} key={`suntimer-${phaseKey}`} />}
       </Flip>
     )
   }
