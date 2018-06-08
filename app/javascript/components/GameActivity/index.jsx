@@ -5,7 +5,6 @@ import TargetSelection from 'components/TargetSelection'
 import RoleOverview from 'components/RoleOverview'
 import RoleInformation from 'components/RoleInformation'
 import Flip from 'components/Animations/Flip'
-import SunTimer from 'components/SunTimer'
 import { Wrapper } from './Styles'
 
 export const VIEWS = {
@@ -99,12 +98,9 @@ class GameActivity extends React.PureComponent {
   }
 
   render() {
-    const roundTimer = this.props.game.get('round') === 0 ? 42000 : undefined
-
     return (
       <Flip>
         {this.renderCard()}
-        <SunTimer timespan={roundTimer} />
       </Flip>
     )
   }

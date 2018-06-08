@@ -89,11 +89,13 @@ class Game extends React.PureComponent {
     const gamePhaseKey = this.props.game.get('aasm_state')
     const gameCode = this.props.game.get('code')
     const playerInformation = this.props.player.get('infos')
+    const showTimer = gamePhaseKey === GamePhases.ACTIVITY || gamePhaseKey === GamePhases.INFO
+    const roundTimer = this.props.game.get('round') === 0 ? 42000 : undefined
 
     return (
       <FadeIn>
         <SlideInOut>
-          <GamePhaseWrapper ready={ready} phaseKey={`phase-${gamePhaseKey}`}>
+          <GamePhaseWrapper ready={ready} phaseKey={`phase-${gamePhaseKey}`} showTimer={showTimer} timerDuration={roundTimer}>
             {this.renderCurrentPhase()}
           </GamePhaseWrapper>
           <RoomCode>ROOMCODE: {gameCode}</RoomCode>

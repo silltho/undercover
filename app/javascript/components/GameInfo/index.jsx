@@ -4,7 +4,6 @@ import { Map } from 'immutable'
 import Flip from 'components/Animations/Flip'
 import RoundInfo from 'components/RoundInfo'
 import CornerButton from 'components/CornerButton'
-import SunTimer from 'components/SunTimer'
 import IconFont, { ICONS } from 'components/IconFont'
 import PlayerStates from 'config/playerStates'
 
@@ -42,12 +41,10 @@ class GameInfo extends React.PureComponent {
 
   render() {
     const state = this.props.player.get('state')
-    const roundTimer = this.props.game.get('round') === 0 ? 42000 : undefined
 
     return (
       <Flip>
         {this.renderRoundInformation()}
-        <SunTimer timespan={roundTimer} />
         {state === PlayerStates.ALIVE &&
           <CornerButton bottomRight onClickAction={this.props.readInfos}>
             <IconFont icon={ICONS.checkmark} />
