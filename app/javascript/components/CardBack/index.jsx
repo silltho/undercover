@@ -19,8 +19,8 @@ class CardBack extends React.PureComponent {
         <Content>
           <BorderContainer>
             <ImageWrapper>
-              <img src={LogoImage} alt="logo"/>
-              <CardBackText>READY</CardBackText>
+              <img src={LogoImage} alt="logo" />
+              <CardBackText>WAITING</CardBackText>
             </ImageWrapper>
           </BorderContainer>
         </Content>

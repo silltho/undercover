@@ -36,7 +36,6 @@ export const CardBackText = styled.div`
   position: absolute;
   bottom: 2.5rem;
   font-size: 2.5rem;
-  text-decoration: overline;
   color: ${PINK};
   left: 50%;
   transform: translateX(-50%);
